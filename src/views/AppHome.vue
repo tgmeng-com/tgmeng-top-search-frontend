@@ -122,11 +122,7 @@ export default {
       if (!Array.isArray(this.platforms)) return []
       return this.platforms.filter(p => {
         const match = this.activeCategory === '全部' || p.category === this.activeCategory
-        return (
-            match &&
-            Array.isArray(p.list) &&
-            p.list.length > 0
-        )
+        return match
       })
     }
   }
