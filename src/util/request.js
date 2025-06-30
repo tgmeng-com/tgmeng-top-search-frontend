@@ -3,16 +3,23 @@ import axios from "axios";
 export function request(config) {
     const instance = axios.create({
         baseURL: 'http://127.0.0.1:4399/api/topsearch',
-        // baseURL: 'https://test.com/github',
         timeout: 600000
-    })
-
-    // 添加请求拦截器
-    instance.interceptors.request.use(function (config) {
-        return config;
-    }, function (error) {
-        return Promise.reject(error);
     });
 
-    return instance(config)
+    // 请求拦截器
+    instance.interceptors.request.use(
+        config => config,
+        error => Promise.reject(error)
+    );
+
+    // 响应拦截器
+    instance.interceptors.response.use(
+        response => response,
+        error => {
+            console.warn("请求失败，返回空结构：", error.message || error);
+            return Promise.resolve({ data: [] }); // 返回一个空数据结构
+        }
+    );
+
+    return instance(config);
 }
