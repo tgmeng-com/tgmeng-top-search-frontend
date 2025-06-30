@@ -4,11 +4,12 @@
       <!-- 左侧 Logo -->
       <div class="flex items-center space-x-2">
         <!-- 替换为你的 Logo 路径 -->
-        <img
+        <a href="https://tgmeng.com" target="_blank"><img
             src="@/assets/image/logo.png"
             alt="网站 Logo"
             class="logo"
         >
+        </a>
       </div>
 
       <!-- 右侧主题切换 -->

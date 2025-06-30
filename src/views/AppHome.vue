@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class=" flex flex-col">
     <main class="container mx-auto px-4 py-6 flex-grow">
       <!-- 分类导航 - 已居中 -->
       <div class="mb-6 overflow-x-auto scrollbar-hide flex justify-center">
