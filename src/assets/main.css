@@ -23,22 +23,22 @@
 
     /* 亮色模式基础样式 */
     :root {
-        --bg-color: #fff;
-        --text-color: #333;
-        --card-bg: #f9f9f9;
-        --btn-bg: #fff;
-        --btn-text: #333;
-        --btn-border: #ddd;
+        --bg-color: #fafafa;
+        --text-color: #2d3748;
+        --card-bg: #ffffff;
+        --btn-bg: #ffffff;
+        --btn-text: #2d3748;
+        --btn-border: #edf2f7;
     }
 
     /* 暗色模式样式 */
     .dark {
-        --bg-color: #121212;
-        --text-color: #fff;
-        --card-bg: #1e1e1e;
-        --btn-bg: #1e1e1e;
-        --btn-text: #fff;
-        --btn-border: #333;
+        --bg-color: #1a202c;
+        --text-color: #e2e8f0;
+        --card-bg: #2d3748;
+        --btn-bg: #2d3748;
+        --btn-text: #e2e8f0;
+        --btn-border: #4a5568;
     }
 
     /* 应用全局样式 */

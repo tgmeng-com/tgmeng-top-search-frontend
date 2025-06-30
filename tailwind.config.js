@@ -8,11 +8,11 @@ module.exports = {
     extend: {
       colors: {
         // 亮色模式颜色
-        'light-bg': '#ffffff',
-        'light-card': '#f8fafc',
-        'light-text': '#334155',
-        'light-gray': '#e2e8f0',
-        'light-gray-text': '#64748b',
+        'light-bg': '#fafafa', // 浅灰色背景，更柔和
+        'light-card': '#ffffff', // 白色卡片，突出内容
+        'light-text': '#2d3748', // 深灰色文本，提高可读性
+        'light-gray': '#edf2f7', // 辅助灰色，用于分隔线等
+        'light-gray-text': '#718096', // 灰色文本，用于次要信息
 
         // 暗色模式颜色
         'dark-bg': '#0f172a',
@@ -22,9 +22,9 @@ module.exports = {
         'dark-gray-text': '#94a3b8',
 
         // 新增主题切换专属颜色
-        'toggle-bg-light': 'rgba(255,255,255,0.2)',
-        'toggle-bg-dark': 'rgba(0,0,0,0.2)',
-        'toggle-icon-light': '#fff',
+        'toggle-bg-light': 'rgba(237, 242, 247, 0.2)', // 与亮色模式背景更协调
+        'toggle-bg-dark': 'rgba(0, 0, 0, 0.2)',
+        'toggle-icon-light': '#2d3748', // 与亮色模式文本颜色协调
         'toggle-icon-dark': '#000',
 
         // 主题色
@@ -40,4 +40,4 @@ module.exports = {
     },
   },
   plugins: [],
-}    
+}

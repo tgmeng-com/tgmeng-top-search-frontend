@@ -4,7 +4,7 @@
     <div class="bg-blue-50 dark:bg-blue-900/20 p-4 flex items-center">
       <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full mr-3">
       <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
-      <span class="ml-auto text-xs px-2 py-1 bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+      <span class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
         {{ updateTime }}
       </span>
     </div>
@@ -19,7 +19,13 @@
         >
           <!-- 序号 -->
           <span
-              :class="[ /* ...你的颜色逻辑 */ ]"
+              :class="[
+              'w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3',
+              index === 0 ? 'bg-red-600 text-white' :
+              index === 1 ? 'bg-orange-500 text-white' :
+              index === 2 ? 'bg-yellow-700 text-white' :
+              'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+            ]"
           >
         {{ index + 1 }}
       </span>
