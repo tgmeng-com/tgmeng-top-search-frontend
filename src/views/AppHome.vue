@@ -5,21 +5,17 @@
       <div class="mb-6 overflow-x-auto scrollbar-hide">
         <div class="flex space-x-2 py-2 min-w-max">
           <button class="px-4 py-2 bg-primary text-white rounded-full">全部</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">综合</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">科技</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">娱乐</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">体育</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">财经</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">游戏</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">教育</button>
-          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow">更多</button>
+          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow"><span class="dark:text-dark-text">综合</span></button>
+          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow"><span class="dark:text-dark-text">科技</span></button>
+          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow"><span class="dark:text-dark-text">娱乐</span></button>
+          <button class="px-4 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm hover:shadow-md transition-shadow"><span class="dark:text-dark-text">体育</span></button>
         </div>
       </div>
 
       <!-- 热门社区区域 -->
       <section class="mb-10">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold flex items-center">
+          <h2 class="text-xl font-bold flex items-center dark:text-dark-text">
             <i class="fa fa-fire text-red-500 mr-2"></i> 热门社区
           </h2>
           <a href="#" class="text-primary text-sm hover:underline flex items-center">

@@ -2,8 +2,8 @@
   <div class="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-sm card-hover">
     <div class="bg-blue-50 dark:bg-blue-900/20 p-4 flex items-center">
       <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full mr-3">
-      <h3 class="font-semibold">{{ title }}</h3>
-      <span class="ml-auto text-xs px-2 py-1 bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-400 rounded-full">
+      <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
+      <span class="ml-auto text-xs px-2 py-1 bg-blue-100 dark:bg-blue-800/50 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
         {{ updateTime }}
       </span>
     </div>
@@ -21,7 +21,7 @@
           >
             {{ index + 1 }}
           </span>
-          <p class="text-sm">{{ item.title }}</p>
+          <p class="text-sm dark:text-dark-text">{{ item.title }}</p>
         </li>
       </ul>
     </div>

@@ -6,20 +6,17 @@
       <!-- 这里放页面主体内容，比如 AppHome 组件 -->
       <Home />
     </main>
-    <Footer />
   </div>
 </template>
 
 <script>
 import AppHeader from './components/Layout/AppHeader.vue';
-import AppFooter from './components/Layout/AppFooter.vue';
 import AppHome from './views/AppHome.vue'; // 假设 AppHome 是首页视图
 
 export default {
   name: 'App',
   components: {
     Header: AppHeader,
-    Footer: AppFooter,
     Home: AppHome
   }
 }
