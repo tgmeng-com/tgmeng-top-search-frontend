@@ -24,9 +24,12 @@
           </span>
 
           <!-- 标题（强制居左 + 单行省略） -->
-          <p class="text-sm dark:text-dark-text hot-title">
+          <a :href="item.url"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="text-sm dark:text-dark-text hot-title hover:underline">
             {{ item.keyword }}
-          </p>
+          </a>
 
           <!-- 热点值（居右 + 固定宽度） -->
           <span class="text-sm text-red-600 dark:text-red-300 hot-score">
