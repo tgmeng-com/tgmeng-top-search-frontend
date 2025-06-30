@@ -1,54 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <main class="container mx-auto px-4 py-6 flex-grow">
-      <!-- 统计卡片 -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-400">今日更新</p>
-              <h3 class="text-2xl font-bold mt-1">{{ stats.todayUpdates }}</h3>
-              <p class="text-xs text-green-500 flex items-center mt-1">
-                <i class="fa fa-arrow-up mr-1"></i> {{ stats.todayGrowth }}% 较昨日
-              </p>
-            </div>
-            <div class="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
-              <i class="fa fa-refresh text-primary text-xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-400">总浏览量</p>
-              <h3 class="text-2xl font-bold mt-1">{{ stats.totalViews }}</h3>
-              <p class="text-xs text-green-500 flex items-center mt-1">
-                <i class="fa fa-arrow-up mr-1"></i> {{ stats.viewsGrowth }}% 较昨日
-              </p>
-            </div>
-            <div class="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-              <i class="fa fa-eye text-accent text-xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white dark:bg-dark-card rounded-xl p-5 shadow-sm card-hover">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-400">社区活跃度</p>
-              <h3 class="text-2xl font-bold mt-1">{{ stats.activityRate }}%</h3>
-              <p class="text-xs text-green-500 flex items-center mt-1">
-                <i class="fa fa-arrow-up mr-1"></i> {{ stats.activityGrowth }}% 较昨日
-              </p>
-            </div>
-            <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">
-              <i class="fa fa-line-chart text-secondary text-xl"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- 分类导航 -->
       <div class="mb-6 overflow-x-auto scrollbar-hide">
         <div class="flex space-x-2 py-2 min-w-max">
@@ -105,95 +57,19 @@
           />
         </div>
       </section>
-
-      <!-- IT 科技区域 -->
-      <section class="mb-10">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold flex items-center">
-            <i class="fa fa-laptop text-purple-500 mr-2"></i> IT 科技
-          </h2>
-          <a href="#" class="text-primary text-sm hover:underline flex items-center">
-            查看更多 <i class="fa fa-angle-right ml-1"></i>
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <TechCard
-              title="IT 之家"
-              logo="https://picsum.photos/seed/ithome/40/40"
-              updateTime="更新于 15分钟前"
-              :list="ithomeList"
-          />
-
-          <TechCard
-              title="中关村在线"
-              logo="https://picsum.photos/seed/zol/40/40"
-              updateTime="更新于 45分钟前"
-              :list="zolList"
-          />
-
-          <TechCard
-              title="爱范儿"
-              logo="https://picsum.photos/seed/ifanr/40/40"
-              updateTime="更新于 35分钟前"
-              :list="ifanrList"
-          />
-        </div>
-      </section>
-
-      <!-- 趋势卡片 -->
-      <section class="mb-10">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-bold flex items-center">
-            <i class="fa fa-line-chart text-green-500 mr-2"></i> 热度趋势
-          </h2>
-          <a href="#" class="text-primary text-sm hover:underline flex items-center">
-            查看更多 <i class="fa fa-angle-right ml-1"></i>
-          </a>
-        </div>
-
-        <TrendCard
-            :trends="[
-            { id: 1, title: 'AI 大模型', trend: 24.5, data: [20, 25, 30, 35, 40, 45, 50] },
-            { id: 2, title: '前端框架', trend: 18.2, data: [30, 28, 32, 35, 33, 38, 42] },
-            { id: 3, title: 'Web3', trend: 12.7, data: [15, 18, 20, 19, 22, 25, 28] }
-          ]"
-        />
-      </section>
-
-      <!-- 社区活跃度图表 -->
-      <section class="mb-10">
-        <Chart />
-      </section>
     </main>
   </div>
 </template>
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue'
-import TechCard from '@/components/Card/TechCard.vue'
-import TrendCard from '@/components/Card/TrendCard.vue'
-import AppChart from '@/components/AppChart.vue'
 
 export default {
   components: {
     CommunityCard,
-    TechCard,
-    TrendCard,
-    Chart: AppChart,
   },
   data() {
     return {
-      // 统计数据
-      stats: {
-        todayUpdates: 128,
-        todayGrowth: 12.5,
-        totalViews: '12.8K',
-        viewsGrowth: 8.3,
-        activityRate: 76,
-        activityGrowth: 5.2
-      },
-
       // 知乎热榜数据
       zhihuList: [
         {title: '电影《盗钥匙的方法》票房口碑双爆，创下国产翻拍新纪录，你如何看待这部电影？'},
