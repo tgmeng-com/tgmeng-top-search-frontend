@@ -17,3 +17,8 @@
         scrollbar-width: none;
     }
 }
+
+/* 全局基础样式 */
+body {
+    @apply bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text;
+}

@@ -1,10 +1,10 @@
 <template>
   <button
       @click="toggleTheme"
-      class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-dark-bg transition-colors"
+      class="p-2 rounded-full hover:bg-light-gray dark:hover:bg-dark-gray transition-colors"
   >
-    <i class="fa fa-moon-o dark:hidden"></i>
-    <i class="fa fa-sun-o hidden dark:inline-block"></i>
+    <i class="fa fa-moon-o dark:hidden text-light-text"></i>
+    <i class="fa fa-sun-o hidden dark:inline-block text-dark-text"></i>
   </button>
 </template>
 
