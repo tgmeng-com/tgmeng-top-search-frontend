@@ -21,6 +21,12 @@ module.exports = {
         'dark-gray': '#334155',
         'dark-gray-text': '#94a3b8',
 
+        // 新增主题切换专属颜色
+        'toggle-bg-light': 'rgba(255,255,255,0.2)',
+        'toggle-bg-dark': 'rgba(0,0,0,0.2)',
+        'toggle-icon-light': '#fff',
+        'toggle-icon-dark': '#000',
+
         // 主题色
         primary: '#3b82f6',
         secondary: '#10b981',

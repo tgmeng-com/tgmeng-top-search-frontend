@@ -1,35 +1,36 @@
 <template>
   <header class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- 左侧 Logo -->
       <div class="flex items-center space-x-2">
-        <i class="fa fa-newspaper-o text-primary text-2xl"></i>
-        <h1 class="text-xl font-bold text-light-text dark:text-dark-text">社区热榜聚合</h1>
+        <!-- 替换为你的 Logo 路径 -->
+        <img
+            src="@/assets/image/logo.png"
+            alt="网站 Logo"
+            class="logo"
+        >
       </div>
 
-      <div class="flex items-center space-x-4">
-        <div class="relative">
-          <input
-              type="text"
-              placeholder="搜索热榜内容..."
-              class="pl-10 pr-4 py-2 rounded-full bg-light-gray dark:bg-dark-gray
-                  text-light-text dark:text-dark-text
-                  focus:outline-none focus:ring-2 focus:ring-primary/50
-                  w-48 md:w-64 transition-all duration-300"
-          >
-          <i class="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-light-gray-text dark:text-dark-gray-text"></i>
-        </div>
+      <!-- 右侧主题切换 -->
+      <div class="flex items-center">
         <ThemeToggle />
       </div>
     </div>
   </header>
 </template>
 
-<script>
-import ThemeToggle from '@/components/ThemeToggle.vue'
-
-export default {
-  components: {
-    ThemeToggle
-  }
-}
+<script setup>
+import ThemeToggle from '@/components/Theme/ThemeToggle.vue'
 </script>
+
+<style scoped>
+.logo {
+  height: 32px; /* 根据实际需求调整 */
+  width: auto;
+}
+
+/* 确保深色模式下 Logo 可见（如果是白色 Logo，需调整） */
+.dark .logo {
+  filter: invert(1) brightness(1.2); /* 白色 Logo 在深色背景下更清晰 */
+}
+</style>

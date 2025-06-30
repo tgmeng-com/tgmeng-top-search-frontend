@@ -16,6 +16,46 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+    /* 全局过渡动画 */
+    html, body, .container, .card, .btn {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 亮色模式基础样式 */
+    :root {
+        --bg-color: #fff;
+        --text-color: #333;
+        --card-bg: #f9f9f9;
+        --btn-bg: #fff;
+        --btn-text: #333;
+        --btn-border: #ddd;
+    }
+
+    /* 暗色模式样式 */
+    .dark {
+        --bg-color: #121212;
+        --text-color: #fff;
+        --card-bg: #1e1e1e;
+        --btn-bg: #1e1e1e;
+        --btn-text: #fff;
+        --btn-border: #333;
+    }
+
+    /* 应用全局样式 */
+    body {
+        background: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    .card {
+        background: var(--card-bg);
+    }
+
+    .btn {
+        background: var(--btn-bg);
+        color: var(--btn-text);
+        border: 1px solid var(--btn-border);
+    }
 }
 
 /* 全局基础样式 */
