@@ -97,7 +97,6 @@ export default {
     topSearchForBilibiliData(){
       topSearchForBilibili().then(res => {
         this.topSearchForBilibili = res.data
-        console.log(this.topSearchForBilibili)
       })
     },
     topSearchForWeiBoData(){
