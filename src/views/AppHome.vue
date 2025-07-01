@@ -112,9 +112,10 @@ export default {
       title: cfg.title,
       logo: cfg.logo,
       category: cfg.category,
-      list: Array.isArray(results[index].data) ? results[index].data : [],
+      list: Array.isArray(results[index].data.data) ? results[index].data.data : [],
       updateTime: this.getUpdateTime(),
     }))
+    console.log(this.platforms)
   },
   computed: {
     //从 platforms 中筛选出属于当前分类，且有数据的卡片,是给页面画卡片用的（点击tab会触发）
