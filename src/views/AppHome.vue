@@ -98,11 +98,8 @@ export default {
     // 处理请求结果
     this.platforms = PLATFORM_CONFIG.map((_, index) => {
       const result = results[index];
-      console.log('结果:', result); // 调试输出
-
       // 如果结果无效，返回默认值
       if (result.error || !result.data || !result.data.data) {
-        console.warn(`请求平台 ${PLATFORM_CONFIG[index].name} 失败`);
         return {
           title: '默认标题',
           logo: '',
