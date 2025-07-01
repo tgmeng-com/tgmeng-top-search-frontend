@@ -48,7 +48,7 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import { topSearchForBaiDu } from '@/api/api';
+import {topSearchForBaiDu, topSearchForGitHubAllStars} from '@/api/api';
 import { topSearchForDouYin } from '@/api/api';
 import { topSearchForBilibili } from '@/api/api';
 import { topSearchForWeiBo } from '@/api/api';
@@ -69,6 +69,9 @@ const PLATFORM_CONFIG = [
   {
     fetch: topSearchForWeiBo,
   },
+  {
+    fetch: topSearchForGitHubAllStars,
+  }
 ];
 
 export default {
