@@ -3,8 +3,8 @@
     <main class="container mx-auto px-4 py-6 flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center">
-        <!-- 分类按钮部分，居中 -->
-        <div class="flex space-x-2 py-2 flex-grow justify-center">
+        <!-- 分类按钮部分，居中，并且可换行 -->
+        <div class="flex space-x-2 py-2 flex-wrap justify-center w-full">
           <button
               v-for="cat in CATEGORIES"
               :key="cat"
@@ -21,7 +21,6 @@
         </div>
       </div>
 
-
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center">
         <div class="flex space-x-2 py-2 flex-grow justify-center">
         </div>
@@ -30,7 +29,6 @@
           数据每10秒更新一次
         </div>
       </div>
-
 
       <section class="mb-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -90,7 +88,7 @@ export default {
     // 初始化请求数据，确保所有请求都成功
     const results = await Promise.all(
         PLATFORM_CONFIG.map((p) =>
-            p.fetch().catch((err) => ({ error: err })) // 捕获每个请求的错误
+            p.fetch().catch((err) => ({error: err})) // 捕获每个请求的错误
         )
     );
 
@@ -100,7 +98,7 @@ export default {
       console.log('结果:', result); // 调试输出
 
       // 如果结果无效，返回默认值
-      if (result.error || !result.data|| !result.data.data) {
+      if (result.error || !result.data || !result.data.data) {
         console.warn(`请求平台 ${PLATFORM_CONFIG[index].name} 失败`);
         return {
           title: '默认标题',
