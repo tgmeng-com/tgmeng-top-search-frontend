@@ -9,11 +9,9 @@
               v-for="cat in CATEGORIES"
               :key="cat"
               :class="[
-              'px-4 py-2 rounded-full',
-              activeCategory === cat
-                ? 'bg-primary text-white'
-                : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
-            ]"
+                'px-4 py-2 rounded-full',
+                activeCategory === cat ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
+              ]"
               @click="activeCategory = cat"
           >
             <span class="dark:text-dark-text">{{ cat }}</span>
@@ -21,12 +19,10 @@
         </div>
       </div>
 
-      <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center">
-        <div class="flex space-x-2 py-2 flex-grow justify-center">
-        </div>
+      <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center justify-end">
         <!-- 数据更新时间显示部分，放在右侧并垂直居中 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 ml-4">
-          数据每10秒更新一次
+          数据每分钟更新一次，刷新页面更新数据
         </div>
       </div>
 
@@ -48,30 +44,14 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import {topSearchForBaiDu, topSearchForGitHubAllStars} from '@/api/api';
-import { topSearchForDouYin } from '@/api/api';
-import { topSearchForBilibili } from '@/api/api';
-import { topSearchForWeiBo } from '@/api/api';
+import { topSearchForBaiDu, topSearchForGitHubAllStars, topSearchForDouYin, topSearchForBilibili, topSearchForWeiBo } from '@/api/api';
 
-/**
- * 平台配置,是一些已知的元信息，后面通过请求再加一些数据，给到一个新对象，然后用于页面展示
- */
 const PLATFORM_CONFIG = [
-  {
-    fetch: topSearchForBaiDu,
-  },
-  {
-    fetch: topSearchForBilibili,
-  },
-  {
-    fetch: topSearchForDouYin,
-  },
-  {
-    fetch: topSearchForWeiBo,
-  },
-  {
-    fetch: topSearchForGitHubAllStars,
-  }
+  {fetch: topSearchForBaiDu},
+  {fetch: topSearchForBilibili},
+  {fetch: topSearchForDouYin},
+  {fetch: topSearchForWeiBo},
+  {fetch: topSearchForGitHubAllStars},
 ];
 
 export default {
@@ -81,61 +61,50 @@ export default {
   data() {
     return {
       activeCategory: '全部',
-      CATEGORIES: [], // 这里稍后会动态填充所有去重后的分类
+      CATEGORIES: [],
       platforms: [],
-      lastUpdated: '', // 添加字段记录最后更新时间
+      lastUpdated: '',
     };
   },
-  methods: {},
   async mounted() {
     // 初始化请求数据，确保所有请求都成功
     const results = await Promise.all(
-        PLATFORM_CONFIG.map((p) =>
-            p.fetch().catch((err) => ({error: err})) // 捕获每个请求的错误
-        )
+        PLATFORM_CONFIG.map(p => p.fetch().catch(err => ({error: err})))
     );
 
     // 处理请求结果
-    this.platforms = PLATFORM_CONFIG.map((_, index) => {
-      const result = results[index];
-      // 如果结果无效，返回默认值
+    this.platforms = results.map(result => {
       if (result.error || !result.data || !result.data.data) {
         return {
           title: '默认标题',
           logo: '',
-          category: '未知', // 默认值
+          category: '未知',
           list: [],
           updateTime: '',
         };
       }
 
-      // 正常处理数据，确保 category 存在并提供默认值
-      const category = result.data.data.dataCardCategory || '未知'; // 防止 category 为 null 或 undefined
-
+      const {dataCardCategory, dataCardName, dataCardLogo, dataInfo, dataUpdateTime} = result.data.data;
       return {
-        title: result.data.data.dataCardName || '默认标题', // 如果没有 title，使用默认值
-        logo: result.data.data.dataCardLogo || '', // 如果没有 logo，使用空字符串
-        category: category, // 确保 category 不为 null 或 undefined
-        list: Array.isArray(result.data.data.dataInfo) ? result.data.data.dataInfo : [],
-        updateTime: result.data.data.dataUpdateTime || '',
+        title: dataCardName || '默认标题',
+        logo: dataCardLogo || '',
+        category: dataCardCategory || '未知',
+        list: Array.isArray(dataInfo) ? dataInfo : [],
+        updateTime: dataUpdateTime || '',
       };
     });
 
     // 动态设置 CATEGORIES（确保从返回的数据中提取所有不同的 category）
-    const categories = this.platforms.map((p) => p.category);
+    const categories = this.platforms.map(p => p.category);
     this.CATEGORIES = ['全部', ...new Set(categories.filter(Boolean))]; // 去重并排除空值
 
     // 更新最后更新时间
-    this.lastUpdated = new Date().toLocaleString(); // 格式化时间为本地时间字符串
+    this.lastUpdated = new Date().toLocaleString();
   },
   computed: {
-    // 从 platforms 中筛选出属于当前分类，且有数据的卡片
     filteredPlatforms() {
       if (!Array.isArray(this.platforms)) return [];
-      return this.platforms.filter((p) => {
-        const match = this.activeCategory === '全部' || p.category === this.activeCategory;
-        return match;
-      });
+      return this.platforms.filter(p => this.activeCategory === '全部' || p.category === this.activeCategory);
     },
   },
 };
