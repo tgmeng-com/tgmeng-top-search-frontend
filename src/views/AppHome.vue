@@ -22,7 +22,7 @@
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center justify-end">
         <!-- 数据更新时间显示部分，放在右侧并垂直居中 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 ml-4">
-          数据每分钟更新一次，刷新页面更新数据
+          数据每分钟更新一次，刷新页面获取
         </div>
       </div>
 
@@ -44,7 +44,20 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import { topSearchForBaiDu, topSearchForGitHubAllStars, topSearchForDouYin, topSearchForBilibili, topSearchForWeiBo } from '@/api/api';
+import {
+  topSearchForBaiDu,
+  topSearchForGitHubAllStars,
+  topSearchForDouYin,
+  topSearchForBilibili,
+  topSearchForWeiBo,
+  topSearchForGitHubDaystars,
+  topSearchForGitHubWeekstars,
+  topSearchForGitHubMonthstars,
+  topSearchForGitHubYearstars,
+  topSearchForGitHubThreeYearStars,
+  topSearchForGitHubFiveYearStars,
+  topSearchForGitHubTenYearStars
+} from '@/api/api';
 
 const PLATFORM_CONFIG = [
   {fetch: topSearchForBaiDu},
@@ -52,6 +65,13 @@ const PLATFORM_CONFIG = [
   {fetch: topSearchForDouYin},
   {fetch: topSearchForWeiBo},
   {fetch: topSearchForGitHubAllStars},
+  {fetch: topSearchForGitHubDaystars},
+  {fetch: topSearchForGitHubWeekstars},
+  {fetch: topSearchForGitHubMonthstars},
+  {fetch: topSearchForGitHubYearstars},
+  {fetch: topSearchForGitHubThreeYearStars},
+  {fetch: topSearchForGitHubFiveYearStars},
+  {fetch: topSearchForGitHubTenYearStars},
 ];
 
 export default {
