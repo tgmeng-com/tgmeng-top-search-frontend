@@ -111,3 +111,19 @@ export function topSearchForDouBan(data) {
         data: data
     })
 }
+
+export function topSearchForTencent(data) {
+    return request({
+        url: '/topsearch/tencent',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForTouTiao(data) {
+    return request({
+        url: '/topsearch/toutiao',
+        method: 'get',
+        data: data
+    })
+}
