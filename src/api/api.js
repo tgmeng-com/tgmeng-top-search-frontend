@@ -127,3 +127,11 @@ export function topSearchForTouTiao(data) {
         data: data
     })
 }
+
+export function topSearchForWangYi(data) {
+    return request({
+        url: '/topsearch/wangyi',
+        method: 'get',
+        data: data
+    })
+}

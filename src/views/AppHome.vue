@@ -56,7 +56,7 @@ import {
   topSearchForGitHubYearstars,
   topSearchForGitHubThreeYearStars,
   topSearchForGitHubFiveYearStars,
-  topSearchForGitHubTenYearStars, topSearchForDouBan, topSearchForTencent, topSearchForTouTiao
+  topSearchForGitHubTenYearStars, topSearchForDouBan, topSearchForTencent, topSearchForTouTiao, topSearchForWangYi
 } from '@/api/api';
 
 const PLATFORM_CONFIG = [
@@ -76,6 +76,7 @@ const PLATFORM_CONFIG = [
   {fetch: topSearchForDouBan},
   {fetch: topSearchForTencent},
   {fetch: topSearchForTouTiao},
+  {fetch: topSearchForWangYi},
 ];
 
 export default {
