@@ -42,7 +42,7 @@
 
           <!-- 热度值 -->
           <span class="text-sm text-red-600 dark:text-red-300 hot-score">
-        {{ item.hotScore }}
+        🔥{{ item.hotScore }}
       </span>
         </li>
       </ul>

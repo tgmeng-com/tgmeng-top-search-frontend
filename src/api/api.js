@@ -151,3 +151,11 @@ export function topSearchForBaiDuTieBa(data) {
         data: data
     })
 }
+
+export function topSearchForShaoShuPai(data) {
+    return request({
+        url: '/topsearch/shaoshupai',
+        method: 'get',
+        data: data
+    })
+}
