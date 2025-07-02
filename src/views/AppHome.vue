@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       activeCategory: '全部',
-      CATEGORIES: [],
+      CATEGORIES: ['全部','新闻','社交','媒体','GitHub'],
       platforms: [],
       lastUpdated: '',
     };
@@ -128,9 +128,9 @@ export default {
       };
     });
 
-    // 动态设置 CATEGORIES（确保从返回的数据中提取所有不同的 category）
-    const categories = this.platforms.map(p => p.category);
-    this.CATEGORIES = ['全部', ...new Set(categories.filter(Boolean))]; // 去重并排除空值
+    // // 动态设置 CATEGORIES（确保从返回的数据中提取所有不同的 category）
+    // const categories = this.platforms.map(p => p.category);
+    // this.CATEGORIES = ['全部', ...new Set(categories.filter(Boolean))]; // 去重并排除空值
 
     // 更新最后更新时间
     this.lastUpdated = new Date().toLocaleString();
