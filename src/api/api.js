@@ -103,3 +103,11 @@ export function topSearchForYoutube(data) {
         data: data
     })
 }
+
+export function topSearchForDouBan(data) {
+    return request({
+        url: '/topsearch/douban',
+        method: 'get',
+        data: data
+    })
+}
