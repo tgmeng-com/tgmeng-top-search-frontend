@@ -96,6 +96,13 @@ export default {
     return {
       activeCategory: '全部',
       CATEGORIES: ['全部','新闻','社交','媒体','GitHub'],
+      CATEGORIEMAPS: {"新闻":['腾讯','头条','网易','百度'],
+        "社交":['微博','百度贴吧','豆瓣','少数派'],
+        "媒体":['B站','抖音','Youtube','网易云'],
+        "GitHub":['Star总榜','近一日新仓库Star榜','近一周新仓库Star榜',
+          '近一月新仓库Star榜','近一年新仓库Star榜','近三年新仓库Star榜',
+          '近五年新仓库Star榜','近十年新仓库Star榜']
+      },
       platforms: [],
       lastUpdated: '',
     };
@@ -127,10 +134,6 @@ export default {
         updateTime: dataUpdateTime || '',
       };
     });
-
-    // // 动态设置 CATEGORIES（确保从返回的数据中提取所有不同的 category）
-    // const categories = this.platforms.map(p => p.category);
-    // this.CATEGORIES = ['全部', ...new Set(categories.filter(Boolean))]; // 去重并排除空值
 
     // 更新最后更新时间
     this.lastUpdated = new Date().toLocaleString();
