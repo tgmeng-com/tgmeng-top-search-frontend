@@ -138,7 +138,15 @@ export function topSearchForWangYi(data) {
 
 export function topSearchForWangYiYun(data) {
     return request({
-        url: '/topsearch/wangyiyun',
+        url: '/topsearch/yunwangyi',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForBaiDuTieBa(data) {
+    return request({
+        url: '/topsearch/tiebabaidu',
         method: 'get',
         data: data
     })

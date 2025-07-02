@@ -62,7 +62,7 @@ import {
   topSearchForTencent,
   topSearchForTouTiao,
   topSearchForWangYi,
-  topSearchForWangYiYun
+  topSearchForWangYiYun, topSearchForBaiDuTieBa
 } from '@/api/api';
 
 const PLATFORM_CONFIG = [
@@ -84,6 +84,7 @@ const PLATFORM_CONFIG = [
   {fetch: topSearchForTouTiao},
   {fetch: topSearchForWangYi},
   {fetch: topSearchForWangYiYun},
+  {fetch: topSearchForBaiDuTieBa},
 ];
 
 export default {
