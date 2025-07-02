@@ -135,3 +135,11 @@ export function topSearchForWangYi(data) {
         data: data
     })
 }
+
+export function topSearchForWangYiYun(data) {
+    return request({
+        url: '/topsearch/wangyiyun',
+        method: 'get',
+        data: data
+    })
+}

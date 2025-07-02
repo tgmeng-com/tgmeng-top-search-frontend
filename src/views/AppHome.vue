@@ -45,7 +45,8 @@
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
 import {
-  topSearchForYoutube, topSearchForBaiDu,
+  topSearchForYoutube,
+  topSearchForBaiDu,
   topSearchForGitHubAllStars,
   topSearchForDouYin,
   topSearchForBilibili,
@@ -56,7 +57,12 @@ import {
   topSearchForGitHubYearstars,
   topSearchForGitHubThreeYearStars,
   topSearchForGitHubFiveYearStars,
-  topSearchForGitHubTenYearStars, topSearchForDouBan, topSearchForTencent, topSearchForTouTiao, topSearchForWangYi
+  topSearchForGitHubTenYearStars,
+  topSearchForDouBan,
+  topSearchForTencent,
+  topSearchForTouTiao,
+  topSearchForWangYi,
+  topSearchForWangYiYun
 } from '@/api/api';
 
 const PLATFORM_CONFIG = [
@@ -77,6 +83,7 @@ const PLATFORM_CONFIG = [
   {fetch: topSearchForTencent},
   {fetch: topSearchForTouTiao},
   {fetch: topSearchForWangYi},
+  {fetch: topSearchForWangYiYun},
 ];
 
 export default {
