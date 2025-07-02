@@ -45,7 +45,7 @@
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
 import {
-  topSearchForBaiDu,
+  topSearchForYoutube, topSearchForBaiDu,
   topSearchForGitHubAllStars,
   topSearchForDouYin,
   topSearchForBilibili,
@@ -72,6 +72,7 @@ const PLATFORM_CONFIG = [
   {fetch: topSearchForGitHubThreeYearStars},
   {fetch: topSearchForGitHubFiveYearStars},
   {fetch: topSearchForGitHubTenYearStars},
+  {fetch: topSearchForYoutube},
 ];
 
 export default {

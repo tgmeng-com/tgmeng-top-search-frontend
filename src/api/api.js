@@ -95,3 +95,11 @@ export function topSearchForGitHubTenYearStars(data) {
         data: data
     })
 }
+
+export function topSearchForYoutube(data) {
+    return request({
+        url: '/topsearch/global/youtube',
+        method: 'get',
+        data: data
+    })
+}
