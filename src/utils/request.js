@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function request(config) {
     const instance = axios.create({
-        baseURL: 'http://127.0.0.1:4399/api/',
+        baseURL: 'http://api.tgmeng.com:4399/api/',
         timeout: 600000
     });
 
