@@ -10,7 +10,7 @@
               :key="cat"
               :class="[
                 'px-4 py-2 rounded-full',
-                activeCategory === cat ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
+                ACTIVECATEGORIE === cat ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
               ]"
               @click="handleCategoryClick(cat)"
           >
@@ -33,7 +33,7 @@
               v-for="p in filteredPlatforms"
               :key="p.title"
               :title="p.title"
-              :logo="getLogoByName(p.title)"
+              :logo="p.logo"
               :updateTime="p.updateTime"
               :list="p.list"
               :loading="p.loading"
@@ -97,7 +97,7 @@ export default {
   },
   data() {
     return {
-      activeCategory: '全部',
+      ACTIVECATEGORIE: '全部',
       CATEGORIES: ['全部', '新闻', '社交', '媒体', 'GitHub'],
       CATEGORIEMAPS: {
         "新闻": ['腾讯', '头条', '网易', '百度'],
@@ -115,14 +115,13 @@ export default {
     this.initializePlatforms();
   },
   methods: {
-    getLogoByName,
     initializePlatforms() {
       Object.entries(this.CATEGORIEMAPS).forEach(([category, titles]) => {
         titles.forEach((title) => {
           this.platforms.push({
             title,
             category,
-            logo: '',
+            logo: getLogoByName(title),
             list: [],
             updateTime: '',
             loading: true,
@@ -131,6 +130,7 @@ export default {
         });
       });
     },
+    // 访问接口拿数据
     fetchData(title) {
       const fetchFunc = API_MAP[title];
       if (!fetchFunc) return;
@@ -140,7 +140,7 @@ export default {
             const data = res?.data?.data || {};
             const platform = this.platforms.find((p) => p.title === title);
             if (platform) {
-              platform.logo = data.dataCardLogo || '';
+              // platform.logo = data.dataCardLogo || '';
               platform.updateTime = data.dataUpdateTime || '';
               platform.list = Array.isArray(data.dataInfo) ? data.dataInfo : [];
             }
@@ -153,11 +153,17 @@ export default {
             if (platform) platform.loading = false;
           });
     },
+    // 分类按钮点击事件
     handleCategoryClick(cat) {
-      this.activeCategory = cat;
+      this.ACTIVECATEGORIE = cat;
 
-      if (cat === '全部') return;
-      const titles = this.CATEGORIEMAPS[cat] || [];
+      let titles;
+      if (cat === '全部') {
+        // 全部分类时，加载所有平台
+        titles = this.platforms.map(p => p.title);
+      } else {
+        titles = this.CATEGORIEMAPS[cat] || [];
+      }
       titles.forEach((title) => {
         const platform = this.platforms.find((p) => p.title === title);
         platform.loading = true;
@@ -167,8 +173,8 @@ export default {
   },
   computed: {
     filteredPlatforms() {
-      if (this.activeCategory === '全部') return this.platforms;
-      return this.platforms.filter(p => p.category === this.activeCategory);
+      if (this.ACTIVECATEGORIE === '全部') return this.platforms;
+      return this.platforms.filter(p => p.category === this.ACTIVECATEGORIE);
     },
   },
 };
