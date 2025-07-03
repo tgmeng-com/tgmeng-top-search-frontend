@@ -159,3 +159,27 @@ export function topSearchForShaoShuPai(data) {
         data: data
     })
 }
+
+export function topSearchForDianShiJuBaiDu(data) {
+    return request({
+        url: '/topsearch/dianshijubaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDianYingBaiDu(data) {
+    return request({
+        url: '/topsearch/dianyingbaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForXiaoShuoBaiDu(data) {
+    return request({
+        url: '/topsearch/xiaoshuobaidu',
+        method: 'get',
+        data: data
+    })
+}

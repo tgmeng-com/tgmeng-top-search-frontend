@@ -22,7 +22,7 @@
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center justify-end">
         <!-- 数据更新时间显示部分，放在右侧并垂直居中 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 ml-4">
-          数据每分钟更新一次，刷新页面获取
+          数据每分钟更新一次
         </div>
       </div>
 
@@ -65,7 +65,11 @@ import {
   topSearchForTencent,
   topSearchForTouTiao,
   topSearchForWangYi,
-  topSearchForWangYiYun, topSearchForBaiDuTieBa, topSearchForShaoShuPai
+  topSearchForWangYiYun, topSearchForBaiDuTieBa, topSearchForShaoShuPai,
+  topSearchForDianShiJuBaiDu,
+  topSearchForDianYingBaiDu,
+  topSearchForXiaoShuoBaiDu,
+
 } from '@/api/api';
 
 const API_MAP = {
@@ -89,6 +93,9 @@ const API_MAP = {
   '网易云': topSearchForWangYiYun,
   '百度贴吧': topSearchForBaiDuTieBa,
   '少数派': topSearchForShaoShuPai,
+  '电视剧': topSearchForDianShiJuBaiDu,
+  '电影': topSearchForDianYingBaiDu,
+  '小说': topSearchForXiaoShuoBaiDu,
 };
 
 export default {
@@ -102,7 +109,7 @@ export default {
       CATEGORIEMAPS: {
         "新闻": ['腾讯', '头条', '网易', '百度'],
         "社交": ['微博', '百度贴吧', '豆瓣', '少数派'],
-        "媒体": ['B站', '抖音', 'Youtube', '网易云'],
+        "媒体": ['B站', '抖音','电视剧','电影','小说', '网易云', 'Youtube'],
         "GitHub": ['Star总榜', '近一日新仓库Star榜', '近一周新仓库Star榜',
           '近一月新仓库Star榜', '近一年新仓库Star榜', '近三年新仓库Star榜',
           '近五年新仓库Star榜', '近十年新仓库Star榜']

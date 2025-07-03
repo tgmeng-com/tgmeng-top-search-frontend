@@ -19,6 +19,9 @@ const logoMap = {
     '头条': require('@/assets/logos/tgmeng-trend_toutiao.png'),
     '网易': require('@/assets/logos/tgmeng-trend_wangyi.png'),
     '少数派': require('@/assets/logos/tgmeng-trend_shaoshupai.png'),
+    '电视剧': require('@/assets/logos/tgmeng-trend_dianshiju.png'),
+    '电影': require('@/assets/logos/tgmeng-trend_dianying.png'),
+    '小说': require('@/assets/logos/tgmeng-trend_xiaoshuo.png'),
 };
 
 // 默认图
