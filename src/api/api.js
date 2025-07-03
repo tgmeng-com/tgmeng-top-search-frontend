@@ -1,4 +1,4 @@
-import {request} from '@/util/request.js'
+import {request} from '@/utils/request.js'
 
 export function topSearchForBaiDu(data) {
     return request({

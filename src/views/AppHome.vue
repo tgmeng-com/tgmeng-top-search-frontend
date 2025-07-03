@@ -33,7 +33,7 @@
               v-for="p in filteredPlatforms"
               :key="p.title"
               :title="p.title"
-              :logo="p.logo"
+              :logo="getLogoByName(p.title)"
               :updateTime="p.updateTime"
               :list="p.list"
               :loading="p.loading"
@@ -46,6 +46,7 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
+import { getLogoByName } from '@/utils/logoMap.js';
 import {
   topSearchForYoutube,
   topSearchForBaiDu,
@@ -66,6 +67,7 @@ import {
   topSearchForWangYi,
   topSearchForWangYiYun, topSearchForBaiDuTieBa, topSearchForShaoShuPai
 } from '@/api/api';
+
 const API_MAP = {
   '百度': topSearchForBaiDu,
   'B站': topSearchForBilibili,
@@ -96,13 +98,14 @@ export default {
   data() {
     return {
       activeCategory: '全部',
-      CATEGORIES: ['全部','新闻','社交','媒体','GitHub'],
-      CATEGORIEMAPS: {"新闻":['腾讯','头条','网易','百度'],
-        "社交":['微博','百度贴吧','豆瓣','少数派'],
-        "媒体":['B站','抖音','Youtube','网易云'],
-        "GitHub":['Star总榜','近一日新仓库Star榜','近一周新仓库Star榜',
-          '近一月新仓库Star榜','近一年新仓库Star榜','近三年新仓库Star榜',
-          '近五年新仓库Star榜','近十年新仓库Star榜']
+      CATEGORIES: ['全部', '新闻', '社交', '媒体', 'GitHub'],
+      CATEGORIEMAPS: {
+        "新闻": ['腾讯', '头条', '网易', '百度'],
+        "社交": ['微博', '百度贴吧', '豆瓣', '少数派'],
+        "媒体": ['B站', '抖音', 'Youtube', '网易云'],
+        "GitHub": ['Star总榜', '近一日新仓库Star榜', '近一周新仓库Star榜',
+          '近一月新仓库Star榜', '近一年新仓库Star榜', '近三年新仓库Star榜',
+          '近五年新仓库Star榜', '近十年新仓库Star榜']
       },
       platforms: [],
       lastUpdated: '',
@@ -112,6 +115,7 @@ export default {
     this.initializePlatforms();
   },
   methods: {
+    getLogoByName,
     initializePlatforms() {
       Object.entries(this.CATEGORIEMAPS).forEach(([category, titles]) => {
         titles.forEach((title) => {
@@ -156,10 +160,8 @@ export default {
       const titles = this.CATEGORIEMAPS[cat] || [];
       titles.forEach((title) => {
         const platform = this.platforms.find((p) => p.title === title);
-        if (platform && platform.list.length === 0 && !platform.loading) {
-          platform.loading = true;
-          this.fetchData(title);
-        }
+        platform.loading = true;
+        this.fetchData(title);
       });
     },
   },
