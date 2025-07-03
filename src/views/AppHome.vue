@@ -12,7 +12,7 @@
                 'px-4 py-2 rounded-full',
                 activeCategory === cat ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
               ]"
-              @click="activeCategory = cat"
+              @click="handleCategoryClick(cat)"
           >
             <span class="dark:text-dark-text">{{ cat }}</span>
           </button>
@@ -27,6 +27,7 @@
       </div>
 
       <section class="mb-10">
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CommunityCard
               v-for="p in filteredPlatforms"
@@ -35,6 +36,7 @@
               :logo="p.logo"
               :updateTime="p.updateTime"
               :list="p.list"
+              :loading="p.loading"
           />
         </div>
       </section>
@@ -64,29 +66,28 @@ import {
   topSearchForWangYi,
   topSearchForWangYiYun, topSearchForBaiDuTieBa, topSearchForShaoShuPai
 } from '@/api/api';
-
-const PLATFORM_CONFIG = [
-  {fetch: topSearchForBaiDu},
-  {fetch: topSearchForBilibili},
-  {fetch: topSearchForDouYin},
-  {fetch: topSearchForWeiBo},
-  {fetch: topSearchForGitHubAllStars},
-  {fetch: topSearchForGitHubDaystars},
-  {fetch: topSearchForGitHubWeekstars},
-  {fetch: topSearchForGitHubMonthstars},
-  {fetch: topSearchForGitHubYearstars},
-  {fetch: topSearchForGitHubThreeYearStars},
-  {fetch: topSearchForGitHubFiveYearStars},
-  {fetch: topSearchForGitHubTenYearStars},
-  {fetch: topSearchForYoutube},
-  {fetch: topSearchForDouBan},
-  {fetch: topSearchForTencent},
-  {fetch: topSearchForTouTiao},
-  {fetch: topSearchForWangYi},
-  {fetch: topSearchForWangYiYun},
-  {fetch: topSearchForBaiDuTieBa},
-  {fetch: topSearchForShaoShuPai},
-];
+const API_MAP = {
+  '百度': topSearchForBaiDu,
+  'B站': topSearchForBilibili,
+  '抖音': topSearchForDouYin,
+  '微博': topSearchForWeiBo,
+  'Star总榜': topSearchForGitHubAllStars,
+  '近一日新仓库Star榜': topSearchForGitHubDaystars,
+  '近一周新仓库Star榜': topSearchForGitHubWeekstars,
+  '近一月新仓库Star榜': topSearchForGitHubMonthstars,
+  '近一年新仓库Star榜': topSearchForGitHubYearstars,
+  '近三年新仓库Star榜': topSearchForGitHubThreeYearStars,
+  '近五年新仓库Star榜': topSearchForGitHubFiveYearStars,
+  '近十年新仓库Star榜': topSearchForGitHubTenYearStars,
+  'Youtube': topSearchForYoutube,
+  '豆瓣': topSearchForDouBan,
+  '腾讯': topSearchForTencent,
+  '头条': topSearchForTouTiao,
+  '网易': topSearchForWangYi,
+  '网易云': topSearchForWangYiYun,
+  '百度贴吧': topSearchForBaiDuTieBa,
+  '少数派': topSearchForShaoShuPai,
+};
 
 export default {
   components: {
@@ -108,40 +109,64 @@ export default {
     };
   },
   async mounted() {
-    // 初始化请求数据，确保所有请求都成功
-    const results = await Promise.all(
-        PLATFORM_CONFIG.map(p => p.fetch().catch(err => ({error: err})))
-    );
+    this.initializePlatforms();
+  },
+  methods: {
+    initializePlatforms() {
+      Object.entries(this.CATEGORIEMAPS).forEach(([category, titles]) => {
+        titles.forEach((title) => {
+          this.platforms.push({
+            title,
+            category,
+            logo: '',
+            list: [],
+            updateTime: '',
+            loading: true,
+          });
+          this.fetchData(title);
+        });
+      });
+    },
+    fetchData(title) {
+      const fetchFunc = API_MAP[title];
+      if (!fetchFunc) return;
 
-    // 处理请求结果
-    this.platforms = results.map(result => {
-      if (result.error || !result.data || !result.data.data) {
-        return {
-          title: '默认标题',
-          logo: '',
-          category: '未知',
-          list: [],
-          updateTime: '',
-        };
-      }
+      fetchFunc()
+          .then((res) => {
+            const data = res?.data?.data || {};
+            const platform = this.platforms.find((p) => p.title === title);
+            if (platform) {
+              platform.logo = data.dataCardLogo || '';
+              platform.updateTime = data.dataUpdateTime || '';
+              platform.list = Array.isArray(data.dataInfo) ? data.dataInfo : [];
+            }
+          })
+          .catch((err) => {
+            console.warn(`加载失败：${title}`, err);
+          })
+          .finally(() => {
+            const platform = this.platforms.find((p) => p.title === title);
+            if (platform) platform.loading = false;
+          });
+    },
+    handleCategoryClick(cat) {
+      this.activeCategory = cat;
 
-      const {dataCardCategory, dataCardName, dataCardLogo, dataInfo, dataUpdateTime} = result.data.data;
-      return {
-        title: dataCardName || '默认标题',
-        logo: dataCardLogo || '',
-        category: dataCardCategory || '未知',
-        list: Array.isArray(dataInfo) ? dataInfo : [],
-        updateTime: dataUpdateTime || '',
-      };
-    });
-
-    // 更新最后更新时间
-    this.lastUpdated = new Date().toLocaleString();
+      if (cat === '全部') return;
+      const titles = this.CATEGORIEMAPS[cat] || [];
+      titles.forEach((title) => {
+        const platform = this.platforms.find((p) => p.title === title);
+        if (platform && platform.list.length === 0 && !platform.loading) {
+          platform.loading = true;
+          this.fetchData(title);
+        }
+      });
+    },
   },
   computed: {
     filteredPlatforms() {
-      if (!Array.isArray(this.platforms)) return [];
-      return this.platforms.filter(p => this.activeCategory === '全部' || p.category === this.activeCategory);
+      if (this.activeCategory === '全部') return this.platforms;
+      return this.platforms.filter(p => p.category === this.activeCategory);
     },
   },
 };
