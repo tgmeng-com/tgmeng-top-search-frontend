@@ -157,7 +157,7 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border-left-width: calc(60px / 25);
+  border-left-width: calc(60px / 5);
   border-top-width: calc(60px / 25);
   border-left-color: #ff1d5e;
   border-left-style: solid;
