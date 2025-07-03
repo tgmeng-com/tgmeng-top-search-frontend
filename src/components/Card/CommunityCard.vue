@@ -14,16 +14,14 @@
     <div class="p-4 max-h-[480px] overflow-y-auto custom-scroll">
       <!-- ✅ 加载中 -->
       <div v-if="loading" class="flex flex-col items-center justify-center text-gray-400 py-10">
-        <div class="breeding-rhombus-spinner">
-          <div class="rhombus child-1"></div>
-          <div class="rhombus child-2"></div>
-          <div class="rhombus child-3"></div>
-          <div class="rhombus child-4"></div>
-          <div class="rhombus child-5"></div>
-          <div class="rhombus child-6"></div>
-          <div class="rhombus child-7"></div>
-          <div class="rhombus child-8"></div>
-          <div class="rhombus big"></div>
+        <div class="atom-spinner">
+          <div class="spinner-inner">
+            <div class="spinner-line"></div>
+            <div class="spinner-line"></div>
+            <div class="spinner-line"></div>
+            <!--Chrome renders little circles malformed :(-->
+            <div class="spinner-circle">&#9679;</div>
+          </div>
         </div>
         <p class="mt-3 text-sm text-gray-500">加载中...</p>
       </div>
@@ -71,7 +69,8 @@
 
       <!-- ✅ 无数据 -->
       <div v-else class="text-center text-gray-400 dark:text-gray-500 text-sm py-10">
-        🚫 暂无数据或接口异常
+        🤡 暂无数据或接口异常<br/>
+        请稍后重试或者联系作者
       </div>
     </div>
   </div>
@@ -126,133 +125,76 @@ export default {
 }
 
 /* 加载动画样式*/
-.breeding-rhombus-spinner {
-  height: 65px;
-  width: 65px;
-  position: relative;
-  transform: rotate(45deg);
-}
-
-.breeding-rhombus-spinner, .breeding-rhombus-spinner * {
+.atom-spinner, .atom-spinner * {
   box-sizing: border-box;
 }
 
-.breeding-rhombus-spinner .rhombus {
-  height: calc(65px / 7.5);
-  width: calc(65px / 7.5);
-  animation-duration: 2000ms;
-  top: calc(65px / 2.3077);
-  left: calc(65px / 2.3077);
-  background-color: #ff1d5e;
+.atom-spinner {
+  height: 60px;
+  width: 60px;
+  overflow: hidden;
+}
+
+.atom-spinner .spinner-inner {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.atom-spinner .spinner-circle {
+  display: block;
   position: absolute;
-  animation-iteration-count: infinite;
+  color: #ff1d5e;
+  font-size: calc(60px * 0.24);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.breeding-rhombus-spinner .rhombus:nth-child(2n+0) {
-  margin-right: 0;
+.atom-spinner .spinner-line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border-left-width: calc(60px / 25);
+  border-top-width: calc(60px / 25);
+  border-left-color: #ff1d5e;
+  border-left-style: solid;
+  border-top-style: solid;
+  border-top-color: transparent;
 }
 
-.breeding-rhombus-spinner .rhombus.child-1 {
-  animation-name: breeding-rhombus-spinner-animation-child-1;
-  animation-delay: calc(100ms * 1);
+.atom-spinner .spinner-line:nth-child(1) {
+  animation: atom-spinner-animation-1 1s linear infinite;
+  transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
 }
 
-.breeding-rhombus-spinner .rhombus.child-2 {
-  animation-name: breeding-rhombus-spinner-animation-child-2;
-  animation-delay: calc(100ms * 2);
+.atom-spinner .spinner-line:nth-child(2) {
+  animation: atom-spinner-animation-2 1s linear infinite;
+  transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
 }
 
-.breeding-rhombus-spinner .rhombus.child-3 {
-  animation-name: breeding-rhombus-spinner-animation-child-3;
-  animation-delay: calc(100ms * 3);
+.atom-spinner .spinner-line:nth-child(3) {
+  animation: atom-spinner-animation-3 1s linear infinite;
+  transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
 }
 
-.breeding-rhombus-spinner .rhombus.child-4 {
-  animation-name: breeding-rhombus-spinner-animation-child-4;
-  animation-delay: calc(100ms * 4);
-}
-
-.breeding-rhombus-spinner .rhombus.child-5 {
-  animation-name: breeding-rhombus-spinner-animation-child-5;
-  animation-delay: calc(100ms * 5);
-}
-
-.breeding-rhombus-spinner .rhombus.child-6 {
-  animation-name: breeding-rhombus-spinner-animation-child-6;
-  animation-delay: calc(100ms * 6);
-}
-
-.breeding-rhombus-spinner .rhombus.child-7 {
-  animation-name: breeding-rhombus-spinner-animation-child-7;
-  animation-delay: calc(100ms * 7);
-}
-
-.breeding-rhombus-spinner .rhombus.child-8 {
-  animation-name: breeding-rhombus-spinner-animation-child-8;
-  animation-delay: calc(100ms * 8);
-}
-
-.breeding-rhombus-spinner .rhombus.big {
-  height: calc(65px / 3);
-  width: calc(65px / 3);
-  top: calc(65px / 3);
-  left: calc(65px / 3);
-  background-color: #ff1d5e;
-  animation: breeding-rhombus-spinner-animation-child-big 2s infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-1 {
-  50% {
-    transform: translate(-325%, -325%);
+@keyframes atom-spinner-animation-1 {
+  100% {
+    transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
   }
 }
 
-@keyframes breeding-rhombus-spinner-animation-child-2 {
-  50% {
-    transform: translate(0, -325%);
+@keyframes atom-spinner-animation-2 {
+  100% {
+    transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
   }
 }
 
-@keyframes breeding-rhombus-spinner-animation-child-3 {
-  50% {
-    transform: translate(325%, -325%);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-4 {
-  50% {
-    transform: translate(325%, 0);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-5 {
-  50% {
-    transform: translate(325%, 325%);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-6 {
-  50% {
-    transform: translate(0, 325%);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-7 {
-  50% {
-    transform: translate(-325%, 325%);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-8 {
-  50% {
-    transform: translate(-325%, 0);
-  }
-}
-
-@keyframes breeding-rhombus-spinner-animation-child-big {
-  50% {
-    transform: scale(0.5);
+@keyframes atom-spinner-animation-3 {
+  100% {
+    transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
   }
 }
 
