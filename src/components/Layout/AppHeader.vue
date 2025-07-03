@@ -10,8 +10,16 @@
             class="logo"
         >
         </a>
-      </div>
 
+      </div>
+      <div  class="flex-1 text-center font-semibold dark:text-dark-text">
+        🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
+        <a target="_blank" href="https://github.com/CandyDream6/tgmeng-top-search-frontend" style="cursor: pointer;">👉前端</a>&nbsp;&nbsp;&nbsp;
+        <a target="_blank" href="https://github.com/CandyDream6/tgmeng-api" style="cursor: pointer;">👉后端</a><br/>
+        项目用到的所有接口均是官方接口，无任何第三方中转，主打无情<br/><br/>
+        <a class="wordColorFuckYou" target="_blank" href="https://bbs.tgmeng.com" style="cursor: pointer;">更多好物请前往论坛或交流群</a>
+
+      </div>
       <!-- 右侧主题切换 -->
       <div class="flex items-center">
         <ThemeToggle />
@@ -26,7 +34,7 @@ import ThemeToggle from '@/components/Theme/ThemeToggle.vue'
 
 <style scoped>
 .logo {
-  height: 32px; /* 根据实际需求调整 */
+  height: 50px; /* 根据实际需求调整 */
   width: auto;
 }
 
@@ -34,4 +42,22 @@ import ThemeToggle from '@/components/Theme/ThemeToggle.vue'
 .dark .logo {
   filter: invert(1) brightness(1.2); /* 白色 Logo 在深色背景下更清晰 */
 }
+
+/* 字体颜色变化 */
+.wordColorFuckYou {
+  font-weight: 900;
+  background: linear-gradient(270deg,
+  #ff3c3c, #e3bd00, #ffeb3b, #00e676, #00bcd4, #09efda, #9b56bf);
+  background-size: 600% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flashFlow 2s ease-in-out infinite;
+}
+@keyframes flashFlow {
+  0%   { background-position: 0% 50%; opacity: 1; }
+  40%  { background-position: 100% 50%; opacity: 0.85; }
+  60%  { background-position: 50% 50%; opacity: 0.5; }
+  100% { background-position: 0% 50%; opacity: 1; }
+}
+
 </style>
