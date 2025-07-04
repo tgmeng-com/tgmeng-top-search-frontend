@@ -22,7 +22,7 @@
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center justify-end">
         <!-- 数据更新时间显示部分，放在右侧并垂直居中 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 ml-4">
-          数据每分钟更新一次（GitHub数据目前有点小问题）
+          数据每分钟更新一次（GitHub数据每20-40分钟更新一次）
         </div>
       </div>
 
