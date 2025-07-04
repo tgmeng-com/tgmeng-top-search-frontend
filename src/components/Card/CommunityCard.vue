@@ -56,6 +56,7 @@
               target="_blank"
               rel="noopener noreferrer"
               class="text-sm dark:text-dark-text hot-title hover:underline"
+              :title="item.keyword"
           >
             {{ item.keyword }}
           </a>
