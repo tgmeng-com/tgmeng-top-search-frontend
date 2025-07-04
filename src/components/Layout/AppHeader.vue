@@ -16,7 +16,8 @@
         🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
         <a target="_blank" href="https://github.com/CandyDream6/tgmeng-top-search-frontend" style="cursor: pointer;">👉前端</a>&nbsp;&nbsp;&nbsp;
         <a target="_blank" href="https://github.com/CandyDream6/tgmeng-api" style="cursor: pointer;">👉后端</a><br/>
-        项目用到的所有接口均是官方接口，无任何第三方中转，主打无情铁手<br/><br/>
+        项目用到的所有接口均是官方接口，无任何第三方中转，主打无情铁手
+<!--        <br/><br/>-->
 <!--        <a class="wordColorFuckYou" target="_blank" href="https://bbs.tgmeng.com" style="cursor: pointer;">更多好物请前往论坛或交流群 bbs.tgmeng.com</a> -->
 
       </div>
