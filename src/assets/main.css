@@ -34,10 +34,10 @@
     /* 暗色模式样式 */
     .dark {
         --bg-color: #1a202c;
-        --text-color: #e2e8f0;
+        --text-color: #D1D7E0;
         --card-bg: #2d3748;
         --btn-bg: #2d3748;
-        --btn-text: #e2e8f0;
+        --btn-text: #D1D7E0;
         --btn-border: #4a5568;
     }
 
