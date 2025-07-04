@@ -64,18 +64,14 @@
 ---
 ## 🗼 部署
 
-- 您也可以通过<span style="color:yellow">Vercel</span>或者<span style="color:yellow">CloudFlare Workers</span>直接部署本项目
+- 您也可以通过<span style="color:yellow">Vercel</span>、<span style="color:yellow">CloudFlare Workers</span>、<span style="color:yellow">Netlify</span>直接部署本项目
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
-<a href="https://vercel.com/new/clone?repository-url=https://github.com/CandyDream6/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer">
-    <img src="https://vercel.com/button" alt="Deploy with Vercel">
-</a>
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
-<br/>
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
-<a href="https://deploy.workers.cloudflare.com/?url=https://github.com/CandyDream6/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer">
-<img src="https://deploy.workers.cloudflare.com/button" alt="Deploy to Cloudflare Workers">
-</a>
 
 ---
 
