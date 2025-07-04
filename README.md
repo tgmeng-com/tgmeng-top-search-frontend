@@ -3,7 +3,7 @@
 <h2><div align="center">糖果梦 热榜（前端） | Tgmeng Trend</div>
 <div>&nbsp;</div>
 <!-- profile logo 个人资料徽标 -->
-  <div>
+  <div align="center">
     <a href="https://tgmeng.com"><img src="https://img.shields.io/badge/Home-主页-blue" /></a>&emsp;
     <a href="https://bbs.tgmeng.com"><img src="https://img.shields.io/badge/BBS-论坛-c32136" /></a>&emsp;
     <a href="https://bilibili.tgmeng.com"><img src="https://img.shields.io/badge/Bilibili-B站-8c36db" /></a>&emsp;
@@ -86,7 +86,7 @@
 
 ## ❤️ 联系我
 
-<div>
+<div align="center">
     <a href="https://tgmeng.com"><img src="https://img.shields.io/badge/Home-主页-blue" /></a>&emsp;
     <a href="https://bbs.tgmeng.com"><img src="https://img.shields.io/badge/BBS-论坛-c32136" /></a>&emsp;
     <a href="https://bilibili.tgmeng.com"><img src="https://img.shields.io/badge/Bilibili-B站-8c36db" /></a>&emsp;
