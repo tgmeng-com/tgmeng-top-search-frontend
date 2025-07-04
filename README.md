@@ -64,11 +64,9 @@
 ---
 ## 🗼 部署
 
-- 您也可以通过<span style="color:yellow">Vercel</span>、<span style="color:yellow">CloudFlare Workers</span>、<span style="color:yellow">Netlify</span>直接部署本项目
+- 您也可以通过<span style="color:yellow">Vercel</span>、<span style="color:yellow">Netlify</span>等平台直接部署本项目
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
-
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
