@@ -15,9 +15,10 @@ module.exports = {
         'light-gray-text': '#718096', // 灰色文本，用于次要信息
 
         // 暗色模式颜色
-        'dark-bg': '#0f172a',
-        'dark-card': '#1e293b',
-        'dark-text': '#f8fafc',
+        'dark-bg': '#212830',
+        'dark-card': '#2E3641',
+        'dark-card-title': '#353C45',
+        'dark-text': '#D1D7E0',
         'dark-gray': '#334155',
         'dark-gray-text': '#94a3b8',
 

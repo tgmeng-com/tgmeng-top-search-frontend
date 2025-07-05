@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-sm card-hover">
     <!-- 顶部标题栏 -->
-    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 flex items-center">
+    <div class="bg-blue-50 dark:bg-dark-card-title p-4 flex items-center">
       <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full mr-3">
       <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
       <span
