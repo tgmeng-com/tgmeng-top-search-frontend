@@ -27,12 +27,12 @@ const logoMap = {
     '财经': require('@/assets/logos/tgmeng-trend_caijing.png'),
     '热梗': require('@/assets/logos/tgmeng-trend_regeng.png'),
     '民生': require('@/assets/logos/tgmeng-trend_minsheng.png'),
-    'Spaces热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
-    'Spaces点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
-    'Models热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
-    'Models点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
-    'Datasets热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
-    'Datasets点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Spaces热门榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Spaces点赞榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Models热门榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Models点赞榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Datasets热门榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Datasets点赞榜': require('@/assets/logos/tgmeng-trend_huggingface.png'),
 
 };
 
