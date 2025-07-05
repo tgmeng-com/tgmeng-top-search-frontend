@@ -22,6 +22,11 @@ const logoMap = {
     '电视剧': require('@/assets/logos/tgmeng-trend_dianshiju.png'),
     '电影': require('@/assets/logos/tgmeng-trend_dianying.png'),
     '小说': require('@/assets/logos/tgmeng-trend_xiaoshuo.png'),
+    '游戏': require('@/assets/logos/tgmeng-trend_qiche.png'),
+    '汽车': require('@/assets/logos/tgmeng-trend_youxi.png'),
+    '财经': require('@/assets/logos/tgmeng-trend_caijing.png'),
+    '热梗': require('@/assets/logos/tgmeng-trend_regeng.png'),
+    '民生': require('@/assets/logos/tgmeng-trend_minsheng.png'),
 };
 
 // 默认图

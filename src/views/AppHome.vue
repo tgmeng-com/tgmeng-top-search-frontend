@@ -46,7 +46,7 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import { getLogoByName } from '@/utils/logoMap.js';
+import {getLogoByName} from '@/utils/logoMap.js';
 import {
   topSearchForYoutube,
   topSearchForBaiDu,
@@ -65,10 +65,16 @@ import {
   topSearchForTencent,
   topSearchForTouTiao,
   topSearchForWangYi,
-  topSearchForWangYiYun, topSearchForBaiDuTieBa, topSearchForShaoShuPai,
+  topSearchForWangYiYun,
+  topSearchForBaiDuTieBa,
+  topSearchForShaoShuPai,
   topSearchForDianShiJuBaiDu,
   topSearchForDianYingBaiDu,
   topSearchForXiaoShuoBaiDu,
+  topSearchForYouXiBaiDu,
+  topSearchForQiCheBaiDu,
+  topSearchForReGengBaiDu,
+  topSearchForCaiJingBaiDu, topSearchForMinShengBaiDu,
 
 } from '@/api/api';
 
@@ -96,6 +102,11 @@ const API_MAP = {
   '电视剧': topSearchForDianShiJuBaiDu,
   '电影': topSearchForDianYingBaiDu,
   '小说': topSearchForXiaoShuoBaiDu,
+  '游戏': topSearchForYouXiBaiDu,
+  '汽车': topSearchForQiCheBaiDu,
+  '热梗': topSearchForReGengBaiDu,
+  '财经': topSearchForCaiJingBaiDu,
+  '民生': topSearchForMinShengBaiDu,
 };
 
 export default {
@@ -105,11 +116,11 @@ export default {
   data() {
     return {
       ACTIVECATEGORIE: '全部',
-      CATEGORIES: ['全部', '新闻', '社交', '媒体', 'GitHub'],
+      CATEGORIES: ['全部', '新闻', '媒体', '社交', 'GitHub'],
       CATEGORIEMAPS: {
         "新闻": ['腾讯', '头条', '网易', '百度'],
         "社交": ['微博', '百度贴吧', '豆瓣', '少数派'],
-        "媒体": ['B站', '抖音','电视剧','电影','小说', '网易云', 'Youtube'],
+        "媒体": ['B站', '抖音', '网易云', 'Youtube', '电视剧', '电影', '小说', '热梗', '财经', '民生', '汽车', '游戏'],
         "GitHub": ['Star总榜', '近一日新仓库Star榜', '近一周新仓库Star榜',
           '近一月新仓库Star榜', '近一年新仓库Star榜', '近三年新仓库Star榜',
           '近五年新仓库Star榜', '近十年新仓库Star榜']

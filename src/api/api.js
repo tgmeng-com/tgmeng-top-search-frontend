@@ -183,3 +183,43 @@ export function topSearchForXiaoShuoBaiDu(data) {
         data: data
     })
 }
+
+export function topSearchForYouXiBaiDu(data) {
+    return request({
+        url: '/topsearch/youxibaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForQiCheBaiDu(data) {
+    return request({
+        url: '/topsearch/qichebaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForReGengBaiDu(data) {
+    return request({
+        url: '/topsearch/regengbaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCaiJingBaiDu(data) {
+    return request({
+        url: '/topsearch/caijingbaidu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForMinShengBaiDu(data) {
+    return request({
+        url: '/topsearch/minshengbaidu',
+        method: 'get',
+        data: data
+    })
+}
