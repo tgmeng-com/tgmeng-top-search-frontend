@@ -1,12 +1,3 @@
-import {
-    topSearchForHuggingFaceDatasetsLikes,
-    topSearchForHuggingFaceDatasetsTrending,
-    topSearchForHuggingFaceModelLikes,
-    topSearchForHuggingFaceModelTrending,
-    topSearchForHuggingFaceSpaceLikes,
-    topSearchForHuggingFaceSpaceTrending
-} from "@/api/api";
-
 const logoMap = {
     'B站': require('@/assets/logos/tgmeng-trend_bilibili.png'),
     '网易云': require('@/assets/logos/tgmeng-trend_wangyiyun.png'),
