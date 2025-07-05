@@ -14,6 +14,7 @@
   </div>
 
 ---
+
 ## 🏩 项目主页：https://trend.tgmeng.com
 
 - <h4>本站前后端均已100%全面开源，欢迎大家Star，Fork，PR，Issues。<br/>
@@ -21,6 +22,7 @@
 - <h4>这里是前端，<a href="https://github.com/CandyDream6/tgmeng-api" target="_blank">👉后端项目源码请点击前往👈</a>
 
 ---
+
 ## 👁️ 预览
 
 ![Screenshot](https://r2-trend.tgmeng.com/tgmeng-trend/tgmeng-trend-yulan.png)
@@ -36,6 +38,7 @@
 - 所有接口均来自官方，无任何第三方中转，主打无情铁手，AA接W接A接无情铁手接外圈刮接一刀斩
 
 ---
+
 ## ✨ 平台支持
 
 - ✅ 新闻
@@ -66,9 +69,17 @@
   - ✅ GitHub 近一日新仓库Star榜
   - ✅ GitHub 近一周新仓库Star榜
   - ✅ GitHub 近一月新仓库Star榜
+  - ✅ GitHub 近一年新仓库Star榜
   - ✅ GitHub 近三年新仓库Star榜
   - ✅ GitHub 近五年新仓库Star榜
   - ✅ GitHub 近十年新仓库Star榜
+- ✅ Hugging Face（2025-07-05+）
+  - ✅  Hugging Face Spaces热门榜（2025-07-05+）
+  - ✅  Hugging Face Spaces点赞榜（2025-07-05+）
+  - ✅  Hugging Face Models热门榜（2025-07-05+）
+  - ✅  Hugging Face Models点赞榜（2025-07-05+）
+  - ✅  Hugging Face Datasets热门榜（2025-07-05+）
+  - ✅  Hugging Face Datasets点赞榜（2025-07-05+）
 
 ---
 ## 🗼 部署
@@ -78,7 +89,6 @@
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CandyDream6/tgmeng-top-search-frontend)
-
 
 ---
 

@@ -223,3 +223,51 @@ export function topSearchForMinShengBaiDu(data) {
         data: data
     })
 }
+
+export function topSearchForHuggingFaceSpaceTrending(data) {
+    return request({
+        url: '/topsearch/global/huggingfacespacestrending',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuggingFaceSpaceLikes(data) {
+    return request({
+        url: '/topsearch/global/huggingfacespaceslikes',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuggingFaceModelTrending(data) {
+    return request({
+        url: '/topsearch/global/huggingfacemodelstrending',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuggingFaceModelLikes(data) {
+    return request({
+        url: '/topsearch/global/huggingfacemodellikes',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuggingFaceDatasetsTrending(data) {
+    return request({
+        url: '/topsearch/global/huggingfacedatasetstrending',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuggingFaceDatasetsLikes(data) {
+    return request({
+        url: '/topsearch/global/huggingfacedatasetslikes',
+        method: 'get',
+        data: data
+    })
+}

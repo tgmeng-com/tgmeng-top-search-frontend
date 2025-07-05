@@ -74,7 +74,13 @@ import {
   topSearchForYouXiBaiDu,
   topSearchForQiCheBaiDu,
   topSearchForReGengBaiDu,
-  topSearchForCaiJingBaiDu, topSearchForMinShengBaiDu,
+  topSearchForCaiJingBaiDu,
+  topSearchForMinShengBaiDu,
+  topSearchForHuggingFaceSpaceTrending,
+  topSearchForHuggingFaceSpaceLikes,
+  topSearchForHuggingFaceModelTrending,
+  topSearchForHuggingFaceModelLikes,
+  topSearchForHuggingFaceDatasetsTrending, topSearchForHuggingFaceDatasetsLikes,
 
 } from '@/api/api';
 
@@ -107,6 +113,12 @@ const API_MAP = {
   '热梗': topSearchForReGengBaiDu,
   '财经': topSearchForCaiJingBaiDu,
   '民生': topSearchForMinShengBaiDu,
+  'Spaces热门榜': topSearchForHuggingFaceSpaceTrending,
+  'Spaces点赞榜': topSearchForHuggingFaceSpaceLikes,
+  'Models热门榜': topSearchForHuggingFaceModelTrending,
+  'Models点赞榜': topSearchForHuggingFaceModelLikes,
+  'Datasets热门榜': topSearchForHuggingFaceDatasetsTrending,
+  'Datasets点赞榜': topSearchForHuggingFaceDatasetsLikes,
 };
 
 export default {
@@ -116,14 +128,15 @@ export default {
   data() {
     return {
       ACTIVECATEGORIE: '全部',
-      CATEGORIES: ['全部', '新闻', '媒体', '社交', 'GitHub'],
+      CATEGORIES: ['全部', '新闻', '媒体', '社交', 'GitHub','HuggingFace'],
       CATEGORIEMAPS: {
         "新闻": ['腾讯', '头条', '网易', '百度'],
         "社交": ['微博', '百度贴吧', '豆瓣', '少数派'],
         "媒体": ['B站', '抖音', '网易云', 'Youtube', '电视剧', '电影', '小说', '热梗', '财经', '民生', '汽车', '游戏'],
         "GitHub": ['Star总榜', '近一日新仓库Star榜', '近一周新仓库Star榜',
           '近一月新仓库Star榜', '近一年新仓库Star榜', '近三年新仓库Star榜',
-          '近五年新仓库Star榜', '近十年新仓库Star榜']
+          '近五年新仓库Star榜', '近十年新仓库Star榜'],
+        "HuggingFace": ['Spaces热门榜', 'Spaces点赞榜', 'Models热门榜', 'Models点赞榜', 'Datasets热门榜', 'Datasets点赞榜'],
       },
       platforms: [],
       lastUpdated: '',

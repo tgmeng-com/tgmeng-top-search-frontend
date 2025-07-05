@@ -1,3 +1,12 @@
+import {
+    topSearchForHuggingFaceDatasetsLikes,
+    topSearchForHuggingFaceDatasetsTrending,
+    topSearchForHuggingFaceModelLikes,
+    topSearchForHuggingFaceModelTrending,
+    topSearchForHuggingFaceSpaceLikes,
+    topSearchForHuggingFaceSpaceTrending
+} from "@/api/api";
+
 const logoMap = {
     'B站': require('@/assets/logos/tgmeng-trend_bilibili.png'),
     '网易云': require('@/assets/logos/tgmeng-trend_wangyiyun.png'),
@@ -27,6 +36,13 @@ const logoMap = {
     '财经': require('@/assets/logos/tgmeng-trend_caijing.png'),
     '热梗': require('@/assets/logos/tgmeng-trend_regeng.png'),
     '民生': require('@/assets/logos/tgmeng-trend_minsheng.png'),
+    'Spaces热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Spaces点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Models热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Models点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Datasets热门': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+    'Datasets点赞': require('@/assets/logos/tgmeng-trend_huggingface.png'),
+
 };
 
 // 默认图
