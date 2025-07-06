@@ -1,12 +1,12 @@
 class Platform {
-    constructor(title, api, logo) {
+    constructor(title, api, logo, isShow = true) {
         this.title = title;
         this.api = api;
         this.logo = logo;
         this.updateTime = '';
         this.data = [];
         this.loading = true;
-        this.isShow = true;
+        this.isShow = isShow;
     }
 }
 

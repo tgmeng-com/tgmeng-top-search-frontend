@@ -30,6 +30,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CommunityCard
               v-for="p in activeCategory.subCategories"
+              v-show="p.isShow"
               :key="p.title"
               :title="p.title"
               :logo="p.logo"
