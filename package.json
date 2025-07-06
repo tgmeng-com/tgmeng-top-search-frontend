@@ -16,7 +16,8 @@
     "chart.js": "^4.4.8",
     "core-js": "^3.8.3",
     "element-plus": "^2.10.3",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.7",
