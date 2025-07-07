@@ -6,6 +6,7 @@
         <!-- 分类按钮部分，居中，并且可换行 -->
         <div class="flex space-x-2 py-2 flex-wrap justify-center w-full">
           <button
+              v-show="cat.isShow"
               v-for="cat in categroies"
               :key="cat.name"
               :class="[
@@ -46,6 +47,7 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
+import {getCategroiesFromLocalStorage} from "@/utils/localStorageUtils";
 
 export default {
   components: {
@@ -62,12 +64,27 @@ export default {
   },
   methods: {
     initializePlatforms() {
+      const cacheCategroies = getCategroiesFromLocalStorage('categroies');
+
       this.activeCategory = this.categroies[0];
       this.categroies.forEach(cat => {
         cat.subCategories.forEach(subCat => {
-          subCat.loading = true;
-          this.fetchData(subCat);
-          this.activeCategory.subCategories.push(subCat)
+          //把缓存里的isShow替换一下
+          if (cacheCategroies) {
+            cacheCategroies.forEach(cacheCat => {
+              cacheCat.subCategories.forEach(cacheSubCat => {
+                if (cacheSubCat.title === subCat.title) {
+                  subCat.isShow = cacheSubCat.isShow;
+                }
+              })
+            })
+          }
+          //只加载show的数据
+          if (subCat.isShow) {
+            subCat.loading = true;
+            this.fetchData(subCat);
+            this.activeCategory.subCategories.push(subCat)
+          }
         });
       })
     },
@@ -93,17 +110,12 @@ export default {
     // 分类按钮点击事件
     handleCategoryClick(cat) {
       this.activeCategory = cat;
-
-      // let titles;
-      // if (cat.name === '全部') {
-      //   // 全部分类时，加载所有平台
-      //   titles = this.platforms.map(p => p.title);
-      // } else {
-      //   titles = this.CATEGORIEMAPS[cat] || [];
-      // }
       cat.subCategories.forEach(subCat => {
-        subCat.loading = true;
-        this.fetchData(subCat);
+        //只加载show的数据
+        if (subCat.isShow) {
+          subCat.loading = true;
+          this.fetchData(subCat);
+        }
       });
     },
   },

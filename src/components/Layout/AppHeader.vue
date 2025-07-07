@@ -22,16 +22,15 @@
 <!--        <a class="wordColorFuckYou" target="_blank" href="https://bbs.tgmeng.com" style="cursor: pointer;">更多好物请前往论坛或交流群 bbs.tgmeng.com</a> -->
 
       </div>
-      <!-- 右侧主题切换 -->
-      <div class="flex items-center">
-        <ThemeToggle />
-      </div>
+<!--      &lt;!&ndash; 右侧主题切换 &ndash;&gt;-->
+<!--      <div class="flex items-center">-->
+<!--        <ThemeToggle />-->
+<!--      </div>-->
     </div>
   </header>
 </template>
 
 <script setup>
-import ThemeToggle from '@/components/Theme/ThemeToggle.vue'
 </script>
 
 <style scoped>

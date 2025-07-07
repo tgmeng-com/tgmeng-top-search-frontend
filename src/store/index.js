@@ -122,25 +122,4 @@ export default createStore({
             },
         ],  // 定义一个状态变量 count
     },
-    mutations: {
-        // 修改 state 中的数据
-        increment(state) {
-            state.count++;
-        },
-        decrement(state) {
-            state.count--;
-        }
-    },
-    actions: {
-        // 异步操作
-        incrementAsync({commit}) {
-            setTimeout(() => {
-                commit('increment');
-            }, 1000);
-        }
-    },
-    getters: {
-        // 获取 state 的数据
-        getCatagroies: state => state.categroies
-    }
 });
