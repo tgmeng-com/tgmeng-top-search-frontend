@@ -109,8 +109,10 @@ import ThemeToggle from "@/components/Theme/ThemeToggle.vue";
 export default {
   components: {ThemeToggle},
   mounted() {
-    const savedTheme = localStorage.getItem('theme')
+    // ✅✅✅✅✅✅ 顶部通知
+    this.notificationMessage()
 
+    const savedTheme = localStorage.getItem('theme')
     // 优先使用用户保存的主题
     if (savedTheme) {
       this.isDark = savedTheme === 'dark'
@@ -129,6 +131,15 @@ export default {
   },
   computed: {},
   methods: {
+    notificationMessage() {
+      this.$notify({
+        title: '佬们好！',
+        message: '✅新增网易云音乐可以直接播放（会员歌曲无法播放，如果有佬愿意贡献会员id，不胜感激！）',
+        duration: 10000,
+        type: 'success',
+        position: 'top-left'
+      });
+    },
     drawerClick() {
       this.drawer = true
     },
