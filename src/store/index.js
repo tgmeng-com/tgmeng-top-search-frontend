@@ -70,9 +70,9 @@ export default createStore({
                 name: '媒体',
                 isShow: true,
                 subCategories: [
+                    new Platform('网易云', topSearchForWangYiYun, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                     new Platform('B站', topSearchForBilibili, require('@/assets/logos/tgmeng-trend_bilibili.png')),
                     new Platform('抖音', topSearchForDouYin, require('@/assets/logos/tgmeng-trend_douyin.png')),
-                    new Platform('网易云', topSearchForWangYiYun, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                     new Platform('Youtube', topSearchForYoutube, require('@/assets/logos/tgmeng-trend_youtube.png')),
                     new Platform('电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png')),
                     new Platform('电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png')),

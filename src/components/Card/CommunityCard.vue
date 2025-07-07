@@ -1,5 +1,6 @@
 <template>
   <div class="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-sm card-hover">
+
     <!-- 顶部标题栏 -->
     <div class="bg-blue-50 dark:bg-dark-card-title p-4 flex items-center">
       <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full mr-3">
@@ -19,13 +20,11 @@
             <div class="spinner-line"></div>
             <div class="spinner-line"></div>
             <div class="spinner-line"></div>
-            <!--Chrome renders little circles malformed :(-->
             <div class="spinner-circle">&#9679;</div>
           </div>
         </div>
         <p class="mt-3 text-sm text-gray-500">加载中...</p>
       </div>
-
 
       <!-- ✅ 有数据 -->
       <ul v-else-if="list && list.length > 0" class="space-y-3">
@@ -37,15 +36,15 @@
           <!-- 序号 -->
           <span
               :class="[
-              'w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3',
-              index === 0
-                ? 'bg-red-600 text-white'
-                : index === 1
-                ? 'bg-orange-500 text-white'
-                : index === 2
-                ? 'bg-yellow-700 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300',
-            ]"
+                'w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3',
+                index === 0
+                  ? 'bg-red-600 text-white'
+                  : index === 1
+                  ? 'bg-orange-500 text-white'
+                  : index === 2
+                  ? 'bg-yellow-700 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+              ]"
           >
             {{ index + 1 }}
           </span>
@@ -61,16 +60,38 @@
             {{ item.keyword }}
           </a>
 
-          <!-- 热度值 -->
-          <span class="text-sm text-red-600 dark:text-red-300 hot-score">
-            🔥{{ item.hotScore }}
-          </span>
+          <div>
+            <template v-if="title === '网易云'">
+              <!-- 音乐播放器 -->
+              <audio
+                  :id="'audio-' + index"
+                  :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
+                  ref="audios"
+                  :loop="isLoop"
+              ></audio>
+
+              <!-- 播放按钮 -->
+              <button @click="playAudio(index, item.keyword)">
+                {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
+              </button>
+
+              <!-- 循环播放按钮 -->
+              <button @click="toggleLoop(index)">
+                {{ isLoop ? '🔁' : '🔂' }}
+              </button>
+            </template>
+            <template v-else>
+              <span class="text-sm text-red-600 dark:text-red-300 hot-score">
+                🔥{{ item.hotScore }}
+              </span>
+            </template>
+          </div>
         </li>
       </ul>
 
       <!-- ✅ 无数据 -->
       <div v-else class="text-center text-gray-400 dark:text-gray-500 text-sm py-10">
-        🤡 暂无数据或接口异常<br/>
+        🤡 暂无数据或接口异常<br />
         请稍后重试或者联系作者
       </div>
     </div>
@@ -79,6 +100,75 @@
 
 <script>
 export default {
+  data() {
+    return {
+      playingIndex: null,
+      isPaused: true,
+      isLoop: false,  // 默认不循环播放
+    };
+  },
+  methods: {
+    extractWangYiYunId(url) {
+      const match = url.match(/id=(\d+)/);
+      return match ? match[1] : '';
+    },
+    // 播放音乐
+    playAudio(index, title) {
+      const audios = this.$refs.audios;
+      if (!audios || audios.length === 0) return;
+
+      const currentAudio = audios[index];
+      if (!currentAudio) return;
+
+      // 如果当前点击的是播放中的音频
+      if (this.playingIndex === index) {
+        if (currentAudio.paused) {
+          currentAudio.play().catch(err => {
+            console.error(title + ' 播放失败:', err);
+            this.$message?.error?.(title + ' 播放失败(狗会员才能听，站长乏力，当然如果你愿意贡献会员账号就万分感激！)');
+          });
+          this.isPaused = false;
+        } else {
+          currentAudio.pause();
+          this.isPaused = true;
+        }
+      } else {
+        // 如果有其他音频在播放，暂停它
+        if (this.playingIndex !== null && audios[this.playingIndex]) {
+          audios[this.playingIndex].pause();
+          audios[this.playingIndex].currentTime = 0;
+        }
+        // 播放当前选中音频
+        currentAudio.play().catch(err => {
+          console.error(title + ' 播放失败:', err);
+          this.$message?.error?.(title + ' 播放失败(狗会员才能听，站长乏力，当然如果你愿意贡献会员账号就万分感激！)');
+        });
+        this.playingIndex = index;
+        this.isPaused = false;
+      }
+
+      // 监听暂停事件，保持状态同步
+      currentAudio.onpause = () => {
+        if (this.playingIndex === index) {
+          this.isPaused = true;
+        }
+      };
+
+      // 监听播放事件，保持状态同步
+      currentAudio.onplay = () => {
+        this.isPaused = false;
+      };
+    },
+
+    // 切换循环播放
+    toggleLoop(index) {
+      this.isLoop = !this.isLoop; // 切换循环状态
+      const audio = this.$refs.audios[index];
+      if (audio) {
+        audio.loop = this.isLoop;
+      }
+    }
+  },
   props: {
     title: String,
     logo: String,
@@ -198,7 +288,4 @@ export default {
     transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
   }
 }
-
-
-
 </style>
