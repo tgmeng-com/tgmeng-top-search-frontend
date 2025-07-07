@@ -18,31 +18,38 @@
     </div>
 
 
-    <el-drawer v-model="drawer" title="I am the title" :with-header="false" :direction="'ttb'">
+    <el-drawer v-model="drawer" :with-header="false" :direction="'ttb'">
 
+      <div style="margin-bottom: 20px">
+        <el-button class="resetButton" type="danger" @click="cleanLocalStorage">重置设置</el-button>
+      </div>
 
-      <el-button type="text" @click="cleanLocalStorage">重置设置</el-button>
-
-      <el-tabs v-model="activeName" stretch=true>
-        <el-tab-pane
-            v-for="cat in categroies"
-            :key="cat.name"
-            :name="cat.name"
-            :label="cat.name">
-          <div style="width: 200px;float: left;text-align: left"
-               v-for="p in cat.subCategories"
-               :key="p.title"
-          >
-            <el-switch
-                v-model="p.isShow"
-                active-color="#13ce66"
-                inactive-color="#C0CCDA"
-                @change="changeCategroyStatus">
-            </el-switch>
-            {{ p.title }}
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+      <div>
+        <el-tabs v-model="activeName" stretch=false>
+          <el-tab-pane
+              v-for="cat in categroies"
+              :key="cat.name"
+              :name="cat.name"
+              :label="cat.name">
+            <!-- 使用 flex 布局 -->
+            <div class="flex flex-wrap">
+              <div style="width: 240px; display: flex; align-items: center; margin-bottom: 8px;"
+                   v-for="p in cat.subCategories"
+                   :key="p.title"
+              >
+                <el-switch
+                    v-model="p.isShow"
+                    active-color="#13ce66"
+                    inactive-color="#C0CCDA"
+                    @change="changeCategroyStatus">
+                </el-switch>
+                <img :src="p.logo" style="width: 20px; margin-left: 8px; margin-right: 8px;">
+                <span>{{ p.title }}</span>
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </el-drawer>
   </div>
 </template>
@@ -116,7 +123,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* 保持原有样式不变 */
 .setting-btn {
   background: transparent;
@@ -156,6 +163,30 @@ export default {
 
 .theme-toggle-btn:active .icon {
   transform: scale(0.95);
+}
+
+.resetButton {
+  background-color: #f56c6c !important;
+}
+
+:deep(.el-button+.el-button){
+  background-color: #409eff !important;
+}
+:deep(.el-drawer) {
+  height: auto !important;
+  background-color: #dbdbdb !important;
+  border-radius: 0 0 50px 50px !important;
+}
+
+:deep(.el-tabs) {
+  background-color: #c9c9c9;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+:deep(.el-tabs__item) {
+  font-weight: 700 !important;
+  color: #045a47 !important;
 }
 
 </style>
