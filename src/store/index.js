@@ -44,7 +44,7 @@ import {
     topSearchForHuggingFaceSpaceLikes,
     topSearchForHuggingFaceModelTrending,
     topSearchForHuggingFaceModelLikes,
-    topSearchForHuggingFaceDatasetsTrending, topSearchForHuggingFaceDatasetsLikes,
+    topSearchForHuggingFaceDatasetsTrending, topSearchForHuggingFaceDatasetsLikes, topSearchForZhiHu,
 
 } from '@/api/api';
 
@@ -89,6 +89,7 @@ export default createStore({
                 isShow: true,
                 subCategories: [
                     new Platform('微博', topSearchForWeiBo, require('@/assets/logos/tgmeng-trend_weibo.png')),
+                    new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png')),
                     new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png')),
                     new Platform('豆瓣', topSearchForDouBan, require('@/assets/logos/tgmeng-trend_douban.png')),
                     new Platform('少数派', topSearchForShaoShuPai, require('@/assets/logos/tgmeng-trend_shaoshupai.png')),

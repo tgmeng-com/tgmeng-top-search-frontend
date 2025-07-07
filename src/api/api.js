@@ -271,3 +271,11 @@ export function topSearchForHuggingFaceDatasetsLikes(data) {
         data: data
     })
 }
+
+export function topSearchForZhiHu(data) {
+    return request({
+        url: '/topsearch/zhihu',
+        method: 'get',
+        data: data
+    })
+}
