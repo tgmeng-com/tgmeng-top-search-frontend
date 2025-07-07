@@ -186,7 +186,8 @@ export default {
 
 :deep(.el-tabs__item) {
   font-weight: 700 !important;
-  color: #045a47 !important;
+  color: #004c4d !important;
+  font-size: 18px !important;
 }
 
 </style>
