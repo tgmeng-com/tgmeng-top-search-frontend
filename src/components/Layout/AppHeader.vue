@@ -3,9 +3,8 @@
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
       <!-- 左侧 Logo -->
       <div class="flex items-center space-x-2">
-        <!-- 替换为你的 Logo 路径 -->
-<!--        <a href="https://tgmeng.com" target="_blank"><img-->
-        <a href="javascript:void(0)"><img
+<!--        <a href="javascript:void(0)"><img&ndash;&gt;-->
+        <a href="https://tgmeng.com" target="_blank"><img
             src="@/assets/image/logo.png"
             alt="网站 Logo"
             class="logo"

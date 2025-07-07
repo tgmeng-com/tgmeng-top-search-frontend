@@ -1,20 +1,66 @@
 <template>
   <div class="container mx-auto px-4  flex justify-end items-center">
-    <div class="ml-4">
-      <ThemeToggle />
+
+    <!--交流群-->
+    <div class="ml-4" style="width: 40px;">
+      <a href="https://wechat.tgmeng.com" target="_blank">
+        <el-tooltip
+            placement="bottom"
+            effect="light"
+        >
+          <template #content>
+            <div style="text-align: center"><span style="color: #212830">进交流群</span></div>
+            <img src="@/assets/image/wechat.png" style="width: 100px;"/>
+          </template>
+          <div style="width: 33px">
+            <img src="../assets/image/wechat-logo.png">
+          </div>
+        </el-tooltip>
+      </a>
+    </div>
+
+    <!--论坛-->
+    <div class="ml-4" style="width: 40px;">
+      <a href="https://bbs.tgmeng.com" target="_blank">
+        <el-tooltip
+            placement="bottom"
+            effect="light"
+        >
+          <template #content>
+            <div style="text-align: center"><span style="color: #212830">论坛</span></div>
+          </template>
+          <div style="width: 26px">
+            <img src="../assets/image/bbs.png">
+          </div>
+        </el-tooltip>
+      </a>
     </div>
 
 
+    <!--明暗主题-->
     <div class="ml-4">
-      <button
-          @click="drawerClick"
-          class="setting-btn"
-          aria-label="设置"
+      <ThemeToggle/>
+    </div>
+
+    <!--设置  -->
+    <div class="ml-4">
+      <el-tooltip
+          placement="bottom"
+          effect="light"
       >
-        <div style="width: 33px">
-          <img src="@/assets/image/setting.png">
-        </div>
-      </button>
+        <template #content>
+          <div style="text-align: center"><span style="color: #212830">设置</span></div>
+        </template>
+        <button
+            @click="drawerClick"
+            class="setting-btn"
+            aria-label="设置"
+        >
+          <div style="width: 33px">
+            <img src="@/assets/image/setting.png">
+          </div>
+        </button>
+      </el-tooltip>
     </div>
 
 
@@ -169,9 +215,10 @@ export default {
   background-color: #f56c6c !important;
 }
 
-:deep(.el-button+.el-button){
+:deep(.el-button+.el-button) {
   background-color: #409eff !important;
 }
+
 :deep(.el-drawer) {
   height: auto !important;
   background-color: #dbdbdb !important;
