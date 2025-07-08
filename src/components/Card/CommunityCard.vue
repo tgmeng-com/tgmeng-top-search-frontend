@@ -65,10 +65,16 @@
               <!-- 音乐播放器 -->
               <audio
                   :id="'audio-' + index"
-                  :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
+                  :src="extractWangYiYunUrlByShenMo(extractWangYiYunId(item.url))+'.mp3'"
                   ref="audios"
                   :loop="isLoop"
               ></audio>
+<!--              <audio-->
+<!--                  :id="'audio-' + index"-->
+<!--                  :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"-->
+<!--                  ref="audios"-->
+<!--                  :loop="isLoop"-->
+<!--              ></audio>-->
 
               <!-- 播放按钮 -->
               <button @click="playAudio(index, item.keyword)">
@@ -99,7 +105,10 @@
 </template>
 
 <script>
+import {getWyySongUrl} from "@/api/apiForLinuxDoShenMoLDWYYAPI";
 export default {
+  components: {
+  },
   data() {
     return {
       playingIndex: null,
@@ -108,6 +117,17 @@ export default {
     };
   },
   methods: {
+    extractWangYiYunUrlByShenMo(songId) {
+      return getWyySongUrl(songId)
+          .then((res) => {
+            return res.url;
+          })
+          .catch((err) => {
+            console.warn(songId + `神魔网易云解析加载失败：`, err);
+            return ''
+          })
+
+    },
     extractWangYiYunId(url) {
       const match = url.match(/id=(\d+)/);
       return match ? match[1] : '';
