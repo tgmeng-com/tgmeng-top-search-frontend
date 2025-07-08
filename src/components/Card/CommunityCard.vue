@@ -118,14 +118,15 @@ export default {
   },
   methods: {
     extractWangYiYunUrlByShenMo(songId) {
-      return getWyySongUrl(songId)
+      let url = ''
+      getWyySongUrl(songId)
           .then((res) => {
-            return res.url;
+            url = res.url;
           })
           .catch((err) => {
             console.warn(songId + `神魔网易云解析加载失败：`, err);
-            return ''
           })
+      return url;
 
     },
     extractWangYiYunId(url) {
