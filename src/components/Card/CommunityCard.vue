@@ -76,7 +76,7 @@
 
               <!-- 循环播放按钮 -->
               <button @click="toggleLoop(index)">
-                {{ isLoop ? '🔁' : '🔂' }}
+                {{ isLoop ? '🔁' : '🔂'  }}
               </button>
             </template>
             <template v-else>
