@@ -62,3 +62,9 @@
 body {
     @apply bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text;
 }
+
+.el-drawer {
+    height: auto !important;
+    background-color: #dbdbdb !important;
+    border-radius: 0 0 50px 50px !important;
+}

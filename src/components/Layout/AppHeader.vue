@@ -1,17 +1,6 @@
 <template>
-  <header class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
+  <header class=" top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <!-- 左侧 Logo -->
-      <div class="flex items-center space-x-2">
-<!--        <a href="javascript:void(0)"><img&ndash;&gt;-->
-        <a href="https://tgmeng.com" target="_blank"><img
-            src="@/assets/image/logo.png"
-            alt="网站 Logo"
-            class="logo"
-        >
-        </a>
-
-      </div>
       <div  class="flex-1 text-center font-semibold dark:text-dark-text">
         🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
         <a target="_blank" href="https://github.com/CandyDream6/tgmeng-top-search-frontend" style="cursor: pointer;">👉前端</a>&nbsp;&nbsp;&nbsp;
@@ -21,10 +10,6 @@
 <!--        <a class="wordColorFuckYou" target="_blank" href="https://bbs.tgmeng.com" style="cursor: pointer;">更多好物请前往论坛或交流群 bbs.tgmeng.com</a> -->
 
       </div>
-<!--      &lt;!&ndash; 右侧主题切换 &ndash;&gt;-->
-<!--      <div class="flex items-center">-->
-<!--        <ThemeToggle />-->
-<!--      </div>-->
     </div>
   </header>
 </template>

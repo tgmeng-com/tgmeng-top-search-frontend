@@ -1,103 +1,119 @@
 <template>
-  <div class="container mx-auto px-4  flex justify-end items-center">
+  <div class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
 
-    <!--交流群-->
-    <div class="ml-4" style="width: 40px;">
-      <a href="https://wechat.tgmeng.com" target="_blank">
-        <el-tooltip
-            placement="bottom"
-            effect="light"
+  <div style="min-height: 80px;margin-top: 30px"  class="container mx-auto px-4 flex items-center ">
+
+    <!-- 左侧 Logo -->
+    <div class="ml-4" style="width: 50px;">
+      <a href="https://tgmeng.com" target="_blank">
+        <img
+            src="@/assets/image/logo.png"
+            alt="网站 Logo"
+            class="logo"
         >
-          <template #content>
-            <div style="text-align: center"><span style="color: #212830">进交流群</span></div>
-            <img src="@/assets/image/wechat.png" style="width: 100px;"/>
-          </template>
-          <div style="width: 33px">
-            <img src="../assets/image/wechat-logo.png">
-          </div>
-        </el-tooltip>
       </a>
     </div>
 
-    <!--论坛-->
-    <div class="ml-4" style="width: 40px;">
-      <a href="https://bbs.tgmeng.com" target="_blank">
-        <el-tooltip
-            placement="bottom"
-            effect="light"
-        >
-          <template #content>
-            <div style="text-align: center"><span style="color: #212830">论坛</span></div>
-          </template>
-          <div style="width: 26px">
-            <img src="../assets/image/bbs.png">
-          </div>
-        </el-tooltip>
-      </a>
-    </div>
-
-
-    <!--明暗主题-->
-    <div class="ml-4">
-      <ThemeToggle/>
-    </div>
-
-    <!--设置  -->
-    <div class="ml-4">
-      <el-tooltip
-          placement="bottom"
-          effect="light"
-      >
-        <template #content>
-          <div style="text-align: center"><span style="color: #212830">设置</span></div>
-        </template>
-        <button
-            @click="drawerClick"
-            class="setting-btn"
-            aria-label="设置"
-        >
-          <div style="width: 33px">
-            <img src="@/assets/image/setting.png">
-          </div>
-        </button>
-      </el-tooltip>
-    </div>
-
-
-    <el-drawer v-model="drawer" :with-header="false" :direction="'ttb'">
-
-      <div style="margin-bottom: 20px">
-        <el-button class="resetButton" type="danger" @click="cleanLocalStorage">重置设置</el-button>
-      </div>
-
-      <div>
-        <el-tabs v-model="activeName" stretch=false>
-          <el-tab-pane
-              v-for="cat in categroies"
-              :key="cat.name"
-              :name="cat.name"
-              :label="cat.name">
-            <!-- 使用 flex 布局 -->
-            <div class="flex flex-wrap">
-              <div style="width: 240px; display: flex; align-items: center; margin-bottom: 8px;"
-                   v-for="p in cat.subCategories"
-                   :key="p.title"
-              >
-                <el-switch
-                    v-model="p.isShow"
-                    active-color="#13ce66"
-                    inactive-color="#C0CCDA"
-                    @change="changeCategroyStatus">
-                </el-switch>
-                <img :src="p.logo" style="width: 20px; margin-left: 8px; margin-right: 8px;">
-                <span>{{ p.title }}</span>
-              </div>
+    <!-- 右侧元素容器 -->
+    <div class="flex-1 flex justify-end items-center space-x-4">
+      <!-- 交流群 -->
+      <div style="width: 40px;">
+        <a href="https://wechat.tgmeng.com" target="_blank">
+          <el-tooltip
+              placement="bottom"
+              effect="light"
+          >
+            <template #content>
+              <div style="text-align: center"><span style="color: #212830">进交流群</span></div>
+              <img src="@/assets/image/wechat.png" style="width: 100px;"/>
+            </template>
+            <div style="width: 33px">
+              <img src="../assets/image/wechat-logo.png">
             </div>
-          </el-tab-pane>
-        </el-tabs>
+          </el-tooltip>
+        </a>
       </div>
-    </el-drawer>
+
+      <!-- 论坛 -->
+      <div style="width: 40px;">
+        <a href="https://bbs.tgmeng.com" target="_blank">
+          <el-tooltip
+              placement="bottom"
+              effect="light"
+          >
+            <template #content>
+              <div style="text-align: center"><span style="color: #212830">论坛</span></div>
+            </template>
+            <div style="width: 26px">
+              <img src="../assets/image/bbs.png">
+            </div>
+          </el-tooltip>
+        </a>
+      </div>
+
+      <!-- 明暗主题 -->
+      <div>
+        <ThemeToggle/>
+      </div>
+
+      <!-- 设置 -->
+      <div>
+        <el-tooltip
+            placement="bottom"
+            effect="light"
+        >
+          <template #content>
+            <div style="text-align: center"><span style="color: #212830">设置</span></div>
+          </template>
+          <button
+              @click="drawerClick"
+              class="setting-btn"
+              aria-label="设置"
+          >
+            <div style="width: 33px">
+              <img src="@/assets/image/setting.png">
+            </div>
+          </button>
+        </el-tooltip>
+      </div>
+    </div>
+
+
   </div>
+  </div>
+  <el-drawer v-model="drawer" :with-header="false" :direction="'ttb'">
+
+    <div style="margin-bottom: 20px">
+      <el-button class="resetButton" type="danger" @click="cleanLocalStorage">重置设置</el-button>
+    </div>
+
+    <div>
+      <el-tabs v-model="activeName" stretch=false>
+        <el-tab-pane
+            v-for="cat in categroies"
+            :key="cat.name"
+            :name="cat.name"
+            :label="cat.name">
+          <!-- 使用 flex 布局 -->
+          <div class="flex flex-wrap">
+            <div style="width: 240px; display: flex; align-items: center; margin-bottom: 8px;"
+                 v-for="p in cat.subCategories"
+                 :key="p.title"
+            >
+              <el-switch
+                  v-model="p.isShow"
+                  active-color="#13ce66"
+                  inactive-color="#C0CCDA"
+                  @change="changeCategroyStatus">
+              </el-switch>
+              <img :src="p.logo" style="width: 20px; margin-left: 8px; margin-right: 8px;">
+              <span>{{ p.title }}</span>
+            </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+  </el-drawer>
 </template>
 
 <script>
@@ -228,12 +244,6 @@ export default {
 
 :deep(.el-button+.el-button) {
   background-color: #409eff !important;
-}
-
-:deep(.el-drawer) {
-  height: auto !important;
-  background-color: #dbdbdb !important;
-  border-radius: 0 0 50px 50px !important;
 }
 
 :deep(.el-tabs) {

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <main class="container mx-auto px-4 py-6 flex-grow">
+    <main class="container mx-auto px-4 flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
       <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center">
         <!-- 分类按钮部分，居中，并且可换行 -->
