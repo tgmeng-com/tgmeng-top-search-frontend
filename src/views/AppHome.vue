@@ -2,17 +2,16 @@
   <div class="flex flex-col">
     <main class="container mx-auto px-4 flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center">
-        <!-- 分类按钮部分，居中，并且可换行 -->
-        <div class="flex space-x-2 py-2 flex-wrap justify-center w-full">
+      <div class="mb-6 overflow-x-auto scrollbar-hide">
+        <div class="inline-flex space-x-2 py-2 justify-center mx-auto whitespace-nowrap">
           <button
               v-show="cat.isShow"
               v-for="cat in categroies"
               :key="cat.name"
               :class="[
-                'px-4 py-2 rounded-full',
-                activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
-              ]"
+        'px-4 py-2 rounded-full',
+        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
+      ]"
               @click="handleCategoryClick(cat)"
           >
             <span class="dark:text-dark-text">{{ cat.name }}</span>
