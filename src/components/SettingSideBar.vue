@@ -126,7 +126,7 @@ export default {
   components: {ThemeToggle},
   mounted() {
     // ✅✅✅✅✅✅ 顶部通知
-    this.notificationMessage()
+    // this.notificationMessage()
 
     const savedTheme = localStorage.getItem('theme')
     // 优先使用用户保存的主题
