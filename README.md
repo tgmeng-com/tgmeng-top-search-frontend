@@ -11,6 +11,8 @@
     <a href="https://tg.tgmeng.com"><img src="https://img.shields.io/badge/Bilibili-TG-ff69b4" /></a>&emsp;
     <!-- visitor -->
     <img src="https://komarev.com/ghpvc/?username=CandyDream6&label=Views&color=orange&style=flat" alt="访问量统计" />&emsp;
+    <!-- GPL-3.0 License -->
+    <a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%203.0-blue.svg" alt="GPL-3.0 License" /></a>
   </div>
 
 ---
@@ -127,6 +129,13 @@
 ## 💐 致谢
 
 - <h4>  <a href="https://linux.do" target="_blank">LINUX DO</a> 感谢L站的各位大佬们的耐心指导与帮助，受益匪浅，感激之情难以言表
+
+---
+
+## 🌎 许可证
+
+- 本项目采用 [GNU GENERAL PUBLIC LICENSE Version 3 许可证](LICENSE) 授权。
+- [![License: GPL v3](https://img.shields.io/badge/License-GPL%203.0-red.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ---
 
