@@ -136,9 +136,33 @@ export function topSearchForWangYi(data) {
     })
 }
 
-export function topSearchForWangYiYun(data) {
+export function topSearchForWangYiYunBiaoSheng(data) {
     return request({
-        url: '/topsearch/yunwangyi',
+        url: '/topsearch/biaoshengwangyiyun',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForWangYiYunXinGe(data) {
+    return request({
+        url: '/topsearch/xingegwangyiyun',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForWangYiYunYuanChuang(data) {
+    return request({
+        url: '/topsearch/yuanchuangwangyiyun',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForWangYiYunReGe(data) {
+    return request({
+        url: '/topsearch/regewangyiyun',
         method: 'get',
         data: data
     })

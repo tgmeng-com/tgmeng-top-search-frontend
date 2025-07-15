@@ -60,7 +60,7 @@
           </a>
 
           <div>
-            <template v-if="title === '网易云'">
+            <template v-if="title.includes('网易云')">
               <!-- 音乐播放器 -->
               <audio
                   :id="'audio-' + index"

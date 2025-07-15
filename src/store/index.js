@@ -29,7 +29,10 @@ import {
     topSearchForTencent,
     topSearchForTouTiao,
     topSearchForWangYi,
-    topSearchForWangYiYun,
+    topSearchForWangYiYunBiaoSheng,
+    topSearchForWangYiYunXinGe,
+    topSearchForWangYiYunYuanChuang,
+    topSearchForWangYiYunReGe,
     topSearchForBaiDuTieBa,
     topSearchForShaoShuPai,
     topSearchForDianShiJuBaiDu,
@@ -70,7 +73,6 @@ export default createStore({
                 name: '媒体',
                 isShow: true,
                 subCategories: [
-                    new Platform('网易云', topSearchForWangYiYun, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                     new Platform('B站', topSearchForBilibili, require('@/assets/logos/tgmeng-trend_bilibili.png')),
                     new Platform('抖音', topSearchForDouYin, require('@/assets/logos/tgmeng-trend_douyin.png')),
                     new Platform('Youtube', topSearchForYoutube, require('@/assets/logos/tgmeng-trend_youtube.png')),
@@ -82,6 +84,16 @@ export default createStore({
                     new Platform('民生', topSearchForMinShengBaiDu, require('@/assets/logos/tgmeng-trend_minsheng.png')),
                     new Platform('汽车', topSearchForQiCheBaiDu, require('@/assets/logos/tgmeng-trend_youxi.png')),
                     new Platform('游戏', topSearchForYouXiBaiDu, require('@/assets/logos/tgmeng-trend_qiche.png')),
+                ]
+            },
+            {
+                name: '音乐',
+                isShow: true,
+                subCategories: [
+                    new Platform('网易云 飙升榜', topSearchForWangYiYunBiaoSheng, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
+                    new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
+                    new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
+                    new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                 ]
             },
             {
