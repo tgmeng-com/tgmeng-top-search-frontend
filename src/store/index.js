@@ -97,14 +97,12 @@ export default createStore({
                     new Platform('B站', topSearchForBilibili, require('@/assets/logos/tgmeng-trend_bilibili.png')),
                     new Platform('抖音', topSearchForDouYin, require('@/assets/logos/tgmeng-trend_douyin.png')),
                     new Platform('Youtube', topSearchForYoutube, require('@/assets/logos/tgmeng-trend_youtube.png')),
-                    new Platform('电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png')),
-                    new Platform('电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png')),
-                    new Platform('小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png')),
                     new Platform('热梗', topSearchForReGengBaiDu, require('@/assets/logos/tgmeng-trend_regeng.png')),
                     new Platform('财经', topSearchForCaiJingBaiDu, require('@/assets/logos/tgmeng-trend_caijing.png')),
                     new Platform('民生', topSearchForMinShengBaiDu, require('@/assets/logos/tgmeng-trend_minsheng.png')),
                     new Platform('汽车', topSearchForQiCheBaiDu, require('@/assets/logos/tgmeng-trend_youxi.png')),
                     new Platform('游戏', topSearchForYouXiBaiDu, require('@/assets/logos/tgmeng-trend_qiche.png')),
+                    new Platform('小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png')),
                 ]
             },
             {
@@ -136,6 +134,9 @@ export default createStore({
                     new Platform('爱奇艺 总榜', topSearchForZongBangAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
                     new Platform('芒果 总榜', topSearchForZongBangMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
                     new Platform('优酷 总榜', topSearchForZongBangYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+
+                    new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png')),
+                    new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png')),
                 ]
             },
             {
