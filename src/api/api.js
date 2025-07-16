@@ -303,3 +303,150 @@ export function topSearchForZhiHu(data) {
         data: data
     })
 }
+
+export function topSearchForDianShiJuTengXun(data) {
+    return request({
+        url: '/topsearch/dianshijutengxun',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDianYingTengXun(data) {
+    return request({
+        url: '/topsearch/dianyingtengxun',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDongManTengXun(data) {
+    return request({
+        url: '/topsearch/dongmantengxun',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongYiTengXun(data) {
+    return request({
+        url: '/topsearch/zongyitengxun',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongBangTengXun(data) {
+    return request({
+        url: '/topsearch/zongbangtengxun',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForDianShiJuAiQiYi(data) {
+    return request({
+        url: '/topsearch/dianshijuaiqiyi',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDianYingAiQiYi(data) {
+    return request({
+        url: '/topsearch/dianyingaiqiyi',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDongManAiQiYi(data) {
+    return request({
+        url: '/topsearch/dongmanaiqiyi',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongYiAiQiYi(data) {
+    return request({
+        url: '/topsearch/zongyiaiqiyi',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongBangAiQiYi(data) {
+    return request({
+        url: '/topsearch/zongbangaiqiyi',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForDianShiJuYouKu(data) {
+    return request({
+        url: '/topsearch/dianshijuyouku',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDianYingYouKu(data) {
+    return request({
+        url: '/topsearch/dianyingyouku',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDongManYouKu(data) {
+    return request({
+        url: '/topsearch/dongmanyouku',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongYiYouKu(data) {
+    return request({
+        url: '/topsearch/zongyiyouku',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongBangYouKu(data) {
+    return request({
+        url: '/topsearch/zongbangyouku',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForDianShiJuMangGuo(data) {
+    return request({
+        url: '/topsearch/dianshijumangguo',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDianYingMangGuo(data) {
+    return request({
+        url: '/topsearch/dianyingmangguo',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForDongManMangGuo(data) {
+    return request({
+        url: '/topsearch/dongmanmangguo',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongYiMangGuo(data) {
+    return request({
+        url: '/topsearch/zongyimangguo',
+        method: 'get',
+        data: data
+    })
+}
+export function topSearchForZongBangMangGuo(data) {
+    return request({
+        url: '/topsearch/zongbangmangguo',
+        method: 'get',
+        data: data
+    })
+}

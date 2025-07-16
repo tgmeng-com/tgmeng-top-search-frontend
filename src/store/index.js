@@ -48,6 +48,27 @@ import {
     topSearchForHuggingFaceModelTrending,
     topSearchForHuggingFaceModelLikes,
     topSearchForHuggingFaceDatasetsTrending, topSearchForHuggingFaceDatasetsLikes, topSearchForZhiHu,
+    topSearchForDianShiJuTengXun,
+    topSearchForDianYingTengXun,
+    topSearchForDongManTengXun,
+    topSearchForZongYiTengXun,
+    topSearchForZongBangTengXun,
+    topSearchForDianShiJuAiQiYi,
+    topSearchForDianYingAiQiYi,
+    topSearchForDongManAiQiYi,
+    topSearchForZongYiAiQiYi,
+    topSearchForZongBangAiQiYi,
+    topSearchForDianShiJuYouKu,
+    topSearchForDianYingYouKu,
+    topSearchForDongManYouKu,
+    topSearchForZongYiYouKu,
+    topSearchForZongBangYouKu,
+    topSearchForDianShiJuMangGuo,
+    topSearchForDianYingMangGuo,
+    topSearchForDongManMangGuo,
+    topSearchForZongYiMangGuo,
+    topSearchForZongBangMangGuo
+
 
 } from '@/api/api';
 
@@ -87,6 +108,37 @@ export default createStore({
                 ]
             },
             {
+                name: '影视',
+                isShow: true,
+                subCategories: [
+
+                    new Platform('腾讯视频 电视剧', topSearchForDianShiJuTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
+                    new Platform('爱奇艺 电视剧', topSearchForDianShiJuAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
+                    new Platform('芒果 电视剧', topSearchForDianShiJuMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
+                    new Platform('优酷 电视剧', topSearchForDianShiJuYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+
+                    new Platform('腾讯视频 电影', topSearchForDianYingTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
+                    new Platform('爱奇艺 电影', topSearchForDianYingAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
+                    new Platform('芒果 电影', topSearchForDianYingMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
+                    new Platform('优酷 电影', topSearchForDianYingYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+
+                    new Platform('腾讯视频 动漫', topSearchForDongManTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
+                    new Platform('爱奇艺 动漫', topSearchForDongManAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
+                    new Platform('芒果 动漫', topSearchForDongManMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
+                    new Platform('优酷 动漫', topSearchForDongManYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+
+                    new Platform('腾讯视频 综艺', topSearchForZongYiTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
+                    new Platform('爱奇艺 综艺', topSearchForZongYiAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
+                    new Platform('芒果 综艺', topSearchForZongYiMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
+                    new Platform('优酷 综艺', topSearchForZongYiYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+
+                    new Platform('腾讯视频 总榜', topSearchForZongBangTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
+                    new Platform('爱奇艺 总榜', topSearchForZongBangAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
+                    new Platform('芒果 总榜', topSearchForZongBangMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png')),
+                    new Platform('优酷 总榜', topSearchForZongBangYouKu, require('@/assets/logos/tgmeng-trend_youku.png')),
+                ]
+            },
+            {
                 name: '音乐',
                 isShow: true,
                 subCategories: [
@@ -108,7 +160,7 @@ export default createStore({
                 ]
             },
             {
-                name: 'GitHub',
+                name: 'IT',
                 isShow: true,
                 subCategories: [
                     new Platform('Star总榜', topSearchForGitHubAllStars, require('@/assets/logos/tgmeng-trend_github.png')),
@@ -119,12 +171,6 @@ export default createStore({
                     new Platform('近三年新仓库Star榜', topSearchForGitHubThreeYearStars, require('@/assets/logos/tgmeng-trend_github.png')),
                     new Platform('近五年新仓库Star榜', topSearchForGitHubFiveYearStars, require('@/assets/logos/tgmeng-trend_github.png')),
                     new Platform('近十年新仓库Star榜', topSearchForGitHubTenYearStars, require('@/assets/logos/tgmeng-trend_github.png')),
-                ]
-            },
-            {
-                name: 'HuggingFace',
-                isShow: true,
-                subCategories: [
                     new Platform('Spaces热门榜', topSearchForHuggingFaceSpaceTrending, require('@/assets/logos/tgmeng-trend_huggingface.png')),
                     new Platform('Spaces点赞榜', topSearchForHuggingFaceSpaceLikes, require('@/assets/logos/tgmeng-trend_huggingface.png')),
                     new Platform('Models热门榜', topSearchForHuggingFaceModelTrending, require('@/assets/logos/tgmeng-trend_huggingface.png')),
@@ -132,7 +178,7 @@ export default createStore({
                     new Platform('Datasets热门榜', topSearchForHuggingFaceDatasetsTrending, require('@/assets/logos/tgmeng-trend_huggingface.png')),
                     new Platform('Datasets点赞榜', topSearchForHuggingFaceDatasetsLikes, require('@/assets/logos/tgmeng-trend_huggingface.png')),
                 ]
-            },
+            }
         ],  // 定义一个状态变量 count
     },
 });
