@@ -126,7 +126,7 @@ export default {
   components: {ThemeToggle},
   mounted() {
     // ✅✅✅✅✅✅ 顶部通知
-    // this.notificationMessage()
+    this.notificationMessage()
 
     const savedTheme = localStorage.getItem('theme')
     // 优先使用用户保存的主题
@@ -150,7 +150,7 @@ export default {
     notificationMessage() {
       this.$notify({
         title: '佬们好！',
-        message: '‼️目前两点已知问题：<br>1:优酷接口返回的是海外用户的排行榜<br>2:优酷接口不稳定<br>其余数据全都正常，请尽情享用',
+        message: '‼️目前已知问题：<br>1:优酷接口返回的是海外用户的排行榜<br>其余数据全都正常，请尽情享用',
         duration: 10000,
         type: 'success',
         position: 'top-left',
