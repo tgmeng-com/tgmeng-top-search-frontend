@@ -150,7 +150,8 @@ export default {
     notificationMessage() {
       this.$notify({
         title: '佬们好！',
-        message: '‼️目前已知问题：<br>1:优酷接口返回的是海外用户的排行榜<br>其余数据全都正常，请尽情享用',
+        // message: '‼️目前已知问题：<br>1:优酷接口返回的是海外用户的排行榜<br>其余数据全都正常，请尽情享用',
+        message: '🎉 支持评论啦！<br>1:支持匿名评论！<br>2:支持github、twitter、facebook等登录后评论',
         duration: 10000,
         type: 'success',
         position: 'top-left',

@@ -65,7 +65,7 @@ export default {
     initializePlatforms() {
       const cacheCategroies = getCategroiesFromLocalStorage('categroies');
 
-      this.activeCategory = this.categroies[0];
+      this.activeCategory = this.categroies[1];
       this.categroies.forEach(cat => {
         cat.subCategories.forEach(subCat => {
           //把缓存里的isShow替换一下
@@ -78,14 +78,9 @@ export default {
               })
             })
           }
-          //只加载show的数据
-          if (subCat.isShow) {
-            subCat.loading = true;
-            this.fetchData(subCat);
-            this.activeCategory.subCategories.push(subCat)
-          }
         });
       })
+      this.handleCategoryClick(this.activeCategory)
     },
 
     // 访问接口拿数据
@@ -108,14 +103,28 @@ export default {
 
     // 分类按钮点击事件
     handleCategoryClick(cat) {
-      this.activeCategory = cat;
-      cat.subCategories.forEach(subCat => {
-        //只加载show的数据
-        if (subCat.isShow) {
-          subCat.loading = true;
-          this.fetchData(subCat);
-        }
-      });
+      if (cat.name !== '全部'){
+        this.activeCategory = cat;
+        cat.subCategories.forEach(subCat => {
+          //只加载show的数据
+          if (subCat.isShow) {
+            subCat.loading = true;
+            this.fetchData(subCat);
+          }
+        });
+      }else{
+        this.activeCategory = this.categroies[0];
+        this.categroies.forEach(cat => {
+          cat.subCategories.forEach(subCat => {
+            //只加载show的数据
+            if (subCat.isShow) {
+              subCat.loading = true;
+              this.fetchData(subCat);
+              this.activeCategory.subCategories.push(subCat)
+            }
+          });
+        })
+      }
     },
   },
   computed: {},
