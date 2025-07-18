@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
+    "@waline/client": "^3.6.0",
     "axios": "^1.10.0",
     "chart.js": "^4.4.8",
     "core-js": "^3.8.3",

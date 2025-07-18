@@ -6,6 +6,7 @@
     <main class="container mx-auto px-4 py-6">
       <!-- 这里放页面主体内容，比如 AppHome 组件 -->
       <Home />
+      <WalineComment />
     </main>
   </div>
 </template>
@@ -14,13 +15,15 @@
 import AppHeader from './components/Layout/AppHeader.vue';
 import AppHome from './views/AppHome.vue';
 import SettingSideBar from "@/components/SettingSideBar.vue"; // 假设 AppHome 是首页视图
+import WalineComment from "./components/WalineComment.vue";
 
 export default {
   name: 'App',
   components: {
     SideBar: SettingSideBar,
     Header: AppHeader,
-    Home: AppHome
+    Home: AppHome,
+    WalineComment: WalineComment,
   }
 }
 </script>
@@ -32,6 +35,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  //margin-top: 30px;
 }
 </style>
