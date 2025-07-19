@@ -38,6 +38,7 @@ export default {
         pageSize: 20, // 每页评论数
         noCopyright: true, //隐藏页脚版权信息
         avatar: '/favicon.png',// 默认用户头像
+        turnstileKey: '0x4AAAAAABlpMORaJS5YUeAD'
         // 更多配置参考：https://waline.js.org/reference/client/props.html#meta
       });
     },
