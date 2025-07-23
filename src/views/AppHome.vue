@@ -64,7 +64,7 @@ export default {
   methods: {
     initializePlatforms() {
       const cacheCategroies = getCategroiesFromLocalStorage('categroies');
-      //把缓存里的isShow替换一下
+      //用缓存里的isShow替换一下全部数据里的
       this.categroies.forEach(cat => {
         cat.subCategories.forEach(subCat => {
           if (cacheCategroies) {
