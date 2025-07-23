@@ -35,7 +35,7 @@
           <!-- 序号 -->
           <span
               :class="[
-                'w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3',
+                'sequence-number rounded-full flex items-center justify-center text-sm font-bold mr-3',
                 index === 0
                   ? 'bg-red-600 text-white'
                   : index === 1
@@ -182,14 +182,29 @@ export default {
 </script>
 
 <style scoped>
-/* 单行省略处理 */
+.sequence-number{
+  width: 1rem;
+  height: 1rem;
+}
+/* 多行标题样式 */
 .hot-title {
   flex: 1;
   text-align: left !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
   min-width: 0;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 列表项调整 */
+li {
+  align-items: flex-start;
+}
+
+/* 序号对齐 */
+li > span:first-child {
+  margin-top: 2px;
 }
 
 /* 热度值右对齐 */
