@@ -193,6 +193,9 @@ export default {
   white-space: normal;
   word-break: break-word;
   min-width: 0;
+  display: -webkit-box;
+  /*标题最多显示行数，0表示不限制*/
+  -webkit-line-clamp: 0;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
