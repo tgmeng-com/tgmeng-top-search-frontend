@@ -64,11 +64,9 @@ export default {
   methods: {
     initializePlatforms() {
       const cacheCategroies = getCategroiesFromLocalStorage('categroies');
-
-      this.activeCategory = this.categroies[1];
+      //把缓存里的isShow替换一下
       this.categroies.forEach(cat => {
         cat.subCategories.forEach(subCat => {
-          //把缓存里的isShow替换一下
           if (cacheCategroies) {
             cacheCategroies.forEach(cacheCat => {
               cacheCat.subCategories.forEach(cacheSubCat => {
@@ -80,6 +78,8 @@ export default {
           }
         });
       })
+      // 默认第二个分类为首页
+      this.activeCategory = this.categroies[1];
       this.handleCategoryClick(this.activeCategory)
     },
 
@@ -114,6 +114,7 @@ export default {
         });
       }else{
         this.activeCategory = this.categroies[0];
+        this.activeCategory.subCategories = []
         this.categroies.forEach(cat => {
           cat.subCategories.forEach(subCat => {
             //只加载show的数据
