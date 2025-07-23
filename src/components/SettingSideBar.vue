@@ -4,8 +4,8 @@
   <div style="min-height: 80px;margin-top: 30px"  class="container mx-auto px-4 flex items-center ">
 
     <!-- 左侧 Logo -->
-    <div class="ml-4" style="width: 50px;">
-      <a href="https://tgmeng.com" target="_blank">
+    <div class="ml-4" style="width: 50px;" >
+      <a href="https://tgmeng.com" target="_blank" data-umami-event="顶部左边LOGO">
         <img
             src="@/assets/image/logo.png"
             alt="网站 Logo"
@@ -18,7 +18,7 @@
     <div class="flex-1 flex justify-end items-center space-x-4">
       <!-- 交流群 -->
       <div style="width: 40px;">
-        <a href="https://wechat.tgmeng.com" target="_blank">
+        <a href="https://wechat.tgmeng.com" target="_blank" data-umami-event="顶部右边交流群">
           <el-tooltip
               placement="bottom"
               effect="light"
@@ -36,7 +36,7 @@
 
       <!-- 论坛 -->
       <div style="width: 40px;">
-        <a href="https://bbs.tgmeng.com" target="_blank">
+        <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛">
           <el-tooltip
               placement="bottom"
               effect="light"
@@ -69,6 +69,7 @@
               @click="drawerClick"
               class="setting-btn"
               aria-label="设置"
+              data-umami-event="顶部右边设置"
           >
             <div style="width: 33px">
               <img src="@/assets/image/setting.png">
