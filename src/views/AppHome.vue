@@ -162,7 +162,7 @@ export default {
     initUmami(){
       umamiActive()
           .then((res) => {
-            this.umamiActive = res?.data?.visitors || 0;
+            this.umamiActive = res?.data?.visitors || 1;
           })
           .catch((err) => {
             console.warn(`umami实时在线人数加载失败`, err);
