@@ -19,9 +19,32 @@
         </div>
       </div>
 
-      <div class="mb-6 overflow-x-auto scrollbar-hide flex items-center justify-end">
-        <!-- 数据更新时间显示部分，放在右侧并垂直居中 -->
-        <div class="text-sm text-gray-500 dark:text-gray-300 ml-4">
+      <div class="mb-6 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <!-- 左侧：统计数据（移动端换行显示） -->
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          <!-- 总访问量 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            总访问量: <span class="font-medium">{{umamiAllViews}}</span>
+          </span>&nbsp;
+          <!-- 总访问时长 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            总时长: <span class="font-medium">{{umamiAllTime}}</span>
+          </span>&nbsp;
+          <!-- 今日访问量 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            今日访问量: <span class="font-medium">{{umamiTodayViews}}</span>
+          </span>&nbsp;
+          <!-- 今日访问时长 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            今日访问时长: <span class="font-medium">{{umamiTodayTime}}</span>
+          </span>&nbsp;
+          <!-- 实时在线人数 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-green-300 dark:bg-green-900 text-green-900 dark:text-green-300">
+            在线: <span class="font-medium">{{umamiActive}}</span>
+          </span>
+        </div>
+        <!-- 右侧：更新时间（移动端换行显示） -->
+        <div class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
           数据每分钟更新一次（GitHub数据每20-40分钟更新一次）
         </div>
       </div>
@@ -47,6 +70,8 @@
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
 import {getCategroiesFromLocalStorage} from "@/utils/localStorageUtils";
+import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
+import {formatSecondsToHMS} from "@/utils/timeUtils";
 
 export default {
   components: {
@@ -56,6 +81,11 @@ export default {
     return {
       categroies: this.$store.state.categroies,
       activeCategory: {},
+      umamiActive: this.$store.state.umamiActive,
+      umamiTodayViews: this.$store.state.umamiTodayViews,
+      umamiTodayTime: this.$store.state.umamiTodayTime,
+      umamiAllViews: this.$store.state.umamiAllViews,
+      umamiAllTime: this.$store.state.umamiAllTime,
     };
   },
   async mounted() {
@@ -63,6 +93,7 @@ export default {
   },
   methods: {
     initializePlatforms() {
+      this.initUmami();
       const cacheCategroies = getCategroiesFromLocalStorage('categroies');
       //用缓存里的isShow替换一下全部数据里的
       this.categroies.forEach(cat => {
@@ -127,6 +158,37 @@ export default {
         })
       }
     },
+    initUmami(){
+      umamiActive()
+          .then((res) => {
+            this.umamiActive = res?.data?.visitors || 0;
+          })
+          .catch((err) => {
+            console.warn(`umami实时在线人数加载失败`, err);
+          })
+          .finally(() => {
+          });
+      umamiStatsToday()
+          .then((res) => {
+            this.umamiTodayViews = res?.data?.pageviews?.value || '加载失败';
+            this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+          })
+          .catch((err) => {
+            console.warn(`umami近24小时统计数据加载失败`, err);
+          })
+          .finally(() => {
+          });
+      umamiStatsAll()
+          .then((res) => {
+            this.umamiAllViews = res?.data?.pageviews?.value || '加载失败';
+            this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+          })
+          .catch((err) => {
+            console.warn(`umami历史统计数据加载失败`, err);
+          })
+          .finally(() => {
+          });
+    }
   },
   computed: {},
 };

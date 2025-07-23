@@ -74,6 +74,16 @@ import {
 
 export default createStore({
     state: {
+        // 实时在线人数
+        umamiActive: '🚀',
+        // 今日访问量
+        umamiTodayViews: '🚀',
+        // 今日访问时长
+        umamiTodayTime: '🚀',
+        // 总访问量
+        umamiAllViews: '🚀',
+        // 总访问时长
+        umamiAllTime: '🚀',
         categroies: [
             {
                 name: '全部',
