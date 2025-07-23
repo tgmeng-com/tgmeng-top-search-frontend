@@ -37,7 +37,7 @@
           </span>&nbsp;
           <!-- 今日访问时长 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            今日访问时长: <span class="font-medium">{{umamiTodayTime}}</span>
+            今日时长: <span class="font-medium">{{umamiTodayTime}}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
           <span class="text-xs px-2 py-1 rounded-md bg-green-300 dark:bg-green-900 text-green-900 dark:text-green-300">
