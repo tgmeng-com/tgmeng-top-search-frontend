@@ -8,6 +8,7 @@
               v-show="cat.isShow"
               v-for="cat in categroies"
               :data-umami-event="cat.name"
+              :data-umami-event-name="cat.name"
               :key="cat.name"
               :class="[
         'px-4 py-2 rounded-full',

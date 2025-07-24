@@ -4,6 +4,7 @@
       class="theme-toggle-btn"
       aria-label="切换主题"
       data-umami-event="顶部右边明暗主题切换"
+      data-umami-event-name="顶部右边明暗主题切换"
   >
     <svg
         v-if="isDark"
