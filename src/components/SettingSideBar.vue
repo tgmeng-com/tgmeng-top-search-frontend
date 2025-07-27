@@ -24,8 +24,7 @@
               effect="light"
           >
             <template #content>
-              <div style="text-align: center"><span style="color: #212830">进交流群</span></div>
-              <img src="@/assets/image/wechat.png" style="width: 100px;"/>
+              <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
             </template>
             <div style="width: 33px">
               <img src="../assets/image/wechat-logo.png">
