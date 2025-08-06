@@ -57,7 +57,7 @@
               :title="item.keyword"
           >
             {{ item.keyword }}&nbsp;
-            <span style="font-size: 0.75rem;opacity: 0.5;">-{{ item.image }}</span>
+            <span v-if="title.includes('网易云')" style="font-size: 0.75rem;opacity: 0.5;">-{{ item.image }}</span>
           </a>
           <div>
             <template v-if="title.includes('网易云')">
