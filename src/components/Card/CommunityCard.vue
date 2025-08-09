@@ -56,8 +56,12 @@
               class="text-sm dark:text-dark-text hot-title hover:underline"
               :title="item.keyword"
           >
-            {{ item.keyword }}&nbsp;
-            <span v-if="title.includes('网易云')" style="font-size: 0.75rem;opacity: 0.5;">-{{ item.image }}</span>
+            {{ item.keyword }}
+            <span v-if="title.includes('网易云')" style="font-size: 0.75rem;opacity: 0.5;">&nbsp;-{{ item.image }}</span>
+            <span v-if="title.includes('猫眼') && item.publishTime.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.publishTime }}</span>
+            <span v-if="title.includes('猫眼') && item.type.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.type }}</span>
+            <span v-if="title.includes('猫眼') && item.desc.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.desc }}</span>
+            <span v-if="title.includes('猫眼') && item.author.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.author }}</span>
           </a>
           <div>
             <template v-if="title.includes('网易云')">

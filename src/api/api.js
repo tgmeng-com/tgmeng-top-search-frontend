@@ -450,3 +450,35 @@ export function topSearchForZongBangMangGuo(data) {
         data: data
     })
 }
+
+export function topSearchForZhouPiaoFangBangMaoYan(data) {
+    return request({
+        url: '/topsearch/zhoupiaofangbangmaoyan',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForXiangkanBangMaoYan(data) {
+    return request({
+        url: '/topsearch/xiangkanbangmaoyan',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForGouPiaoPingFenBangMaoYan(data) {
+    return request({
+        url: '/topsearch/goupiaopingfenbangmaoyan',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForTop100MaoYan(data) {
+    return request({
+        url: '/topsearch/top100maoyan',
+        method: 'get',
+        data: data
+    })
+}

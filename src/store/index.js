@@ -67,9 +67,12 @@ import {
     topSearchForDianYingMangGuo,
     topSearchForDongManMangGuo,
     topSearchForZongYiMangGuo,
-    topSearchForZongBangMangGuo
-
-
+    topSearchForZongBangMangGuo,
+    topSearchForZhouPiaoFangBangMaoYan,
+    topSearchForXiangkanBangMaoYan,
+    topSearchForGouPiaoPingFenBangMaoYan,
+    topSearchForTop100MaoYan
+,
 } from '@/api/api';
 
 export default createStore({
@@ -119,6 +122,10 @@ export default createStore({
                 name: '影视',
                 isShow: true,
                 subCategories: [
+                    new Platform('猫眼 周票房榜', topSearchForZhouPiaoFangBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png')),
+                    new Platform('猫眼 想看榜', topSearchForXiangkanBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png')),
+                    new Platform('猫眼 购票评分榜', topSearchForGouPiaoPingFenBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png')),
+                    new Platform('猫眼 历史总榜', topSearchForTop100MaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png')),
 
                     new Platform('腾讯视频 电视剧', topSearchForDianShiJuTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png')),
                     new Platform('爱奇艺 电视剧', topSearchForDianShiJuAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png')),
