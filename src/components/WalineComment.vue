@@ -16,7 +16,7 @@ export default {
     serverURL: {
       type: String,
       required: true,
-      default: 'https://waline-trend.tgmeng.com', // 替换为你的 Waline 服务端地址
+      default: 'https://walinetrend.tgmeng.com/', // 替换为你的 Waline 服务端地址
     },
   },
   mounted() {
