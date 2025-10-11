@@ -3,14 +3,14 @@ import {getCurrentTimestamp, getTodayStartTimestamp, getAllTimeStartTimestamp} f
 
 export function umamiActive() {
     return request({
-        url: '/api/websites/c05acefd-a67e-44f3-8146-1f72dda7ec6a/active',
+        url: '/api/websites/4cd4a3c4-926a-4562-80f2-74022dfc93ef/active',
         method: 'get',
     })
 }
 
 export function umamiStatsToday() {
     return request({
-        url: '/api/websites/c05acefd-a67e-44f3-8146-1f72dda7ec6a/stats',
+        url: '/api/websites/4cd4a3c4-926a-4562-80f2-74022dfc93ef/stats',
         method: 'get',
         params: {
             startAt: getTodayStartTimestamp(),
@@ -21,7 +21,7 @@ export function umamiStatsToday() {
 
 export function umamiStatsAll() {
     return request({
-        url: '/api/websites/c05acefd-a67e-44f3-8146-1f72dda7ec6a/stats',
+        url: '/api/websites/4cd4a3c4-926a-4562-80f2-74022dfc93ef/stats',
         method: 'get',
         params: {
             startAt: getAllTimeStartTimestamp(),
