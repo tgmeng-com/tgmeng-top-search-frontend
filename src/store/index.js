@@ -71,8 +71,16 @@ import {
     topSearchForZhouPiaoFangBangMaoYan,
     topSearchForXiangkanBangMaoYan,
     topSearchForGouPiaoPingFenBangMaoYan,
-    topSearchForTop100MaoYan
-,
+    topSearchForTop100MaoYan,
+    topSearchForJingRongJie,
+    topSearchForDiYiCaiJing,
+    topSearchForTongHuaShun,
+    topSearchForHuaErJieJianWen,
+    topSearchForCaiLianShe,
+    topSearchForGeLongHui,
+    topSearchForFaBu,
+    topSearchForJinShi
+    ,
 } from '@/api/api';
 
 export default createStore({
@@ -101,6 +109,31 @@ export default createStore({
                     new Platform('头条', topSearchForTouTiao, require('@/assets/logos/tgmeng-trend_toutiao.png')),
                     new Platform('网易', topSearchForWangYi, require('@/assets/logos/tgmeng-trend_wangyi.png')),
                     new Platform('百度', topSearchForBaiDu, require('@/assets/logos/tgmeng-trend_baidu.png')),
+                ]
+            },
+            {
+                name: '财经',
+                isShow: true,
+                subCategories: [
+                    new Platform('财联社', topSearchForCaiLianShe, require('@/assets/logos/tgmeng-trend_cailianshe.png')),
+                    new Platform('华尔街见闻', topSearchForHuaErJieJianWen, require('@/assets/logos/tgmeng-trend_huaerjiejianwen.png')),
+                    new Platform('同花顺', topSearchForTongHuaShun, require('@/assets/logos/tgmeng-trend_tonghuashun.png')),
+                    new Platform('金融界', topSearchForJingRongJie, require('@/assets/logos/tgmeng-trend_jinrongjie.png')),
+                    new Platform('第一财经', topSearchForDiYiCaiJing, require('@/assets/logos/tgmeng-trend_diyicaijing.png')),
+                    new Platform('格隆汇', topSearchForGeLongHui, require('@/assets/logos/tgmeng-trend_gelonghui.png')),
+                    new Platform('法布', topSearchForFaBu, require('@/assets/logos/tgmeng-trend_fabu.png')),
+                    new Platform('金十', topSearchForJinShi, require('@/assets/logos/tgmeng-trend_jinshi.png')),
+                ]
+            },
+            {
+                name: '社交',
+                isShow: true,
+                subCategories: [
+                    new Platform('微博', topSearchForWeiBo, require('@/assets/logos/tgmeng-trend_weibo.png')),
+                    new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png')),
+                    new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png')),
+                    new Platform('豆瓣', topSearchForDouBan, require('@/assets/logos/tgmeng-trend_douban.png')),
+                    new Platform('少数派', topSearchForShaoShuPai, require('@/assets/logos/tgmeng-trend_shaoshupai.png')),
                 ]
             },
             {
@@ -164,17 +197,6 @@ export default createStore({
                     new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                     new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
                     new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png')),
-                ]
-            },
-            {
-                name: '社交',
-                isShow: true,
-                subCategories: [
-                    new Platform('微博', topSearchForWeiBo, require('@/assets/logos/tgmeng-trend_weibo.png')),
-                    new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png')),
-                    new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png')),
-                    new Platform('豆瓣', topSearchForDouBan, require('@/assets/logos/tgmeng-trend_douban.png')),
-                    new Platform('少数派', topSearchForShaoShuPai, require('@/assets/logos/tgmeng-trend_shaoshupai.png')),
                 ]
             },
             {

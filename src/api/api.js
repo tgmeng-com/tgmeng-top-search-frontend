@@ -482,3 +482,68 @@ export function topSearchForTop100MaoYan(data) {
         data: data
     })
 }
+
+export function topSearchForJingRongJie(data) {
+    return request({
+        url: '/topsearch/jinrongjie',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDiYiCaiJing(data) {
+    return request({
+        url: '/topsearch/diyicaijing',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForTongHuaShun(data) {
+    return request({
+        url: '/topsearch/tonghuashun',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForHuaErJieJianWen(data) {
+    return request({
+        url: '/topsearch/huaerjiejianwen',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCaiLianShe(data) {
+    return request({
+        url: '/topsearch/cailianshe',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForGeLongHui(data) {
+    return request({
+        url: '/topsearch/gelonghui',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForFaBu(data) {
+    return request({
+        url: '/topsearch/fabu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForJinShi(data) {
+    return request({
+        url: '/topsearch/jinshi',
+        method: 'get',
+        data: data
+    })
+}
+
