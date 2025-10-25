@@ -79,8 +79,12 @@ import {
     topSearchForCaiLianShe,
     topSearchForGeLongHui,
     topSearchForFaBu,
-    topSearchForJinShi
-    ,
+    topSearchForJinShi,
+    topSearchForNiuYueShiBao,
+    topSearchForBBC,
+    topSearchForFaGuang,
+    topSearchForDaJiYuan,
+
 } from '@/api/api';
 
 export default createStore({
@@ -109,6 +113,10 @@ export default createStore({
                     new Platform('头条', topSearchForTouTiao, require('@/assets/logos/tgmeng-trend_toutiao.png')),
                     new Platform('网易', topSearchForWangYi, require('@/assets/logos/tgmeng-trend_wangyi.png')),
                     new Platform('百度', topSearchForBaiDu, require('@/assets/logos/tgmeng-trend_baidu.png')),
+                    new Platform('纽约时报', topSearchForNiuYueShiBao, require('@/assets/logos/tgmeng-trend_niuyueshibao.png')),
+                    new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png')),
+                    new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png')),
+                    new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png')),
                 ]
             },
             {

@@ -547,3 +547,36 @@ export function topSearchForJinShi(data) {
     })
 }
 
+export function topSearchForNiuYueShiBao(data) {
+    return request({
+        url: '/topsearch/niuyueshibao',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForBBC(data) {
+    return request({
+        url: '/topsearch/bbc',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForFaGuang(data) {
+    return request({
+        url: '/topsearch/faguang',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDaJiYuan(data) {
+    return request({
+        url: '/topsearch/dajiyuan',
+        method: 'get',
+        data: data
+    })
+}
+
