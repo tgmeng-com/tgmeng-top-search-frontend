@@ -580,3 +580,132 @@ export function topSearchForDaJiYuan(data) {
     })
 }
 
+export function topSearchForWoShiPM(data) {
+    return request({
+        url: '/topsearch/woshipm',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYouSheWang(data) {
+    return request({
+        url: '/topsearch/youshewang',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForZhanKuZuoPinBang(data) {
+    return request({
+        url: '/topsearch/zuopinbangzhanku',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForZhanKuWenZhangBang(data) {
+    return request({
+        url: '/topsearch/wenzhangbangzhanku',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForZhanKuQianLiBang(data) {
+    return request({
+        url: '/topsearch/qianlibangzhanku',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForReMenZuoPinTuYaWangGuo(data) {
+    return request({
+        url: '/topsearch/remenzuopintuyawangguo',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForJingXuanZuoPinTuYaWangGuo(data) {
+    return request({
+        url: '/topsearch/jingxuanzuopintuyawangguo',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForJinRiXinZuoTuYaWangGuo(data) {
+    return request({
+        url: '/topsearch/jinrixinzuotuyawangguo',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForFaXianXinZuoTuYaWangGuo(data) {
+    return request({
+        url: '/topsearch/faxianxinzuotuyawangguo',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForSheJiDaRen(data) {
+    return request({
+        url: '/topsearch/shejidaren',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForTopys(data) {
+    return request({
+        url: '/topsearch/topys',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForArchDaily(data) {
+    return request({
+        url: '/topsearch/archdaily',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDribbble(data) {
+    return request({
+        url: '/topsearch/dribbble',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForAwwwards(data) {
+    return request({
+        url: '/topsearch/awwwards',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCore77(data) {
+    return request({
+        url: '/topsearch/core77',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForAbduzeedo(data) {
+    return request({
+        url: '/topsearch/abduzeedo',
+        method: 'get',
+        data: data
+    })
+}

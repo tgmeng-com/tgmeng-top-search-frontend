@@ -84,6 +84,23 @@ import {
     topSearchForBBC,
     topSearchForFaGuang,
     topSearchForDaJiYuan,
+    topSearchForWoShiPM,
+    topSearchForYouSheWang,
+    topSearchForZhanKuZuoPinBang,
+    topSearchForZhanKuWenZhangBang,
+    topSearchForZhanKuQianLiBang,
+    topSearchForReMenZuoPinTuYaWangGuo,
+    topSearchForJingXuanZuoPinTuYaWangGuo,
+    topSearchForJinRiXinZuoTuYaWangGuo,
+    topSearchForFaXianXinZuoTuYaWangGuo,
+    topSearchForSheJiDaRen,
+    topSearchForTopys,
+    topSearchForArchDaily,
+    topSearchForDribbble,
+    topSearchForAwwwards,
+    topSearchForCore77,
+    topSearchForAbduzeedo,
+
 
 } from '@/api/api';
 
@@ -157,6 +174,29 @@ export default createStore({
                     new Platform('汽车', topSearchForQiCheBaiDu, require('@/assets/logos/tgmeng-trend_youxi.png')),
                     new Platform('游戏', topSearchForYouXiBaiDu, require('@/assets/logos/tgmeng-trend_qiche.png')),
                     new Platform('小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png')),
+                ]
+            },
+            {
+                name: '设计',
+                isShow: true,
+                subCategories: [
+                    new Platform('人人都是产品经理', topSearchForWoShiPM, require('@/assets/logos/tgmeng-trend_woshipm.png')),
+                    new Platform('优设网', topSearchForYouSheWang, require('@/assets/logos/tgmeng-trend_youshewang.png')),
+                    new Platform('TOPYS', topSearchForTopys, require('@/assets/logos/tgmeng-trend_topys.png')),
+                    new Platform('ArchDaily', topSearchForArchDaily, require('@/assets/logos/tgmeng-trend_archdaily.jpg')),
+                    new Platform('涂鸦王国热门作品', topSearchForReMenZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国精选作品', topSearchForJingXuanZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国今日新作', topSearchForJinRiXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国发现新作', topSearchForFaXianXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('站酷作品榜', topSearchForZhanKuZuoPinBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
+                    new Platform('站酷潜力榜', topSearchForZhanKuQianLiBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
+                    new Platform('站酷文章榜', topSearchForZhanKuWenZhangBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
+                    new Platform('设计达人', topSearchForSheJiDaRen, require('@/assets/logos/tgmeng-trend_shejidaren.png')),
+                    new Platform('Abduzeedo', topSearchForAbduzeedo, require('@/assets/logos/tgmeng-trend_abduzeedo.png')),
+                    new Platform('Core77', topSearchForCore77, require('@/assets/logos/tgmeng-trend_core77.jpg')),
+                    new Platform('Dribbble', topSearchForDribbble, require('@/assets/logos/tgmeng-trend_dribbble.jpg')),
+                    new Platform('Awwwards', topSearchForAwwwards, require('@/assets/logos/tgmeng-trend_awwwards.png')),
+
                 ]
             },
             {
