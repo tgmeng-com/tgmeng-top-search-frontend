@@ -160,19 +160,6 @@ export default createStore({
                 ]
             },
             {
-                name: '科技',
-                isShow: true,
-                subCategories: [
-                    new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png')),
-                    new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png')),
-                    // EurekAlert服务器暂时没法访问，所以先不放了
-                    // new Platform('EurekAlert', topSearchForEurekAlert, require('@/assets/logos/tgmeng-trend-eurekalert.png')),
-                    new Platform('NCSTI-人工智能', topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png')),
-                    new Platform('NCSTI-医药健康', topSearchForYiYaoJianKangGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png')),
-
-                ]
-            },
-            {
                 name: '财经',
                 isShow: true,
                 subCategories: [
@@ -187,6 +174,19 @@ export default createStore({
                 ]
             },
             {
+                name: '科技',
+                isShow: true,
+                subCategories: [
+                    new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png')),
+                    new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png')),
+                    // EurekAlert服务器暂时没法访问，所以先不放了
+                    // new Platform('EurekAlert', topSearchForEurekAlert, require('@/assets/logos/tgmeng-trend-eurekalert.png')),
+                    new Platform('NCSTI-人工智能', topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png')),
+                    new Platform('NCSTI-医药健康', topSearchForYiYaoJianKangGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png')),
+
+                ]
+            },
+            {
                 name: '设计',
                 isShow: true,
                 subCategories: [
@@ -194,10 +194,6 @@ export default createStore({
                     new Platform('优设网', topSearchForYouSheWang, require('@/assets/logos/tgmeng-trend_youshewang.png')),
                     new Platform('TOPYS', topSearchForTopys, require('@/assets/logos/tgmeng-trend_topys.png')),
                     new Platform('ArchDaily', topSearchForArchDaily, require('@/assets/logos/tgmeng-trend_archdaily.jpg')),
-                    new Platform('涂鸦王国热门作品', topSearchForReMenZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
-                    new Platform('涂鸦王国精选作品', topSearchForJingXuanZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
-                    new Platform('涂鸦王国今日新作', topSearchForJinRiXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
-                    new Platform('涂鸦王国发现新作', topSearchForFaXianXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
                     new Platform('站酷作品榜', topSearchForZhanKuZuoPinBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
                     new Platform('站酷潜力榜', topSearchForZhanKuQianLiBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
                     new Platform('站酷文章榜', topSearchForZhanKuWenZhangBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg')),
@@ -206,6 +202,10 @@ export default createStore({
                     new Platform('Core77', topSearchForCore77, require('@/assets/logos/tgmeng-trend_core77.jpg')),
                     new Platform('Dribbble', topSearchForDribbble, require('@/assets/logos/tgmeng-trend_dribbble.jpg')),
                     new Platform('Awwwards', topSearchForAwwwards, require('@/assets/logos/tgmeng-trend_awwwards.png')),
+                    new Platform('涂鸦王国热门作品', topSearchForReMenZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国精选作品', topSearchForJingXuanZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国今日新作', topSearchForJinRiXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg')),
+                    new Platform('涂鸦王国发现新作', topSearchForFaXianXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'))
                 ]
             },
             {
