@@ -709,3 +709,43 @@ export function topSearchForAbduzeedo(data) {
         data: data
     })
 }
+
+export function topSearchForMIT(data) {
+    return request({
+        url: '/topsearch/mit',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForEurekAlert(data) {
+    return request({
+        url: '/topsearch/eurekalert',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin(data) {
+    return request({
+        url: '/topsearch/rengongzhinengguojikejichuangxinzhongxin',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYiYaoJianKangGuoJiKeJiChuangXinZhongXin(data) {
+    return request({
+        url: '/topsearch/yiyaojiankangguojikejichuangxinzhongxin',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchJiQiZhiXin(data) {
+    return request({
+        url: '/topsearch/jiqizhixin',
+        method: 'get',
+        data: data
+    })
+}
