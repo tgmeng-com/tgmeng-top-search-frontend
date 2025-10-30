@@ -105,6 +105,16 @@ import {
     topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin,
     topSearchForYiYaoJianKangGuoJiKeJiChuangXinZhongXin,
     topSearchJiQiZhiXin,
+    topSearchForHuPu,
+    topSearchForDongQiuDi,
+    topSearchForXinLangTiYu,
+    topSearchForSouHuTiYu,
+    topSearchForWangYiTiYu,
+    topSearchForYangShiTiYu,
+    topSearchForPPTiYu,
+    topSearchForZhiBoBa,
+
+
 } from '@/api/api';
 
 export default createStore({
@@ -171,6 +181,20 @@ export default createStore({
                     new Platform('格隆汇', topSearchForGeLongHui, require('@/assets/logos/tgmeng-trend_gelonghui.png')),
                     new Platform('法布', topSearchForFaBu, require('@/assets/logos/tgmeng-trend_fabu.png')),
                     new Platform('金十', topSearchForJinShi, require('@/assets/logos/tgmeng-trend_jinshi.png')),
+                ]
+            },
+            {
+                name: '体育',
+                isShow: true,
+                subCategories: [
+                    new Platform('央视体育', topSearchForYangShiTiYu, require('@/assets/logos/tgmeng-trend_yangshitiyu.png')),
+                    new Platform('虎扑', topSearchForHuPu, require('@/assets/logos/tgmeng-trend_huputiyu.png')),
+                    new Platform('新浪体育', topSearchForXinLangTiYu, require('@/assets/logos/tgmeng-trend_xinlangtiyu.png')),
+                    new Platform('网易体育', topSearchForWangYiTiYu, require('@/assets/logos/tgmeng-trend_wangyitiyu.png')),
+                    new Platform('搜狐体育', topSearchForSouHuTiYu, require('@/assets/logos/tgmeng-trend_souhutiyu.png')),
+                    new Platform('PP体育', topSearchForPPTiYu, require('@/assets/logos/tgmeng-trend_pptiyu.png')),
+                    new Platform('懂球帝', topSearchForDongQiuDi, require('@/assets/logos/tgmeng-trend_dongqiudi.png')),
+                    new Platform('直播吧', topSearchForZhiBoBa, require('@/assets/logos/tgmeng-trend_zhiboba.png')),
                 ]
             },
             {

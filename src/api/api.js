@@ -749,3 +749,69 @@ export function topSearchJiQiZhiXin(data) {
         data: data
     })
 }
+
+export function topSearchForHuPu(data) {
+    return request({
+        url: '/topsearch/hupu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDongQiuDi(data) {
+    return request({
+        url: '/topsearch/dongqiudi',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForXinLangTiYu(data) {
+    return request({
+        url: '/topsearch/xinlangtiyu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForSouHuTiYu(data) {
+    return request({
+        url: '/topsearch/souhutiyu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForWangYiTiYu(data) {
+    return request({
+        url: '/topsearch/tiyuwangyi',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYangShiTiYu(data) {
+    return request({
+        url: '/topsearch/yangshitiyu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForPPTiYu(data) {
+    return request({
+        url: '/topsearch/pptiyu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForZhiBoBa(data) {
+    return request({
+        url: '/topsearch/zhiboba',
+        method: 'get',
+        data: data
+    })
+}
+
+
