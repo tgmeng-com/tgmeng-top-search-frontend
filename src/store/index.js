@@ -146,7 +146,7 @@ export default createStore({
                     new Platform('纽约时报', topSearchForNiuYueShiBao, require('@/assets/logos/tgmeng-trend_niuyueshibao.png')),
                     new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png')),
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png')),
-                    new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png')),
+                    // new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png')),
                 ]
             },
             {
