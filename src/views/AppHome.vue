@@ -21,32 +21,34 @@
         </div>
       </div>
 
-      <div class="mb-6 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div
+          class="mb-6 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            总访问量: <span class="font-medium">{{umamiAllViews}}</span>
+            总访问量: <span class="font-medium">{{ umamiAllViews }}</span>
           </span>&nbsp;
           <!-- 总访问时长 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            总时长: <span class="font-medium">{{umamiAllTime}}</span>
+            总时长: <span class="font-medium">{{ umamiAllTime }}</span>
           </span>&nbsp;
           <!-- 今日访问量 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            今日访问量: <span class="font-medium">{{umamiTodayViews}}</span>
+            今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
           </span>&nbsp;
           <!-- 今日访问时长 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            今日时长: <span class="font-medium">{{umamiTodayTime}}</span>
+            今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
           <span class="text-xs px-2 py-1 rounded-md bg-green-300 dark:bg-green-900 text-green-900 dark:text-green-300">
-            在线: <span class="font-medium">{{umamiActive}}</span>
+            在线: <span class="font-medium">{{ umamiActive }}</span>
           </span>
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
-        <div class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
+        <div
+            class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
           数据每分钟更新一次（GitHub数据每20-40分钟更新一次）
         </div>
       </div>
@@ -111,6 +113,7 @@ export default {
           }
         });
       })
+      this.initAllCategroies();
       // 默认第二个分类为首页
       this.activeCategory = this.categroies[1];
       this.handleCategoryClick(this.activeCategory)
@@ -136,31 +139,27 @@ export default {
 
     // 分类按钮点击事件
     handleCategoryClick(cat) {
-      if (cat.name !== '全部'){
-        this.activeCategory = cat;
-        cat.subCategories.forEach(subCat => {
-          //只加载show的数据
-          if (subCat.isShow) {
-            subCat.loading = true;
-            this.fetchData(subCat);
-          }
-        });
-      }else{
-        this.activeCategory = this.categroies[0];
-        this.activeCategory.subCategories = []
-        this.categroies.forEach(cat => {
-          cat.subCategories.forEach(subCat => {
-            //只加载show的数据
-            if (subCat.isShow) {
-              subCat.loading = true;
-              this.fetchData(subCat);
-              this.activeCategory.subCategories.push(subCat)
-            }
-          });
-        })
-      }
+      this.activeCategory = cat;
+      cat.subCategories.forEach(subCat => {
+        //只加载show的数据
+        if (subCat.isShow) {
+          subCat.loading = true;
+          this.fetchData(subCat);
+        }
+      });
     },
-    initUmami(){
+
+    // 初始化全部分类，就是把其他分类下的东西放到全部分类下，方便展示
+    initAllCategroies() {
+      this.activeCategory = this.categroies[0];
+      this.activeCategory.subCategories = []
+      this.categroies.forEach(cat => {
+        cat.subCategories.forEach(subCat => {
+          this.activeCategory.subCategories.push(subCat)
+        });
+      })
+    },
+    initUmami() {
       umamiActive()
           .then((res) => {
             this.umamiActive = res?.data?.visitors || 1;
