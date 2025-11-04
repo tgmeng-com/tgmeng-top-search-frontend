@@ -189,6 +189,7 @@ export default {
         item.sort = this.preDragSortList[index];
       });
       this.updateCache();
+      window.umami.track('拖拽排序')
     },
     updateCache() {
       // 放到缓存里
