@@ -54,18 +54,28 @@
       </div>
 
       <section class="mb-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <CommunityCard
-              v-for="p in activeCategory.subCategories"
-              v-show="p.isShow"
-              :key="p.title"
-              :title="p.title"
-              :logo="p.logo"
-              :updateTime="p.updateTime"
-              :list="p.data"
-              :loading="p.loading"
-          />
-        </div>
+        <draggable
+            v-model="activeCategory.subCategories"
+            tag="div"
+            item-key="title"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            :animation="300"
+            @start="onDragStart"
+            @end="onDragEnd"
+        >
+          <template #item="{ element: p }">
+            <div v-show="p.isShow">
+              <CommunityCard
+                  :key="p.title"
+                  :title="p.title"
+                  :logo="p.logo"
+                  :updateTime="p.updateTime"
+                  :list="p.data"
+                  :loading="p.loading"
+              />
+            </div>
+          </template>
+        </draggable>
       </section>
     </main>
   </div>
@@ -73,13 +83,15 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import {getCategroiesFromLocalStorage} from "@/utils/localStorageUtils";
+import {getCategroiesFromLocalStorage, updateCategroiesInLocalStorage} from "@/utils/localStorageUtils";
 import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
 import {formatSecondsToHMS} from "@/utils/timeUtils";
+import draggable from 'vuedraggable'
 
 export default {
   components: {
     CommunityCard,
+    draggable
   },
   data() {
     return {
@@ -90,6 +102,7 @@ export default {
       umamiTodayTime: this.$store.state.umamiTodayTime,
       umamiAllViews: this.$store.state.umamiAllViews,
       umamiAllTime: this.$store.state.umamiAllTime,
+      preDragSortList: [], // 拖动前的 sort 列表
     };
   },
   async mounted() {
@@ -100,19 +113,22 @@ export default {
       this.initUmami();
       const cacheCategroies = getCategroiesFromLocalStorage('categroies');
       //用缓存里的isShow替换一下全部数据里的
-      this.categroies.forEach(cat => {
-        cat.subCategories.forEach(subCat => {
-          if (cacheCategroies) {
-            cacheCategroies.forEach(cacheCat => {
-              cacheCat.subCategories.forEach(cacheSubCat => {
-                if (cacheSubCat.title === subCat.title) {
-                  subCat.isShow = cacheSubCat.isShow;
-                }
-              })
-            })
-          }
+      if (cacheCategroies) {
+        cacheCategroies.forEach(cacheCat => {
+          // 找到真实分类
+          const realCat = this.categroies.find(cat => cat.name === cacheCat.name);
+          if (!realCat) return;
+          // 1️⃣ 替换 isShow 状态
+          realCat.subCategories.forEach(subCat => {
+            const cacheSub = cacheCat.subCategories.find(c => c.title === subCat.title);
+            if (cacheSub) {
+              subCat.isShow = cacheSub.isShow;
+              subCat.sort = cacheSub.sort;
+            }
+          });
+          this.updateCache()
         });
-      })
+      }
       this.initAllCategroies();
       // 默认第二个分类为首页
       this.activeCategory = this.categroies[1];
@@ -140,6 +156,8 @@ export default {
     // 分类按钮点击事件
     handleCategoryClick(cat) {
       this.activeCategory = cat;
+      // 对数据进行排序，因为从缓存中拿到的用户的sort数据，我们需要根据这个sort展示
+      this.sortedSubCategories();
       cat.subCategories.forEach(subCat => {
         //只加载show的数据
         if (subCat.isShow) {
@@ -158,6 +176,37 @@ export default {
           this.activeCategory.subCategories.push(subCat)
         });
       })
+    },
+    // 拖动开始时，保存当前 sort 列表
+    onDragStart() {
+      this.preDragSortList = this.activeCategory.subCategories.map(item => item.sort);
+    },
+    //保存拖动卡片后的顺序
+    onDragEnd() {
+      // 拖动完成后，更新每个卡片的 sort 属性
+      const arr = this.activeCategory.subCategories;
+      arr.forEach((item, index) => {
+        item.sort = this.preDragSortList[index];
+      });
+      this.updateCache();
+    },
+    updateCache() {
+      // 放到缓存里
+      const clonedForStorage = JSON.parse(JSON.stringify(this.categroies));
+      //只保存title和isShow、sort的数据，其余数据全部设置为null，减少缓存
+      clonedForStorage.forEach(categroy => {
+        categroy.subCategories.forEach(subCategroy => {
+          subCategroy.data = null
+          subCategroy.api = null
+          subCategroy.logo = null
+          subCategroy.updateTime = ''
+          subCategroy.loading = true
+        })
+      });
+      updateCategroiesInLocalStorage(clonedForStorage);
+    },
+    sortedSubCategories() {
+      this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
     },
     initUmami() {
       umamiActive()

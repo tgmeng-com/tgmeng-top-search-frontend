@@ -130,7 +130,7 @@ export default {
   components: {ThemeToggle},
   mounted() {
     // ✅✅✅✅✅✅ 顶部通知
-    // this.notificationMessage()
+    this.notificationMessage()
 
     const savedTheme = localStorage.getItem('theme')
     // 优先使用用户保存的主题
@@ -153,9 +153,9 @@ export default {
   methods: {
     notificationMessage() {
       this.$notify({
-        title: '🎉支持评论啦！',
+        title: '支持自定义拖拽排序啦！',
         // message: '‼️目前已知问题：<br>1:优酷接口返回的是海外用户的排行榜<br>其余数据全都正常，请尽情享用',
-        message: '1:支持匿名评论！<br>2:支持github、twitter、facebook等登录后评论',
+        message: '拖拽卡片即可改变位置，数据保存在本地缓存中，任意时间进来网站都能保持您的设置<br/>如果想要恢复默认设置，点击右上角设置中的重置即可',
         duration: 10000,
         type: 'success',
         position: 'top-left',
