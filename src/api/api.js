@@ -814,4 +814,64 @@ export function topSearchForZhiBoBa(data) {
     })
 }
 
+export function topSearchForV2ex(data) {
+    return request({
+        url: '/topsearch/v2ex',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
+export function topSearchForBuXingJieHuPu(data) {
+    return request({
+        url: '/topsearch/buxingjiehupu',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
+export function topSearchForNga(data) {
+    return request({
+        url: '/topsearch/nga',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
+export function topSearchForYiMuSanFenDi(data) {
+    return request({
+        url: '/topsearch/yimusanfendi',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
+export function topSearchForWenZhangJueJin(data) {
+    return request({
+        url: '/topsearch/wenzhangjuejin',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
+export function topSearchForHackerNews(data) {
+    return request({
+        url: '/topsearch/hackernews',
+        method: 'get',
+        data: data
+    })
+}
+
+
+
 
