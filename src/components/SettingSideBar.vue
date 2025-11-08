@@ -19,7 +19,7 @@
     <div class="flex-1 flex justify-end items-center space-x-4">
       <!-- 交流群 -->
       <div style="width: 40px;">
-        <a href="https://wechat.tgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
+        <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
            data-umami-event-name="顶部右边交流群">
           <el-tooltip
               placement="bottom"
@@ -130,7 +130,7 @@ export default {
   components: {ThemeToggle},
   mounted() {
     // ✅✅✅✅✅✅ 顶部通知
-    this.notificationMessage()
+    // this.notificationMessage()
 
     const savedTheme = localStorage.getItem('theme')
     // 优先使用用户保存的主题
