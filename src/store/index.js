@@ -117,7 +117,7 @@ import {
     topSearchForV2ex,
     topSearchForBuXingJieHuPu,
     topSearchForNga,
-    topSearchForYiMuSanFenDi,
+    // topSearchForYiMuSanFenDi,
     topSearchForWenZhangJueJin,
     topSearchForHackerNews,
 
@@ -183,7 +183,7 @@ export default createStore({
                     new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png'), 22.4),
                     new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png'), 22.5),
                     new Platform('豆瓣', topSearchForDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 22.6),
-                    new Platform('一亩三分地', topSearchForYiMuSanFenDi, require('@/assets/logos/tgmeng-trend_yimusanfendi.png'), 22.7),
+                    // new Platform('一亩三分地', topSearchForYiMuSanFenDi, require('@/assets/logos/tgmeng-trend_yimusanfendi.png'), 22.7),
                     new Platform('掘金', topSearchForWenZhangJueJin, require('@/assets/logos/tgmeng-trend_juejin.png'), 22.8),
                     new Platform('NGA', topSearchForNga, require('@/assets/logos/tgmeng-trend_nga.png'), 22.9),
 
