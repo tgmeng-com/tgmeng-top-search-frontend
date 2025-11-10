@@ -2,7 +2,15 @@
   <div class="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-sm card-hover">
     <!-- 顶部标题栏 -->
     <div class="bg-blue-50 dark:bg-dark-card-title p-4 flex items-center drag-handle">
-      <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full mr-3">
+      <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full">
+
+      <el-icon
+          class="favorite-icon"
+          :color="isStar ? '#f7ba2a' : '#ccc'"
+          @click="toggleStar">
+        <component :is="isStar ? 'StarFilled' : 'Star'" />
+      </el-icon>
+
       <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
       <span
           class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
@@ -102,9 +110,16 @@
 </template>
 
 <script>
+import { StarFilled, Star } from '@element-plus/icons-vue'
+
 export default {
+  components: {
+    StarFilled,
+    Star
+  },
   data() {
     return {
+      categroies: this.$store.state.categroies,
       playingIndex: null,
       isPaused: true,
       isLoop: false,  // 默认不循环播放
@@ -170,6 +185,13 @@ export default {
       if (audio) {
         audio.loop = this.isLoop;
       }
+    },
+    //点击收藏某个卡片
+    toggleStar() {
+      // 更新父组件isStar数据
+      this.$emit('update:isStar', !this.isStar)
+      // 调用父组件更新缓存方法
+      this.$emit('updateCache')
     }
   },
   props: {
@@ -177,6 +199,7 @@ export default {
     logo: String,
     updateTime: String,
     list: Array,
+    isStar: Boolean,
     loading: {
       type: Boolean,
       default: false,
@@ -308,5 +331,16 @@ li > span:first-child {
   100% {
     transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
   }
+}
+
+.favorite-icon {
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+  margin: 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.15);
 }
 </style>

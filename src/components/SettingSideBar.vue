@@ -180,7 +180,7 @@ export default {
       updateCategroiesInLocalStorage(clonedForStorage);
     },
     cleanLocalStorage() {
-      this.$confirm('此操作将清除历史勾选,展示全部内容', {
+      this.$confirm('此操作将清除所有历史个人设置，包括排序、收藏、隐藏展示等等', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

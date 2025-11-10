@@ -73,6 +73,8 @@
                   :updateTime="p.updateTime"
                   :list="p.data"
                   :loading="p.loading"
+                  v-model:isStar="p.isStar"
+                  @updateCache="updateCache"
               />
             </div>
           </template>
@@ -125,6 +127,7 @@ export default {
             if (cacheSub) {
               subCat.isShow = cacheSub.isShow;
               subCat.sort = cacheSub.sort;
+              subCat.isStar = cacheSub.isStar;
             }
           });
           this.updateCache()
@@ -157,6 +160,16 @@ export default {
     // 分类按钮点击事件
     handleCategoryClick(cat) {
       this.activeCategory = cat;
+      // 把全部数据下收藏的卡片方法收藏分类下
+      if (cat.name === '收藏') {
+        // 先清空收藏分类下的卡片
+        this.activeCategory.subCategories.splice(0)
+        this.categroies[0].subCategories.forEach(cat => {
+          if (cat.isStar){
+            this.activeCategory.subCategories.push(cat)
+          }
+        })
+      }
       // 对数据进行排序，因为从缓存中拿到的用户的sort数据，我们需要根据这个sort展示
       this.sortedSubCategories();
       cat.subCategories.forEach(subCat => {
@@ -195,7 +208,7 @@ export default {
     updateCache() {
       // 放到缓存里
       const clonedForStorage = JSON.parse(JSON.stringify(this.categroies));
-      //只保存title和isShow、sort的数据，其余数据全部设置为null，减少缓存
+      //只保存title和isShow、sort、isStar的数据，其余数据全部设置为null，减少缓存
       clonedForStorage.forEach(categroy => {
         categroy.subCategories.forEach(subCategroy => {
           subCategroy.data = null
