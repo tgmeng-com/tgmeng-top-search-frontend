@@ -6,7 +6,7 @@ services:
       # build:        # 这是使用本地区构建镜像，上面image就是直接用dockerhub的镜像
     # context: .  # 使用当前目录的 Dockerfile
     ports:
-      - "8080:80"  # 映射主机 8080 端口到容器 4399 端口
+      - "8080:80"  # 映射主机 8080 端口到容器 80 端口
     restart: unless-stopped  # 容器异常退出时自动重启，除非手动停止
 
 # 使用
