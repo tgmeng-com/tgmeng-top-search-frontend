@@ -176,11 +176,33 @@
 ---
 ## 🗼 部署
 
+### 1 三方平台一键部署
+
 - 您也可以通过<span style="color:yellow">Vercel</span>、<span style="color:yellow">Netlify</span>等平台直接部署本项目
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CandyDream6/tgmeng-top-search-frontend)
+
+### 2 Docker镜像一键部署
+
+```shell
+docker pull tgmeng/tgmeng-top-search-frontend:latest                     # 这是dockerhub里的镜像
+# docker pull ghcr.io/tgmeng-com/tgmeng-top-search-frontend:latest       # 这是ghcr里的镜像，和上面是一样的，拉哪个都行
+docker run -d -p 8080:80 --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
+docker ps
+docker logs -f --tail=50 tgmeng-top-search-frontend
+```
+
+### 3 DockerCompose一键部署
+
+- 下载本项目根目录下的docker-compose.yml，然后在他的同级目录执行下面命令
+
+```shell
+docker-compose up -d
+docker-compose ps
+docker-compose logs -f --tail=50 tgmeng-top-search-frontend
+```
 
 ---
 
