@@ -3,14 +3,11 @@ services:
   tgmeng-top-search-frontend:
     container_name: tgmeng-top-search-frontend  # 指定容器名
     image: tgmeng/tgmeng-top-search-frontend:latest   # 这里使用的是 Docker Hub 上的镜像，也可以用ghcr上的  ghcr.io/tgmeng-com/tgmeng-top-search-frontend:latest
-    # build:        # 这是使用本地区构建镜像，上面image就是直接用dockerhub的镜像
+      # build:        # 这是使用本地区构建镜像，上面image就是直接用dockerhub的镜像
     # context: .  # 使用当前目录的 Dockerfile
-    environment:
-      VUE_APP_API_BASE_URL: '你的后端api的地址'
     ports:
       - "8080:80"  # 映射主机 8080 端口到容器 80 端口
     restart: unless-stopped  # 容器异常退出时自动重启，除非手动停止
-
 
 # 使用
 # docker-compose up -d
