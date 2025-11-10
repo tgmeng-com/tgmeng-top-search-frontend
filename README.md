@@ -189,14 +189,16 @@
 ```shell
 docker pull tgmeng/tgmeng-top-search-frontend:latest                     # 这是dockerhub里的镜像
 # docker pull ghcr.io/tgmeng-com/tgmeng-top-search-frontend:latest       # 这是ghcr里的镜像，和上面是一样的，拉哪个都行
-docker run -d -p 8080:80 --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
+docker run -d -e VUE_APP_API_BASE_URL='替换为你自己的后端接口地址'  -p 8080:80 --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
 docker ps
 docker logs -f --tail=50 tgmeng-top-search-frontend
 ```
 
 ### 3 DockerCompose一键部署
 
-- 下载本项目根目录下的docker-compose.yml，然后在他的同级目录执行下面命令
+- 下载本项目根目录下的docker-compose.yml，
+- 把里面的VUE_APP_API_BASE_URL变量替换为你自己的后端接口地址
+- 然后在他的同级目录执行下面命令
 
 ```shell
 docker-compose up -d
