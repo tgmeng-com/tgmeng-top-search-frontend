@@ -1,0 +1,108 @@
+name: 部署tgmeng-top-search-frontend
+
+on:
+  push:
+    branches:
+      - main  # 触发条件，根据你的需求选择分支
+    tags:
+      - 'v*'  # 触发 Release 创建的标签模式，例如 v1.0.0。意思就是当你创建一个以v开头的tag时，会自动发布release，这部分自动发布release的配置在最后面那里，翻下去看
+
+concurrency: # 如果多个部署同时触发，可能导致服务器上的 JAR 文件冲突或覆盖。建议使用 concurrency 限制同一时间只有一个部署运行
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+permissions:
+  contents: write  # 这里主要是为了在提交tag时他自动创建release和上传jar包需要这儿权限
+  packages: write  # 添加对 packages 的写入权限，以便推送 GHCR 镜像（github repository container register）
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest   # 选择运行环境，ubuntu-latest 是 Linux 系统
+    timeout-minutes: 30      # 单位：分钟  当前的工作流没有设置超时时间。如果某个步骤（如 Maven 构建或 SSH 命令）卡住，可能导致工作流长时间挂起
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}          # DockerHub 用户名
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}                # DockerHub 访问令牌
+      DOCKER_IMAGE_NAME: tgmeng-top-search-frontend                  # DockerHub 镜像名称（也就是dockerHub里面的仓库的名字）
+      GHCR_IMAGE_NAME: tgmeng-top-search-frontend                    # GHCR 镜像名称（建议是仓库名）
+
+    steps:
+      # 获取代码并构建项目
+      - name: 拉取项目代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 安装依赖并构建
+        run: |
+          npm ci
+          npm run build
+
+      - name: 获取版本号
+        id: get_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "版本号: $VERSION"
+          echo "TAG_NAME=${VERSION}" >> $GITHUB_ENV
+          echo "DOCKER_IMAGE_TAG=$VERSION" >> $GITHUB_ENV
+
+      # 登录 DockerHub
+      - name: 登录Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+      # 登录 GHCR（github repository container register）,也就是github的docker库
+      - name: 登录GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # 构建Docker镜像（DockerHub）
+      - name: 构建Docker镜像
+        run: |
+          docker build \
+           -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }} \
+           -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
+           -t ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }} \
+           -t ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:latest \
+           .
+      # 推送Docker镜像（DockerHub）
+      - name: 推送Docker镜像
+        run: |
+          echo "Pushing to ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}"
+          docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
+          echo "Pushing to ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:latest"
+          docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+
+      # 推送Docker镜像到GHCR（github repository container register）,也就是github的docker库
+      # 拉取是这样：docker pull ghcr.io/YOUR_USERNAME/GHCR_IMAGE_NAME:tag
+      - name: 推送Docker镜像到GHCR
+        run: |
+          echo "Pushing to ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}"
+          docker push ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
+          echo "Pushing to ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:latest"
+          docker push ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}:latest
+
+      # 创建 GitHub Release，当创建以v*开头的tag时，会自动创建release，就是开头定义的那个v*，比如v1.0.1
+      - name: 创建 GitHub Release
+        id: create_release  # 新增 ID 以供后续步骤引用
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.TAG_NAME }}
+          body: |
+            🚀 Vue 前端构建完成！
+            - 镜像版本: ${{ env.DOCKER_IMAGE_TAG }}
+            - DockerHub: ${{ env.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}
+            - GHCR: ghcr.io/${{ github.repository_owner }}/${{ env.GHCR_IMAGE_NAME }}
+          draft: false
+          prerelease: false
