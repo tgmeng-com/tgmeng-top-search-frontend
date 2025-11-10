@@ -192,6 +192,11 @@ export default {
       this.$emit('update:isStar', !this.isStar)
       // 调用父组件更新缓存方法
       this.$emit('updateCache')
+      if (!this.isStar){
+        window.umami.track('收藏')
+      }else {
+        window.umami.track('取消收藏')
+      }
     }
   },
   props: {
