@@ -89,7 +89,10 @@
             v-model="activeCategory.subCategories"
             tag="div"
             item-key="title"
-            :class="`grid gap-6 cols-1 md:grid-cols-2 lg:grid-cols-${cardCols}`"
+            class="grid gap-6 cols-1 md:grid-cols-2"
+            :style="{
+              gridTemplateColumns: `repeat(${cardCols}, minmax(0, 1fr))`
+            }"
             :animation="300"
             :handle="'.drag-handle'"
             @start="onDragStart"
