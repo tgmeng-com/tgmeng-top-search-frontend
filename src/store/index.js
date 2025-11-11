@@ -142,6 +142,12 @@ export default createStore({
         umamiAllViews: '🚀',
         // 总访问时长
         umamiAllTime: '🚀',
+        // 卡片列数
+        cardCols: 4,
+        // 卡片高度
+        cardHeight: 30,
+        // 热点标题字体大小
+        cardTitleFontSize: 0.875,
         categroies: [
             {
                 name: '全部',
@@ -345,4 +351,15 @@ export default createStore({
             }
         ],  // 定义一个状态变量 count
     },
+    mutations: {
+        setCardHeight(state, newHeight) {
+            state.cardHeight = newHeight;
+        },
+        setCardCols(state, newCols) {
+            state.cardCols = newCols;
+        },
+        setCardTitleFontSize(state, newSize) {
+            state.cardTitleFontSize = newSize;
+        },
+    }
 });

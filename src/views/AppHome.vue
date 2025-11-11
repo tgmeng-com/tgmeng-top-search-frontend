@@ -22,7 +22,7 @@
       </div>
 
       <div
-          class="mb-6 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
@@ -53,12 +53,43 @@
         </div>
       </div>
 
+      <!-- 用户样式自定义调整   -->
+      <div class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <!-- 左侧：统计数据（移动端换行显示） -->
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          <!-- 用户自定义样式 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            自定义样式
+          </span>&nbsp;
+          <!-- 自定义列 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            列：<el-input-number v-model="cardCols" :min="1" :max="6" size="small" @change="changeCardCols"/>
+          </span>&nbsp;
+          <!-- 自定义高-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            高：<el-input-number v-model="cardHeight" :min="1" :max="500" size="small" @change="changeCardHeight"/>
+          </span>&nbsp;
+          <!-- 自定义标题字体大小-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            标题：<el-input-number v-model="cardTitleFontSize" :min="0.1" :max="2" size="small" :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
+          </span>&nbsp;
+          <!-- 功能提示-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            ps:卡片可以拖拽标题栏进行排序
+          </span>
+        </div>
+        <!-- 右侧：更新时间（移动端换行显示） -->
+        <div>
+        </div>
+      </div>
+
+
       <section class="mb-10">
         <draggable
             v-model="activeCategory.subCategories"
             tag="div"
             item-key="title"
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            :class="`grid gap-6 cols-1 md:grid-cols-2 lg:grid-cols-${cardCols}`"
             :animation="300"
             :handle="'.drag-handle'"
             @start="onDragStart"
@@ -74,7 +105,7 @@
                   :list="p.data"
                   :loading="p.loading"
                   v-model:isStar="p.isStar"
-                  @updateCache="updateCache"
+                  @updateCategroiesCache="updateCategroiesCache"
               />
             </div>
           </template>
@@ -86,7 +117,11 @@
 
 <script>
 import CommunityCard from '@/components/Card/CommunityCard.vue';
-import {getCategroiesFromLocalStorage, updateCategroiesInLocalStorage} from "@/utils/localStorageUtils";
+import {
+  LOCAL_STORAGE_KEYS,
+  getLocalStorage,
+  setLocalStorage,
+} from "@/utils/localStorageUtils";
 import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
 import {formatSecondsToHMS} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
@@ -126,14 +161,14 @@ export default {
   methods: {
     initializePlatforms() {
       this.initUmami();
-      const cacheCategroies = getCategroiesFromLocalStorage('categroies');
-      //用缓存里的isShow替换一下全部数据里的
+      //用缓存里的isShow、sort、isStar替换一下全部数据里的
+      const cacheCategroies = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES)
       if (cacheCategroies) {
         cacheCategroies.forEach(cacheCat => {
           // 找到真实分类
           const realCat = this.categroies.find(cat => cat.name === cacheCat.name);
           if (!realCat) return;
-          // 1️⃣ 替换 isShow 状态
+          // 1️⃣ 替换 isShow、sort、isStar 状态
           realCat.subCategories.forEach(subCat => {
             const cacheSub = cacheCat.subCategories.find(c => c.title === subCat.title);
             if (cacheSub) {
@@ -142,9 +177,18 @@ export default {
               subCat.isStar = cacheSub.isStar;
             }
           });
-          this.updateCache()
+          this.updateCategroiesCache()
         });
       }
+      // 用缓存里的自定义样式替换一下全部数据里的自定义样式
+      const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
+      const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
+      const cardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
+
+      this.cardCols = cacheCardCols ?? this.cardCols;
+      this.cardHeight = cacheCardHeight ?? this.cardHeight;
+      this.cardTitleFontSize = cardTitleFontSize ?? this.cardTitleFontSize;
+      // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 默认第二个分类为首页
       this.activeCategory = this.categroies[1];
@@ -242,10 +286,10 @@ export default {
       arr.forEach((item, index) => {
         item.sort = this.preDragSortList[index];
       });
-      this.updateCache();
+      this.updateCategroiesCache();
       window.umami.track('拖拽排序')
     },
-    updateCache() {
+    updateCategroiesCache() {
       // 放到缓存里
       const clonedForStorage = JSON.parse(JSON.stringify(this.categroies));
       //只保存title和isShow、sort、isStar的数据，其余数据全部设置为null，减少缓存
@@ -258,7 +302,7 @@ export default {
           subCategroy.loading = true
         })
       });
-      updateCategroiesInLocalStorage(clonedForStorage);
+      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES, clonedForStorage);
     },
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
@@ -293,12 +337,83 @@ export default {
           })
           .finally(() => {
           });
-    }
+    },
+    // 自定义调整卡片列数
+    changeCardCols() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS, this.cardCols);
+      window.umami.track('自定义卡片列数')
+    },
+    // 自定义调整卡片高度
+    changeCardHeight() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT, this.cardHeight);
+      window.umami.track('自定义卡片高度')
+    },
+    // 自定义标题字体大小
+    changeCardTitleFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE, this.cardTitleFontSize);
+      window.umami.track('自定义标题字体大小')
+    },
   },
-  computed: {},
+  computed: {
+    cardHeight: {
+      get() {
+        return this.$store.state.cardHeight;
+      },
+      set(value) {
+        this.$store.commit('setCardHeight', value);
+      }
+    },
+    cardCols: {
+      get() {
+        return this.$store.state.cardCols;
+      },
+      set(value) {
+        this.$store.commit('setCardCols', value);
+      }
+    },
+    cardTitleFontSize: {
+      get() {
+        return this.$store.state.cardTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTitleFontSize', value);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
-/* 你可以在这里添加任何样式 */
+/* 自定义样式的数字加减输入框 */
+:deep(.el-input__wrapper) {
+  background-color: transparent !important;
+  box-shadow: none !important; /* 去掉输入框的阴影 */
+  border: 0 solid rgba(255, 255, 255, 0.2); /* 可选：轻微边框以区分 */
+}
+
+/* 自定义样式的数字加减减号框 */
+:deep(.el-input-number__decrease) {
+  background-color: transparent !important;
+  box-shadow: none !important; /* 去掉输入框的阴影 */
+  border: 0 solid rgba(255, 255, 255, 0); /* 可选：轻微边框以区分 */
+  color: inherit; /* 跟随父元素颜色 */
+}
+
+/* 自定义样式的数字加减加号框 */
+:deep(.el-input-number__increase) {
+  background-color: transparent !important;
+  box-shadow: none !important; /* 去掉输入框的阴影 */
+  border: 0 solid rgba(255, 255, 255, 0); /* 可选：轻微边框以区分 */
+  color: inherit; /* 跟随父元素颜色 */
+}
+
+/* 输入文字颜色（根据主题自调） */
+:deep(.el-input__inner) {
+  color: inherit; /* 跟随父元素颜色 */
+}
+
+:deep(.el-input-number--small) {
+  width: 5.75rem;
+}
+
 </style>

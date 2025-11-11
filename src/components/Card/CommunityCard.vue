@@ -8,7 +8,7 @@
           class="favorite-icon"
           :color="isStar ? '#f7ba2a' : '#ccc'"
           @click="toggleStar">
-        <component :is="isStar ? 'StarFilled' : 'Star'" />
+        <component :is="isStar ? 'StarFilled' : 'Star'"/>
       </el-icon>
 
       <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
@@ -19,7 +19,9 @@
     </div>
 
     <!-- 内容区域（限制高度、可滚动） -->
-    <div class="p-4 max-h-[480px] overflow-y-auto custom-scroll">
+    <div class="p-4 overflow-y-auto custom-scroll "
+         :style="{ maxHeight: cardHeight + 'rem' ,fontSize: cardTitleFontSize+'rem'}">
+      <!--    <div :class="`p-4 overflow-y-auto custom-scroll max-h-[21rem]`">-->
       <!-- ✅ 加载中 -->
       <div v-if="loading" class="flex flex-col items-center justify-center text-gray-400 py-10">
         <div class="atom-spinner">
@@ -30,7 +32,7 @@
             <div class="spinner-circle">&#9679;</div>
           </div>
         </div>
-        <p class="mt-3 text-sm text-gray-500">加载中...</p>
+        <p class="mt-3  text-gray-500">加载中...</p>
       </div>
 
       <!-- ✅ 有数据 -->
@@ -38,69 +40,60 @@
         <li
             v-for="(item, index) in list"
             :key="index"
-            class="flex items-center justify-between"
+            class="flex items-center justify-between "
         >
           <!-- 序号 -->
-          <span
-              :class="[
-                'sequence-number rounded-full flex items-center justify-center text-sm font-bold mr-3',
-                index === 0
-                  ? 'bg-red-600 text-white'
-                  : index === 1
-                  ? 'bg-orange-500 text-white'
-                  : index === 2
-                  ? 'bg-yellow-700 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-              ]"
-          >
+          <span :class="[
+                'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
+                index === 0 ? 'bg-red-600 text-white' : index === 1 ? 'bg-orange-500 text-white': index === 2
+                  ? 'bg-yellow-700 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+              ]">
             {{ index + 1 }}
           </span>
 
           <!-- 标题 -->
-          <a
-              :href="item.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm dark:text-dark-text hot-title hover:underline"
-              :title="item.keyword"
-          >
+          <a :href="item.url" target="_blank" rel="noopener noreferrer"
+             class="dark:text-dark-text hot-title hover:underline" :title="item.keyword">
             {{ item.keyword }}
-            <span v-if="title.includes('网易云')" style="font-size: 0.75rem;opacity: 0.5;">&nbsp;-{{ item.image }}</span>
-            <span v-if="title.includes('猫眼') && item.publishTime?.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.publishTime }}</span>
-            <span v-if="title.includes('猫眼') && item.type?.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.type }}</span>
-            <span v-if="title.includes('猫眼') && item.desc?.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.desc }}</span>
-            <span v-if="title.includes('猫眼') && item.author?.trim() !== ''" style="font-size: 0.75rem;opacity: 0.5;"><br/>· {{ item.author }}</span>
+            <!-- 网易云二级标题 -->
+            <template v-if="title.includes('网易云')">
+              <span :style="secondTitleStyle">&nbsp;- {{ item.image }}</span>
+            </template>
+            <!-- 猫眼二级标题 -->
+            <template v-else-if="title.includes('猫眼')">
+              <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
+                    :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
+              </span>
+            </template>
           </a>
+          <!-- 评分 -->
           <div>
             <template v-if="title.includes('网易云')">
               <!-- 音乐播放器 -->
-              <audio
-                  :id="'audio-' + index"
-                  :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
-                  ref="audios"
-                  :loop="isLoop"
-              ></audio>
-
+              <audio :id="'audio-' + index"
+                     :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
+                     ref="audios" :loop="isLoop"></audio>
               <!-- 播放按钮 -->
               <button @click="playAudio(index, item.keyword)">
                 {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
               </button>
-
               <!-- 循环播放按钮 -->
               <button @click="toggleLoop(index)">
-                {{ isLoop ? '🔁' : '🔂'  }}
+                {{ isLoop ? '🔁' : '🔂' }}
               </button>
             </template>
             <template v-else-if="title.includes('豆瓣组')">
-              <span class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+              <span :style="secondTitleStyle"
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
               👩‍👧‍👦{{ item.commentCount }}
               </span>
-              <span style="margin-left: 0.2rem" class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+              <span :style="secondTitleStyle" style="margin-left: 0.2rem"
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
               {{ item.publishTime }}
               </span>
             </template>
             <template v-else>
-              <span class="text-sm text-red-600 dark:text-red-300 hot-score">
+              <span :style="secondTitleStyle" class=" text-red-600 dark:text-red-300 hot-score">
                 🔥{{ item.hotScore }}
               </span>
             </template>
@@ -109,8 +102,8 @@
       </ul>
 
       <!-- ✅ 无数据 -->
-      <div v-else class="text-center text-gray-400 dark:text-gray-500 text-sm py-10">
-        🤡 暂无数据或接口异常<br />
+      <div v-else class="text-center text-gray-400 dark:text-gray-500 py-10">
+        🤡 暂无数据或接口异常<br/>
         请稍后重试或者联系作者
       </div>
     </div>
@@ -118,7 +111,7 @@
 </template>
 
 <script>
-import { StarFilled, Star } from '@element-plus/icons-vue'
+import {StarFilled, Star} from '@element-plus/icons-vue'
 
 export default {
   components: {
@@ -199,13 +192,21 @@ export default {
       // 更新父组件isStar数据
       this.$emit('update:isStar', !this.isStar)
       // 调用父组件更新缓存方法
-      this.$emit('updateCache')
-      if (!this.isStar){
+      this.$emit('updateCategroiesCache')
+      if (!this.isStar) {
         window.umami.track('收藏')
-      }else {
+      } else {
         window.umami.track('取消收藏')
       }
-    }
+    },
+    maoYanSecondTitleInfo(item) {
+      return [
+        item.publishTime?.trim(),
+        item.type?.trim(),
+        item.desc?.trim(),
+        item.author?.trim(),
+      ].filter(Boolean);
+    },
   },
   props: {
     title: String,
@@ -217,15 +218,49 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    // 二级标题样式
+    secondTitleStyle() {
+      return {
+        fontSize: this.cardTitleFontSize - 0.1 + 'rem',
+        opacity: 0.9,
+      }
+    },
+    cardHeight: {
+      get() {
+        return this.$store.state.cardHeight;
+      },
+      set(value) {
+        this.$store.commit('setCardHeight', value);
+      }
+    },
+    cardTitleFontSize: {
+      get() {
+        return this.$store.state.cardTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTitleFontSize', value);
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
-.sequence-number{
-  width: 1rem;
-  height: 1rem;
+.sequence-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4em; /* 使用 em 单位，使其随字体大小自动放大 */
+  height: 1.4em;
+  border-radius: 50%; /* 保证圆形 */
+  font-weight: 600;
+  text-align: center;
+  line-height: 1; /* 避免字体撑高 */
+  flex-shrink: 0;
 }
+
 /* 多行标题样式 */
 .hot-title {
   flex: 1;

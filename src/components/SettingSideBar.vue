@@ -122,7 +122,11 @@
 
 <script>
 
-import {clearCategroiesFromLocalStorage, updateCategroiesInLocalStorage} from "@/utils/localStorageUtils";
+import {
+  LOCAL_STORAGE_KEYS,
+  setLocalStorage,
+  clearAllLocalStorage,
+} from "@/utils/localStorageUtils";
 import ThemeToggle from "@/components/Theme/ThemeToggle.vue";
 // 默认暗色模式
 
@@ -177,15 +181,15 @@ export default {
           subCategroy.loading = true
         })
       });
-      updateCategroiesInLocalStorage(clonedForStorage);
+      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES, clonedForStorage);
     },
     cleanLocalStorage() {
-      this.$confirm('此操作将清除所有历史个人设置，包括排序、收藏、隐藏展示等等', {
+      this.$confirm('此操作将清除所有历史个人设置，包括排序、收藏、隐藏/展示、自定义样式等等所有个人设置', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        clearCategroiesFromLocalStorage();
+        clearAllLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES);
         this.$message({
           type: 'success',
           message: '已重置，请刷新页面获取全部数据!'
