@@ -121,6 +121,11 @@ import {
     // topSearchForYiMuSanFenDi,
     topSearchForWenZhangJueJin,
     topSearchForHackerNews,
+    topSearchForMaiZuDouBan,
+    topSearchForPinZuDouBan,
+    topSearchForAiMaoShengHuoDouBan,
+    topSearchForAiMaoZaoPenDouBan,
+    topSearchForGouZuDouBan,
 
 
 } from '@/api/api';
@@ -157,6 +162,18 @@ export default createStore({
                     // new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png'),8),
                 ]
             },
+            {
+                name: '羊毛',
+                isShow: true,
+                subCategories: [
+                    new Platform('豆瓣组 买', topSearchForMaiZuDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 8.1),
+                    new Platform('豆瓣组 拼', topSearchForPinZuDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 8.2),
+                    new Platform('豆瓣组 爱猫生活', topSearchForAiMaoShengHuoDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 8.3),
+                    new Platform('豆瓣组 爱猫澡盆', topSearchForAiMaoZaoPenDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 8.4),
+                    new Platform('豆瓣组 狗组', topSearchForGouZuDouBan, require('@/assets/logos/tgmeng-trend_douban.png'), 8.5),
+                ]
+            },
+
             {
                 name: '媒体',
                 isShow: true,

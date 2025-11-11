@@ -91,6 +91,14 @@
                 {{ isLoop ? '🔁' : '🔂'  }}
               </button>
             </template>
+            <template v-else-if="title.includes('豆瓣组')">
+              <span class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+              👩‍👧‍👦{{ item.commentCount }}
+              </span>
+              <span style="margin-left: 0.2rem" class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+              {{ item.publishTime }}
+              </span>
+            </template>
             <template v-else>
               <span class="text-sm text-red-600 dark:text-red-300 hot-score">
                 🔥{{ item.hotScore }}

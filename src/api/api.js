@@ -872,6 +872,44 @@ export function topSearchForHackerNews(data) {
     })
 }
 
+export function topSearchForMaiZuDouBan(data) {
+    return request({
+        url: '/topsearch/maizudouban',
+        method: 'get',
+        data: data
+    })
+}
 
+export function topSearchForPinZuDouBan(data) {
+    return request({
+        url: '/topsearch/pinzudouban',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForAiMaoShengHuoDouBan(data) {
+    return request({
+        url: '/topsearch/aimaoshenghuodouban',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForAiMaoZaoPenDouBan(data) {
+    return request({
+        url: '/topsearch/aimaozaopendouban',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForGouZuDouBan(data) {
+    return request({
+        url: '/topsearch/gouzudouban',
+        method: 'get',
+        data: data
+    })
+}
 
 
