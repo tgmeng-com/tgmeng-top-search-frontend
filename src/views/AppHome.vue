@@ -114,7 +114,7 @@ export default {
     // 定时刷新数据
     this.refreshTimer = setInterval(() => {
       this.refreshData();
-    }, 60 * 1000); // 每60秒钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
+    }, 5 * 1000); // 每5秒钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
   },
   // 离开页面或者切换路由的时候，关闭定时器，避免造成内存泄露
   beforeUnmount() {
@@ -155,6 +155,7 @@ export default {
     fetchData(subCategory) {
       const fetchFunc = subCategory.api;
       if (!fetchFunc) return;
+      subCategory.loading = true;
       fetchFunc()
           .then((res) => {
             const data = res?.data?.data || {};
@@ -187,7 +188,6 @@ export default {
       cat.subCategories.forEach(subCat => {
         //只加载show的数据
         if (subCat.isShow) {
-          subCat.loading = true;
           this.fetchData(subCat);
         }
       });
@@ -196,27 +196,26 @@ export default {
     // 刷新当前分类下的数据
     refreshData() {
       this.activeCategory.subCategories.forEach(subCat => {
-        // 不同平台的时间不同，例如后台github数据是每20-40分钟刷新，那么前端就是判断github数据时间和当前时间相差40分钟的时候，再去主动更新
-        let singleUpdateTime = 60 * 1000;
-        switch (true) {
-          case subCat.title.includes('Star总榜') || subCat.title.includes('新仓库Star'):
-            singleUpdateTime = 40 * 60 * 1000; // 40分钟
-            break;
-          case subCat.title.includes('网易云'):
-            singleUpdateTime = 15 * 60 * 1000; // 15分钟
-            break;
-          default:
-            singleUpdateTime = 60 * 1000; // 默认1分钟
-        }
-        // 检查是否超过60秒没有更新
-        const updateTimestamp = new Date(subCat.updateTime.replace(/-/g, '/')).getTime();
-        if (subCat.isShow && new Date() - new Date(updateTimestamp) > singleUpdateTime) {
-          subCat.loading = true;
-          this.fetchData(subCat);
-        }
+        // TODO 因为有人反馈，看着看着自动刷新了，所以这里先不写这个逻辑
+        // // 不同平台的时间不同，例如后台github数据是每20-40分钟刷新，那么前端就是判断github数据时间和当前时间相差40分钟的时候，再去主动更新
+        // let singleUpdateTime = 60 * 1000;
+        // switch (true) {
+        //   case subCat.title.includes('Star总榜') || subCat.title.includes('新仓库Star'):
+        //     singleUpdateTime = 40 * 60 * 1000; // 40分钟
+        //     break;
+        //   case subCat.title.includes('网易云'):
+        //     singleUpdateTime = 15 * 60 * 1000; // 15分钟
+        //     break;
+        //   default:
+        //     singleUpdateTime = 60 * 1000; // 默认1分钟
+        // }
+        // // 检查是否超过60秒没有更新
+        // const updateTimestamp = new Date(subCat.updateTime.replace(/-/g, '/')).getTime();
+        // if (subCat.isShow && new Date() - new Date(updateTimestamp) > singleUpdateTime) {
+        //   this.fetchData(subCat);
+        // }
         // 如果当前某个平台下数据为空，也主动刷新一下
         if (subCat.isShow && subCat.data.length === 0) {
-          subCat.loading = true;
           this.fetchData(subCat);
         }
       })
