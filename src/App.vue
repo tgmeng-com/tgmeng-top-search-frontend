@@ -2,11 +2,12 @@
   <div id="app">
     <SideBar/>
     <!-- 引入我们开发的 AppHeader、AppHome、AppFooter 等组件 -->
-    <Header />
+    <Header/>
     <main class="container mx-auto px-4 py-6">
       <!-- 这里放页面主体内容，比如 AppHome 组件 -->
-      <Home />
-      <WalineComment />
+      <Home/>
+      <WalineComment/>
+      <el-backtop :right="100" :bottom="100"/>
     </main>
   </div>
 </template>
