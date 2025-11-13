@@ -17,41 +17,41 @@
 
     <!-- 右侧元素容器 -->
     <div class="flex-1 flex justify-end items-center space-x-4">
-      <!-- 交流群 -->
-      <div style="width: 2.5rem;">
-        <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
-           data-umami-event-name="顶部右边交流群">
-          <el-tooltip
-              placement="bottom"
-              effect="light"
-          >
-            <template #content>
-              <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
-            </template>
-            <div style="width: 2.0625rem">
-              <img src="../assets/image/wechat-logo.png">
-            </div>
-          </el-tooltip>
-        </a>
-      </div>
+<!--      &lt;!&ndash; 交流群 &ndash;&gt;-->
+<!--      <div style="width: 2.5rem;">-->
+<!--        <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"-->
+<!--           data-umami-event-name="顶部右边交流群">-->
+<!--          <el-tooltip-->
+<!--              placement="bottom"-->
+<!--              effect="light"-->
+<!--          >-->
+<!--            <template #content>-->
+<!--              <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>-->
+<!--            </template>-->
+<!--            <div style="width: 2.0625rem">-->
+<!--              <img src="../assets/image/wechat-logo.png">-->
+<!--            </div>-->
+<!--          </el-tooltip>-->
+<!--        </a>-->
+<!--      </div>-->
 
-      <!-- 论坛 -->
-      <div style="width: 2.5rem;">
-        <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛"
-           data-umami-event-name="顶部右边论坛">
-          <el-tooltip
-              placement="bottom"
-              effect="light"
-          >
-            <template #content>
-              <div style="text-align: center"><span style="color: #212830">论坛</span></div>
-            </template>
-            <div style="width: 1.625rem">
-              <img src="../assets/image/bbs.png">
-            </div>
-          </el-tooltip>
-        </a>
-      </div>
+<!--      &lt;!&ndash; 论坛 &ndash;&gt;-->
+<!--      <div style="width: 2.5rem;">-->
+<!--        <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛"-->
+<!--           data-umami-event-name="顶部右边论坛">-->
+<!--          <el-tooltip-->
+<!--              placement="bottom"-->
+<!--              effect="light"-->
+<!--          >-->
+<!--            <template #content>-->
+<!--              <div style="text-align: center"><span style="color: #212830">论坛</span></div>-->
+<!--            </template>-->
+<!--            <div style="width: 1.625rem">-->
+<!--              <img src="../assets/image/bbs.png">-->
+<!--            </div>-->
+<!--          </el-tooltip>-->
+<!--        </a>-->
+<!--      </div>-->
 
       <!-- 明暗主题 -->
       <div>
