@@ -251,7 +251,20 @@ export default createStore({
                     // new Platform('EurekAlert', topSearchForEurekAlert, require('@/assets/logos/tgmeng-trend-eurekalert.png'), 41),
                     new Platform('NCSTI-人工智能', topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png'), 42),
                     new Platform('NCSTI-医药健康', topSearchForYiYaoJianKangGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png'), 43),
-
+                    new Platform('Star总榜', topSearchForGitHubAllStars, require('@/assets/logos/tgmeng-trend_github.png'), 90),
+                    new Platform('近一日新仓库Star', topSearchForGitHubDaystars, require('@/assets/logos/tgmeng-trend_github.png'), 91),
+                    new Platform('近一周新仓库Star', topSearchForGitHubWeekstars, require('@/assets/logos/tgmeng-trend_github.png'), 92),
+                    new Platform('近一月新仓库Star', topSearchForGitHubMonthstars, require('@/assets/logos/tgmeng-trend_github.png'), 93),
+                    new Platform('近一年新仓库Star', topSearchForGitHubYearstars, require('@/assets/logos/tgmeng-trend_github.png'), 94),
+                    new Platform('近三年新仓库Star', topSearchForGitHubThreeYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 95),
+                    new Platform('近五年新仓库Star', topSearchForGitHubFiveYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 96),
+                    new Platform('近十年新仓库Star', topSearchForGitHubTenYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 97),
+                    new Platform('Spaces热门榜', topSearchForHuggingFaceSpaceTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 98),
+                    new Platform('Spaces点赞榜', topSearchForHuggingFaceSpaceLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 99),
+                    new Platform('Models热门榜', topSearchForHuggingFaceModelTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 100),
+                    new Platform('Models点赞榜', topSearchForHuggingFaceModelLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 101),
+                    new Platform('Datasets热门榜', topSearchForHuggingFaceDatasetsTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 102),
+                    new Platform('Datasets点赞榜', topSearchForHuggingFaceDatasetsLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 103),
                 ]
             },
             {
@@ -277,13 +290,18 @@ export default createStore({
                 ]
             },
             {
-                name: '影视',
+                name: '影音',
                 isShow: true,
                 subCategories: [
                     new Platform('猫眼 周票房榜', topSearchForZhouPiaoFangBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 60),
                     new Platform('猫眼 想看榜', topSearchForXiangkanBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 61),
                     new Platform('猫眼 购票评分榜', topSearchForGouPiaoPingFenBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 62),
                     new Platform('猫眼 历史总榜', topSearchForTop100MaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 63),
+
+                    new Platform('网易云 飙升榜', topSearchForWangYiYunBiaoSheng, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 86),
+                    new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 87),
+                    new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 88),
+                    new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 89),
 
                     new Platform('腾讯视频 综艺', topSearchForZongYiTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png'), 64),
                     new Platform('爱奇艺 综艺', topSearchForZongYiAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png'), 65),
@@ -312,36 +330,6 @@ export default createStore({
 
                     new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png'), 84),
                     new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png'), 85),
-                ]
-            },
-            {
-                name: '音乐',
-                isShow: true,
-                subCategories: [
-                    new Platform('网易云 飙升榜', topSearchForWangYiYunBiaoSheng, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 86),
-                    new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 87),
-                    new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 88),
-                    new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 89),
-                ]
-            },
-            {
-                name: 'IT',
-                isShow: true,
-                subCategories: [
-                    new Platform('Star总榜', topSearchForGitHubAllStars, require('@/assets/logos/tgmeng-trend_github.png'), 90),
-                    new Platform('近一日新仓库Star', topSearchForGitHubDaystars, require('@/assets/logos/tgmeng-trend_github.png'), 91),
-                    new Platform('近一周新仓库Star', topSearchForGitHubWeekstars, require('@/assets/logos/tgmeng-trend_github.png'), 92),
-                    new Platform('近一月新仓库Star', topSearchForGitHubMonthstars, require('@/assets/logos/tgmeng-trend_github.png'), 93),
-                    new Platform('近一年新仓库Star', topSearchForGitHubYearstars, require('@/assets/logos/tgmeng-trend_github.png'), 94),
-                    new Platform('近三年新仓库Star', topSearchForGitHubThreeYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 95),
-                    new Platform('近五年新仓库Star', topSearchForGitHubFiveYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 96),
-                    new Platform('近十年新仓库Star', topSearchForGitHubTenYearStars, require('@/assets/logos/tgmeng-trend_github.png'), 97),
-                    new Platform('Spaces热门榜', topSearchForHuggingFaceSpaceTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 98),
-                    new Platform('Spaces点赞榜', topSearchForHuggingFaceSpaceLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 99),
-                    new Platform('Models热门榜', topSearchForHuggingFaceModelTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 100),
-                    new Platform('Models点赞榜', topSearchForHuggingFaceModelLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 101),
-                    new Platform('Datasets热门榜', topSearchForHuggingFaceDatasetsTrending, require('@/assets/logos/tgmeng-trend_huggingface.png'), 102),
-                    new Platform('Datasets点赞榜', topSearchForHuggingFaceDatasetsLikes, require('@/assets/logos/tgmeng-trend_huggingface.png'), 103),
                 ]
             },
             {
