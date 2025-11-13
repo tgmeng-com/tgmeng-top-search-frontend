@@ -54,7 +54,7 @@
     .btn {
         background: var(--btn-bg);
         color: var(--btn-text);
-        border: 1px solid var(--btn-border);
+        border: 0.0625rem solid var(--btn-border);
     }
 }
 
@@ -66,5 +66,5 @@ body {
 .el-drawer {
     height: auto !important;
     background-color: #dbdbdb !important;
-    border-radius: 0 0 50px 50px !important;
+    border-radius: 0 0 3.125rem 3.125rem !important;
 }

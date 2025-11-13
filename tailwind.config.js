@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors: {
         // 亮色模式颜色
-        'light-bg': '#fafafa', // 浅灰色背景，更柔和
+        'light-bg': '#dddddd', // 浅灰色背景，更柔和
         'light-card': '#ffffff', // 白色卡片，突出内容
         'light-text': '#2d3748', // 深灰色文本，提高可读性
         'light-gray': '#edf2f7', // 辅助灰色，用于分隔线等

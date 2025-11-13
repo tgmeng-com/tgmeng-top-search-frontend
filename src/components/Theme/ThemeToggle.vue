@@ -70,7 +70,7 @@ const toggleTheme = () => {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 0.5rem;
   transition: transform 0.2s ease;
 }
 

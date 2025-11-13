@@ -1,6 +1,6 @@
 <template>
-  <header class=" top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+  <header class=" top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md  transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center text-lg">
       <div  class="flex-1 text-center font-semibold dark:text-dark-text">
         🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
         <a data-umami-event="前端" data-umami-event-name="前端" target="_blank" href="https://github.com/CandyDream6/tgmeng-top-search-frontend" style="cursor: pointer;">👉前端</a>&nbsp;&nbsp;&nbsp;
@@ -19,7 +19,7 @@
 
 <style scoped>
 .logo {
-  height: 50px; /* 根据实际需求调整 */
+  height: 3.125rem; /* 根据实际需求调整 */
   width: auto;
 }
 

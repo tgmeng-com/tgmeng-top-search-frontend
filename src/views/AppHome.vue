@@ -2,8 +2,8 @@
   <div class="flex flex-col">
     <main class="container mx-auto px-4 flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="mb-6 overflow-x-auto scrollbar-hide">
-        <div class="inline-flex space-x-2 py-2 justify-center mx-auto whitespace-nowrap">
+      <div class="mb-8 overflow-x-auto scrollbar-hide">
+        <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
           <button
               v-show="cat.isShow"
               v-for="cat in categroies"
@@ -11,8 +11,8 @@
               :data-umami-event-name="cat.name"
               :key="cat.name"
               :class="[
-        'px-4 py-2 rounded-full',
-        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-white dark:bg-dark-card shadow-sm hover:shadow-md transition-shadow'
+        'px-4 py-1.5 rounded-xl',
+        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-dark-card hover:shadow-md transition-shadow'
       ]"
               @click="handleCategoryClick(cat)"
           >
@@ -26,55 +26,59 @@
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             总访问量: <span class="font-medium">{{ umamiAllViews }}</span>
           </span>&nbsp;
           <!-- 总访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             总时长: <span class="font-medium">{{ umamiAllTime }}</span>
           </span>&nbsp;
           <!-- 今日访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
           </span>&nbsp;
           <!-- 今日访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-green-300 dark:bg-green-900 text-green-900 dark:text-green-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300">
             在线: <span class="font-medium">{{ umamiActive }}</span>
           </span>
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div
-            class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
+            class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
           数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟）
         </div>
       </div>
 
       <!-- 用户样式自定义调整   -->
-      <div class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div
+          class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 用户自定义样式 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             自定义样式
           </span>&nbsp;
           <!-- 自定义列 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            列：<el-input-number class="input-cols" v-model="cardCols" :min="1" :max="6" size="small" @change="changeCardCols"/>
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            列：<el-input-number class="input-cols" v-model="cardCols" :min="1" :max="6" size="small"
+                                @change="changeCardCols"/>
           </span>&nbsp;
           <!-- 自定义高-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            高：<el-input-number class="input-height"  v-model="cardHeight" :min="1" :max="500" size="small" @change="changeCardHeight"/>
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
+                                @change="changeCardHeight"/>
           </span>&nbsp;
           <!-- 自定义标题字体大小-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            标题：<el-input-number class="input-title"  v-model="cardTitleFontSize" :min="0.1" :max="2" size="small" :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
+                                  :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
           </span>&nbsp;
           <!-- 功能提示-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             ps:卡片可以拖拽标题栏进行排序
           </span>
         </div>
@@ -84,7 +88,7 @@
       </div>
 
 
-      <section class="mb-10">
+      <section class="mb-10 mt-8">
         <draggable
             v-model="activeCategory.subCategories"
             tag="div"
@@ -109,6 +113,7 @@
                   :loading="p.loading"
                   v-model:isStar="p.isStar"
                   @updateCategroiesCache="updateCategroiesCache"
+                  @fetchData="()=>fetchData(p)"
               />
             </div>
           </template>

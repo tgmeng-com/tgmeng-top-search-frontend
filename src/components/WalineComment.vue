@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 800px; display: inline-block; width: 100%;margin-top: 40px">
+  <div style="max-width: 50rem; display: inline-block; width: 100%;margin-top: 2.5rem">
     <div style="height: auto;padding-left: 1rem;padding-right: 1rem;">
         <img src="@/assets/image/comment.gif">
     </div>
@@ -48,6 +48,6 @@ export default {
 
 <style scoped>
 #waline-comment {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 </style>

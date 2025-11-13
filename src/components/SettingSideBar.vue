@@ -1,10 +1,10 @@
 <template>
-  <div class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md shadow-sm transition-all duration-300">
+  <div class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
 
-  <div style="min-height: 80px;margin-top: 30px"  class="container mx-auto px-4 flex items-center ">
+  <div style="min-height: 5rem;margin-top: 1.875rem"  class="container mx-auto px-4 flex items-center ">
 
     <!-- 左侧 Logo -->
-    <div class="ml-4" style="width: 50px;" >
+    <div class="ml-4" style="width: 3.125rem;" >
       <a href="https://tgmeng.com" target="_blank" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
 <!--      <a href="" target="" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">-->
         <img
@@ -18,7 +18,7 @@
     <!-- 右侧元素容器 -->
     <div class="flex-1 flex justify-end items-center space-x-4">
       <!-- 交流群 -->
-      <div style="width: 40px;">
+      <div style="width: 2.5rem;">
         <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
            data-umami-event-name="顶部右边交流群">
           <el-tooltip
@@ -28,7 +28,7 @@
             <template #content>
               <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
             </template>
-            <div style="width: 33px">
+            <div style="width: 2.0625rem">
               <img src="../assets/image/wechat-logo.png">
             </div>
           </el-tooltip>
@@ -36,7 +36,7 @@
       </div>
 
       <!-- 论坛 -->
-      <div style="width: 40px;">
+      <div style="width: 2.5rem;">
         <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛"
            data-umami-event-name="顶部右边论坛">
           <el-tooltip
@@ -46,7 +46,7 @@
             <template #content>
               <div style="text-align: center"><span style="color: #212830">论坛</span></div>
             </template>
-            <div style="width: 26px">
+            <div style="width: 1.625rem">
               <img src="../assets/image/bbs.png">
             </div>
           </el-tooltip>
@@ -74,7 +74,7 @@
               data-umami-event="顶部右边设置"
               data-umami-event-name="顶部右边设置"
           >
-            <div style="width: 33px">
+            <div style="width: 2.0625rem">
               <img src="@/assets/image/setting.png">
             </div>
           </button>
@@ -87,7 +87,7 @@
   </div>
   <el-drawer v-model="drawer" :with-header="false" :direction="'ttb'">
 
-    <div style="margin-bottom: 20px">
+    <div style="margin-bottom: 1.25rem">
       <el-button class="resetButton" type="danger" @click="cleanLocalStorage">重置设置</el-button>
     </div>
 
@@ -100,7 +100,7 @@
             :label="cat.name">
           <!-- 使用 flex 布局 -->
           <div class="flex flex-wrap">
-            <div style="width: 240px; display: flex; align-items: center; margin-bottom: 8px;"
+            <div style="width: 15rem; display: flex; align-items: center; margin-bottom: 0.5rem;"
                  v-for="p in cat.subCategories"
                  :key="p.title"
             >
@@ -110,7 +110,7 @@
                   inactive-color="#C0CCDA"
                   @change="changeCategroyStatus">
               </el-switch>
-              <img :src="p.logo" style="width: 20px; margin-left: 8px; margin-right: 8px;">
+              <img :src="p.logo" style="width: 1.25rem; margin-left: 0.5rem; margin-right: 0.5rem;">
               <span>{{ p.title }}</span>
             </div>
           </div>
@@ -211,7 +211,7 @@ export default {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 0.5rem;
   transition: transform 0.2s ease;
 }
 
@@ -257,14 +257,14 @@ export default {
 
 :deep(.el-tabs) {
   background-color: #c9c9c9;
-  padding: 10px;
-  border-radius: 30px;
+  padding: 0.625rem;
+  border-radius: 1.875rem;
 }
 
 :deep(.el-tabs__item) {
   font-weight: 700 !important;
   color: #004c4d !important;
-  font-size: 18px !important;
+  font-size: 1.1rem !important;
 }
 
 </style>

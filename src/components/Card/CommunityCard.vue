@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-sm card-hover">
+  <div class="bg-gray-200 dark:bg-dark-card rounded-xl overflow-hidden card-hover">
     <!-- 顶部标题栏 -->
-    <div class="bg-blue-50 dark:bg-dark-card-title p-4 flex items-center drag-handle">
+    <div class="bg-gray-300 dark:bg-dark-card-title p-4 flex items-center drag-handle">
       <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full">
 
       <el-icon
@@ -13,7 +13,18 @@
 
       <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
       <span
-          class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+          class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-full dark:text-dark-text">
+        <el-button
+            link
+            @click="onRefreshCardData"
+            class="dark:text-dark-text"
+        >
+        <el-icon v-if="!loading"><Refresh/></el-icon>
+        <el-icon v-else class="is-loading">
+          <Loading/>
+        </el-icon>
+      </el-button>
+
         {{ updateTime }}
       </span>
     </div>
@@ -84,11 +95,11 @@
             </template>
             <template v-else-if="title.includes('豆瓣组')">
               <span :style="secondTitleStyle"
-                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
               👩‍👧‍👦{{ item.commentCount }}
               </span>
               <span :style="secondTitleStyle" style="margin-left: 0.2rem"
-                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 text-blue-600 dark:text-blue-400 rounded-full dark:text-dark-text">
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
               {{ item.publishTime }}
               </span>
             </template>
@@ -111,12 +122,14 @@
 </template>
 
 <script>
-import {StarFilled, Star} from '@element-plus/icons-vue'
+import {StarFilled, Star, Refresh,Loading} from '@element-plus/icons-vue'
 
 export default {
   components: {
     StarFilled,
-    Star
+    Star,
+    Refresh,
+    Loading
   },
   data() {
     return {
@@ -207,6 +220,9 @@ export default {
         item.author?.trim(),
       ].filter(Boolean);
     },
+    onRefreshCardData(){
+      this.$emit('fetchData')
+    }
   },
   props: {
     title: String,
@@ -282,24 +298,24 @@ li {
 
 /* 序号对齐 */
 li > span:first-child {
-  margin-top: 2px;
+  margin-top: 0.125rem;
 }
 
 /* 热度值右对齐 */
 .hot-score {
-  min-width: 60px;
+  min-width: 3.75rem;
   text-align: right;
   flex-shrink: 0;
 }
 
 /* 滚动条美化 */
 .custom-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 0.375rem;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
   background-color: rgba(100, 100, 100, 0.2);
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 .custom-scroll {
@@ -313,8 +329,8 @@ li > span:first-child {
 }
 
 .atom-spinner {
-  height: 60px;
-  width: 60px;
+  height: 3.125rem;
+  width: 3.125rem;
   overflow: hidden;
 }
 
@@ -329,7 +345,7 @@ li > span:first-child {
   display: block;
   position: absolute;
   color: #ff1d5e;
-  font-size: calc(60px * 0.24);
+  font-size: calc(3.75rem * 0.24);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -340,8 +356,8 @@ li > span:first-child {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border-left-width: calc(60px / 5);
-  border-top-width: calc(60px / 25);
+  border-left-width: calc(3.75rem / 5);
+  border-top-width: calc(3.75rem / 25);
   border-left-color: #ff1d5e;
   border-left-style: solid;
   border-top-style: solid;
