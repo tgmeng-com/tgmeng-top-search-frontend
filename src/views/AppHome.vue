@@ -424,7 +424,7 @@ export default {
 }
 
 :deep(.input-title.el-input-number--small) {
-  width: 5.7rem !important;
+  width: 5.75rem !important;
 }
 
 </style>
