@@ -12,7 +12,7 @@
               :key="cat.name"
               :class="[
         'px-4 py-1.5 rounded-xl',
-        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-dark-card hover:shadow-md transition-shadow'
+        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-700 hover:shadow-md transition-shadow'
       ]"
               @click="handleCategoryClick(cat)"
           >
