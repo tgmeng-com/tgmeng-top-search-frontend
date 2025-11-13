@@ -63,15 +63,15 @@
           </span>&nbsp;
           <!-- 自定义列 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            列：<el-input-number v-model="cardCols" :min="1" :max="6" size="small" @change="changeCardCols"/>
+            列：<el-input-number class="input-cols" v-model="cardCols" :min="1" :max="6" size="small" @change="changeCardCols"/>
           </span>&nbsp;
           <!-- 自定义高-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            高：<el-input-number v-model="cardHeight" :min="1" :max="500" size="small" @change="changeCardHeight"/>
+            高：<el-input-number class="input-height"  v-model="cardHeight" :min="1" :max="500" size="small" @change="changeCardHeight"/>
           </span>&nbsp;
           <!-- 自定义标题字体大小-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            标题：<el-input-number v-model="cardTitleFontSize" :min="0.1" :max="2" size="small" :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
+            标题：<el-input-number class="input-title"  v-model="cardTitleFontSize" :min="0.1" :max="2" size="small" :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
           </span>&nbsp;
           <!-- 功能提示-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
@@ -415,8 +415,16 @@ export default {
   color: inherit; /* 跟随父元素颜色 */
 }
 
-:deep(.el-input-number--small) {
-  width: 5.75rem;
+:deep(.input-cols.el-input-number--small) {
+  width: 4.3rem !important;
+}
+
+:deep(.input-height.el-input-number--small) {
+  width: 5.1rem !important;
+}
+
+:deep(.input-title.el-input-number--small) {
+  width: 5.7rem !important;
 }
 
 </style>
