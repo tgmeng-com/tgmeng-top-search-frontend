@@ -126,6 +126,26 @@ import {
     topSearchForAiMaoShengHuoDouBan,
     topSearchForAiMaoZaoPenDouBan,
     topSearchForGouZuDouBan,
+    topSearchForDouBanXiaChuFang,
+    topSearchForDouBanJieMaoYeKeAi,
+    topSearchForDouBanWoDeChengShiPaiGeiNiKan,
+    topSearchForDouBanJiaPianTuiJian,
+    topSearchForDouBanSheChuMaiFangGongJinHui,
+    topSearchForDouBanCunZhuangAiHaoZhe,
+    topSearchForDouBanYouYiDeXiaoChuan,
+    topSearchForDouBanSheHuiXingSiWang,
+    topSearchForDouBanTaiTouKanShu,
+    topSearchForDouBanLanRenShengHuoZhiBei,
+    topSearchForDouBanKeAiShiWuFenXiang,
+    topSearchForDouBanJinTianChuanShenMe,
+    topSearchForDouBanXiaoFeiZhuYiNiXingZhe,
+    topSearchForDouBanWoMenDouBuDongChe,
+    topSearchForDouBanWoMenDouBuDongRenQingShiGu,
+    topSearchForDouBanDouBanNiaoZu,
+    topSearchForDouBanRenJianQingLvGuanCha,
+    topSearchForDouBanZhiChangTuCaoDaHui,
+    topSearchForDouBanJiaoShi,
+    topSearchForDouBanShangBanZheJianShi,
 
 
 } from '@/api/api';
@@ -179,7 +199,6 @@ export default createStore({
                     new Platform('豆瓣组 狗组', topSearchForGouZuDouBan, require('@/assets/logos/tgmeng-trend_doubangouzu.png'), 8.5),
                 ]
             },
-
             {
                 name: '媒体',
                 isShow: true,
@@ -197,6 +216,33 @@ export default createStore({
                     new Platform('小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png'), 22),
                 ]
             },
+            {
+                name: '生活',
+                isShow: true,
+                subCategories: [
+                    new Platform('下厨房', topSearchForDouBanXiaChuFang, require('@/assets/logos/tgmeng-trend_xia_chu_fang.png'), 104),
+                    new Platform('街猫也可爱', topSearchForDouBanJieMaoYeKeAi, require('@/assets/logos/tgmeng-trend_jie_mao_ye_ke_ai.png'), 105),
+                    new Platform('我的城市拍给你看', topSearchForDouBanWoDeChengShiPaiGeiNiKan, require('@/assets/logos/tgmeng-trend_wo_de_cheng_shi_pai_gei_ni_kan.png'), 106),
+                    new Platform('佳片推荐', topSearchForDouBanJiaPianTuiJian, require('@/assets/logos/tgmeng-trend_jia_pian_tui_jian.png'), 107),
+                    new Platform('社畜买房共进会', topSearchForDouBanSheChuMaiFangGongJinHui, require('@/assets/logos/tgmeng-trend_she_chu_mai_fang_gong_jin_hui.png'), 108),
+                    new Platform('村庄爱好者', topSearchForDouBanCunZhuangAiHaoZhe, require('@/assets/logos/tgmeng-trend_cun_zhuang_ai_hao_zhe.png'), 109),
+                    new Platform('友谊的小船', topSearchForDouBanYouYiDeXiaoChuan, require('@/assets/logos/tgmeng-trend_you_yi_de_xiao_chuan.png'), 110),
+                    new Platform('社会性死亡', topSearchForDouBanSheHuiXingSiWang, require('@/assets/logos/tgmeng-trend_she_hui_xing_si_wang.png'), 111),
+                    new Platform('抬头，看树！', topSearchForDouBanTaiTouKanShu, require('@/assets/logos/tgmeng-trend_tai_tou_kan_shu.png'), 112),
+                    new Platform('懒人生活指北', topSearchForDouBanLanRenShengHuoZhiBei, require('@/assets/logos/tgmeng-trend_lan_ren_sheng_huo_zhi_bei.png'), 113),
+                    new Platform('可爱事物分享', topSearchForDouBanKeAiShiWuFenXiang, require('@/assets/logos/tgmeng-trend_ke_ai_shi_wu_fen_xiang.png'), 114),
+                    new Platform('今天穿什么', topSearchForDouBanJinTianChuanShenMe, require('@/assets/logos/tgmeng-trend_jin_tian_chuan_shen_me.png'), 115),
+                    new Platform('消费主义逆行者', topSearchForDouBanXiaoFeiZhuYiNiXingZhe, require('@/assets/logos/tgmeng-trend_xiao_fei_zhu_yi_ni_xing_zhe.png'), 116),
+                    new Platform('我们都不懂车', topSearchForDouBanWoMenDouBuDongChe, require('@/assets/logos/tgmeng-trend_wo_men_dou_bu_dong_che.png'), 117),
+                    new Platform('我们都不懂人情世故', topSearchForDouBanWoMenDouBuDongRenQingShiGu, require('@/assets/logos/tgmeng-trend_wo_men_dou_bu_dong_ren_qing_shi_gu.png'), 118),
+                    new Platform('豆瓣鸟组', topSearchForDouBanDouBanNiaoZu, require('@/assets/logos/tgmeng-trend_dou_ban_niao_zu.png'), 119),
+                    new Platform('人间情侣观察', topSearchForDouBanRenJianQingLvGuanCha, require('@/assets/logos/tgmeng-trend_ren_jian_qing_lv_guan_cha.png'), 120),
+                    new Platform('职场吐槽大会', topSearchForDouBanZhiChangTuCaoDaHui, require('@/assets/logos/tgmeng-trend_zhi_chang_tu_cao_da_hui.png'), 121),
+                    new Platform('教师', topSearchForDouBanJiaoShi, require('@/assets/logos/tgmeng-trend_jiao_shi.png'), 122),
+                    new Platform('上班这件事', topSearchForDouBanShangBanZheJianShi, require('@/assets/logos/tgmeng-trend_shang_ban_zhe_jian_shi.png'), 123),
+                ]
+            },
+
             {
                 name: '社区',
                 isShow: true,
