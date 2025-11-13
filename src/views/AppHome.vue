@@ -49,7 +49,7 @@
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div
             class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
-          数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟）
+          数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟，豆瓣2-10分钟）
         </div>
       </div>
 
