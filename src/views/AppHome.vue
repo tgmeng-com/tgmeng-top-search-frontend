@@ -77,10 +77,22 @@
             标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
                                   :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
           </span>&nbsp;
-          <!-- 功能提示-->
+          <!-- 自定义卡片是否可以拖动-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            ps:卡片可以拖拽标题栏进行排序
-          </span>
+            卡片可拖动：<el-switch
+              v-model="cardDraggable"
+              size="small"
+              @change="changeCardDraggable"/>
+             （卡片可以拖拽标题栏进行排序,关闭后移动端操作更舒畅）
+          </span>&nbsp;
+          <!-- 自定义卡片热度值是否显示-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热度值显示：<el-switch
+              v-model="cardHotScoreShow"
+              size="small"
+              @change="changeCardHotScoreShow"/>
+            （关闭后标题阅读更舒畅）
+          </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div>
@@ -101,6 +113,7 @@
             :handle="'.drag-handle'"
             @start="onDragStart"
             @end="onDragEnd"
+            :disabled="!cardDraggable"
         >
           <template #item="{ element: p }">
             <div v-show="p.isShow">
@@ -191,11 +204,15 @@ export default {
       // 用缓存里的自定义样式替换一下全部数据里的自定义样式
       const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
       const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
-      const cardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
+      const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
+      const cacheCardDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE)
+      const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
-      this.cardTitleFontSize = cardTitleFontSize ?? this.cardTitleFontSize;
+      this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
+      this.cardDraggable = cacheCardDraggable ?? this.cardDraggable;
+      this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 默认第二个分类为首页
@@ -361,6 +378,16 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE, this.cardTitleFontSize);
       window.umami.track('自定义标题字体大小')
     },
+    // 自定义调整卡片是否可以拖动
+    changeCardDraggable() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE, this.cardDraggable);
+      window.umami.track('自定义卡片是否可以拖动')
+    },
+    // 自定义调整卡片热度值是否显示
+    changeCardHotScoreShow() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
+      window.umami.track('自定义卡片热度值是否显示')
+    },
   },
   computed: {
     isMobile() {
@@ -388,6 +415,22 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardTitleFontSize', value);
+      }
+    },
+    cardDraggable: {
+      get() {
+        return this.$store.state.cardDraggable;
+      },
+      set(value) {
+        this.$store.commit('setCardDraggable', value);
+      }
+    },
+    cardHotScoreShow: {
+      get() {
+        return this.$store.state.cardHotScoreShow;
+      },
+      set(value) {
+        this.$store.commit('setCardHotScoreShow', value);
       }
     },
   },

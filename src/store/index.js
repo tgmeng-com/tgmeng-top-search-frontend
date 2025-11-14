@@ -166,6 +166,10 @@ export default createStore({
         cardCols: 4,
         // 卡片高度
         cardHeight: 30,
+        // 卡片是否可以拖动
+        cardDraggable: true,
+        // 卡片热度值是否显示
+        cardHotScoreShow: true,
         // 热点标题字体大小
         cardTitleFontSize: 0.875,
         categroies: [
@@ -398,6 +402,12 @@ export default createStore({
         },
         setCardTitleFontSize(state, newSize) {
             state.cardTitleFontSize = newSize;
+        },
+        setCardDraggable(state, newDraggable) {
+            state.cardDraggable = newDraggable;
+        },
+        setCardHotScoreShow(state, newShow) {
+            state.cardHotScoreShow = newShow;
         },
     }
 });

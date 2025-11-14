@@ -79,7 +79,7 @@
             </a>
 
             <!-- 评分/播放/信息 -->
-            <div>
+            <div v-if="cardHotScoreShow">
               <template v-if="title.includes('网易云')">
                 <audio :id="'audio-' + index"
                        :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
@@ -93,20 +93,20 @@
               </template>
 
               <template v-else-if="title.includes('豆瓣组')">
-          <span :style="secondTitleStyle"
-                class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
-            👩‍👧‍👦{{ item.commentCount }}
-          </span>
-                <span :style="secondTitleStyle" style="margin-left: 0.2rem"
+                <span :style="secondTitleStyle"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
-            {{ item.publishTime }}
-          </span>
+                  👩‍👧‍👦{{ item.commentCount }}
+                </span>
+                  <span :style="secondTitleStyle" style="margin-left: 0.2rem"
+                        class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  {{ item.publishTime }}
+                </span>
               </template>
 
               <template v-else>
-          <span :style="secondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
-            🔥{{ item.hotScore }}
-          </span>
+                <span :style="secondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
+                  🔥{{ item.hotScore }}
+                </span>
               </template>
             </div>
           </li>
@@ -276,6 +276,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardTitleFontSize', value);
+      }
+    },
+    cardHotScoreShow: {
+      get() {
+        return this.$store.state.cardHotScoreShow;
+      },
+      set(value) {
+        this.$store.commit('setCardHotScoreShow', value);
       }
     },
   }
