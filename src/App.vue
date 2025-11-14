@@ -11,6 +11,8 @@
       <WalineComment/>
       <!-- 页面底部 多重Ads-->
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
+      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
+      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
       <el-backtop :right="100" :bottom="100"/>
     </main>
   </div>
