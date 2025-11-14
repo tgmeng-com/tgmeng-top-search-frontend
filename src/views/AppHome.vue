@@ -95,7 +95,7 @@
             item-key="title"
             class="grid gap-6 cols-1 md:grid-cols-2"
             :style="{
-              gridTemplateColumns: `repeat(${cardCols}, minmax(0, 1fr))`
+              gridTemplateColumns: `repeat(${isMobile ? 1 : cardCols}, minmax(0, 1fr))`
             }"
             :animation="300"
             :handle="'.drag-handle'"
@@ -363,6 +363,9 @@ export default {
     },
   },
   computed: {
+    isMobile() {
+      return window.innerWidth < 768
+    },
     cardHeight: {
       get() {
         return this.$store.state.cardHeight;
