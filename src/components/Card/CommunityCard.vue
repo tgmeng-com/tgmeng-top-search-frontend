@@ -111,7 +111,7 @@
             </div>
           </li>
           <!-- 广告 li -->
-          <li v-if="shouldShowAd(index)" class="w-full">
+          <li v-if="shouldShowAd(index)" class="flex items-center justify-between">
             <GoogleAdsense ad-client="ca-pub-3286880109560525"
                            ad-slot="4294342531"
                            ad-format="fluid"
