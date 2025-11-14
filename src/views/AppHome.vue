@@ -106,9 +106,7 @@
             tag="div"
             item-key="title"
             class="grid gap-6 cols-1 md:grid-cols-2"
-            :style="{
-              gridTemplateColumns: `repeat(${isMobile ? 1 : cardCols}, minmax(0, 1fr))`
-            }"
+            :style="gridStyle"
             :animation="300"
             :handle="'.drag-handle'"
             @start="onDragStart"
@@ -163,6 +161,7 @@ export default {
       umamiAllTime: this.$store.state.umamiAllTime,
       preDragSortList: [], // 拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
+      windowWidth: window.innerWidth, // 屏幕大小
     };
   },
   async mounted() {
@@ -171,6 +170,8 @@ export default {
     this.refreshTimer = setInterval(() => {
       this.refreshData();
     }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
+
+    window.addEventListener('resize', this.handleResize);
   },
   // 离开页面或者切换路由的时候，关闭定时器，避免造成内存泄露
   beforeUnmount() {
@@ -178,8 +179,12 @@ export default {
       clearInterval(this.refreshTimer);
       this.refreshTimer = null;
     }
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth; // 更新 windowWidth
+    },
     initializePlatforms() {
       this.initUmami();
       //用缓存里的isShow、sort、isStar替换一下全部数据里的
@@ -391,7 +396,15 @@ export default {
   },
   computed: {
     isMobile() {
-      return window.innerWidth < 768
+      return this.windowWidth < 768; // 手机屏幕宽度
+    },
+    isMediumScreen() {
+      return this.windowWidth >= 768 && this.windowWidth < 1024; // 中等屏幕宽度
+    },
+    gridStyle() {
+      return {
+        gridTemplateColumns: `repeat(${this.isMobile ? 1 : this.isMediumScreen ? 2 : this.cardCols}, minmax(0, 1fr))`
+      };
     },
     cardHeight: {
       get() {
