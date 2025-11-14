@@ -11,10 +11,10 @@ export default {
   name: "GoogleAdsense",
   props: {
     adClient: {type: String, default: "ca-pub-3286880109560525"},
-    adSlot: {type: String, required: true},
-    adFormat: {type: String, default: "autorelaxed"},
+    adSlot: {type: String, required: true, default: "9081541454"},
+    adFormat: {type: String, default: "auto"},
     style: {type: String, default: 'display:block'},
-    fullWidthResponsive: { type: Boolean, default: true }
+    fullWidthResponsive: { type: Boolean, default: false }
   },
   mounted() {
     // 确保脚本加载完成后再 push
