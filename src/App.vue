@@ -6,9 +6,11 @@
     <main class="container mx-auto px-4 py-6">
       <!-- 这里放页面主体内容，比如 AppHome 组件 -->
       <Home/>
-      <!-- 主内容和评论区之间 -->
-      <GoogleAdsense ad-slot="9081541454" />
+      <!-- 主内容和评论区之间 展示Ads -->
+      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="autorelaxed" />
       <WalineComment/>
+      <!-- 页面底部 多重Ads-->
+      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
       <el-backtop :right="100" :bottom="100"/>
     </main>
   </div>
@@ -19,7 +21,7 @@ import AppHeader from './components/Layout/AppHeader.vue';
 import AppHome from './views/AppHome.vue';
 import SettingSideBar from "@/components/SettingSideBar.vue"; // 假设 AppHome 是首页视图
 import WalineComment from "./components/WalineComment.vue";
-import GoogleAdsense from "./components/Adsense/Adsense.vue";
+import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 
 export default {
   name: 'App',
@@ -28,7 +30,7 @@ export default {
     Header: AppHeader,
     Home: AppHome,
     WalineComment: WalineComment,
-    GoogleAdsense: GoogleAdsense,
+    GoogleAdsense: GoogleGoogleAdsense,
   }
 }
 </script>
