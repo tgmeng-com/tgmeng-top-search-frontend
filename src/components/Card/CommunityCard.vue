@@ -48,68 +48,77 @@
 
       <!-- ✅ 有数据 -->
       <ul v-else-if="list && list.length > 0" class="space-y-3">
-        <li
-            v-for="(item, index) in list"
-            :key="index"
-            class="flex items-center justify-between "
-        >
-          <!-- 序号 -->
-          <span :class="[
-                'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
-                index === 0 ? 'bg-red-600 text-white' : index === 1 ? 'bg-orange-500 text-white': index === 2
-                  ? 'bg-yellow-700 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-              ]">
-            {{ index + 1 }}
-          </span>
+        <template v-for="(item, index) in list" :key="index">
+          <!-- 正常内容 li -->
+          <li class="flex items-center justify-between">
+            <!-- 序号 -->
+            <span :class="[
+            'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
+            index === 0 ? 'bg-red-600 text-white' :
+            index === 1 ? 'bg-orange-500 text-white' :
+            index === 2 ? 'bg-yellow-700 text-white' :
+            'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+          ]">
+        {{ index + 1 }}
+      </span>
 
-          <!-- 标题 -->
-          <a :href="item.url" target="_blank" rel="noopener noreferrer"
-             class="dark:text-dark-text hot-title hover:underline" :title="item.keyword">
-            {{ item.keyword }}
-            <!-- 网易云二级标题 -->
-            <template v-if="title.includes('网易云')">
-              <span :style="secondTitleStyle">&nbsp;- {{ item.image }}</span>
-            </template>
-            <!-- 猫眼二级标题 -->
-            <template v-else-if="title.includes('猫眼')">
-              <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
-                    :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
-              </span>
-            </template>
-          </a>
-          <!-- 评分 -->
-          <div>
-            <template v-if="title.includes('网易云')">
-              <!-- 音乐播放器 -->
-              <audio :id="'audio-' + index"
-                     :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
-                     ref="audios" :loop="isLoop"></audio>
-              <!-- 播放按钮 -->
-              <button @click="playAudio(index, item.keyword)">
-                {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
-              </button>
-              <!-- 循环播放按钮 -->
-              <button @click="toggleLoop(index)">
-                {{ isLoop ? '🔁' : '🔂' }}
-              </button>
-            </template>
-            <template v-else-if="title.includes('豆瓣组')">
-              <span :style="secondTitleStyle"
-                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
-              👩‍👧‍👦{{ item.commentCount }}
-              </span>
-              <span :style="secondTitleStyle" style="margin-left: 0.2rem"
-                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
-              {{ item.publishTime }}
-              </span>
-            </template>
-            <template v-else>
-              <span :style="secondTitleStyle" class=" text-red-600 dark:text-red-300 hot-score">
-                🔥{{ item.hotScore }}
-              </span>
-            </template>
-          </div>
-        </li>
+            <!-- 标题 -->
+            <a :href="item.url" target="_blank" rel="noopener noreferrer"
+               class="dark:text-dark-text hot-title hover:underline" :title="item.keyword">
+              {{ item.keyword }}
+              <!-- 网易云二级标题 -->
+              <template v-if="title.includes('网易云')">
+                <span :style="secondTitleStyle">&nbsp;- {{ item.image }}</span>
+              </template>
+              <!-- 猫眼二级标题 -->
+              <template v-else-if="title.includes('猫眼')">
+          <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
+                :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
+          </span>
+              </template>
+            </a>
+
+            <!-- 评分/播放/信息 -->
+            <div>
+              <template v-if="title.includes('网易云')">
+                <audio :id="'audio-' + index"
+                       :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
+                       ref="audios" :loop="isLoop"></audio>
+                <button @click="playAudio(index, item.keyword)">
+                  {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
+                </button>
+                <button @click="toggleLoop(index)">
+                  {{ isLoop ? '🔁' : '🔂' }}
+                </button>
+              </template>
+
+              <template v-else-if="title.includes('豆瓣组')">
+          <span :style="secondTitleStyle"
+                class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+            👩‍👧‍👦{{ item.commentCount }}
+          </span>
+                <span :style="secondTitleStyle" style="margin-left: 0.2rem"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+            {{ item.publishTime }}
+          </span>
+              </template>
+
+              <template v-else>
+          <span :style="secondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
+            🔥{{ item.hotScore }}
+          </span>
+              </template>
+            </div>
+          </li>
+          <!-- 广告 li -->
+          <li v-if="shouldShowAd(index)" class="w-full">
+            <GoogleAdsense ad-client="ca-pub-3286880109560525"
+                           ad-slot="4294342531"
+                           ad-format="fluid"
+                           add-layout-key="-io-m+2v-17-3x"
+                           :full-width-responsive="true"/>
+          </li>
+        </template>
       </ul>
 
       <!-- ✅ 无数据 -->
@@ -122,10 +131,12 @@
 </template>
 
 <script>
-import {StarFilled, Star, Refresh,Loading} from '@element-plus/icons-vue'
+import {StarFilled, Star, Refresh, Loading} from '@element-plus/icons-vue'
+import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 
 export default {
   components: {
+    GoogleAdsense,
     StarFilled,
     Star,
     Refresh,
@@ -140,6 +151,14 @@ export default {
     };
   },
   methods: {
+    // 判断是否展示信息流广告
+    shouldShowAd(index) {
+      // 每10个一条广告（9,19,29,39…）
+      if ((index + 1) % 10 === 0) return true;
+      // 最后一个元素也显示广告
+      if (index === this.list.length - 1) return true;
+      return false;
+    },
     extractWangYiYunId(url) {
       const match = url.match(/id=(\d+)/);
       return match ? match[1] : '';
@@ -220,7 +239,7 @@ export default {
         item.author?.trim(),
       ].filter(Boolean);
     },
-    onRefreshCardData(){
+    onRefreshCardData() {
       this.$emit('fetchData')
     }
   },
