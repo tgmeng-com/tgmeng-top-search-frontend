@@ -1072,4 +1072,77 @@ export function topSearchForDouBanShangBanZheJianShi(data) {
     })
 }
 
+export function topSearchForYouMinXingKong(data) {
+    return request({
+        url: '/topsearch/youminxingkong',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchFor3DMGAME(data) {
+    return request({
+        url: '/topsearch/3dmgame',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForA9VG(data) {
+    return request({
+        url: '/topsearch/a9vg',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYouXiTuoLuo(data) {
+    return request({
+        url: '/topsearch/youxituoluo',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForIGN(data) {
+    return request({
+        url: '/topsearch/ign',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForGCORES(data) {
+    return request({
+        url: '/topsearch/gcores',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYouYanShe(data) {
+    return request({
+        url: '/topsearch/youyanshe',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchFor17173(data) {
+    return request({
+        url: '/topsearch/17173',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForYouXiaWang(data) {
+    return request({
+        url: '/topsearch/youxiawang',
+        method: 'get',
+        data: data
+    })
+}
+
+
 

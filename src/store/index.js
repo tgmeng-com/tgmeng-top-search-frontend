@@ -147,6 +147,17 @@ import {
     topSearchForDouBanJiaoShi,
     topSearchForDouBanShangBanZheJianShi,
 
+    topSearchForYouMinXingKong,
+    topSearchFor3DMGAME,
+    topSearchForA9VG,
+    topSearchForYouXiTuoLuo,
+    topSearchForIGN,
+    topSearchForGCORES,
+    topSearchForYouYanShe,
+    topSearchFor17173,
+    topSearchForYouXiaWang,
+
+
 
 } from '@/api/api';
 
@@ -384,6 +395,21 @@ export default createStore({
 
                     new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png'), 84),
                     new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png'), 85),
+                ]
+            },
+            {
+                name: '游戏',
+                isShow: true,
+                subCategories: [
+                    new Platform('IGN', topSearchForIGN, require('@/assets/logos/tgmeng-trend_ign.png'), 124),
+                    new Platform('3DMGAME', topSearchFor3DMGAME, require('@/assets/logos/tgmeng-trend_3dmgame.png'), 125),
+                    new Platform('A9VG', topSearchForA9VG, require('@/assets/logos/tgmeng-trend_a9vg.png'), 126),
+                    new Platform('GCORES', topSearchForGCORES, require('@/assets/logos/tgmeng-trend_gcores.png'), 127),
+                    new Platform('游民星空', topSearchForYouMinXingKong, require('@/assets/logos/tgmeng-trend_youminxingkong.png'), 128),
+                    new Platform('游戏陀螺', topSearchForYouXiTuoLuo, require('@/assets/logos/tgmeng-trend_youxituoluo.png'), 129),
+                    new Platform('游研社', topSearchForYouYanShe, require('@/assets/logos/tgmeng-trend_youyanshe.png'), 130),
+                    new Platform('游侠网', topSearchForYouXiaWang, require('@/assets/logos/tgmeng-trend_youxiawang.png'), 131),
+                    new Platform('17173', topSearchFor17173, require('@/assets/logos/tgmeng-trend_17173.png'), 132),
                 ]
             },
             {
