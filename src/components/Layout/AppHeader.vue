@@ -1,15 +1,23 @@
 <template>
-  <header class=" top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md  transition-all duration-300">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center text-lg">
-      <div  class="flex-1 text-center font-semibold dark:text-dark-text">
-        🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
-        <a data-umami-event="前端" data-umami-event-name="前端" target="_blank" href="https://github.com/CandyDream6/tgmeng-top-search-frontend" style="cursor: pointer;">👉前端</a>&nbsp;&nbsp;&nbsp;
-        <a data-umami-event="后端" data-umami-event-name="后端" target="_blank" href="https://github.com/CandyDream6/tgmeng-api" style="cursor: pointer;">👉后端</a><br/>
-        项目用到的所有接口均是官方接口，无任何第三方中转，主打无情铁手
-<!--        <br/><br/>-->
-<!--        <a class="wordColorFuckYou" target="_blank" href="https://bbs.tgmeng.com" style="cursor: pointer;">更多好物请前往论坛或交流群 bbs.tgmeng.com</a> -->
+  <header class="top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex flex-col items-center text-lg space-y-1">
 
+      <!-- 第一行可横向滑动 -->
+      <div class="overflow-x-auto whitespace-nowrap scrollbar-hide w-full text-center">
+        <div class="inline-block font-semibold dark:text-dark-text py-1">
+          🎉本项目前后端在GitHub上均已100%开源&nbsp;&nbsp;&nbsp;
+          <a data-umami-event="前端" data-umami-event-name="前端" target="_blank"  href="https://github.com/CandyDream6/tgmeng-top-search-frontend" class="cursor-pointer">👉前端</a>&nbsp;&nbsp;&nbsp;
+          <a data-umami-event="后端" data-umami-event-name="后端" target="_blank"  href="https://github.com/CandyDream6/tgmeng-api" class="cursor-pointer">👉后端</a>
+        </div>
       </div>
+
+      <!-- 第二行可横向滑动 -->
+      <div class="overflow-x-auto whitespace-nowrap scrollbar-hide w-full text-center">
+        <div class="inline-block font-semibold dark:text-dark-text py-1">
+          项目用到的所有接口均是官方接口，无任何第三方中转，主打无情铁手
+        </div>
+      </div>
+
     </div>
   </header>
 </template>
