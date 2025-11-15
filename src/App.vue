@@ -10,6 +10,7 @@
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto" :full-width-responsive="true"/>
       <WalineComment/>
       <!-- 页面底部 多重Ads-->
+      <a href="https://www.effectivegatecpm.com/uziswdxdh?key=8e13f2a493aefc682e6e4e25b0dd969e">测试测试测试测试测试</a>
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed" />
