@@ -99,7 +99,6 @@
         </div>
       </div>
 
-
       <section class="mb-10 mt-8">
         <draggable
             v-model="activeCategory.subCategories"
