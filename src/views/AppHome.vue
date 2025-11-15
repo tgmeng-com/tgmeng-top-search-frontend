@@ -77,6 +77,13 @@
             标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
                                   :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
           </span>&nbsp;
+          <!-- 自定义卡片标题是否完整显示-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            标题完整：<el-switch
+              v-model="cardHotTitleFull"
+              size="small"
+              @change="changeCardHotTitleFull"/>
+          </span>&nbsp;
           <!-- 自定义卡片是否可以拖动-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             卡片可拖动：<el-switch
@@ -211,12 +218,14 @@ export default {
       const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
       const cacheCardDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE)
       const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
+      const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
       this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
       this.cardDraggable = cacheCardDraggable ?? this.cardDraggable;
       this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
+      this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 默认第二个分类为首页
@@ -387,6 +396,11 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE, this.cardDraggable);
       window.umami.track('自定义卡片是否可以拖动')
     },
+    // 自定义调整卡片标题是否完整显示
+    changeCardHotTitleFull() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL, this.cardHotTitleFull);
+      window.umami.track('自定义卡片标题是否完整显示')
+    },
     // 自定义调整卡片热度值是否显示
     changeCardHotScoreShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
@@ -443,6 +457,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardHotScoreShow', value);
+      }
+    },
+    cardHotTitleFull: {
+      get() {
+        return this.$store.state.cardHotTitleFull;
+      },
+      set(value) {
+        this.$store.commit('setCardHotTitleFull', value);
       }
     },
   },

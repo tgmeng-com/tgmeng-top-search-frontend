@@ -53,18 +53,19 @@
           <li class="flex items-center justify-between">
             <!-- 序号 -->
             <span :class="[
-            'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
-            index === 0 ? 'bg-red-600 text-white' :
-            index === 1 ? 'bg-orange-500 text-white' :
-            index === 2 ? 'bg-yellow-700 text-white' :
-            'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-          ]">
-        {{ index + 1 }}
-      </span>
+              'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
+              index === 0 ? 'bg-red-600 text-white' :
+              index === 1 ? 'bg-orange-500 text-white' :
+              index === 2 ? 'bg-yellow-700 text-white' :
+              'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300']">
+              {{ index + 1 }}
+            </span>
 
             <!-- 标题 -->
             <a :href="item.url" target="_blank" rel="noopener noreferrer"
-               class="dark:text-dark-text hot-title hover:underline" :title="item.keyword">
+               class="dark:text-dark-text hot-title hover:underline"
+               :class="{'hot-title-full':cardHotTitleFull}"
+               :title="item.keyword">
               {{ item.keyword }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
@@ -72,9 +73,9 @@
               </template>
               <!-- 猫眼二级标题 -->
               <template v-else-if="title.includes('猫眼')">
-          <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
-                :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
-          </span>
+              <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
+                    :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
+              </span>
               </template>
             </a>
 
@@ -97,8 +98,8 @@
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
                   👩‍👧‍👦{{ item.commentCount }}
                 </span>
-                  <span :style="secondTitleStyle" style="margin-left: 0.2rem"
-                        class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                <span :style="secondTitleStyle" style="margin-left: 0.2rem"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
                   {{ item.publishTime }}
                 </span>
               </template>
@@ -286,6 +287,15 @@ export default {
         this.$store.commit('setCardHotScoreShow', value);
       }
     },
+    // 标题是否显示完整
+    cardHotTitleFull: {
+      get() {
+        return this.$store.state.cardHotTitleFull;
+      },
+      set(value) {
+        this.$store.commit('setCardHotTitleFull', value);
+      }
+    },
   }
 }
 </script>
@@ -313,11 +323,17 @@ export default {
   min-width: 0;
   display: -webkit-box;
   /*标题最多显示行数，0表示不限制*/
-  -webkit-line-clamp: 0;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
+.hot-title-full{
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  -webkit-box-orient: unset !important;
+  white-space: normal !important;
+}
 /* 列表项调整 */
 li {
   align-items: flex-start;

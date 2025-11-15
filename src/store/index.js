@@ -181,6 +181,8 @@ export default createStore({
         cardDraggable: true,
         // 卡片热度值是否显示
         cardHotScoreShow: true,
+        // 热点标题是否显示完整
+        cardHotTitleFull: true,
         // 热点标题字体大小
         cardTitleFontSize: 0.875,
         categroies: [
@@ -434,6 +436,9 @@ export default createStore({
         },
         setCardHotScoreShow(state, newShow) {
             state.cardHotScoreShow = newShow;
+        },
+        setCardHotTitleFull(state, newFull) {
+            state.cardHotTitleFull = newFull;
         },
     }
 });
