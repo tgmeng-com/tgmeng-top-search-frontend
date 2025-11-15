@@ -1144,5 +1144,66 @@ export function topSearchForYouXiaWang(data) {
     })
 }
 
+export function topSearchForShengWuGu(data) {
+    return request({
+        url: '/topsearch/shengwugu',
+        method: 'get',
+        data: data
+    })
+}
 
+export function topSearchForYiYaoMoFang(data) {
+    return request({
+        url: '/topsearch/yiyaomofang',
+        method: 'get',
+        data: data
+    })
+}
 
+export function topSearchForDingXiangYiSheng(data) {
+    return request({
+        url: '/topsearch/dingxiangyisheng',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForDingXiangYuanSheQu(data) {
+    return request({
+        url: '/topsearch/dingxiangyuanshequ',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForShengMingShiBao(data) {
+    return request({
+        url: '/topsearch/shengmingshibao',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForJiaYiDaJianKang(data) {
+    return request({
+        url: '/topsearch/jiayidajiankang',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForGuoKe(data) {
+    return request({
+        url: '/topsearch/guoke',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForJianKangShiBaoWang(data) {
+    return request({
+        url: '/topsearch/jiankangshibaowang',
+        method: 'get',
+        data: data
+    })
+}

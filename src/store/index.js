@@ -156,7 +156,14 @@ import {
     topSearchForYouYanShe,
     topSearchFor17173,
     topSearchForYouXiaWang,
-
+    topSearchForShengWuGu,
+    topSearchForYiYaoMoFang,
+    topSearchForDingXiangYiSheng,
+    topSearchForDingXiangYuanSheQu,
+    topSearchForShengMingShiBao,
+    topSearchForJiaYiDaJianKang,
+    topSearchForGuoKe,
+    topSearchForJianKangShiBaoWang,
 
 
 } from '@/api/api';
@@ -412,6 +419,20 @@ export default createStore({
                     new Platform('游研社', topSearchForYouYanShe, require('@/assets/logos/tgmeng-trend_youyanshe.png'), 130),
                     new Platform('游侠网', topSearchForYouXiaWang, require('@/assets/logos/tgmeng-trend_youxiawang.png'), 131),
                     new Platform('17173', topSearchFor17173, require('@/assets/logos/tgmeng-trend_17173.png'), 132),
+                ]
+            },
+            {
+                name: '健康',
+                isShow: true,
+                subCategories: [
+                    new Platform('生物谷', topSearchForShengWuGu, require('@/assets/logos/tgmeng-trend_shengwugu.png'), 133),
+                    new Platform('生命时报', topSearchForShengMingShiBao, require('@/assets/logos/tgmeng-trend_shengmingshibao.png'), 134),
+                    new Platform('丁香园社区', topSearchForDingXiangYuanSheQu, require('@/assets/logos/tgmeng-trend_dingxiangyuanshequ.png'), 135),
+                    new Platform('丁香医生', topSearchForDingXiangYiSheng, require('@/assets/logos/tgmeng-trend_dingxiangyisheng.png'), 136),
+                    new Platform('医药魔方', topSearchForYiYaoMoFang, require('@/assets/logos/tgmeng-trend_yiyaomofang.png'), 137),
+                    new Platform('家医大健康', topSearchForJiaYiDaJianKang, require('@/assets/logos/tgmeng-trend_jiayidajiankang.png'), 138),
+                    new Platform('健康时报网', topSearchForJianKangShiBaoWang, require('@/assets/logos/tgmeng-trend_jiankangshibaowang.png'), 139),
+                    new Platform('果壳', topSearchForGuoKe, require('@/assets/logos/tgmeng-trend_guoke.png'), 140),
                 ]
             },
             {
