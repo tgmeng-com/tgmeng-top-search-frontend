@@ -263,6 +263,7 @@ export default createStore({
                     new Platform('豆瓣组 佳片推荐', topSearchForDouBanJiaPianTuiJian, require('@/assets/logos/tgmeng-trend_jia_pian_tui_jian.png'), 117),
                     new Platform('豆瓣组 我的城市拍给你看', topSearchForDouBanWoDeChengShiPaiGeiNiKan, require('@/assets/logos/tgmeng-trend_wo_de_cheng_shi_pai_gei_ni_kan.png'), 118),
                     new Platform('豆瓣组 村庄爱好者', topSearchForDouBanCunZhuangAiHaoZhe, require('@/assets/logos/tgmeng-trend_cun_zhuang_ai_hao_zhe.png'), 119),
+
                     new Platform('豆瓣组 抬头，看树！', topSearchForDouBanTaiTouKanShu, require('@/assets/logos/tgmeng-trend_tai_tou_kan_shu.png'), 120),
                     new Platform('豆瓣组 街猫也可爱', topSearchForDouBanJieMaoYeKeAi, require('@/assets/logos/tgmeng-trend_jie_mao_ye_ke_ai.png'), 121),
                     new Platform('豆瓣组 豆瓣鸟组', topSearchForDouBanDouBanNiaoZu, require('@/assets/logos/tgmeng-trend_dou_ban_niao_zu.png'), 122),
