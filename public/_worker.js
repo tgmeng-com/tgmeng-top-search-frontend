@@ -1,4 +1,5 @@
 // 用来动态生成sitemap.xml,,然后函数会在cloudflare里面运行
+// TODO 如果后续有新的页面，需要在这里添加，里面的paths变量
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
