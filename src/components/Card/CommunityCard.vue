@@ -71,7 +71,7 @@
                     class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
                   {{ item.showTime }}
                 </span>
-              <h1>{{ item.keyword }}</h1>
+                 {{ item.keyword }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
                 <span :style="secondTitleStyle">&nbsp;- {{ item.image }}</span>
