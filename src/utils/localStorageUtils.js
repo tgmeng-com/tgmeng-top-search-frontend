@@ -5,8 +5,10 @@ export const LOCAL_STORAGE_KEYS = {
     CARD_HEIGHT: 'cardHeight',
     CARD_TITLE_FONT_SIZE: 'cardTitleFontSize',
     CARD_DRAGGABLE: 'cardDraggable',
+    CATEGORIES_DRAGGABLE: 'categroiesDraggable',
     CARD_HOT_SCORE_SHOW: 'cardHotScoreShow',
     CARD_HOT_TITLE_FULL: 'cardHotTitleFull',
+    DEFAULT_CATEGORY_ID: 'defaultCategoryId',
 };
 
 // 设置本地存储

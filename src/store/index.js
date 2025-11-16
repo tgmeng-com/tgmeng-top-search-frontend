@@ -186,21 +186,29 @@ export default createStore({
         cardHeight: 30,
         // 卡片是否可以拖动
         cardDraggable: true,
+        // 分类是否可以拖动
+        categroiesDraggable: false,
         // 卡片热度值是否显示
         cardHotScoreShow: true,
         // 热点标题是否显示完整
         cardHotTitleFull: true,
         // 热点标题字体大小
         cardTitleFontSize: 0.875,
+        // 默认选中的分类id
+        defaultCategoryId: 1, // 默认分类ID
         categroies: [
             {
                 name: '全部',
+                id: 0,
                 isShow: true,
+                sort: 0,
                 subCategories: [],
             },
             {
                 name: '新闻',
+                id: 1,
                 isShow: true,
+                sort: 1,
                 subCategories: [
                     new Platform('腾讯', topSearchForTencent, require('@/assets/logos/tgmeng-trend_tencent.png'), 0),
                     new Platform('头条', topSearchForTouTiao, require('@/assets/logos/tgmeng-trend_toutiao.png'), 1),
@@ -214,7 +222,9 @@ export default createStore({
             },
             {
                 name: '羊毛',
+                id: 2,
                 isShow: true,
+                sort: 2,
                 subCategories: [
                     new Platform('豆瓣组 买', topSearchForMaiZuDouBan, require('@/assets/logos/tgmeng-trend_doubanmaizu.png'), 8.1),
                     new Platform('豆瓣组 拼', topSearchForPinZuDouBan, require('@/assets/logos/tgmeng-trend_doubanpinzu.png'), 8.2),
@@ -225,7 +235,9 @@ export default createStore({
             },
             {
                 name: '媒体',
+                id: 3,
                 isShow: true,
+                sort: 3,
                 subCategories: [
                     new Platform('B站', topSearchForBilibili, require('@/assets/logos/tgmeng-trend_bilibili.png'), 9),
                     new Platform('抖音', topSearchForDouYin, require('@/assets/logos/tgmeng-trend_douyin.png'), 10),
@@ -242,7 +254,9 @@ export default createStore({
             },
             {
                 name: '生活',
+                id: 4,
                 isShow: true,
+                sort: 4,
                 subCategories: [
                     new Platform('豆瓣组 人间情侣观察', topSearchForDouBanRenJianQingLvGuanCha, require('@/assets/logos/tgmeng-trend_ren_jian_qing_lv_guan_cha.png'), 104),
                     new Platform('豆瓣组 我们都不懂人情世故', topSearchForDouBanWoMenDouBuDongRenQingShiGu, require('@/assets/logos/tgmeng-trend_wo_men_dou_bu_dong_ren_qing_shi_gu.png'), 105),
@@ -274,7 +288,9 @@ export default createStore({
 
             {
                 name: '社区',
+                id: 5,
                 isShow: true,
+                sort: 5,
                 subCategories: [
                     new Platform('Hacker News', topSearchForHackerNews, require('@/assets/logos/tgmeng-trend_hackernews.png'), 22.1),
                     new Platform('V2EX', topSearchForV2ex, require('@/assets/logos/tgmeng-trend_v2ex.png'), 22.2),
@@ -290,7 +306,9 @@ export default createStore({
             },
             {
                 name: '财经',
+                id: 6,
                 isShow: true,
+                sort: 6,
                 subCategories: [
                     new Platform('财联社', topSearchForCaiLianShe, require('@/assets/logos/tgmeng-trend_cailianshe.png'), 23),
                     new Platform('华尔街见闻', topSearchForHuaErJieJianWen, require('@/assets/logos/tgmeng-trend_huaerjiejianwen.png'), 24),
@@ -304,7 +322,9 @@ export default createStore({
             },
             {
                 name: '体育',
+                id: 7,
                 isShow: true,
+                sort: 7,
                 subCategories: [
                     new Platform('央视体育', topSearchForYangShiTiYu, require('@/assets/logos/tgmeng-trend_yangshitiyu.png'), 31),
                     new Platform('虎扑', topSearchForHuPu, require('@/assets/logos/tgmeng-trend_huputiyu.png'), 32),
@@ -318,7 +338,9 @@ export default createStore({
             },
             {
                 name: '科技',
+                id: 8,
                 isShow: true,
+                sort: 8,
                 subCategories: [
                     new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png'), 39),
                     new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png'), 40),
@@ -344,7 +366,9 @@ export default createStore({
             },
             {
                 name: '设计',
+                id: 9,
                 isShow: true,
+                sort: 9,
                 subCategories: [
                     new Platform('人人都是产品经理', topSearchForWoShiPM, require('@/assets/logos/tgmeng-trend_woshipm.png'), 44),
                     new Platform('优设网', topSearchForYouSheWang, require('@/assets/logos/tgmeng-trend_youshewang.png'), 45),
@@ -366,7 +390,9 @@ export default createStore({
             },
             {
                 name: '影音',
+                id: 10,
                 isShow: true,
+                sort: 10,
                 subCategories: [
                     new Platform('猫眼 周票房榜', topSearchForZhouPiaoFangBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 60),
                     new Platform('猫眼 想看榜', topSearchForXiangkanBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 61),
@@ -409,7 +435,9 @@ export default createStore({
             },
             {
                 name: '游戏',
+                id: 11,
                 isShow: true,
+                sort: 11,
                 subCategories: [
                     new Platform('IGN', topSearchForIGN, require('@/assets/logos/tgmeng-trend_ign.png'), 124),
                     new Platform('3DMGAME', topSearchFor3DMGAME, require('@/assets/logos/tgmeng-trend_3dmgame.png'), 125),
@@ -424,7 +452,9 @@ export default createStore({
             },
             {
                 name: '健康',
+                id: 12,
                 isShow: true,
+                sort: 12,
                 subCategories: [
                     new Platform('生物谷', topSearchForShengWuGu, require('@/assets/logos/tgmeng-trend_shengwugu.png'), 133),
                     new Platform('生命时报', topSearchForShengMingShiBao, require('@/assets/logos/tgmeng-trend_shengmingshibao.png'), 134),
@@ -438,7 +468,9 @@ export default createStore({
             },
             {
                 name: '收藏',
+                id: 13,
                 isShow: true,
+                sort: 13,
                 subCategories: [],
             }
         ],
@@ -465,11 +497,17 @@ export default createStore({
         setCardDraggable(state, newDraggable) {
             state.cardDraggable = newDraggable;
         },
+        setCategroiesDraggable(state, newDraggable) {
+            state.categroiesDraggable = newDraggable;
+        },
         setCardHotScoreShow(state, newShow) {
             state.cardHotScoreShow = newShow;
         },
         setCardHotTitleFull(state, newFull) {
             state.cardHotTitleFull = newFull;
+        },
+        setDefaultCategoryId(state, newId) {
+            state.defaultCategoryId = newId;
         },
     }
 });

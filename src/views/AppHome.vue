@@ -4,20 +4,37 @@
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
       <div class="mb-8 overflow-x-auto scrollbar-hide">
         <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
-          <button
-              v-show="cat.isShow"
-              v-for="cat in categroies"
-              :data-umami-event="cat.name"
-              :data-umami-event-name="cat.name"
-              :key="cat.name"
-              :class="[
-        'px-4 py-1.5 rounded-xl',
-        activeCategory.name === cat.name ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-700 hover:shadow-md transition-shadow'
-      ]"
-              @click="handleCategoryClick(cat)"
+          <draggable
+              v-model="categroies"
+              tag="div"
+              item-key="name"
+              class="overflow-x-auto scrollbar-hide inline-flex justify-center mx-auto whitespace-nowrap"
+              :animation="300"
+              :handle="'.drag-handle'"
+              @start="onDragFatherCatStart"
+              @end="onDragFatherCatEnd"
+              :disabled="!categroiesDraggable"
           >
-            <span class="dark:text-dark-text">{{ cat.name }}</span>
-          </button>
+            <template #item="{ element: cat }">
+              <div class="mr-2 last:mr-0"> <!-- 保持按钮间距 -->
+                <button
+                    v-show="cat.isShow"
+                    :data-umami-event="cat.name"
+                    :data-umami-event-name="cat.name"
+                    :key="cat.name"
+                    :class="[
+              'px-4 py-1.5 rounded-xl drag-handle',
+              activeCategory.name === cat.name
+                ? 'bg-primary text-white'
+                : 'bg-gray-200 dark:bg-gray-700 hover:shadow-md transition-shadow'
+            ]"
+                    @click="handleCategoryClick(cat)"
+                >
+                  <span class="dark:text-dark-text">{{ cat.name }}</span>
+                </button>
+              </div>
+            </template>
+          </draggable>
         </div>
       </div>
 
@@ -90,7 +107,13 @@
               v-model="cardDraggable"
               size="small"
               @change="changeCardDraggable"/>
-             （卡片可以拖拽标题栏进行排序,关闭后移动端操作更舒畅）
+          </span>&nbsp;
+          <!-- 自定义分类是否可以拖动-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            分类可拖动：<el-switch
+              v-model="categroiesDraggable"
+              size="small"
+              @change="changeCategroiesDraggable"/>
           </span>&nbsp;
           <!-- 自定义卡片热度值是否显示-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
@@ -98,7 +121,17 @@
               v-model="cardHotScoreShow"
               size="small"
               @change="changeCardHotScoreShow"/>
-            （关闭后标题阅读更舒畅）
+          </span>&nbsp;
+          <!-- 自定义默认分类-->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            默认分类：<el-select v-model="defaultCategoryId" placeholder="Select" style="width: 3.5rem" size="small" @change="changeDefaultActiveCategroyId">
+                      <el-option
+                          v-for="item in categroies"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.id"
+                      />
+                    </el-select>
           </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
@@ -166,6 +199,7 @@ export default {
       umamiAllViews: this.$store.state.umamiAllViews,
       umamiAllTime: this.$store.state.umamiAllTime,
       preDragSortList: [], // 拖动前的 sort 列表
+      preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
       windowWidth: window.innerWidth, // 屏幕大小
     };
@@ -197,10 +231,13 @@ export default {
       const cacheCategroies = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES)
       if (cacheCategroies) {
         cacheCategroies.forEach(cacheCat => {
-          // 找到真实分类
+          // 找到真实分类，也就是缓存中的分类名称如果在真实分类中存在（没有被站长移除的情况下，再去替换他和他里面各个平台的数据）
           const realCat = this.categroies.find(cat => cat.name === cacheCat.name);
           if (!realCat) return;
-          // 1️⃣ 替换 isShow、sort、isStar 状态
+          // 先替换各个大分类的排序顺序
+          realCat.sort = cacheCat.sort
+          this.categroies.sort((a, b) => a.sort - b.sort);
+          // 再替换各个子平台的 isShow、sort、isStar 状态
           realCat.subCategories.forEach(subCat => {
             const cacheSub = cacheCat.subCategories.find(c => c.title === subCat.title);
             if (cacheSub) {
@@ -217,19 +254,24 @@ export default {
       const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
       const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
       const cacheCardDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE)
+      const cacheCategroiesDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE)
+
       const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
       const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
+      const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
       this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
       this.cardDraggable = cacheCardDraggable ?? this.cardDraggable;
+      this.categroiesDraggable = cacheCategroiesDraggable ?? this.categroiesDraggable;
       this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
       this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
+      this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 默认第二个分类为首页
-      this.activeCategory = this.categroies[1];
+      this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[0];
       this.handleCategoryClick(this.activeCategory)
     },
 
@@ -317,12 +359,26 @@ export default {
     onDragStart() {
       this.preDragSortList = this.activeCategory.subCategories.map(item => item.sort);
     },
+    // 拖动大分类开始时，保存当前 sort 列表
+    onDragFatherCatStart() {
+      this.preDragFatherCatSortList = this.categroies.map(item => item.sort);
+    },
     //保存拖动卡片后的顺序
     onDragEnd() {
       // 拖动完成后，更新每个卡片的 sort 属性
       const arr = this.activeCategory.subCategories;
       arr.forEach((item, index) => {
         item.sort = this.preDragSortList[index];
+      });
+      this.updateCategroiesCache();
+      window.umami.track('拖拽排序')
+    },
+    //保存大分类拖动卡片后的顺序
+    onDragFatherCatEnd() {
+      // 拖动完成后，更新每个卡片的 sort 属性
+      const arr = this.categroies;
+      arr.forEach((item, index) => {
+        item.sort = this.preDragFatherCatSortList[index];
       });
       this.updateCategroiesCache();
       window.umami.track('拖拽排序')
@@ -396,6 +452,11 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE, this.cardDraggable);
       window.umami.track('自定义卡片是否可以拖动')
     },
+    // 自定义调整分类是否可以拖动
+    changeCategroiesDraggable() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE, this.categroiesDraggable);
+      window.umami.track('自定义分类是否可以拖动')
+    },
     // 自定义调整卡片标题是否完整显示
     changeCardHotTitleFull() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL, this.cardHotTitleFull);
@@ -405,6 +466,11 @@ export default {
     changeCardHotScoreShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
       window.umami.track('自定义卡片热度值是否显示')
+    },
+    // 自定义调整默认选中的分类id
+    changeDefaultActiveCategroyId() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
+      window.umami.track('自定义默认选中的分类id')
     },
   },
   computed: {
@@ -451,6 +517,14 @@ export default {
         this.$store.commit('setCardDraggable', value);
       }
     },
+    categroiesDraggable: {
+      get() {
+        return this.$store.state.categroiesDraggable;
+      },
+      set(value) {
+        this.$store.commit('setCategroiesDraggable', value);
+      }
+    },
     cardHotScoreShow: {
       get() {
         return this.$store.state.cardHotScoreShow;
@@ -465,6 +539,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardHotTitleFull', value);
+      }
+    },
+    defaultCategoryId: {
+      get() {
+        return this.$store.state.defaultCategoryId;
+      },
+      set(value) {
+        this.$store.commit('setDefaultCategoryId', value);
       }
     },
   },
@@ -510,6 +592,13 @@ export default {
 
 :deep(.input-title.el-input-number--small) {
   width: 5.75rem !important;
+}
+
+:deep(.el-select__wrapper.el-tooltip__trigger.el-tooltip__trigger) {
+  min-height: 1rem !important;
+  width: 4rem !important;
+  font-size: 0.75rem !important;
+  box-shadow: none !important;
 }
 
 </style>
