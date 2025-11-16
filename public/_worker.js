@@ -31,11 +31,23 @@ export default {
 
             // 路径数组，每个对象可自定义 priority
             const paths = [
-                { path: "/", changefreq: "minute", priority: 1.0 },      // 首页
-                // { path: "/hot", changefreq: "minute", priority: 0.9 },   // 热点页
-                // { path: "/news", changefreq: "hourly", priority: 0.8 },  // 新闻页
-                // { path: "/about", changefreq: "weekly", priority: 0.5 }, // 关于页
-                // { path: "/contact", changefreq: "monthly", priority: 0.4 } // 联系页
+                { path: "/", changefreq: "hourly", priority: 1.0 },      // 首页
+                { path: "/all", changefreq: "minute", priority: 1.0 },   // 全部
+                { path: "/news", changefreq: "minute", priority: 1.0 },  // 新闻
+                { path: "/wool", changefreq: "hourly", priority: 1.0 }, // 羊毛
+                { path: "/media", changefreq: "minute", priority: 1.0 }, // 媒体
+                { path: "/tv", changefreq: "minute", priority: 1.0 },   // 电视
+                { path: "/life", changefreq: "hourly", priority: 1.0 },   // 生活
+                { path: "/community", changefreq: "minute", priority: 1.0 },   // 社区
+                { path: "/finance", changefreq: "minute", priority: 1.0 },   // 财经
+                { path: "/sports", changefreq: "minute", priority: 1.0 },   // 体育
+                { path: "/technology", changefreq: "hourly", priority: 1.0 },   // 科技
+                { path: "/design", changefreq: "minute", priority: 1.0 },   // 设计
+                { path: "/audiovideo", changefreq: "minute", priority: 1.0 },   // 音影
+                { path: "/game", changefreq: "minute", priority: 1.0 },   // 游戏
+                { path: "/health", changefreq: "minute", priority: 1.0 },   // 健康
+                { path: "/favorites", changefreq: "minute", priority: 0.5 },   // 收藏
+
             ];
 
             // 生成 XML
