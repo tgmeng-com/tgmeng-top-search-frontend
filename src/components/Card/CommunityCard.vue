@@ -11,7 +11,7 @@
         <component :is="isStar ? 'StarFilled' : 'Star'"/>
       </el-icon>
 
-      <h3 class="font-semibold dark:text-dark-text">{{ title }}</h3>
+      <h1 class="font-semibold dark:text-dark-text">{{ title }}</h1>
       <span
           class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-full dark:text-dark-text">
         <el-button

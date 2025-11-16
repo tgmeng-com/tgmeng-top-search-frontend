@@ -30,7 +30,7 @@
             ]"
                     @click="handleCategoryClick(cat)"
                 >
-                  <span class="dark:text-dark-text">{{ cat.name }}</span>
+                  <h1><span class="dark:text-dark-text">{{ cat.name }}</span></h1>
                 </button>
               </div>
             </template>
