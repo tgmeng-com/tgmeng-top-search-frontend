@@ -1,3 +1,4 @@
+// 自定义 Worker 脚本, 用于生成 sitemap.xml
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
