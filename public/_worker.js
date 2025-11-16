@@ -30,10 +30,10 @@ export default {
             // 路径数组，每个对象可自定义 priority
             const paths = [
                 { path: "/", changefreq: "minute", priority: 1.0 },      // 首页
-                { path: "/hot", changefreq: "minute", priority: 0.9 },   // 热点页
-                { path: "/news", changefreq: "hourly", priority: 0.8 },  // 新闻页
-                { path: "/about", changefreq: "weekly", priority: 0.5 }, // 关于页
-                { path: "/contact", changefreq: "monthly", priority: 0.4 } // 联系页
+                // { path: "/hot", changefreq: "minute", priority: 0.9 },   // 热点页
+                // { path: "/news", changefreq: "hourly", priority: 0.8 },  // 新闻页
+                // { path: "/about", changefreq: "weekly", priority: 0.5 }, // 关于页
+                // { path: "/contact", changefreq: "monthly", priority: 0.4 } // 联系页
             ];
 
             // 生成 XML
