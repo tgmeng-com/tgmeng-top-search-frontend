@@ -94,12 +94,12 @@
             标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
                                   :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
           </span>&nbsp;
-          <!-- 自定义卡片标题是否完整显示-->
+          <!-- 自定义分类是否可以拖动-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            标题完整：<el-switch
-              v-model="cardHotTitleFull"
+            分类可拖动：<el-switch
+              v-model="categroiesDraggable"
               size="small"
-              @change="changeCardHotTitleFull"/>
+              @change="changeCategroiesDraggable"/>
           </span>&nbsp;
           <!-- 自定义卡片是否可以拖动-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
@@ -108,12 +108,12 @@
               size="small"
               @change="changeCardDraggable"/>
           </span>&nbsp;
-          <!-- 自定义分类是否可以拖动-->
+          <!-- 自定义卡片标题是否完整显示-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            分类可拖动：<el-switch
-              v-model="categroiesDraggable"
+            标题完整：<el-switch
+              v-model="cardHotTitleFull"
               size="small"
-              @change="changeCategroiesDraggable"/>
+              @change="changeCardHotTitleFull"/>
           </span>&nbsp;
           <!-- 自定义卡片热度值是否显示-->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
