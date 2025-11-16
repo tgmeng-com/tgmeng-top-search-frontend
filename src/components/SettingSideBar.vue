@@ -4,15 +4,11 @@
   <div style="min-height: 5rem;margin-top: 1.875rem"  class="container mx-auto px-4 flex items-center ">
 
     <!-- 左侧 Logo -->
-    <div class="ml-4" style="width: 3.125rem;" >
-      <a href="https://tgmeng.com" target="_blank" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
-<!--      <a href="" target="" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">-->
-        <img
-            src="@/assets/image/logo.png"
-            alt="网站 Logo"
-            class="logo"
-        >
+    <div class="ml-4 flex items-center space-x-2">
+      <a href="https://tgmeng.com" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
+        <img src="@/assets/image/logo.png" alt="网站 Logo" class="logo w-12 h-12">
       </a>
+<!--      <span class="pl-4 text-xl font-bold dark:text-white text-gray-800">糖果梦热榜</span>-->
     </div>
 
     <!-- 右侧元素容器 -->

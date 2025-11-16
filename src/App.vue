@@ -4,6 +4,8 @@
     <!-- 引入我们开发的 AppHeader、AppHome、AppFooter 等组件 -->
     <Header/>
     <main class="container mx-auto px-4 py-6">
+      <!-- 友链 -->
+<!--      <AdRentCards :ads="homeHeaderAdsCard"/>-->
       <!-- 这里放页面主体内容，比如 AppHome 组件 -->
       <Home/>
       <!-- 主内容和评论区之间 展示Ads -->
@@ -26,6 +28,7 @@ import AppHome from './views/AppHome.vue';
 import SettingSideBar from "@/components/SettingSideBar.vue"; // 假设 AppHome 是首页视图
 import WalineComment from "./components/WalineComment.vue";
 import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
+// import AdRentCards from "./components/Card/AdRentCards.vue";
 
 export default {
   name: 'App',
@@ -35,6 +38,12 @@ export default {
     Home: AppHome,
     WalineComment: WalineComment,
     GoogleAdsense: GoogleGoogleAdsense,
+    // AdRentCards: AdRentCards,
+  },
+  data() {
+    return {
+      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
+    }
   }
 }
 </script>

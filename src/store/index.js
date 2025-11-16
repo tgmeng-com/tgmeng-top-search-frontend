@@ -441,7 +441,16 @@ export default createStore({
                 isShow: true,
                 subCategories: [],
             }
-        ],  // 定义一个状态变量 count
+        ],
+        // 顶部卡片位
+        homeHeaderAdsCard: [
+            { name: '位置1', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+            { name: '位置2', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+            { name: '位置3', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+            { name: '位置4', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+            { name: '位置5', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+        ]
+
     },
     mutations: {
         setCardHeight(state, newHeight) {
