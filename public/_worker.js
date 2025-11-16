@@ -26,7 +26,8 @@ export default {
         }
 
         if (url.pathname === "/sitemap.xml") {
-            const domains = ["tgmeng.com", "www.tgmeng.com", "trend.tgmeng.com"];
+            // const domains = ["tgmeng.com", "www.tgmeng.com", "trend.tgmeng.com"];
+            const domains = ["tgmeng.com"];
 
             // 路径数组，每个对象可自定义 priority
             const paths = [
