@@ -1,3 +1,4 @@
+// 用来动态生成sitemap.xml,,然后函数会在cloudflare里面运行
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
