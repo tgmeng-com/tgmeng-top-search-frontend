@@ -1207,3 +1207,163 @@ export function topSearchForJianKangShiBaoWang(data) {
         data: data
     })
 }
+
+export function topSearchForCCTV1(data) {
+    return request({
+        url: '/topsearch/cctv/1',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV2(data) {
+    return request({
+        url: '/topsearch/cctv/2',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV3(data) {
+    return request({
+        url: '/topsearch/cctv/3',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV4(data) {
+    return request({
+        url: '/topsearch/cctv/4',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV4EUROPE(data) {
+    return request({
+        url: '/topsearch/cctv/europe',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV4AMERICA(data) {
+    return request({
+        url: '/topsearch/cctv/america',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV5(data) {
+    return request({
+        url: '/topsearch/cctv/5',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV5PLUS(data) {
+    return request({
+        url: '/topsearch/cctv/5plus',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV6(data) {
+    return request({
+        url: '/topsearch/cctv/6',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV7(data) {
+    return request({
+        url: '/topsearch/cctv/7',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV8(data) {
+    return request({
+        url: '/topsearch/cctv/8',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV9(data) {
+    return request({
+        url: '/topsearch/cctv/jilu',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV10(data) {
+    return request({
+        url: '/topsearch/cctv/10',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV11(data) {
+    return request({
+        url: '/topsearch/cctv/11',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV12(data) {
+    return request({
+        url: '/topsearch/cctv/12',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV13(data) {
+    return request({
+        url: '/topsearch/cctv/13',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV14(data) {
+    return request({
+        url: '/topsearch/cctv/child',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV15(data) {
+    return request({
+        url: '/topsearch/cctv/15',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV16(data) {
+    return request({
+        url: '/topsearch/cctv/16',
+        method: 'get',
+        data: data
+    })
+}
+
+export function topSearchForCCTV17(data) {
+    return request({
+        url: '/topsearch/cctv/17',
+        method: 'get',
+        data: data
+    })
+}

@@ -25,3 +25,16 @@ export const formatSecondsToHMS = (seconds) => {
         ? `${hours}时${minutes}分${remainingSeconds}秒`
         : `${minutes}分${remainingSeconds}秒`;
 };
+
+export const isFuture = (timeSec) => {
+    return timeSec * 1000 > Date.now();
+}
+
+export const isPast = (timeSec) => {
+    return timeSec * 1000 < Date.now();
+}
+
+export const isBetween = (startSec, endSec) => {
+    const now = Date.now();
+    return now >= startSec * 1000 && now <= endSec * 1000;
+}

@@ -66,6 +66,11 @@
                class="dark:text-dark-text hot-title hover:underline"
                :class="{'hot-title-full':cardHotTitleFull}"
                :title="item.keyword">
+
+              <span v-if="title.includes('CCTV')" :style="secondTitleStyle" style="margin-left: 0.2rem"
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  {{ item.showTime }}
+                </span>
               {{ item.keyword }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
@@ -104,6 +109,37 @@
                 </span>
               </template>
 
+              <template v-else-if="title.includes('CCTV')">
+
+                <span v-if="item.url" :style="secondTitleStyle" style="margin-left: 0.2rem"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  <a :href="item.url" target="_blank" rel="noopener noreferrer">往期视频</a>
+                </span>
+                <span v-if="isPast(item.endTime)" :style="secondTitleStyle"
+                      style="margin-left: 0.2rem;background-color: #2d8db5"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  <a :href="'https://tv.cctv.com/live/cctv'+item.type+'/index.shtml?stime='+item.startTime+'&etime='+item.endTime+'&type=lbacks'"
+                     target="_blank" rel="noopener noreferrer">
+                    回看
+                  </a>
+                </span>
+
+                <span v-if="isBetween(item.startTime,item.endTime)" :style="secondTitleStyle"
+                      style="margin-left: 0.2rem;background-color: #E42626"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  <a :href="'https://tv.cctv.com/live/cctv'+item.type" target="_blank" rel="noopener noreferrer">
+                    直播中
+                  </a>
+                </span>
+
+                <span v-if="isFuture(item.startTime)" :style="secondTitleStyle"
+                      style="margin-left: 0.2rem;background-color: #8a8a8a"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                  未开始
+                </span>
+              </template>
+
+
               <template v-else>
                 <span :style="secondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
                   🔥{{ item.hotScore }}
@@ -134,6 +170,7 @@
 <script>
 import {StarFilled, Star, Refresh, Loading} from '@element-plus/icons-vue'
 import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
+import {isBetween, isFuture, isPast} from "@/utils/timeUtils";
 
 export default {
   components: {
@@ -141,7 +178,7 @@ export default {
     StarFilled,
     Star,
     Refresh,
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -152,6 +189,9 @@ export default {
     };
   },
   methods: {
+    isPast,
+    isBetween,
+    isFuture,
     // 判断是否展示信息流广告
     shouldShowAd(index) {
       // 每10个一条广告（9,19,29,39…）
@@ -327,13 +367,15 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hot-title-full{
+
+.hot-title-full {
   display: block !important;
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
   -webkit-box-orient: unset !important;
   white-space: normal !important;
 }
+
 /* 列表项调整 */
 li {
   align-items: flex-start;
