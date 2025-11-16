@@ -145,6 +145,7 @@ export function getSeoByPath(path) {
 
     const title = randomFromArray(meta.title);
     const description = randomFromArray(meta.description);
+    const canonical = window.location.origin + path;
     const image = meta.image || '/og/default.png';
     const url = window.location.origin + path;
     const category = meta.category || '热榜';
@@ -187,6 +188,7 @@ export function getSeoByPath(path) {
     return {
         title,
         description,
+        canonical,
         og: { title, description, image, url, type: 'website' },
         twitter: { card: 'summary_large_image', title, description, image },
         jsonLd

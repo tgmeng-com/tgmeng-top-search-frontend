@@ -28,6 +28,12 @@ router.afterEach((to) => {
     import('@vueuse/head').then(({ useHead }) => {
         useHead({
             title: seo.title,
+            link: [
+                {
+                    rel: 'canonical',
+                    href: seo.canonical
+                }
+            ],
             meta: [
                 { name: 'description', content: seo.description },
                 { property: 'og:title', content: seo.og.title },

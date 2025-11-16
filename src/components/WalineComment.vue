@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 50rem; display: inline-block; width: 100%;margin-top: 2.5rem">
     <div style="height: auto;padding-left: 1rem;padding-right: 1rem;">
-        <img src="@/assets/image/comment.gif">
+        <img src="@/assets/image/comment.gif"  alt="糖果梦热榜 - 评论中心">
     </div>
 <!--    <div style="margin-top: 20px;">阅读量: <span class="waline-pageview-count" data-path="/" /></div>-->
     <div id="waline-comment"></div>

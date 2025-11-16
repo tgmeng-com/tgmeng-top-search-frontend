@@ -6,7 +6,7 @@
     <!-- 左侧 Logo -->
     <div class="ml-4 flex items-center space-x-2">
       <a href="https://tgmeng.com" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
-        <img src="@/assets/image/logo.png" alt="网站 Logo" class="logo w-12 h-12">
+        <img src="@/assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
       </a>
 <!--      <span class="pl-4 text-xl font-bold dark:text-white text-gray-800">糖果梦热榜</span>-->
     </div>
@@ -25,7 +25,7 @@
               <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
             </template>
             <div style="width: 2.0625rem">
-              <img src="../assets/image/wechat-logo.png">
+              <img src="../assets/image/wechat-logo.png" alt="糖果梦热榜 - 社区交流中心">
             </div>
           </el-tooltip>
         </a>
@@ -43,7 +43,7 @@
               <div style="text-align: center"><span style="color: #212830">论坛</span></div>
             </template>
             <div style="width: 1.625rem">
-              <img src="../assets/image/bbs.png">
+              <img src="../assets/image/bbs.png"  alt="糖果梦热榜 - 论坛交流中心">
             </div>
           </el-tooltip>
         </a>
@@ -71,7 +71,7 @@
               data-umami-event-name="顶部右边设置"
           >
             <div style="width: 2.0625rem">
-              <img src="@/assets/image/setting.png">
+              <img src="@/assets/image/setting.png"  alt="糖果梦热榜 - 设置中心">
             </div>
           </button>
         </el-tooltip>
@@ -106,7 +106,7 @@
                   inactive-color="#C0CCDA"
                   @change="changeCategroyStatus">
               </el-switch>
-              <img :src="p.logo" style="width: 1.25rem; margin-left: 0.5rem; margin-right: 0.5rem;">
+              <img :src="p.logo" style="width: 1.25rem; margin-left: 0.5rem; margin-right: 0.5rem;" :alt="p.title">
               <span>{{ p.title }}</span>
             </div>
           </div>

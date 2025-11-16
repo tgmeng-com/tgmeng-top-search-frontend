@@ -2,7 +2,7 @@
   <div class="bg-gray-200 dark:bg-dark-card rounded-xl overflow-hidden card-hover">
     <!-- 顶部标题栏 -->
     <div class="bg-gray-300 dark:bg-dark-card-title p-4 flex items-center drag-handle">
-      <img :src="logo" alt="Logo" class="w-8 h-8 rounded-full">
+      <img :src="logo" :alt="title" class="w-8 h-8 rounded-full">
 
       <el-icon
           class="favorite-icon"
