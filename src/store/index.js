@@ -219,6 +219,7 @@ export default createStore({
         categroies: [
             {
                 name: '全部',
+                routerName: 'all',
                 id: 0,
                 isShow: true,
                 sort: 0,
@@ -226,6 +227,7 @@ export default createStore({
             },
             {
                 name: '新闻',
+                routerName: 'news',
                 id: 1,
                 isShow: true,
                 sort: 1,
@@ -242,6 +244,7 @@ export default createStore({
             },
             {
                 name: '羊毛',
+                routerName: 'wool',
                 id: 2,
                 isShow: true,
                 sort: 2,
@@ -255,6 +258,7 @@ export default createStore({
             },
             {
                 name: '媒体',
+                routerName: 'media',
                 id: 3,
                 isShow: true,
                 sort: 3,
@@ -274,6 +278,7 @@ export default createStore({
             },
             {
                 name: '电视',
+                routerName: 'tv',
                 id: 14,
                 isShow: true,
                 sort: 12.5,
@@ -302,6 +307,7 @@ export default createStore({
             },
             {
                 name: '生活',
+                routerName: 'life',
                 id: 4,
                 isShow: true,
                 sort: 4,
@@ -336,6 +342,7 @@ export default createStore({
 
             {
                 name: '社区',
+                routerName: 'community',
                 id: 5,
                 isShow: true,
                 sort: 5,
@@ -354,6 +361,7 @@ export default createStore({
             },
             {
                 name: '财经',
+                routerName: 'finance',
                 id: 6,
                 isShow: true,
                 sort: 6,
@@ -370,6 +378,7 @@ export default createStore({
             },
             {
                 name: '体育',
+                routerName: 'sports',
                 id: 7,
                 isShow: true,
                 sort: 7,
@@ -386,6 +395,7 @@ export default createStore({
             },
             {
                 name: '科技',
+                routerName: 'technology',
                 id: 8,
                 isShow: true,
                 sort: 8,
@@ -414,6 +424,7 @@ export default createStore({
             },
             {
                 name: '设计',
+                routerName: 'design',
                 id: 9,
                 isShow: true,
                 sort: 9,
@@ -438,6 +449,7 @@ export default createStore({
             },
             {
                 name: '影音',
+                routerName: 'audiovideo',
                 id: 10,
                 isShow: true,
                 sort: 10,
@@ -483,6 +495,7 @@ export default createStore({
             },
             {
                 name: '游戏',
+                routerName: 'game',
                 id: 11,
                 isShow: true,
                 sort: 11,
@@ -500,6 +513,7 @@ export default createStore({
             },
             {
                 name: '健康',
+                routerName: 'health',
                 id: 12,
                 isShow: true,
                 sort: 12,
@@ -516,6 +530,7 @@ export default createStore({
             },
             {
                 name: '收藏',
+                routerName: 'favorites',
                 id: 13,
                 isShow: true,
                 sort: 13,

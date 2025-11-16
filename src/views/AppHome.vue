@@ -270,9 +270,10 @@ export default {
       this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
-      // 默认第二个分类为首页
+      // 如果没有设置默认值，那就用第一个作为默认分类
       this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[0];
-      this.handleCategoryClick(this.activeCategory)
+      // 首次进入页面，检查路由参数是否合法
+      this.handleRouteCategory();
     },
 
     // 访问接口拿数据
@@ -294,8 +295,30 @@ export default {
           });
     },
 
+    // 处理路由 category 参数
+    handleRouteCategory() {
+      const categoryRouterName = this.$route.params.category;
+      const matchedCat = this.categroies.find(c => c.routerName === categoryRouterName);
+
+      if (matchedCat && matchedCat.id !== this.activeCategory.id) {
+        // 路由存在且不是当前激活分类 → 点击分类
+        this.handleCategoryClick(matchedCat, { skipRoutePush: true });
+      } else if (!matchedCat) {
+        // 路由不存在或非法 → 回到根路径，显示默认分类
+        if (this.$route.path !== '/') {
+          // 仅当路径不是 / 时才替换 URL
+          this.$router.replace({ path: '/' });
+        }
+        this.handleCategoryClick(this.activeCategory, { skipRoutePush: true });
+      }
+    },
+
     // 分类按钮点击事件
-    handleCategoryClick(cat) {
+    handleCategoryClick(cat, options = {}) {
+      // skipRoutePush，防止重复推路由
+      if (!options.skipRoutePush) {
+        this.$router.push({ name: 'Category', params: { category: cat.routerName } });
+      }
       this.activeCategory = cat;
       // 把全部数据下收藏的卡片方法收藏分类下
       if (cat.name === '收藏') {
@@ -549,6 +572,12 @@ export default {
         this.$store.commit('setDefaultCategoryId', value);
       }
     },
+  },
+  watch: {
+    /// 监听路由变化，切换分类
+    '$route.params.category'() {
+      this.handleRouteCategory();
+    }
   },
 };
 </script>
