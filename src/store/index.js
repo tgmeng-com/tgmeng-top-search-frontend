@@ -184,6 +184,7 @@ import {
     topSearchForCCTV15,
     topSearchForCCTV16,
     topSearchForCCTV17,
+    topSearchForPengPaiXinWen,
 
 
 } from '@/api/api';
@@ -247,6 +248,7 @@ export default createStore({
                     new Platform('纽约时报', topSearchForNiuYueShiBao, require('@/assets/logos/tgmeng-trend_niuyueshibao.png'), 5),
                     new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png'), 6),
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png'), 7),
+                    new Platform('澎湃新闻', topSearchForPengPaiXinWen, require('@/assets/logos/tgmeng-trend_pengpaixinwen.png'), 7.1),
                     // new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png'),8),
                 ]
             },

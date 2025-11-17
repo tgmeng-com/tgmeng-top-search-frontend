@@ -1367,3 +1367,11 @@ export function topSearchForCCTV17(data) {
         data: data
     })
 }
+
+export function topSearchForPengPaiXinWen(data) {
+    return request({
+        url: '/topsearch/pengpaixinwen',
+        method: 'get',
+        data: data
+    })
+}
