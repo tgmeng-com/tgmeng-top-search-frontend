@@ -30,7 +30,7 @@
             ]"
                     @click="handleCategoryClick(cat)"
                 >
-                  <h1><span class="dark:text-dark-text">{{ cat.name }}</span></h1>
+                  <h1><span class="dark:text-dark-text" :style="categroiesTitleStyle">{{ cat.name }}</span></h1>
                 </button>
               </div>
             </template>
@@ -39,7 +39,7 @@
       </div>
 
       <div
-          class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
@@ -70,61 +70,36 @@
         </div>
       </div>
 
-      <!-- 用户样式自定义调整   -->
-      <div
-          class="mb-4 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <!-- 左侧：统计数据（移动端换行显示） -->
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-          <!-- 用户自定义样式 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            自定义样式
-          </span>&nbsp;
-          <!-- 自定义列 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            列：<el-input-number class="input-cols" v-model="cardCols" :min="1" :max="6" size="small"
-                                @change="changeCardCols"/>
-          </span>&nbsp;
-          <!-- 自定义高-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
-                                @change="changeCardHeight"/>
-          </span>&nbsp;
-          <!-- 自定义标题字体大小-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
-                                  :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
-          </span>&nbsp;
-          <!-- 自定义分类是否可以拖动-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            分类可拖动：<el-switch
-              v-model="categroiesDraggable"
-              size="small"
-              @change="changeCategroiesDraggable"/>
-          </span>&nbsp;
-          <!-- 自定义卡片是否可以拖动-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            卡片可拖动：<el-switch
-              v-model="cardDraggable"
-              size="small"
-              @change="changeCardDraggable"/>
-          </span>&nbsp;
-          <!-- 自定义卡片标题是否完整显示-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            标题完整：<el-switch
-              v-model="cardHotTitleFull"
-              size="small"
-              @change="changeCardHotTitleFull"/>
-          </span>&nbsp;
-          <!-- 自定义卡片热度值是否显示-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            热度值显示：<el-switch
-              v-model="cardHotScoreShow"
-              size="small"
-              @change="changeCardHotScoreShow"/>
-          </span>&nbsp;
-          <!-- 自定义默认分类-->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            默认分类：<el-select v-model="defaultCategoryId" placeholder="Select" style="width: 3.5rem" size="small" @change="changeDefaultActiveCategroyId">
+      <el-collapse expand-icon-position="left">
+        <el-collapse-item>
+          <!-- 自定义按钮作为标题，点击按钮展开/折叠内容 -->
+          <template #title>
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            👉🏻点击进行样式自定义👈🏻
+            </span>&nbsp;
+          </template>
+          <!--          <div>-->
+          <!--            Consistent with real life: in line with the process and logic of real-->
+          <!--            life, and comply with languages and habits that the users are used to;-->
+          <!--          </div>-->
+          <!--          <div>-->
+          <!--            Consistent within interface: all elements should be consistent, such-->
+          <!--            as: design style, icons and texts, position of elements, etc.-->
+          <!--          </div>-->
+          <!-- 用户样式自定义调整   -->
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 左侧：统计数据（移动端换行显示） -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <!-- 自定义分类字体大小-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                分类名称：<el-input-number class="input-title" v-model="categroiesTitleFontSize" :min="0.1" :max="2" size="small"
+                                          :precision="3" :step="0.025" @change="changeCategroiesTitleFontSize"/>
+              </span>&nbsp;
+              <!-- 自定义默认分类-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            默认分类：<el-select v-model="defaultCategoryId" placeholder="Select" style="width: 3.5rem" size="small"
+                                @change="changeDefaultActiveCategroyId">
                       <el-option
                           v-for="item in categroies"
                           :key="item.id"
@@ -133,13 +108,100 @@
                       />
                     </el-select>
           </span>&nbsp;
-        </div>
-        <!-- 右侧：更新时间（移动端换行显示） -->
-        <div>
-        </div>
-      </div>
+              <!-- 自定义分类是否可以拖动-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            分类拖动：<el-switch
+                  v-model="categroiesDraggable"
+                  size="small"
+                  @change="changeCategroiesDraggable"/>
+          </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
 
-      <section class="mb-10 mt-8">
+          <!-- 用户样式自定义调整   -->
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 左侧：统计数据（移动端换行显示） -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <!-- 自定义标题字体大小-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点标题：<el-input-number class="input-title" v-model="cardTitleFontSize" :min="0.1" :max="2" size="small"
+                                      :precision="3" :step="0.025" @change="changeCardTitleFontSize"/>
+          </span>&nbsp;
+
+              <!-- 自定义热点标题是否完整显示-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点标题完整：<el-switch
+                  v-model="cardHotTitleFull"
+                  size="small"
+                  @change="changeCardHotTitleFull"/>
+          </span>&nbsp;
+              <!-- 自定义热点热度值是否显示-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点热度：<el-switch
+                  v-model="cardHotScoreShow"
+                  size="small"
+                  @change="changeCardHotScoreShow"/>
+          </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+
+          <!-- 用户样式自定义调整   -->
+          <div
+              class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 左侧：统计数据（移动端换行显示） -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <!-- 自定义卡片标题字体大小-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片名称：<el-input-number class="input-title" v-model="cardTopFontSize" :min="0.1" :max="2" size="small"
+                                      :precision="3" :step="0.025" @change="changeCardTopFontSize"/>
+          </span>&nbsp;
+              <!-- 自定义卡片标题是否完整显示-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片标题完整：<el-switch
+                  v-model="cardTitleFull"
+                  size="small"
+                  @change="changeCardTitleFull"/>
+          </span>&nbsp;
+              <!-- 自定义卡片时间值是否显示-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片时间：<el-switch
+                  v-model="cardTimeShow"
+                  size="small"
+                  @change="changeCardTimeShow"/>
+          </span>&nbsp;
+              <!-- 自定义卡片是否可以拖动-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片拖动：<el-switch
+                  v-model="cardDraggable"
+                  size="small"
+                  @change="changeCardDraggable"/>
+          </span>&nbsp;
+              <!-- 自定义列 -->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片列：<el-input-number class="input-cols" v-model="cardCols" :min="1" :max="6" size="small"
+                                    @change="changeCardCols"/>
+          </span>&nbsp;
+              <!-- 自定义高-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
+                                    @change="changeCardHeight"/>
+          </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+
+      <section class="mb-10 mt-4">
         <draggable
             v-model="activeCategory.subCategories"
             tag="div"
@@ -253,20 +315,28 @@ export default {
       const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
       const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
       const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
+      const cacheCategroiesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE)
+      const cacheCardTopFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE)
       const cacheCardDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE)
       const cacheCategroiesDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE)
 
       const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
+      const cacheCardTimeShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW)
       const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
+      const cacheCardTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL)
       const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
       this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
+      this.categroiesTitleFontSize = cacheCategroiesTitleFontSize ?? this.categroiesTitleFontSize;
+      this.cardTopFontSize = cacheCardTopFontSize ?? this.cardTopFontSize;
       this.cardDraggable = cacheCardDraggable ?? this.cardDraggable;
       this.categroiesDraggable = cacheCategroiesDraggable ?? this.categroiesDraggable;
       this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
+      this.cardTimeShow = cacheCardTimeShow ?? this.cardTimeShow;
       this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
+      this.cardTitleFull = cacheCardTitleFull ?? this.cardTitleFull;
       this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
@@ -302,14 +372,14 @@ export default {
 
       if (matchedCat && matchedCat.id !== this.activeCategory.id) {
         // 路由存在且不是当前激活分类 → 点击分类
-        this.handleCategoryClick(matchedCat, { skipRoutePush: true });
+        this.handleCategoryClick(matchedCat, {skipRoutePush: true});
       } else if (!matchedCat) {
         // 路由不存在或非法 → 回到根路径，显示默认分类
         if (this.$route.path !== '/') {
           // 仅当路径不是 / 时才替换 URL
-          this.$router.replace({ path: '/' });
+          this.$router.replace({path: '/'});
         }
-        this.handleCategoryClick(this.activeCategory, { skipRoutePush: true });
+        this.handleCategoryClick(this.activeCategory, {skipRoutePush: true});
       }
     },
 
@@ -317,7 +387,7 @@ export default {
     handleCategoryClick(cat, options = {}) {
       // skipRoutePush，防止重复推路由
       if (!options.skipRoutePush) {
-        this.$router.push({ name: 'Category', params: { category: cat.routerName } });
+        this.$router.push({name: 'Category', params: {category: cat.routerName}});
       }
       this.activeCategory = cat;
       // 把全部数据下收藏的卡片方法收藏分类下
@@ -468,7 +538,17 @@ export default {
     // 自定义标题字体大小
     changeCardTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE, this.cardTitleFontSize);
-      window.umami.track('自定义标题字体大小')
+      window.umami.track('自定义热点标题字体大小')
+    },
+    // 自定义调整分类名称字体大小
+    changeCategroiesTitleFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE, this.categroiesTitleFontSize);
+      window.umami.track('自定义分类名称字体大小')
+    },
+    // 自定义调整卡片顶部字体大小
+    changeCardTopFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE, this.cardTopFontSize);
+      window.umami.track('自定义卡片标题字体大小')
     },
     // 自定义调整卡片是否可以拖动
     changeCardDraggable() {
@@ -483,12 +563,22 @@ export default {
     // 自定义调整卡片标题是否完整显示
     changeCardHotTitleFull() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL, this.cardHotTitleFull);
+      window.umami.track('自定义热点标题是否完整显示')
+    },
+    // 自定义调整卡片标题是否完整显示
+    changeCardTitleFull() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL, this.cardTitleFull);
       window.umami.track('自定义卡片标题是否完整显示')
     },
-    // 自定义调整卡片热度值是否显示
+    // 自定义调整热点热度值是否显示
     changeCardHotScoreShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
-      window.umami.track('自定义卡片热度值是否显示')
+      window.umami.track('自定义热点热度值是否显示')
+    },
+    // 自定义调整卡片时间是否显示
+    changeCardTimeShow() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW, this.cardTimeShow);
+      window.umami.track('自定义卡片时间是否显示')
     },
     // 自定义调整默认选中的分类id
     changeDefaultActiveCategroyId() {
@@ -532,6 +622,22 @@ export default {
         this.$store.commit('setCardTitleFontSize', value);
       }
     },
+    categroiesTitleFontSize: {
+      get() {
+        return this.$store.state.categroiesTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCategroiesTitleFontSize', value);
+      }
+    },
+    cardTopFontSize: {
+      get() {
+        return this.$store.state.cardTopFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTopFontSize', value);
+      }
+    },
     cardDraggable: {
       get() {
         return this.$store.state.cardDraggable;
@@ -556,6 +662,14 @@ export default {
         this.$store.commit('setCardHotScoreShow', value);
       }
     },
+    cardTimeShow: {
+      get() {
+        return this.$store.state.cardTimeShow;
+      },
+      set(value) {
+        this.$store.commit('setCardTimeShow', value);
+      }
+    },
     cardHotTitleFull: {
       get() {
         return this.$store.state.cardHotTitleFull;
@@ -564,12 +678,26 @@ export default {
         this.$store.commit('setCardHotTitleFull', value);
       }
     },
+    cardTitleFull: {
+      get() {
+        return this.$store.state.cardTitleFull;
+      },
+      set(value) {
+        this.$store.commit('setCardTitleFull', value);
+      }
+    },
     defaultCategoryId: {
       get() {
         return this.$store.state.defaultCategoryId;
       },
       set(value) {
         this.$store.commit('setDefaultCategoryId', value);
+      }
+    },
+    // 卡片顶部标题样式
+    categroiesTitleStyle() {
+      return {
+        fontSize: this.categroiesTitleFontSize + 'rem',
       }
     },
   },
@@ -628,6 +756,31 @@ export default {
   width: 4rem !important;
   font-size: 0.75rem !important;
   box-shadow: none !important;
+}
+
+:deep(.el-collapse) {
+  border: none !important;
+}
+
+:deep(.el-collapse-item__header) {
+  border: none !important;
+}
+
+:deep(.el-icon.el-collapse-item__arrow) {
+  display: none !important;
+}
+
+:deep(.el-collapse-item__header) {
+  background-color: #ffffff00 !important;
+}
+
+:deep(.el-collapse-item__wrap) {
+  border: none !important;
+  background-color: #ffffff00 !important;
+}
+
+:deep(.el-collapse-item__content) {
+  padding: 0 !important;
 }
 
 </style>

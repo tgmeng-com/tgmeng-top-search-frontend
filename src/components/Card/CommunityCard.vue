@@ -1,29 +1,31 @@
 <template>
   <div class="bg-gray-200 dark:bg-dark-card rounded-xl overflow-hidden card-hover">
     <!-- 顶部标题栏 -->
-    <div class="bg-gray-300 dark:bg-dark-card-title p-4 flex items-center drag-handle">
-      <img :src="logo" :alt="title" class="w-8 h-8 rounded-full">
-
+    <div class="bg-gray-300 dark:bg-dark-card-title p-4 flex items-center drag-handle"
+         :style="cardTopStyle">
+      <img :src="logo" :alt="title" class=" rounded-full" :style="cardTopLogoStyle">
       <el-icon
           class="favorite-icon"
           :color="isStar ? '#f7ba2a' : '#ccc'"
-          @click="toggleStar">
+          @click="toggleStar"
+          :style="cardTopStyle">
         <component :is="isStar ? 'StarFilled' : 'Star'"/>
       </el-icon>
 
-      <h1 class="font-semibold dark:text-dark-text">{{ title }}</h1>
-      <span
-          class="ml-auto text-xs px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-full dark:text-dark-text">
+      <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">{{ title }}</h1>
+      <span v-if="cardTimeShow"
+          class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-xl dark:text-dark-text"
+          :style="cardTopTimeStyle">
         <el-button
             link
             @click="onRefreshCardData"
             class="dark:text-dark-text"
         >
-        <el-icon v-if="!loading"><Refresh/></el-icon>
-        <el-icon v-else class="is-loading">
-          <Loading/>
-        </el-icon>
-      </el-button>
+          <el-icon v-if="!loading" :style="cardTopStyle"><Refresh/></el-icon>
+          <el-icon v-else :style="cardTopStyle" class="is-loading">
+            <Loading/>
+          </el-icon>
+        </el-button>
 
         {{ updateTime }}
       </span>
@@ -31,7 +33,7 @@
 
     <!-- 内容区域（限制高度、可滚动） -->
     <div class="p-4 overflow-y-auto custom-scroll "
-         :style="{ maxHeight: cardHeight + 'rem' ,fontSize: cardTitleFontSize+'rem'}">
+         :style="[cardHeightStyle ,cardTitleStyle]">
       <!--    <div :class="`p-4 overflow-y-auto custom-scroll max-h-[21rem]`">-->
       <!-- ✅ 加载中 -->
       <div v-if="loading" class="flex flex-col items-center justify-center text-gray-400 py-10">
@@ -53,7 +55,7 @@
           <li class="flex items-center justify-between">
             <!-- 序号 -->
             <span :class="[
-              'sequence-number rounded-full flex items-center justify-center font-bold mr-3',
+              'sequence-number rounded-xl flex items-center justify-center font-bold mr-3',
               index === 0 ? 'bg-red-600 text-white' :
               index === 1 ? 'bg-orange-500 text-white' :
               index === 2 ? 'bg-yellow-700 text-white' :
@@ -67,19 +69,19 @@
                :class="{'hot-title-full':cardHotTitleFull}"
                :title="item.keyword">
 
-              <span v-if="title.includes('CCTV')" :style="secondTitleStyle" style="margin-left: 0.2rem"
-                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+              <span v-if="title.includes('CCTV')" :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
+                    class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   {{ item.showTime }}
                 </span>
-                 {{ item.keyword }}
+              {{ item.keyword }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
-                <span :style="secondTitleStyle">&nbsp;- {{ item.image }}</span>
+                <span :style="cardSecondTitleStyle">&nbsp;- {{ item.image }}</span>
               </template>
               <!-- 猫眼二级标题 -->
               <template v-else-if="title.includes('猫眼')">
               <span v-for="(text, idx) in maoYanSecondTitleInfo(item)" :key="idx"
-                    :style="secondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
+                    :style="cardSecondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
               </span>
               </template>
             </a>
@@ -99,49 +101,49 @@
               </template>
 
               <template v-else-if="title.includes('豆瓣组')">
-                <span :style="secondTitleStyle"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                <span :style="cardSecondTitleStyle"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   👩‍👧‍👦{{ item.commentCount }}
                 </span>
-                <span :style="secondTitleStyle" style="margin-left: 0.2rem"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   {{ item.publishTime }}
                 </span>
               </template>
 
               <template v-else-if="title.includes('CCTV')">
 
-                <span v-if="item.url" :style="secondTitleStyle" style="margin-left: 0.2rem"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                <span v-if="item.url" :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   <a :href="item.url" target="_blank" rel="noopener noreferrer">往期视频</a>
                 </span>
-                <span v-if="isPast(item.endTime)" :style="secondTitleStyle"
+                <span v-if="isPast(item.endTime)" :style="cardSecondTitleStyle"
                       style="margin-left: 0.2rem;background-color: #2d8db5"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   <a :href="'https://tv.cctv.com/live/cctv'+item.type+'/index.shtml?stime='+item.startTime+'&etime='+item.endTime+'&type=lbacks'"
                      target="_blank" rel="noopener noreferrer">
                     回看
                   </a>
                 </span>
 
-                <span v-if="isBetween(item.startTime,item.endTime)" :style="secondTitleStyle"
+                <span v-if="isBetween(item.startTime,item.endTime)" :style="cardSecondTitleStyle"
                       style="margin-left: 0.2rem;background-color: #E42626"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   <a :href="'https://tv.cctv.com/live/cctv'+item.type" target="_blank" rel="noopener noreferrer">
                     直播中
                   </a>
                 </span>
 
-                <span v-if="isFuture(item.startTime)" :style="secondTitleStyle"
+                <span v-if="isFuture(item.startTime)" :style="cardSecondTitleStyle"
                       style="margin-left: 0.2rem;background-color: #8a8a8a"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-full dark:text-dark-text">
+                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   未开始
                 </span>
               </template>
 
 
               <template v-else>
-                <span :style="secondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
+                <span :style="cardSecondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
                   🔥{{ item.hotScore }}
                 </span>
               </template>
@@ -296,11 +298,42 @@ export default {
     },
   },
   computed: {
-    // 二级标题样式
-    secondTitleStyle() {
+    // 卡片顶部标题样式
+    cardTopStyle() {
+      return {
+        fontSize: this.cardTopFontSize + 'rem',
+      }
+    },
+    // 卡片顶部logo样式
+    cardTopLogoStyle() {
+      return {
+        width: this.cardTopFontSize * 2 + 'rem',
+        height: this.cardTopFontSize * 2 + 'rem'
+      }
+    },
+    // 卡片顶部时间样式
+    cardTopTimeStyle(){
+      return {
+        fontSize: this.cardTopFontSize - 0.125 + 'rem',
+        opacity: 0.9,
+      }
+    },
+    // 卡片热点标题样式
+    cardTitleStyle() {
+      return {
+        fontSize: this.cardTitleFontSize + 'rem',
+      }
+    },
+    // 卡片二级标题样式
+    cardSecondTitleStyle() {
       return {
         fontSize: this.cardTitleFontSize - 0.1 + 'rem',
         opacity: 0.9,
+      }
+    },
+    cardHeightStyle() {
+      return {
+        maxHeight: this.cardHeight + 'rem',
       }
     },
     cardHeight: {
@@ -319,12 +352,29 @@ export default {
         this.$store.commit('setCardTitleFontSize', value);
       }
     },
+    cardTopFontSize: {
+      get() {
+        return this.$store.state.cardTopFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTopFontSize', value);
+      }
+    },
     cardHotScoreShow: {
       get() {
         return this.$store.state.cardHotScoreShow;
       },
       set(value) {
         this.$store.commit('setCardHotScoreShow', value);
+      }
+    },
+    // 卡片时间是否显示
+    cardTimeShow: {
+      get() {
+        return this.$store.state.cardTimeShow;
+      },
+      set(value) {
+        this.$store.commit('setCardTimeShow', value);
       }
     },
     // 标题是否显示完整
@@ -334,6 +384,15 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardHotTitleFull', value);
+      }
+    },
+    // 卡片标题是否显示完整
+    cardTitleFull: {
+      get() {
+        return this.$store.state.cardTitleFull;
+      },
+      set(value) {
+        this.$store.commit('setCardTitleFull', value);
       }
     },
   }
@@ -369,6 +428,14 @@ export default {
 }
 
 .hot-title-full {
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  -webkit-box-orient: unset !important;
+  white-space: normal !important;
+}
+
+.card-title-full {
   display: block !important;
   -webkit-line-clamp: unset !important;
   overflow: visible !important;

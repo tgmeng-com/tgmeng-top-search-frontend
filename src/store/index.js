@@ -210,10 +210,18 @@ export default createStore({
         categroiesDraggable: false,
         // 卡片热度值是否显示
         cardHotScoreShow: true,
+        // 卡片时间是否显示
+        cardTimeShow: true,
         // 热点标题是否显示完整
         cardHotTitleFull: true,
+        // 卡片标题是否显示完整
+        cardTitleFull: true,
+        // 卡片顶部字体大小
+        cardTopFontSize: 1,
         // 热点标题字体大小
         cardTitleFontSize: 0.875,
+        // 分类名称字体大小
+        categroiesTitleFontSize: 1,
         // 默认选中的分类id
         defaultCategoryId: 1, // 默认分类ID
         categroies: [
@@ -554,8 +562,16 @@ export default createStore({
         setCardCols(state, newCols) {
             state.cardCols = newCols;
         },
+        // 卡片顶部字体大小
+        setCardTopFontSize(state, newSize) {
+            state.cardTopFontSize = newSize;
+        },
         setCardTitleFontSize(state, newSize) {
             state.cardTitleFontSize = newSize;
+        },
+        // 分类名称字体大小
+        setCategroiesTitleFontSize(state, newSize) {
+            state.categroiesTitleFontSize = newSize;
         },
         setCardDraggable(state, newDraggable) {
             state.cardDraggable = newDraggable;
@@ -566,8 +582,15 @@ export default createStore({
         setCardHotScoreShow(state, newShow) {
             state.cardHotScoreShow = newShow;
         },
+        setCardTimeShow(state, newShow) {
+            state.cardTimeShow = newShow;
+        },
         setCardHotTitleFull(state, newFull) {
             state.cardHotTitleFull = newFull;
+        },
+        // 卡片标题是否显示完整
+        setCardTitleFull(state, newFull) {
+            state.cardTitleFull = newFull;
         },
         setDefaultCategoryId(state, newId) {
             state.defaultCategoryId = newId;

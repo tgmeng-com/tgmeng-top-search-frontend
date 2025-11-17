@@ -4,10 +4,14 @@ export const LOCAL_STORAGE_KEYS = {
     CARD_COLS: 'cardCols',
     CARD_HEIGHT: 'cardHeight',
     CARD_TITLE_FONT_SIZE: 'cardTitleFontSize',
+    CATEGORIES_TITLE_FONT_SIZE: 'categroiesTitleFontSize',
+    CARD_TOP_FONT_SIZE: 'cardTopFontSize',
     CARD_DRAGGABLE: 'cardDraggable',
     CATEGORIES_DRAGGABLE: 'categroiesDraggable',
     CARD_HOT_SCORE_SHOW: 'cardHotScoreShow',
+    CARD_TIME_SHOW: 'cardTimeShow',
     CARD_HOT_TITLE_FULL: 'cardHotTitleFull',
+    CARD_TITLE_FULL: 'cardTitleFull',
     DEFAULT_CATEGORY_ID: 'defaultCategoryId',
 };
 
