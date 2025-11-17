@@ -1,5 +1,5 @@
 <template>
-  <section class="container mx-auto px-4 pb-6">
+  <section class="px-4 pb-6">
     <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
       <a v-for="(ad, index) in ads" :key="index"
          :href="ad.url || '#'" target="_blank" rel="noopener noreferrer"

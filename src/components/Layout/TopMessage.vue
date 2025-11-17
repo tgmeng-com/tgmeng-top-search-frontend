@@ -1,6 +1,6 @@
 <template>
-  <header class="top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
-    <div class="container mx-auto px-4 py-3 flex flex-col items-center text-lg space-y-1">
+  <div class="top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
+    <div class="py-3 flex flex-col items-center text-lg space-y-1">
 
       <!-- 第一行可横向滑动 -->
       <div class="overflow-x-auto whitespace-nowrap scrollbar-hide w-full text-center">
@@ -19,7 +19,7 @@
       </div>
 
     </div>
-  </header>
+  </div>
 </template>
 
 <script setup>

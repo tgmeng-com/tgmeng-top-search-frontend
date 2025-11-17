@@ -1,49 +1,108 @@
 <template>
-  <div class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
+  <header class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
+    <div class="mx-auto" style="min-height: 5rem; margin-top: 1.875rem;">
+      <div class="relative flex items-center justify-between h-16">
+        <!-- 左侧 Logo -->
+        <div class="flex-shrink-0">
+          <a href="https://tgmeng.com" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
+            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
+          </a>
+        </div>
 
-  <div style="min-height: 5rem;margin-top: 1.875rem"  class="container mx-auto px-4 flex items-center ">
+        <!-- 右侧图标，桌面端显示 -->
+        <div class="hidden sm:flex space-x-6 items-center"> <!-- 关键修改点：加入 items-center 保证垂直居中 -->
+          <!-- 交流群 -->
+          <div style="width: 2.5rem;">
+            <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
+               data-umami-event-name="顶部右边交流群">
+              <el-tooltip placement="bottom" effect="light">
+                <template #content>
+                  <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
+                </template>
+                <div style="width: 2.0625rem">
+                  <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 社区交流中心">
+                </div>
+              </el-tooltip>
+            </a>
+          </div>
+          <!-- 论坛 -->
+          <div style="width: 2.5rem;">
+            <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛"
+               data-umami-event-name="顶部右边论坛">
+              <el-tooltip placement="bottom" effect="light">
+                <template #content>
+                  <div style="text-align: center"><span style="color: #212830">论坛</span></div>
+                </template>
+                <div style="width: 1.875rem">
+                  <img src="../../assets/image/bbs.png" alt="糖果梦热榜 - 论坛交流中心">
+                </div>
+              </el-tooltip>
+            </a>
+          </div>
 
-    <!-- 左侧 Logo -->
-    <div class="ml-4 flex items-center space-x-2">
-      <a href="https://tgmeng.com" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
-        <img src="@/assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
-      </a>
-<!--      <span class="pl-4 text-xl font-bold dark:text-white text-gray-800">糖果梦热榜</span>-->
+          <!-- 明暗主题 -->
+          <div>
+            <ThemeToggle />
+          </div>
+
+          <!-- 设置 -->
+          <div style="width: 2.5rem;">
+            <el-tooltip placement="bottom" effect="light">
+              <template #content>
+                <div style="text-align: center"><span style="color: #212830">设置</span></div>
+              </template>
+              <button
+                  @click="drawerClick"
+                  class="setting-btn"
+                  aria-label="设置"
+                  data-umami-event="顶部右边设置"
+                  data-umami-event-name="顶部右边设置"
+              >
+                <div style="width: 1.875rem">
+                  <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
+                </div>
+              </button>
+            </el-tooltip>
+          </div>
+        </div>
+
+        <!-- 移动端汉堡菜单 -->
+        <div class="sm:hidden">
+          <button @click="toggleMenu" class="text-gray-300 hover:text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- 右侧元素容器 -->
-    <div class="flex-1 flex justify-end items-center space-x-4">
+    <!-- 移动端菜单（折叠） -->
+    <div v-if="menuOpen" class="sm:hidden text-white">
       <!-- 交流群 -->
       <div style="width: 2.5rem;">
         <a href="https://wechat.htgmeng.com" target="_blank" data-umami-event="顶部右边交流群"
            data-umami-event-name="顶部右边交流群">
-          <el-tooltip
-              placement="bottom"
-              effect="light"
-          >
+          <el-tooltip placement="bottom" effect="light">
             <template #content>
               <div style="text-align: center"><span style="color: #212830">微信交流社区</span></div>
             </template>
             <div style="width: 2.0625rem">
-              <img src="../assets/image/wechat-logo.png" alt="糖果梦热榜 - 社区交流中心">
+              <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 社区交流中心">
             </div>
           </el-tooltip>
         </a>
       </div>
-
       <!-- 论坛 -->
       <div style="width: 2.5rem;">
         <a href="https://bbs.tgmeng.com" target="_blank" data-umami-event="顶部右边论坛"
            data-umami-event-name="顶部右边论坛">
-          <el-tooltip
-              placement="bottom"
-              effect="light"
-          >
+          <el-tooltip placement="bottom" effect="light">
             <template #content>
               <div style="text-align: center"><span style="color: #212830">论坛</span></div>
             </template>
-            <div style="width: 1.625rem">
-              <img src="../assets/image/bbs.png"  alt="糖果梦热榜 - 论坛交流中心">
+            <div style="width: 1.875rem">
+              <img src="../../assets/image/bbs.png" alt="糖果梦热榜 - 论坛交流中心">
             </div>
           </el-tooltip>
         </a>
@@ -51,15 +110,12 @@
 
       <!-- 明暗主题 -->
       <div>
-        <ThemeToggle/>
+        <ThemeToggle />
       </div>
 
       <!-- 设置 -->
-      <div>
-        <el-tooltip
-            placement="bottom"
-            effect="light"
-        >
+      <div style="width: 2.5rem;">
+        <el-tooltip placement="bottom" effect="light">
           <template #content>
             <div style="text-align: center"><span style="color: #212830">设置</span></div>
           </template>
@@ -70,19 +126,17 @@
               data-umami-event="顶部右边设置"
               data-umami-event-name="顶部右边设置"
           >
-            <div style="width: 2.0625rem">
-              <img src="@/assets/image/setting.png"  alt="糖果梦热榜 - 设置中心">
+            <div style="width: 1.875rem">
+              <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
             </div>
           </button>
         </el-tooltip>
       </div>
     </div>
+  </header>
 
-
-  </div>
-  </div>
+  <!-- Drawer 设置 -->
   <el-drawer v-model="drawer" :with-header="false" :direction="'ttb'">
-
     <div style="margin-bottom: 1.25rem">
       <el-button class="resetButton" type="danger" @click="cleanLocalStorage">重置设置</el-button>
     </div>
@@ -94,7 +148,6 @@
             :key="cat.name"
             :name="cat.name"
             :label="cat.name">
-          <!-- 使用 flex 布局 -->
           <div class="flex flex-wrap">
             <div style="width: 15rem; display: flex; align-items: center; margin-bottom: 0.5rem;"
                  v-for="p in cat.subCategories"
@@ -143,6 +196,7 @@ export default {
   },
   data() {
     return {
+      menuOpen: false, // 控制移动端菜单的显示与隐藏
       isDark: true,
       drawer: false,
       activeName: '全部',
@@ -161,6 +215,9 @@ export default {
         position: 'top-left',
         dangerouslyUseHTMLString: true
       });
+    },
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
     },
     drawerClick() {
       this.drawer = true
@@ -200,14 +257,11 @@ export default {
   }
 };
 </script>
-
 <style scoped>
-/* 保持原有样式不变 */
 .setting-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
   transition: transform 0.2s ease;
 }
 
@@ -222,12 +276,12 @@ export default {
 
 .moon-icon {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.1);
 }
 
 .dark .sun-icon {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.1);
 }
 
 .dark .moon-icon {
@@ -262,5 +316,4 @@ export default {
   color: #004c4d !important;
   font-size: 1.1rem !important;
 }
-
 </style>
