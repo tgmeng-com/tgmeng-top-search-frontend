@@ -75,7 +75,7 @@
           <!-- 自定义按钮作为标题，点击按钮展开/折叠内容 -->
           <template #title>
             <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            👉🏻点击进行样式自定义👈🏻
+            👉🏻点击展开样式自定义设置👈🏻
             </span>&nbsp;
           </template>
           <!--          <div>-->
