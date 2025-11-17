@@ -154,7 +154,7 @@
             <GoogleAdsense ad-client="ca-pub-3286880109560525"
                            ad-slot="4294342531"
                            ad-format="fluid"
-                           ad-layout-key="-io-m+2v-17-3x"
+                           ad-layout-key="-i1-y+5r-2a-c0"
                            :full-width-responsive="true"/>
           </li>
         </template>
