@@ -129,7 +129,7 @@
                     </div>
                     <ul class="mt-1 space-y-1 text-left">
                       <li v-for="(d, i) in item.desc" :key="i" class="card-desc">
-                        - {{ d }}
+                        ·&nbsp;{{ d }}
                       </li>
                     </ul>
                   </div>
@@ -184,47 +184,196 @@ export default {
       timeline:
           [
             {
-              date: '2025-09-12',
-              events: [{
-                id: 1,
-                title: '接入游戏热榜模块',
-                desc: ['新增游戏类数据源（Steam、TapTap）', '支持实时榜单推送。', '支持实时榜单推送。', '支持实时榜单推送。'],
-                tag: 'Feature'
+              date: '2025/11/19 06:15',
+              events: [{id: 1, title: '整体布局重构', desc: ['设置方式重构','新增关于我们页面','新增基础设置页面','新增加群交流页面'], tag: 'Feat'
               }]
             },
             {
-              date: '2025-06-03',
-              events: [{
-                id: 2,
-                title: '样式与深色模式重构',
-                desc: ['全站样式重构', '支持更精细的暗黑主题及用户自定义样式。'],
-                tag: 'UI'
+              date: '2025/11/17 23:28',
+              events: [{id: 1, title: '新增平台', desc: ['新增澎湃新闻'], tag: 'Feat'
               }]
             },
             {
-              date: '2024-11-20',
-              events: [{id: 3, title: '上线 v2.0', desc: ['性能优化', '缓存策略与多源聚合逻辑重写。'], tag: 'Release'}]
+              date: '2025/11/17 20:36',
+              events: [{id: 2, title: '新增自定义', desc: ['增加分类名称在内的诸多可自定义项'], tag: 'Feat'
+              }]
             },
             {
-              date: '2024-07-01',
-              events: [{id: 4, title: '数据源拓展', desc: ['新增微博、Bilibili、知乎等多个内容源。'], tag: 'Data'}]
+              date: '2025/11/17 02:45',
+              events: [{id: 3, title: '路由方式改变', desc: ['整体路由方式重写，方便后续新页面添加'], tag: 'Feat'}]
             },
             {
-              date: '2024-07-01',
-              events: [{id: 4, title: '数据源拓展', desc: ['新增微博、Bilibili、知乎等多个内容源。'], tag: 'Data'}]
+              date: '2025/11/16 11:02',
+              events: [{id: 4, title: '新增功能', desc: ['支持自定义分类排序','支持自定义默认分类'], tag: 'Feat'}]
             },
             {
-              date: '2024-07-01',
-              events: [{id: 4, title: '数据源拓展', desc: ['新增微博、Bilibili、知乎等多个内容源。'], tag: 'Data'}]
+              date: '2025/11/16 06:42',
+              events: [{id: 4, title: '新增平台', desc: ['增加8个健康平台'], tag: 'Feat'}]
             },
             {
-              date: '2023-12-10',
-              events: [{id: 5, title: '项目启动', desc: ['从一个小工具成长为公开可用的热榜聚合站点。'], tag: 'Init'}]
+              date: '2025/11/16 06:42',
+              events: [{id: 4, title: '新增功能', desc: ['新增可自定义标题是否完整显示'], tag: 'Feat'}]
             },
             {
-              date: '2023-05-15',
-              events: [{id: 6, title: '首次公开测试', desc: ['邀请首批用户体验并给出反馈。'], tag: 'Beta'}]
+              date: '2025/11/15 21:34',
+              events: [{id: 5, title: '新增平台', desc: ['新增几个游戏平台'], tag: 'Feat'}]
             },
+            {
+              date: '2025/11/14 20:19',
+              events: [{id: 6, title: '样式调整', desc: ['小屏幕下自动覆盖已有的列数设置'], tag: 'Style'}]
+            },
+            {
+              date: '2025/11/13 21:31',
+              events: [{id: 6, title: '样式调整', desc: ['调整生活分类下排序'], tag: 'Style'}]
+            },
+            {
+              date: '2025/11/13 20:50',
+              events: [{id: 6, title: '功能修改', desc: ['豆瓣数据刷新时间改为2-10分钟，因为引入了很多豆瓣榜单，导致瞬时会请求50个接口左右，所以分散一下'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/13 20:29',
+              events: [{id: 6, title: '新增平台', desc: ['添加生活分区','生活分区下新增多个平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/13 18:40',
+              events: [{id: 6, title: '新增功能', desc: ['添加回到顶部按钮'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/13 16:02',
+              events: [{id: 6, title: '新增功能', desc: ['新增单个卡片可主动刷新获取数据','整体样式调整'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/13 14:00',
+              events: [{id: 6, title: '样式调整', desc: ['自定义卡片样式调整框宽度调整'], tag: 'Style'}]
+            },
+            {
+              date: '2025/11/12 07:05',
+              events: [{id: 6, title: '功能修复', desc: ['修复部署时没有JIT模式导致grid列数被tree-shake掉'], tag: 'Fix'}]
+            },
+            {
+              date: '2025/11/12 06:37',
+              events: [{id: 6, title: '新增功能', desc: ['新增自定义卡片列数','新增自定义卡片高度','新增自定义标题字体大小'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/11 18:24',
+              events: [{id: 6, title: '新增平台', desc: ['新增羊毛分类','新增羊毛分类下多个平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/11 15:33',
+              events: [{id: 6, title: '功能回滚', desc: ['取消每分钟自动刷新，改成每5秒钟只刷新没有请求成功的数据'], tag: 'Fix'}]
+            },
+            {
+              date: '2025/11/11 02:47',
+              events: [{id: 6, title: '新增功能', desc: ['增加定时器，前端定时自动刷新数据'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/10 15:33',
+              events: [{id: 6, title: '新增功能', desc: ['新增收藏分类'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/08 21:43',
+              events: [{id: 6, title: '新增平台', desc: ['新增几个论坛平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/08 11:51',
+              events: [{id: 6, title: '功能修改', desc: ['修改卡片为只有顶部可以拖动，卡片内容部分不可拖'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/05 00:19',
+              events: [{id: 6, title: '新增功能', desc: ['新增支持自定义排序'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/11/04 20:00',
+              events: [{id: 6, title: '功能修复', desc: ['修复设置中的全部分类一开始没有加载的问题'], tag: 'Fix'}]
+            },
+            {
+              date: '2025/10/31 0:26',
+              events: [{id: 6, title: '新增平台', desc: ['添加8个体育平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/10/29 19:21',
+              events: [{id: 6, title: '新增平台', desc: ['添加5个科技类型平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/10/28 21:44',
+              events: [{id: 6, title: '新增平台', desc: ['添加16个设计类平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/10/25 20:36',
+              events: [{id: 6, title: '新增平台', desc: ['添加4个新闻平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/10/24 18:08',
+              events: [{id: 6, title: '新增平台', desc: ['添加8个金融平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/10/11 14:16',
+              events: [{id: 6, title: '功能修复', desc: ['修复猫眼平台数据展示异常问题'], tag: 'Fix'}]
+            },
+            {
+              date: '2025/08/09 19:35',
+              events: [{id: 6, title: '新增平台', desc: ['新增猫眼排行榜'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/08/06 17:49',
+              events: [{id: 6, title: '新增功能', desc: ['网易云歌单添加作者信息'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/20 00:23',
+              events: [{id: 6, title: '新增功能', desc: ['新增评论功能'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/17 02:25',
+              events: [{id: 6, title: '新增平台', desc: ['新增腾讯视频、爱奇艺、优酷、芒果tv四个平台的电视剧 、电影、动漫、综艺的排行榜以及总榜'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/15 18:52',
+              events: [{id: 6, title: '新增平台', desc: ['新增网易云飙升榜、新歌榜、原创榜、热歌榜'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/14 21:28',
+              events: [{id: 6, title: '功能优化', desc: ['优化分类按钮组在移动端显示，现在改为同行可滚动方案'], tag: 'Style'}]
+            },
+            {
+              date: '2025/07/08 04:45',
+              events: [{id: 6, title: '新增功能', desc: ['网易云支持直接播放'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/07 23:11',
+              events: [{id: 6, title: '新增平台', desc: ['新增知乎'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/07 17:34',
+              events: [{id: 6, title: '新增功能', desc: ['新增支持隐藏显示部分平台'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/05 20:30',
+              events: [{id: 6, title: '新增平台', desc: ['添加hugging face'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/05 15:27',
+              events: [{id: 6, title: '新增平台', desc: ['添加游戏、汽车、民生、财经、热梗'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/070/3 17:53',
+              events: [{id: 6, title: '新增平台', desc: ['新增电影、小说、电视剧'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/03 15:21',
+              events: [{id: 6, title: '样式调整', desc: ['loading样式美化'], tag: 'Style'}]
+            },
+            {
+              date: '2025/07/03 02:43',
+              events: [{id: 6, title: '新增平台', desc: ['新增少数派、百度贴吧、网易云、网易新闻、头条、豆瓣、youtube'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/07/02 00:06',
+              events: [{id: 6, title: '新增平台', desc: ['新增github8个榜单'], tag: 'Feat'}]
+            },
+            {
+              date: '2025/06/30 14:40',
+              events: [{id: 6, title: '项目创建', desc: ['项目初始创建'], tag: 'Feat'}]
+            }
           ],
     }
   },
@@ -251,7 +400,7 @@ export default {
       ];
     },
     visibleTimeline() {
-      return this.timelineFolded ? this.timeline.slice(0, 4) : this.timeline
+      return this.timelineFolded ? this.timeline.slice(0, 8) : this.timeline
     },
     duplicatedPlatforms() {
       return [...this.platforms, ...this.platforms, ...this.platforms]
