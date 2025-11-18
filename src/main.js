@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // 添加图标到库
 library.add(faNewspaper, faSearch, faMoon, faSun);
 import { createHead } from '@vueuse/head'  // <-- 导入 vueuse/head
+import { MotionPlugin } from '@vueuse/motion'
 
 const app = createApp(App)
 app.use(router)  // <-- 使用 router
@@ -24,6 +25,7 @@ app.use(router)  // <-- 使用 router
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(ElementPlus)
 app.use(store)
+app.use(MotionPlugin)
 
 const head = createHead()  // <-- 创建 head 实例
 app.use(head)

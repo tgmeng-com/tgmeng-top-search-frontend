@@ -2,7 +2,6 @@
   <div class="container mx-auto px-8 py-6">
     <!-- 引入我们开发的 TopMessage、AppHome、AppFooter 等组件 -->
     <HeaderComponent/>
-    <TopMessage/>
 
     <!-- 友链 -->
     <!--      <AdRentCards :ads="homeHeaderAdsCard"/>-->
@@ -23,7 +22,6 @@
 </template>
 
 <script>
-import TopMessage from '@/components/Layout/TopMessage.vue';
 import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import WalineComment from "./components/Layout/WalineComment.vue";
 import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
@@ -32,7 +30,6 @@ import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 export default {
   name: 'App',
   components: {
-    TopMessage: TopMessage,
     HeaderComponent: HeaderComponent,
     WalineComment: WalineComment,
     GoogleAdsense: GoogleGoogleAdsense,

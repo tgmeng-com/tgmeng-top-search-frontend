@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="mb-8 overflow-x-auto scrollbar-hide">
+      <div class="mb-16 mt-8 overflow-x-auto scrollbar-hide">
         <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
           <draggable
               v-model="categroies"

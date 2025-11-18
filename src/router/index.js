@@ -1,22 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getSeoByPath  } from '@/utils/seo.js'
+import settingRoutes from './setting';
 import Home from '../views/AppHome.vue'
-// import About from '../views/About.vue'
-// import News from '../views/News.vue'
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
-    // 可以后续添加不同路由页面
-    // { path: '/category/:id', name: 'Category', component: Home },
+    ...settingRoutes,
     { path: '/:category', name: 'Category', component: Home },
-    // 这里用同一个组件 Home，但通过 route params 渲染不同分类
-    // { path: '/about', name: 'About', component: About },
-    // { path: '/news', name: 'News', component: News }
 ]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    // 路由时，滚动到顶部
+    scrollBehavior(to, from, savedPosition) {
+        // 确保每次路由跳转时都滚动到页面顶部
+        if (savedPosition) {
+            return savedPosition;
+        }
+        if (to.hash) {
+            return { selector: to.hash }; // 如果有 hash 则跳转到某个元素
+        }
+        return { top: 0, left: 0, behavior: 'smooth' }; // 否则返回顶部
+    }
 })
 
 // 全局导航守卫设置 SEO
