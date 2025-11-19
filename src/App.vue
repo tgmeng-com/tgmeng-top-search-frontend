@@ -8,9 +8,9 @@
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
     <!--      <Home/>-->
     <router-view/>
-    <!-- 主内容和评论区之间 展示Ads -->
-    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
-                   :full-width-responsive="true"/>
+    <!-- 主内容和评论区之间 展示Ads广告 -->
+<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"-->
+<!--                   :full-width-responsive="true"/>-->
     <WalineComment/>
     <!-- 页面底部 多重Ads-->
     <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>
