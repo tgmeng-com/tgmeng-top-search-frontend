@@ -1,5 +1,5 @@
 // 用来动态生成sitemap.xml,,然后函数会在cloudflare里面运行
-// TODO 如果后续有新的分类，需要在这里添加，里面的paths变量
+// TODO 如果后续有新的分类，需要在这里添加seo sitemap信息，里面的paths变量
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
@@ -47,6 +47,11 @@ export default {
                 { path: "/game", changefreq: "minute", priority: 1.0 },   // 游戏
                 { path: "/health", changefreq: "minute", priority: 1.0 },   // 健康
                 { path: "/favorites", changefreq: "minute", priority: 0.5 },   // 收藏
+                { path: "/setting/about", changefreq: "monthly", priority: 0.5 },   // 关于我们
+                { path: "/setting/basic", changefreq: "monthly", priority: 0.5 },   // 基本设置
+                { path: "/setting/donation", changefreq: "monthly", priority: 0.5 },   // 捐赠
+                { path: "/setting/community", changefreq: "monthly", priority: 0.5 },   // 加入社区
+                { path: "/setting", changefreq: "monthly", priority: 0.5 },   // 设置
 
             ];
 
