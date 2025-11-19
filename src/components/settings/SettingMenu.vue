@@ -7,11 +7,10 @@
           class="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out font-medium"
           :class="isActive(item.to)
           ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white'  // 激活状态的背景渐变和文字颜色
-          : 'text-gray-700 dark:text-gray-300 hover:text-white hover:bg-none'">   <!-- 悬停时文字颜色变，背景不变 -->
-        <div :data-umami-event="item.label" :data-umami-event-name="item.label">
-          <component :is="item.icon" class="w-5 h-5 fa-l float-left"/>
-          <span class="ml-4">{{ item.label }}</span>
-        </div>
+          : 'text-gray-700 dark:text-gray-300 hover:text-white hover:bg-none'"
+          @click="trackUmami(item.label)">   <!-- 悬停时文字颜色变，背景不变 -->
+        <component :is="item.icon" class="w-5 h-5 fa-l float-left"/>
+        <span class="ml-4">{{ item.label }}</span>
       </router-link>
     </li>
   </ul>
@@ -29,6 +28,11 @@ export default {
     isActive(path) {
       return this.$route.path === path;
     },
+    trackUmami(label) {
+      if (window.umami) {
+        window.umami.track(label);
+      }
+    }
   },
 };
 </script>

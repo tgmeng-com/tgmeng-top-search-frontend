@@ -4,20 +4,19 @@
       <div class="relative flex items-center justify-between h-16">
         <!-- 左侧 Logo -->
         <div class="flex-shrink-0">
-          <router-link to="/" >
-            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12" data-umami-event="顶部左边LOGO" data-umami-event-name="顶部左边LOGO">
+          <router-link to="/" @click="trackUmami('顶部左边LOGO')">
+
+            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12" >
           </router-link>
         </div>
 
 
         <!-- 右侧图标，桌面端显示 -->
         <div class="sm:flex space-x-6 items-center"> <!-- 关键修改点：加入 items-center 保证垂直居中 -->
-
           <!-- 设置 -->
-
           <div style="width: 2.5rem;">
-            <router-link to="/setting" >
-              <div class="setting-btn" aria-label="设置" data-umami-event="顶部右边设置" data-umami-event-name="顶部右边设置">
+            <router-link to="/setting" @click="trackUmami('顶部右边设置')">
+              <div class="setting-btn" aria-label="设置">
                 <div style="width: 1.875rem">
                   <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
                 </div>
@@ -64,6 +63,11 @@ export default {
   },
   computed: {},
   methods: {
+    trackUmami(label) {
+      if (window.umami) {
+        window.umami.track(label);
+      }
+    },
     notificationMessage() {
       this.$notify({
         title: '支持自定义拖拽排序啦！',

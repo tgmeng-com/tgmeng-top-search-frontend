@@ -5,13 +5,11 @@
       <li v-for="item in menu" :key="item.key">
         <router-link
             :to="item.to"
-            :data-umami-event="item.label" :data-umami-event-name="item.label"
             class="flex items-center gap-2 py-4 px-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            @click="trackUmami(item.label)"
         >
-          <div :data-umami-event="item.label" :data-umami-event-name="item.label">
-            <component :is="item.icon" class="w-6 h-6"/>
-            <span class="text-lg">{{ item.label }}</span>
-          </div>
+          <component :is="item.icon" class="w-6 h-6"/>
+          <span class="text-lg">{{ item.label }}</span>
         </router-link>
       </li>
     </ul>
@@ -26,6 +24,11 @@ export default {
     return {
       menu: this.$store.state.settingMenu
     };
+  },
+  methods: {
+    trackUmami(eventName) {
+      window.umami.track(eventName);
+    }
   },
 };
 </script>

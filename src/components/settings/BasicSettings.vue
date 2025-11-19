@@ -48,8 +48,6 @@
           <span class="card-title">暗色</span>&nbsp;&nbsp;
           <el-switch
               v-model="isDark"
-              data-umami-event="明暗主题切换"
-              data-umami-event-name="明暗主题切换"
               active-color="#13ce66"
               inactive-color="#C0CCDA"
               @change="changeTheme">
@@ -110,6 +108,7 @@ export default {
     changeTheme() {
       document.documentElement.classList.toggle('dark', this.isDark)
       localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
+      window.umami.track('明暗主题切换');
     },
     cleanLocalStorage() {
       this.$confirm('此操作将清除所有历史个人设置，包括排序、收藏、隐藏/展示、自定义样式等等所有个人设置', {
