@@ -24,7 +24,7 @@
 <script>
 import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import WalineComment from "./components/Layout/WalineComment.vue";
-import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
+// import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 // import AdRentCards from "./components/Card/AdRentCards.vue";
 
 export default {
@@ -32,7 +32,7 @@ export default {
   components: {
     HeaderComponent: HeaderComponent,
     WalineComment: WalineComment,
-    GoogleAdsense: GoogleGoogleAdsense,
+    // GoogleAdsense: GoogleGoogleAdsense,
     // AdRentCards: AdRentCards,
   },
   data() {

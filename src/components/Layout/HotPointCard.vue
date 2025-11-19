@@ -171,12 +171,12 @@
 
 <script>
 import {StarFilled, Star, Refresh, Loading} from '@element-plus/icons-vue'
-import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
+// import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import {isBetween, isFuture, isPast} from "@/utils/timeUtils";
 
 export default {
   components: {
-    GoogleAdsense,
+    // GoogleAdsense,
     StarFilled,
     Star,
     Refresh,
