@@ -8,8 +8,10 @@
           :class="isActive(item.to)
           ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white'  // 激活状态的背景渐变和文字颜色
           : 'text-gray-700 dark:text-gray-300 hover:text-white hover:bg-none'">   <!-- 悬停时文字颜色变，背景不变 -->
-        <component :is="item.icon" class="w-5 h-5"/>
-        <span>{{ item.label }}</span>
+        <div :data-umami-event="item.label" :data-umami-event-name="item.label">
+          <component :is="item.icon" class="w-5 h-5 fa-l float-left"/>
+          <span class="ml-4">{{ item.label }}</span>
+        </div>
       </router-link>
     </li>
   </ul>

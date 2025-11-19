@@ -48,6 +48,8 @@
           <span class="card-title">暗色</span>&nbsp;&nbsp;
           <el-switch
               v-model="isDark"
+              data-umami-event="明暗主题切换"
+              data-umami-event-name="明暗主题切换"
               active-color="#13ce66"
               inactive-color="#C0CCDA"
               @change="changeTheme">
