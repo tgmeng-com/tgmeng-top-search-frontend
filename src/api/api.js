@@ -311,6 +311,7 @@ export function topSearchForDianShiJuTengXun(data) {
         data: data
     })
 }
+
 export function topSearchForDianYingTengXun(data) {
     return request({
         url: '/topsearch/dianyingtengxun',
@@ -318,6 +319,7 @@ export function topSearchForDianYingTengXun(data) {
         data: data
     })
 }
+
 export function topSearchForDongManTengXun(data) {
     return request({
         url: '/topsearch/dongmantengxun',
@@ -325,6 +327,7 @@ export function topSearchForDongManTengXun(data) {
         data: data
     })
 }
+
 export function topSearchForZongYiTengXun(data) {
     return request({
         url: '/topsearch/zongyitengxun',
@@ -332,6 +335,7 @@ export function topSearchForZongYiTengXun(data) {
         data: data
     })
 }
+
 export function topSearchForZongBangTengXun(data) {
     return request({
         url: '/topsearch/zongbangtengxun',
@@ -348,6 +352,7 @@ export function topSearchForDianShiJuAiQiYi(data) {
         data: data
     })
 }
+
 export function topSearchForDianYingAiQiYi(data) {
     return request({
         url: '/topsearch/dianyingaiqiyi',
@@ -355,6 +360,7 @@ export function topSearchForDianYingAiQiYi(data) {
         data: data
     })
 }
+
 export function topSearchForDongManAiQiYi(data) {
     return request({
         url: '/topsearch/dongmanaiqiyi',
@@ -362,6 +368,7 @@ export function topSearchForDongManAiQiYi(data) {
         data: data
     })
 }
+
 export function topSearchForZongYiAiQiYi(data) {
     return request({
         url: '/topsearch/zongyiaiqiyi',
@@ -369,6 +376,7 @@ export function topSearchForZongYiAiQiYi(data) {
         data: data
     })
 }
+
 export function topSearchForZongBangAiQiYi(data) {
     return request({
         url: '/topsearch/zongbangaiqiyi',
@@ -385,6 +393,7 @@ export function topSearchForDianShiJuYouKu(data) {
         data: data
     })
 }
+
 export function topSearchForDianYingYouKu(data) {
     return request({
         url: '/topsearch/dianyingyouku',
@@ -392,6 +401,7 @@ export function topSearchForDianYingYouKu(data) {
         data: data
     })
 }
+
 export function topSearchForDongManYouKu(data) {
     return request({
         url: '/topsearch/dongmanyouku',
@@ -399,6 +409,7 @@ export function topSearchForDongManYouKu(data) {
         data: data
     })
 }
+
 export function topSearchForZongYiYouKu(data) {
     return request({
         url: '/topsearch/zongyiyouku',
@@ -406,6 +417,7 @@ export function topSearchForZongYiYouKu(data) {
         data: data
     })
 }
+
 export function topSearchForZongBangYouKu(data) {
     return request({
         url: '/topsearch/zongbangyouku',
@@ -422,6 +434,7 @@ export function topSearchForDianShiJuMangGuo(data) {
         data: data
     })
 }
+
 export function topSearchForDianYingMangGuo(data) {
     return request({
         url: '/topsearch/dianyingmangguo',
@@ -429,6 +442,7 @@ export function topSearchForDianYingMangGuo(data) {
         data: data
     })
 }
+
 export function topSearchForDongManMangGuo(data) {
     return request({
         url: '/topsearch/dongmanmangguo',
@@ -436,6 +450,7 @@ export function topSearchForDongManMangGuo(data) {
         data: data
     })
 }
+
 export function topSearchForZongYiMangGuo(data) {
     return request({
         url: '/topsearch/zongyimangguo',
@@ -443,6 +458,7 @@ export function topSearchForZongYiMangGuo(data) {
         data: data
     })
 }
+
 export function topSearchForZongBangMangGuo(data) {
     return request({
         url: '/topsearch/zongbangmangguo',
@@ -823,7 +839,6 @@ export function topSearchForV2ex(data) {
 }
 
 
-
 export function topSearchForBuXingJieHuPu(data) {
     return request({
         url: '/topsearch/buxingjiehupu',
@@ -831,7 +846,6 @@ export function topSearchForBuXingJieHuPu(data) {
         data: data
     })
 }
-
 
 
 export function topSearchForNga(data) {
@@ -843,7 +857,6 @@ export function topSearchForNga(data) {
 }
 
 
-
 export function topSearchForYiMuSanFenDi(data) {
     return request({
         url: '/topsearch/yimusanfendi',
@@ -853,7 +866,6 @@ export function topSearchForYiMuSanFenDi(data) {
 }
 
 
-
 export function topSearchForWenZhangJueJin(data) {
     return request({
         url: '/topsearch/wenzhangjuejin',
@@ -861,7 +873,6 @@ export function topSearchForWenZhangJueJin(data) {
         data: data
     })
 }
-
 
 
 export function topSearchForHackerNews(data) {
@@ -1375,3 +1386,23 @@ export function topSearchForPengPaiXinWen(data) {
         data: data
     })
 }
+
+export function cacheSearchForCiYun(data) {
+    return request({
+        url: '/cachesearch/wordcloud',
+        method: 'get',
+        data: data
+    })
+}
+
+export function cacheSearchForAllByWord(data) {
+    return request({
+        url: '/cachesearch/allbyword',
+        method: 'post',
+        data: {
+            word: data
+        }
+    })
+}
+
+

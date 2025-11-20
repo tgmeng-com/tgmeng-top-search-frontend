@@ -66,7 +66,7 @@
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div
             class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
-          数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟，豆瓣2-10分钟）
+          数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟，豆瓣2-10分钟，词云1分钟）
         </div>
       </div>
 
@@ -78,22 +78,14 @@
             👉🏻点击展开样式自定义设置👈🏻
             </span>&nbsp;
           </template>
-          <!--          <div>-->
-          <!--            Consistent with real life: in line with the process and logic of real-->
-          <!--            life, and comply with languages and habits that the users are used to;-->
-          <!--          </div>-->
-          <!--          <div>-->
-          <!--            Consistent within interface: all elements should be consistent, such-->
-          <!--            as: design style, icons and texts, position of elements, etc.-->
-          <!--          </div>-->
-          <!-- 用户样式自定义调整   -->
           <div
               class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 左侧：统计数据（移动端换行显示） -->
             <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
               <!-- 自定义分类字体大小-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                分类名称：<el-input-number class="input-title" v-model="categroiesTitleFontSize" :min="0.1" :max="2" size="small"
+                分类名称：<el-input-number class="input-title" v-model="categroiesTitleFontSize" :min="0.1" :max="2"
+                                          size="small"
                                           :precision="3" :step="0.025" @change="changeCategroiesTitleFontSize"/>
               </span>&nbsp;
               <!-- 自定义默认分类-->
@@ -154,7 +146,7 @@
 
           <!-- 用户样式自定义调整   -->
           <div
-              class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 左侧：统计数据（移动端换行显示） -->
             <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
               <!-- 自定义卡片标题字体大小-->
@@ -201,6 +193,10 @@
         </el-collapse-item>
       </el-collapse>
 
+      <div>
+        <WordCloud/>
+      </div>
+
       <section class="mb-10 mt-4">
         <draggable
             v-model="activeCategory.subCategories"
@@ -245,11 +241,13 @@ import {
 import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
 import {formatSecondsToHMS} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
+import WordCloud from '@/components/Layout/WordCloud.vue'
 
 export default {
   components: {
     CommunityCard: HotPointCard,
-    draggable
+    draggable,
+    WordCloud
   },
   data() {
     return {

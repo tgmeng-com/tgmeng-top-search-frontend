@@ -44,7 +44,6 @@ export const clearLocalStorage = (key) => {
 export const clearAllLocalStorage = () => {
     try {
         localStorage.clear();
-        console.log('🧹 已清除全部本地缓存');
     } catch (e) {
         console.warn('❌ Failed to clear all localStorage', e);
     }
