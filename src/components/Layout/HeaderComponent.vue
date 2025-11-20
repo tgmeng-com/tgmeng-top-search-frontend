@@ -143,7 +143,7 @@ export default {
       return beforeGroupsCount + itemIndex + 1;
     },
     handleEnter() {
-      window.umami.track('热点检索:' + this.input)
+      window.umami.track('🔎热点检索:' + this.input)
       if (!this.input.trim()) return;
 
       this.inputSearchDisable = true;
