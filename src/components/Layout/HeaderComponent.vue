@@ -60,7 +60,8 @@
                   {{ group.groupTitle }}
                 </li>
 
-                <li v-for="(item, index) in group.dataInfo" :key="`${gIndex}-${index}`" class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <li v-for="(item, index) in group.dataInfo" :key="`${gIndex}-${index}`"
+                    class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <a :href="item.url" target="_blank" rel="noopener noreferrer"
                      class="flex items-start justify-between w-full gap-4">
 
@@ -69,9 +70,9 @@
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
                         {{ getGlobalIndex(gIndex, index) }}.
                       </span>
-<!--                      TODO 后续看图片这块怎么弄，是备份一份到图床，还是说搞个映射表-->
-<!--                      <img v-if="group.dataCardLogo" :src="group.dataCardLogo" alt="logo"-->
-<!--                           class="w-4 h-4 mr-2 flex-shrink-0"/>-->
+                      <!--                      TODO 后续看图片这块怎么弄，是备份一份到图床，还是说搞个映射表-->
+                      <!--                      <img v-if="group.dataCardLogo" :src="group.dataCardLogo" alt="logo"-->
+                      <!--                           class="w-4 h-4 mr-2 flex-shrink-0"/>-->
                       <span class="text-gray-900 dark:text-gray-100 break-words">
                         {{ item.keyword }}
                       </span>
@@ -86,7 +87,8 @@
               </template>
 
               <!-- 无结果提示 -->
-              <li v-if="!loading && (!searchResults || searchResults.length === 0)" class="px-4 py-2 text-gray-500 dark:text-gray-400 text-center">
+              <li v-if="!loading && (!searchResults || searchResults.length === 0)"
+                  class="px-4 py-2 text-gray-500 dark:text-gray-400 text-center">
                 暂无结果
               </li>
             </ul>
@@ -112,7 +114,7 @@
 </template>
 
 <script>
-import { cacheSearchForAllByWord } from "@/api/api";
+import {cacheSearchForAllByWord} from "@/api/api";
 
 export default {
   data() {
@@ -141,6 +143,7 @@ export default {
       return beforeGroupsCount + itemIndex + 1;
     },
     handleEnter() {
+      window.umami.track('热点检索:' + this.input)
       if (!this.input.trim()) return;
 
       this.inputSearchDisable = true;
@@ -183,6 +186,7 @@ export default {
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 /* 加载动画样式*/
 .atom-spinner, .atom-spinner * {
   box-sizing: border-box;
