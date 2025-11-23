@@ -171,7 +171,7 @@ export default {
             {avatar: require('@/assets/avatars/project/tgmeng.png'), name: '糖果梦', role: '创始人 · 全栈工程师'},
             {avatar: require('@/assets/avatars/project/Jhhgiyv.png'), name: 'Jhhgiyv', role: '优酷Cookie获取方式提供'},
             {avatar: require('@/assets/avatars/project/xi.png'), name: '希', role: '热点列表样式处理'},
-            {avatar: require('@/assets/avatars/project/jiangxinbixin.png'), name: '将心比心', role: 'AI实时简报功能测试过程中提供DeepSeek的deepseek-chat模型的key'},
+            {avatar: require('@/assets/avatars/project/jiangxinbixin.png'), name: '将心比心', role: 'AI实时简报功能开发过程中提供DeepSeek的deepseek-chat模型的key'},
           ],
       scrollPos:
           [0, 0, 0], // 每行的滚动位置
@@ -184,6 +184,11 @@ export default {
       // TODO每次更新，这里写一下事件数据
       timeline:
           [
+            {
+              date: '2025/11/23 14:01',
+              events: [{id: 1, title: '新增功能', desc: ['新增AI实时简报','重构整套缓存逻辑'], tag: 'Feat'
+              }]
+            },
             {
               date: '2025/11/20 11:18',
               events: [{id: 1, title: '新增功能', desc: ['新增全网实时热点词云','新增全网实时热点检索功能'], tag: 'Feat'
