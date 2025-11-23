@@ -217,7 +217,7 @@ export default {
       return `bg-${color}`
     },
     clickAISummaryButton() {
-      window.umami.track('🔎AI实时简报按钮')
+      window.umami.track('AI实时简报按钮')
       this.showModal = true;
       this.loading = true;
       cacheSearchForAISummaryData()
