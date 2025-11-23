@@ -131,9 +131,12 @@ export default {
     // 只读取 localStorage，不重置默认亮暗
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-      this.isDark = savedTheme === 'dark';
-      document.documentElement.classList.toggle('dark', this.isDark);
+      this.isDark = savedTheme === 'dark'
+    } else {
+      // 没有保存时，默认暗色（无需检查系统偏好）
+      this.isDark = true
     }
+    document.documentElement.classList.toggle('dark', this.isDark)
   },
   methods: {
     getGlobalIndex(groupIndex, itemIndex) {

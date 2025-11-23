@@ -60,4 +60,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+.container{
+  width: 95% !important;
+}
 </style>

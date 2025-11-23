@@ -36,7 +36,7 @@
                 <div
                     class="mt-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
                   <span
-                      class="text-sm px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300">
+                      class="text-sm px-2 py-1 rounded-md bg-fuchsia-300 dark:bg-fuchsia-900 text-gray-600 dark:text-gray-300">
                     简报数据生成时间: <span class="font-medium">{{ aiData?.time || '暂无' }}</span>
                   </span>&nbsp;
                 </div>
@@ -47,15 +47,15 @@
                 <div
                     class="mt-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
                   <span
-                      class="text-sm px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300">
+                      class="text-sm px-2 py-1 rounded-md bg-pink-300 dark:bg-pink-900 text-gray-600 dark:text-gray-300">
                     使用AI平台: <span class="font-medium">{{ aiData?.platform || '暂无' }}</span>
                   </span>&nbsp;
                   <span
-                      class="text-sm px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300">
+                      class="text-sm px-2 py-1 rounded-md bg-yellow-300 dark:bg-yellow-900 text-gray-600 dark:text-gray-300">
                     使用AI模型: <span class="font-medium">{{ aiData?.model || '暂无' }}</span>
                   </span>&nbsp;
                   <span
-                      class="text-sm px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300">
+                      class="text-sm px-2 py-1 rounded-md bg-cyan-300 dark:bg-cyan-900 text-gray-600 dark:text-gray-300">
                     模型KEY来源: <span class="font-medium">{{ aiData?.from || '暂无' }}</span>
                   </span>&nbsp;
                 </div>
@@ -67,7 +67,7 @@
                 <div
                     class="mt-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
                   <span
-                      class="text-sm px-2 py-1 rounded-md bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300">
+                      class="text-sm px-2 py-1 rounded-md bg-green-300 dark:bg-green-900 text-gray-600 dark:text-gray-300">
                     说明: 简报数据是根据当前站内所有平台的数万个实时热点数据，经过AI分析处理总结后呈现，数据每5分钟刷新一次，数据模型KEY均由社区佬友提供，感谢各位，一起为开源助力！
                   </span>&nbsp;
                 </div>
@@ -85,7 +85,7 @@
               <span>AI实时简报获取中...</span>
             </div>
             <div v-if="!loading">
-              <div v-if="aiData && aiData.length">
+              <div v-if="aiData">
                 <div
                     v-for="(itemCat, index) in aiData.result"
                     :key="index"
@@ -222,7 +222,7 @@ export default {
       this.loading = true;
       cacheSearchForAISummaryData()
           .then(res => {
-            this.aiData = typeof res?.data?.data === "string" ? JSON.parse(res.data.data) : (res?.data?.data || [])
+            this.aiData = res?.data?.data || null;
           }).finally(() => {
         this.loading = false;
       })
