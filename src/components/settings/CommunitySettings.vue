@@ -12,7 +12,7 @@
         </div>
       </header>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         <div v-for="contact in contacts" :key="contact.name" class="card-bg flex flex-col items-center p-6 text-center">
           <div class="mb-3 w-15 h-15 flex items-center justify-center rounded-full ">
             <img :src="contact.icon" :alt="contact.name" class="w-16 h-16 object-contain"/>
@@ -41,12 +41,12 @@ export default {
           icon: require('@/assets/image/wechat-logo.png'),
           link: 'https://wechat.tgmeng.com/'
         },
-        {
-          name: '论坛',
-          desc: '加入官方论坛，和其他用户一起讨论问题、分享心得，获取更多项目资源与支持',
-          icon: require('@/assets/image/bbs.png'),
-          link: 'https://bbs.tgmeng.com/'
-        },
+        // {
+        //   name: '论坛',
+        //   desc: '加入官方论坛，和其他用户一起讨论问题、分享心得，获取更多项目资源与支持',
+        //   icon: require('@/assets/image/bbs.png'),
+        //   link: 'https://bbs.tgmeng.com/'
+        // },
         {
           name: 'GitHub',
           desc: '关注我们的 GitHub 仓库，提交 PR 或 Issue',
