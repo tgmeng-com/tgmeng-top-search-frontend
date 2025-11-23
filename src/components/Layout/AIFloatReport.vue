@@ -8,8 +8,6 @@
           position="top-right"
           :offset="100"
           @click="clickAISummaryButton"
-          data-umami-event="AI实时简报按钮"
-          data-umami-event-name="AI实时简报按钮"
 
       />
     </div>
@@ -153,7 +151,7 @@ export default {
   },
   data() {
     return {
-      emptyDataTitle:"AI模型额度已用尽，请检查",
+      emptyDataTitle: "AI模型额度已用尽，请检查",
       emptyDataDescription:
           "今天的算力小马达已经跑满啦！\n" +
           "这个项目所有的 AI 功能，都是靠社区里的大佬们偷偷塞给我的 Key 才跑起来的（感动到飞起）\n" +
@@ -219,14 +217,15 @@ export default {
       return `bg-${color}`
     },
     clickAISummaryButton() {
+      window.umami.track('🔎AI实时简报按钮')
       this.showModal = true;
       this.loading = true;
       cacheSearchForAISummaryData()
           .then(res => {
             this.aiData = typeof res?.data?.data === "string" ? JSON.parse(res.data.data) : (res?.data?.data || [])
           }).finally(() => {
-            this.loading = false;
-          })
+        this.loading = false;
+      })
     }
   }
   ,
