@@ -692,10 +692,11 @@ export default {
         this.$store.commit('setDefaultCategoryId', value);
       }
     },
-    // 卡片顶部标题样式
+    // 分类标题样式
     categroiesTitleStyle() {
       return {
         fontSize: this.categroiesTitleFontSize + 'rem',
+        fontWeight: 'bold',
       }
     },
   },

@@ -1405,4 +1405,14 @@ export function cacheSearchForAllByWord(data) {
     })
 }
 
+export function cacheSearchForAISummaryData(data) {
+    return request({
+        url: '/cachesearch/realtimesummary',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
 

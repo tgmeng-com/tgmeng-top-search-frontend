@@ -35,24 +35,22 @@ export default {
   methods: {
     initChart() {
       this.loading = true;
-
       cacheSearchForCiYun().then(response => {
-        this.loading = false;
-
         // 使用 $nextTick 确保 DOM 更新完成
         this.$nextTick(() => {
           setTimeout(() => {
             this.renderChart(response);
-          }, 100);
+          }, 10);
         });
+        this.loading = false;
       }).catch(error => {
         console.warn(`加载失败：`, error);
-        this.loading = false;
         this.$nextTick(() => {
           setTimeout(() => {
             this.renderChart(null);
-          }, 100);
+          }, 10);
         });
+        this.loading = false;
       });
     },
 

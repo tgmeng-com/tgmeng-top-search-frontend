@@ -2,7 +2,7 @@
   <div class="container mx-auto px-8 py-6">
     <!-- 引入我们开发的 TopMessage、AppHome、AppFooter 等组件 -->
     <HeaderComponent/>
-
+    <TopMessage/>
     <!-- 友链 -->
     <!--      <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
@@ -18,20 +18,25 @@
 <!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
 <!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
     <el-backtop :right="100" :bottom="100"/>
+    <AIFloatReport/>
   </div>
 </template>
 
 <script>
 import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import WalineComment from "./components/Layout/WalineComment.vue";
+import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
+import TopMessage from "@/components/Layout/TopMessage.vue";
 // import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 // import AdRentCards from "./components/Card/AdRentCards.vue";
 
 export default {
   name: 'App',
   components: {
+    TopMessage,
+    AIFloatReport,
     HeaderComponent: HeaderComponent,
-    WalineComment: WalineComment,
+    WalineComment: WalineComment
     // GoogleAdsense: GoogleGoogleAdsense,
     // AdRentCards: AdRentCards,
   },

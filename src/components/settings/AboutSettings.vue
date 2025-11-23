@@ -171,6 +171,7 @@ export default {
             {avatar: require('@/assets/avatars/project/tgmeng.png'), name: '糖果梦', role: '创始人 · 全栈工程师'},
             {avatar: require('@/assets/avatars/project/Jhhgiyv.png'), name: 'Jhhgiyv', role: '优酷Cookie获取方式提供'},
             {avatar: require('@/assets/avatars/project/xi.png'), name: '希', role: '热点列表样式处理'},
+            {avatar: require('@/assets/avatars/project/jiangxinbixin.png'), name: '将心比心', role: 'AI实时简报功能测试过程中提供DeepSeek的deepseek-chat模型的key'},
           ],
       scrollPos:
           [0, 0, 0], // 每行的滚动位置
@@ -504,7 +505,7 @@ export default {
 }
 
 .card-bg {
-  @apply p-4 rounded-xl bg-gradient-to-r from-indigo-600/10 to-pink-600/10 border border-transparent
+  @apply p-4 rounded-xl bg-gradient-to-r from-indigo-600/30 to-pink-600/30 border border-transparent
   dark:border-transparent shadow-sm hover:shadow-lg transition transform hover:-translate-y-1;
 }
 
