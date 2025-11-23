@@ -8,8 +8,8 @@
           position="top-right"
           :offset="100"
           @click="clickAISummaryButton"
-          data-umami-event="AI实时热报按钮"
-          data-umami-event-name="AI实时热报按钮"
+          data-umami-event="AI实时简报按钮"
+          data-umami-event-name="AI实时简报按钮"
 
       />
     </div>
