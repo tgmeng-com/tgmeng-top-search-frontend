@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { getSeoByPath  } from '@/utils/seo.js'
 import settingRoutes from './setting';
 import Home from '../views/AppHome.vue'
+import store from "@/store";
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
+    { path: '/excel', name: 'Excel', component: Home },
     ...settingRoutes,
     { path: '/:category', name: 'Category', component: Home },
 ]
@@ -23,6 +25,18 @@ const router = createRouter({
         }
         return { top: 0, left: 0, behavior: 'smooth' }; // 否则返回顶部
     }
+})
+
+// 在路由跳转之前进行 Vuex 状态设置（beforeEach）
+router.beforeEach((to, from, next) => {
+    // 如果访问的是 Excel 页面，设置 Vuex 状态
+    if (to.name === 'Excel') {
+        // 路由为 'Excel' 时，设置 Vuex 状态
+        store.commit('setWorkMaskExcelShow', true)
+    }else {
+        store.commit('setWorkMaskExcelShow', false)
+    }
+    next()  // 跳转到目标路由
 })
 
 // 全局导航守卫设置 SEO

@@ -3,6 +3,7 @@
     <!-- 引入我们开发的 TopMessage、AppHome、AppFooter 等组件 -->
     <HeaderComponent/>
     <TopMessage/>
+    <NotificationComponent/>
     <!-- 友链 -->
     <!--      <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
@@ -27,12 +28,14 @@ import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import WalineComment from "./components/Layout/WalineComment.vue";
 import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 import TopMessage from "@/components/Layout/TopMessage.vue";
+import NotificationComponent from "@/components/Layout/NotificationComponent.vue";
 // import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 // import AdRentCards from "./components/Card/AdRentCards.vue";
 
 export default {
   name: 'App',
   components: {
+    NotificationComponent,
     TopMessage,
     AIFloatReport,
     HeaderComponent: HeaderComponent,

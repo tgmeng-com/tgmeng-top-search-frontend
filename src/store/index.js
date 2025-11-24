@@ -13,7 +13,7 @@ class Platform {
 }
 
 import {createStore} from 'vuex';
-import { Avatar,Setting, Money, InfoFilled } from "@element-plus/icons-vue";
+import {Avatar, Setting, Money, InfoFilled} from "@element-plus/icons-vue";
 import {
     topSearchForYoutube,
     topSearchForBaiDu,
@@ -228,10 +228,10 @@ export default createStore({
         defaultCategoryId: 1, // 默认分类ID
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
         settingMenu: [
-            { key: "about", label: "关于我们", to: "/setting/about", icon: InfoFilled },
-            { key: "basic", label: "基础设置", to: "/setting/basic", icon: Setting },
-            { key: "donation", label: "打赏列表", to: "/setting/donation", icon: Money },
-            { key: "community", label: "加群交流", to: "/setting/community", icon: Avatar },
+            {key: "about", label: "关于我们", to: "/setting/about", icon: InfoFilled},
+            {key: "basic", label: "基础设置", to: "/setting/basic", icon: Setting},
+            {key: "donation", label: "打赏列表", to: "/setting/donation", icon: Money},
+            {key: "community", label: "加群交流", to: "/setting/community", icon: Avatar},
         ],
         categroies: [
             {
@@ -555,13 +555,15 @@ export default createStore({
                 subCategories: [],
             }
         ],
+        activeCategory: {},
+        workMaskExcelShow: false,
         // 顶部卡片位
         homeHeaderAdsCard: [
-            { name: '位置1', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
-            { name: '位置2', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
-            { name: '位置3', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
-            { name: '位置4', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
-            { name: '位置5', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com' },
+            {name: '位置1', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com'},
+            {name: '位置2', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com'},
+            {name: '位置3', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com'},
+            {name: '位置4', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com'},
+            {name: '位置5', desc: '友链', logo: require('@/assets/ads/test.png'), url: 'https://example.com'},
         ]
 
     },
@@ -604,6 +606,15 @@ export default createStore({
         },
         setDefaultCategoryId(state, newId) {
             state.defaultCategoryId = newId;
+        },
+        setCategroies(state, newCategroies) {
+            state.categroies = newCategroies;
+        },
+        setActiveCategory(state, newCat) {
+            state.activeCategory = newCat;
+        },
+        setWorkMaskExcelShow(state, newWorkMaskExcelShow) {
+            state.workMaskExcelShow = newWorkMaskExcelShow;
         },
     }
 });

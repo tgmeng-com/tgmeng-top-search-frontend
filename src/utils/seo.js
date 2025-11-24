@@ -1,5 +1,5 @@
 // 按路由 path 或 routerName 对应的 SEO 模板
-// TODO 每次添加新的分类时，给这里添加一下seo的title和description：title就是浏览器页签里显示的，description就是meta标签里的描述。  记得把/里面加一下新的分类名称
+// TODO 每次添加新的路由时，给这里添加一下seo的title和description：title就是浏览器页签里显示的，description就是meta标签里的描述。  记得把/里面加一下新的分类名称
 // seo.js
 
 // 路由 SEO 模板
@@ -109,6 +109,12 @@ export const pathMetaTemplates = {
     '/favorites': {
         title: ['收藏热榜 - 我的收藏汇总 | 糖果梦热榜'],
         description: ['汇总用户收藏的各类热门内容，一站查看新闻、影视、游戏、社区等精选热榜。'],
+        image: '/og/og.png',
+        category: '收藏'
+    },
+    '/excel': {
+        title: ['摸鱼模式 - Excel表格尽情摸鱼 | 糖果梦热榜'],
+        description: ['提供Excel模式的实时热榜，上班摸鱼随心看新闻，尽享丝滑'],
         image: '/og/og.png',
         category: '收藏'
     },

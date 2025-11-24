@@ -12,15 +12,14 @@
 
         <!-- 搜索框 -->
         <div class="flex-1 relative flex justify-center z-50 mx-4">
+
           <input
               v-model="input"
               type="text"
               placeholder="实时热点、一搜即达"
               @keyup.enter="handleEnter"
               :disabled="inputSearchDisable"
-              class="w-full max-w-md px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600
-                   bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500
-                   text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+              class="search-input"
           />
 
           <!-- 搜索结果 -->
@@ -97,7 +96,17 @@
 
         <!-- 右侧设置按钮 -->
         <div class="flex items-center space-x-6">
-          <div style="width: 2.5rem;">
+          <div >
+            <router-link to="/excel"  @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
+              <div class="setting-btn" aria-label="设置">
+                <div style="width: 1.875rem">
+                  <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 设置中心">
+                </div>
+              </div>
+            </router-link>
+          </div>
+
+          <div >
             <router-link to="/setting" @click="trackUmami('顶部右边设置')">
               <div class="setting-btn" aria-label="设置">
                 <div style="width: 1.875rem">
@@ -139,6 +148,9 @@ export default {
     document.documentElement.classList.toggle('dark', this.isDark)
   },
   methods: {
+    clickWorkMaskExcelButton(){
+      this.workMaskExcelShow = true;
+    },
     getGlobalIndex(groupIndex, itemIndex) {
       const beforeGroupsCount = this.searchResults
           .slice(0, groupIndex)
@@ -177,12 +189,94 @@ export default {
         };
       }
       return {};
-    }
+    },
+    workMaskExcelShow: {
+      get() {
+        return this.$store.state.workMaskExcelShow;
+      },
+      set(value) {
+        this.$store.commit('setWorkMaskExcelShow', value);
+      }
+    },
   }
 };
 </script>
 
 <style scoped>
+/* Halo 风格搜索框 */
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.84)) padding-box,
+  linear-gradient(135deg, #3d4a9a 0%, #3f2d5c 50%, #a84db8 100%) border-box;
+  color: #1f2937;
+  text-align: center;
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+}
+
+.dark .search-input {
+  background: linear-gradient(#1f2937, #1f2937) padding-box,
+  linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
+  color: #f3f4f6;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+  transition: opacity 0.3s ease;
+}
+
+.dark .search-input::placeholder {
+  color: #6b7280;
+}
+
+/* 聚焦效果 */
+.search-input:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3),
+  0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.search-input:focus::placeholder {
+  opacity: 0.5;
+}
+
+/* 悬停效果 */
+.search-input:hover:not(:focus) {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+}
+
+/* 呼吸动画 */
+@keyframes breathe {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+  }
+}
+
+.search-input:not(:focus):not(:hover) {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* 禁用状态 */
+.search-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  animation: none;
+}
 .setting-btn {
   background: transparent;
   border: none;

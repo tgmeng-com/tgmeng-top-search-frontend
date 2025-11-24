@@ -1,5 +1,10 @@
 <template>
   <div class="flex flex-col">
+    <WorkMaskExcel
+        v-if="workMaskExcelShow"
+        @handleCategoryClick="handleCategoryClick"
+    />
+
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
       <div class="mb-16 mt-8 overflow-x-auto scrollbar-hide">
@@ -242,17 +247,17 @@ import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
 import {formatSecondsToHMS} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
+import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
 
 export default {
   components: {
+    WorkMaskExcel,
     CommunityCard: HotPointCard,
     draggable,
     WordCloud
   },
   data() {
     return {
-      categroies: this.$store.state.categroies,
-      activeCategory: {},
       umamiActive: this.$store.state.umamiActive,
       umamiTodayViews: this.$store.state.umamiTodayViews,
       umamiTodayTime: this.$store.state.umamiTodayTime,
@@ -373,7 +378,7 @@ export default {
         this.handleCategoryClick(matchedCat, {skipRoutePush: true});
       } else if (!matchedCat) {
         // 路由不存在或非法 → 回到根路径，显示默认分类
-        if (this.$route.path !== '/') {
+        if (this.$route.path !== '/' && this.$route.path !== '/excel') {
           // 仅当路径不是 / 时才替换 URL
           this.$router.replace({path: '/'});
         }
@@ -385,7 +390,10 @@ export default {
     handleCategoryClick(cat, options = {}) {
       // skipRoutePush，防止重复推路由
       if (!options.skipRoutePush) {
-        this.$router.push({name: 'Category', params: {category: cat.routerName}});
+        // excel页面点击分类按钮的时候，不换路由
+        if (this.$route.path !== '/excel'){
+          this.$router.push({name: 'Category', params: {category: cat.routerName}});
+        }
       }
       this.activeCategory = cat;
       // 把全部数据下收藏的卡片方法收藏分类下
@@ -697,6 +705,30 @@ export default {
       return {
         fontSize: this.categroiesTitleFontSize + 'rem',
         fontWeight: 'bold',
+      }
+    },
+    workMaskExcelShow: {
+      get() {
+        return this.$store.state.workMaskExcelShow;
+      },
+      set(value) {
+        this.$store.commit('setWorkMaskExcelShow', value);
+      }
+    },
+    categroies: {
+      get() {
+        return this.$store.state.categroies;
+      },
+      set(value) {
+        this.$store.commit('setCategroies', value);
+      }
+    },
+    activeCategory: {
+      get() {
+        return this.$store.state.activeCategory;
+      },
+      set(value) {
+        this.$store.commit('setActiveCategory', value);
       }
     },
   },
