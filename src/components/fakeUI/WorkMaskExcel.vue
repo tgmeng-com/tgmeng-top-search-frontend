@@ -14,7 +14,7 @@
       <el-collapse expand-icon-position="left">
         <el-collapse-item>
           <template #title>
-            <span class="menu-item text-gray-600" >
+            <span class="menu-item text-gray-600" :style="excelCardTopStyle">
             自定义设置
             </span>&nbsp;
           </template>
