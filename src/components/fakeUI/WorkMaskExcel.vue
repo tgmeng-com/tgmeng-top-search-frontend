@@ -102,8 +102,8 @@
         <div
             class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <!-- 左侧：统计数据（移动端换行显示） -->
-          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-            <el-button @click="cleanExcelLocalStorage" size="small" type="danger" round>重置设置</el-button>
+          <div class="text-sm  whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <el-button @click="cleanExcelLocalStorage" size="small" type="danger" style="background-color: #f78989" round>重置设置</el-button>
           </div>
           <!-- 右侧：更新时间（移动端换行显示） -->
           <div>
