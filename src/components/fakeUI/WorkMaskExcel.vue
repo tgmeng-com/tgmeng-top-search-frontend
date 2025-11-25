@@ -686,7 +686,7 @@ export default {
 .sheet-tab-active {
   background: #fff;
   color: #107c10;
-  font-weight: 600;
+  font-weight: 600 !important;
   border: 1px solid #d4d4d4;
   border-bottom: 1px solid #fff;
   margin-bottom: -1px;
