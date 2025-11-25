@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/11/25 22:16',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增Excel摸鱼模式可以进行页面样式自定义，包括字体大小、粗细等'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/11/25 06:45',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增Excel摸鱼模式', '前端样式调整'], tag: 'Feat'
