@@ -3,26 +3,20 @@
     <!-- 顶部菜单 -->
     <div class="topbar">
       <div
-          v-for="(menu) in menus"
+          v-for="(menu,index) in menus"
           :key="menu.name"
           class="menu-item"
+          :class="{'active': index === activeMenuIndex}"
+          @click="clickMenu(index)"
       >
         {{ menu.name }}
-        <div class="submenu">
-          <div
-              v-for="(sub) in menu.submenu"
-              :key="sub"
-              class="submenu-item"
-              @click="handleOpenImage(menu.name, sub)"
-          >
-            {{ sub }}
-          </div>
-        </div>
       </div>
-      <div class="menu-item ml-auto text-sm" @click="handleClose">
+      <div class="menu-item ml-auto text-xs" @click="handleClose">
         🚫ESC/F9退出摸鱼小达人
       </div>
     </div>
+
+    <ExcelRibbonComponent :menuName="menus[activeMenuIndex].enName" @click="handleOpenImage"/>
 
     <!-- 悬浮图片 -->
     <div v-if="floatingImageVisible" class="floating-image-wrapper" @click.self="handleCloseImage">
@@ -32,6 +26,92 @@
         <button @click.stop="handleOpenImage" class="nav-btn right-btn">&#8594;</button> <!-- 右箭头 -->
       </div>
     </div>
+
+    <el-collapse expand-icon-position="left">
+      <el-collapse-item>
+        <!-- 自定义按钮作为标题，点击按钮展开/折叠内容 -->
+        <template #title>
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-400 text-gray-600 dark:text-gray-100">
+            👉🏻点击展开样式自定义设置👈🏻
+            </span>&nbsp;
+        </template>
+        <div
+            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <!-- 左侧：统计数据（移动端换行显示） -->
+          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <!-- 自定义分类字体大小-->
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                分类名称：<el-input-number class="input-title" v-model="excelCategroiesTitleFontSize" :min="0.1" :max="2"
+                                          size="small"
+                                          :precision="3" :step="0.025" @change="changeExcelCategoriesTitleFontSize"/>
+              </span>&nbsp;
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                分类加粗：<el-input-number class="input-title" v-model="excelCategroiesTitleFontWeight" :min="100" :max="900"
+                                          size="small"
+                                          :precision="0" :step="100" @change="changeExcelCategoriesTitleFontWeight"/>
+            </span>&nbsp;
+          </div>
+          <!-- 右侧：更新时间（移动端换行显示） -->
+          <div>
+          </div>
+        </div>
+
+        <!-- 用户样式自定义调整   -->
+        <div
+            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <!-- 左侧：统计数据（移动端换行显示） -->
+          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <!-- 自定义卡片标题字体大小-->
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            平台名称：<el-input-number class="input-title" v-model="excelCardTopFontSize" :min="0.1" :max="2" size="small"
+                                      :precision="3" :step="0.025" @change="changeExcelCardTopFontSize"/>
+            </span>&nbsp;
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            平台加粗：<el-input-number class="input-title" v-model="excelCardTopFontWeight" :min="100" :max="900" size="small"
+                                      :precision="0" :step="100" @change="changeExcelCardTopFontWeight"/>
+            </span>&nbsp;
+          </div>
+          <!-- 右侧：更新时间（移动端换行显示） -->
+          <div>
+          </div>
+        </div>
+
+        <!-- 用户样式自定义调整   -->
+        <div
+            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <!-- 左侧：统计数据（移动端换行显示） -->
+          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <!-- 自定义标题字体大小-->
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点标题：<el-input-number class="input-title" v-model="excelCardTitleFontSize" :min="0.1" :max="2" size="small"
+                                      :precision="3" :step="0.025" @change="changeExcelCardTitleFontSize"/>
+            </span>&nbsp;
+
+            <!-- 自定义热点标题是否完整显示-->
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点加粗：<el-input-number class="input-title" v-model="excelCardTitleFontWeight" :min="100" :max="900" size="small"
+                                      :precision="0" :step="100" @change="changeExcelCardTitleFontWeight"/>
+            </span>&nbsp;
+          </div>
+          <!-- 右侧：更新时间（移动端换行显示） -->
+          <div>
+          </div>
+        </div>
+
+        <!-- 用户样式自定义调整   -->
+        <div
+            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <!-- 左侧：统计数据（移动端换行显示） -->
+          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <el-button @click="cleanExcelLocalStorage" size="small" type="danger" round>重置设置</el-button>
+          </div>
+          <!-- 右侧：更新时间（移动端换行显示） -->
+          <div>
+          </div>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
+
 
     <!-- Sheet 切换 -->
     <div class="sheet-tabs">
@@ -44,7 +124,7 @@
             ? 'bg-primary text-white'
             : 'bg-gray-200 text-red hover:shadow-md transition-shadow']"
             @click="handleSheetCategoryClick(cat)"
-            :style="categroiesTitleStyle"
+            :style="excelCategroiesTitleStyle"
         >
           {{ cat.name }}
         </button>
@@ -64,7 +144,7 @@
                 width: (colWidths[index] ?? 120) + 'px',
                 minWidth: (colWidths[index] ?? 120) + 'px',
                 maxWidth: (colWidths[index] ?? 120) + 'px'
-              },cardTopStyle]"
+              },excelCardTopStyle]"
               class="resizable-th"
           >
             <div class="resizable-header">{{ subCat.title }}</div>
@@ -104,7 +184,7 @@
                 width: (colWidths[index] ?? 120) + 'px',
                 minWidth: (colWidths[index] ?? 120) + 'px',
                 maxWidth: (colWidths[index] ?? 120) + 'px'
-              },cardTitleStyle]"
+              },excelCardTitleStyle]"
           >
             <a
                 v-if="subCat?.data && subCat.data[rowIndex - 1]"
@@ -127,20 +207,33 @@
 
 <script>
 
+import ExcelRibbonComponent from "@/components/fakeUI/ExcelRibbonComponent.vue";
+import {
+  LOCAL_STORAGE_KEYS,
+  getLocalStorage,
+  setLocalStorage,
+  clearLocalStorage
+} from "@/utils/localStorageUtils";
 export default {
   name: "WorkMaskExcel",
-  components: {},
+  components: {
+    ExcelRibbonComponent
+  },
   data() {
     return {
+      activeMenuIndex: 0,
       menus: [
-        {name: "文件", submenu: ["新建", "打开", "保存", "另存为", "打印", "退出"]},
-        {name: "开始", submenu: ["剪切", "复制", "粘贴", "格式刷", "字体", "对齐方式", "条件格式", "排序和筛选"]},
-        {name: "插入", submenu: ["表格", "图表", "图片", "超链接", "函数"]},
-        {name: "页面布局", submenu: ["主题", "边距", "纸张大小", "网格线"]},
-        {name: "公式", submenu: ["自动求和", "财务", "逻辑", "文本", "名称管理器"]},
-        {name: "数据", submenu: ["排序", "筛选", "删除重复项", "数据透视表"]},
-        {name: "审阅", submenu: ["拼写检查", "批注", "保护工作表"]},
-        {name: "视图", submenu: ["普通", "页面布局", "冻结窗格", "缩放"]}
+        {name: "开始", enName: "1"},
+        {name: "插入", enName: "2"},
+        {name: "页面", enName: "3"},
+        {name: "公式", enName: "4"},
+        {name: "数据", enName: "5"},
+        {name: "审阅", enName: "6"},
+        {name: "视图", enName: "7"},
+        {name: "工具", enName: "8"},
+        {name: "文件", enName: "9"},
+        {name: "效率", enName: "10"},
+        {name: "AI", enName: "11"}
       ],
       colWidths: [],
       resizingColIndex: null,
@@ -175,44 +268,74 @@ export default {
         this.$store.commit('setActiveCategory', value);
       }
     },
-    cardTopFontSize: {
+    // 平台字体样式
+    excelCardTopFontSize: {
       get() {
-        return this.$store.state.cardTopFontSize;
+        return this.$store.state.excelCardTopFontSize;
       },
       set(value) {
-        this.$store.commit('setCardTopFontSize', value);
+        this.$store.commit('setExcelCardTopFontSize', value);
       }
     },
-    cardTopStyle() {
-      return {
-        fontSize: this.cardTopFontSize + 'rem',
-      }
-    },
-    cardTitleFontSize: {
+    excelCardTopFontWeight: {
       get() {
-        return this.$store.state.cardTitleFontSize;
+        return this.$store.state.excelCardTopFontWeight;
       },
       set(value) {
-        this.$store.commit('setCardTitleFontSize', value);
+        this.$store.commit('setExcelCardTopFontWeight', value);
       }
     },
-    cardTitleStyle() {
-      return {
-        fontSize: this.cardTitleFontSize + 'rem',
-      }
-    },
-    categroiesTitleFontSize: {
+    // 标题字体样式
+    excelCardTitleFontSize: {
       get() {
-        return this.$store.state.categroiesTitleFontSize;
+        return this.$store.state.excelCardTitleFontSize;
       },
       set(value) {
-        this.$store.commit('setCategroiesTitleFontSize', value);
+        this.$store.commit('setExcelCardTitleFontSize', value);
       }
     },
-    categroiesTitleStyle() {
+    excelCardTitleFontWeight: {
+      get() {
+        return this.$store.state.excelCardTitleFontWeight;
+      },
+      set(value) {
+        this.$store.commit('setExcelCardTitleFontWeight', value);
+      }
+    },
+    // 分类字体样式
+    excelCategroiesTitleFontSize: {
+      get() {
+        return this.$store.state.excelCategroiesTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setExcelCategroiesTitleFontSize', value);
+      }
+    },
+    excelCategroiesTitleFontWeight: {
+      get() {
+        return this.$store.state.excelCategroiesTitleFontWeight;
+      },
+      set(value) {
+        this.$store.commit('setExcelCategroiesTitleFontWeight', value);
+      }
+    },
+    // 汇总样式
+    excelCardTitleStyle() {
       return {
-        fontSize: this.categroiesTitleFontSize + 'rem',
-        fontWeight: 'bold',
+        fontSize: this.excelCardTitleFontSize + 'rem',
+        fontWeight: this.excelCardTitleFontWeight,
+      }
+    },
+    excelCardTopStyle() {
+      return {
+        fontSize: this.excelCardTopFontSize + 'rem',
+        fontWeight: this.excelCardTopFontWeight,
+      }
+    },
+    excelCategroiesTitleStyle() {
+      return {
+        fontSize: this.excelCategroiesTitleFontSize + 'rem',
+        fontWeight: this.excelCategroiesTitleFontWeight,
       }
     },
 
@@ -260,22 +383,26 @@ export default {
     window.addEventListener("keydown", this.handleKeyClose);
     // 监听图片浏览键盘事件
     window.addEventListener("keydown", this.handleImageNavigation);
+    this.initializePlatforms();
   },
   beforeUnmount() {
     window.removeEventListener("keydown", this.handleKeyClose);
     window.removeEventListener("keydown", this.handleImageNavigation);
   },
   methods: {
+    clickMenu(index) {
+      this.activeMenuIndex = index;
+    },
     handleClose() {
       // this.workMaskExcelShow = false;
       this.$router.push({name: 'Home'});
     },
     handleKeyClose(e) {
-      if (!this.floatingImageVisible){
+      if (!this.floatingImageVisible) {
         if (e.key === "Escape" || e.key === "Esc" || e.keyCode === 27 || e.key === "F9") {
           this.handleClose()
         }
-      }else {
+      } else {
         this.handleImageNavigation(e)
       }
 
@@ -309,11 +436,11 @@ export default {
     },
     handleOpenImage() {
       window.umami.track('Excel美图:')
-      const randomNumber = Math.floor(Math.random() * 846) + 1
+      const randomNumber = Math.floor(Math.random() * 1032) + 1
       this.floatingImageUrl = require(`@/assets/image/girl/1 (${randomNumber}).jpg`);
       this.floatingImageVisible = true;
     },
-    handleCloseImage(){
+    handleCloseImage() {
       this.floatingImageVisible = false;
     },
     startResize(e, colIndex) {
@@ -355,29 +482,70 @@ export default {
       document.body.style.userSelect = "none";
       // document.body.style.cursor = "col-resize";  // 先注释掉看看
     },
-
-    onResize(e) {
-      if (this.resizingColIndex !== null) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const delta = e.clientX - this.startX;
-        // 更新列宽（使用 splice 保证响应式）
-        this.colWidths.splice(
-            this.resizingColIndex,
-            1,
-            Math.max(this.startWidth + delta, 40)
-        );
-      }
+    // 自定义调整卡片顶部字体大小
+    // 自定义调整excel卡片顶部字体大小
+    changeExcelCardTopFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_SIZE, this.excelCardTopFontSize);
+      window.umami.track('自定义excel卡片标题字体大小')
     },
-
-    stopResize() {
-      this.resizingColIndex = null;
-      document.removeEventListener("mousemove", this.onResize, true);
-      document.removeEventListener("mouseup", this.stopResize, true);
-
-      document.body.style.userSelect = "";
-      document.body.style.cursor = "";
+    changeExcelCardTopFontWeight() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_WEIGHT, this.excelCardTopFontWeight);
+      window.umami.track('自定义excel卡片标题字体粗细')
+    },
+    // 自定义调整excel热点标题字体大小
+    changeExcelCardTitleFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_SIZE, this.excelCardTitleFontSize);
+      window.umami.track('自定义excel热点标题字体大小')
+    },
+    changeExcelCardTitleFontWeight() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_WEIGHT, this.excelCardTitleFontWeight);
+      window.umami.track('自定义excel热点标题字体粗细')
+    },
+    // 自定义调整excel分类名称字体大小
+    changeExcelCategoriesTitleFontSize() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE, this.excelCategroiesTitleFontSize);
+      window.umami.track('自定义excel分类名称字体大小')
+    },
+    changeExcelCategoriesTitleFontWeight() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_WEIGHT, this.excelCategroiesTitleFontWeight);
+      window.umami.track('自定义excel分类名称字体粗细')
+    },
+    initializePlatforms() {
+      const excelCategoriesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE)
+      this.excelCategroiesTitleFontSize = excelCategoriesTitleFontSize ?? this.excelCategroiesTitleFontSize;
+      const excelCategoriesTitleFontWeight = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_WEIGHT)
+      this.excelCategroiesTitleFontWeight = excelCategoriesTitleFontWeight ?? this.excelCategroiesTitleFontWeight;
+      const excelCardTopFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_SIZE)
+      this.excelCardTopFontSize = excelCardTopFontSize ?? this.excelCardTopFontSize;
+      const excelCardTopFontWeight = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_WEIGHT)
+      this.excelCardTopFontWeight = excelCardTopFontWeight ?? this.excelCardTopFontWeight;
+      const excelCardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_SIZE)
+      this.excelCardTitleFontSize = excelCardTitleFontSize ?? this.excelCardTitleFontSize;
+      const excelCardTitleFontWeight = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_WEIGHT)
+      this.excelCardTitleFontWeight = excelCardTitleFontWeight ?? this.excelCardTitleFontWeight;
+    },
+    cleanExcelLocalStorage() {
+      this.$confirm('此操作将清除Excel摸鱼设置中的所有个人设置', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_WEIGHT);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_WEIGHT);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_WEIGHT);
+        this.$message({
+          type: 'success',
+          message: '已重置，请刷新页面重新加载!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
     }
   }
 };
@@ -413,29 +581,21 @@ export default {
   cursor: pointer;
 }
 
-.submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: none;
-  background: #fff;
-  border: 1px solid #ccc;
-  min-width: 80px;
-  z-index: 200;
+.menu-item.active {
+  color: green;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  background-color: white;
 }
 
-.menu-item:hover .submenu {
-  display: block;
+.menu-item:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
 }
 
-.submenu-item {
-  padding: 4px 6px;
-  cursor: pointer;
-}
-
-.submenu-item:hover {
-  background: #eee;
-}
 
 .sheet-tabs {
   display: flex;
@@ -608,7 +768,22 @@ th {
 }
 
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0; transform: translateY(10px); }
-  20%, 80% { opacity: 1; transform: translateY(0); }
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20%, 80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+:deep(.el-collapse-item__header) {
+  height: 20px !important;
+  border: none !important;
+}
+:deep(.el-collapse-item__wrap) {
+  margin-top:10px !important;
+}
+
 </style>

@@ -13,6 +13,15 @@ export const LOCAL_STORAGE_KEYS = {
     CARD_HOT_TITLE_FULL: 'cardHotTitleFull',
     CARD_TITLE_FULL: 'cardTitleFull',
     DEFAULT_CATEGORY_ID: 'defaultCategoryId',
+    // excel卡片顶部字体大小
+    EXCEL_CARD_TOP_FONT_SIZE: 'excelCardTopFontSize',
+    EXCEL_CARD_TOP_FONT_WEIGHT: 'excelCardTopFontWeight',
+    // excel热点标题字体大小
+    EXCEL_CARD_TITLE_FONT_SIZE: 'excelCardTitleFontSize',
+    EXCEL_CARD_TITLE_FONT_WEIGHT: 'excelCardTitleFontWeight',
+    // excel分类名称字体大小
+    EXCEL_CATEGORIES_TITLE_FONT_SIZE: 'excelCategroiesTitleFontSize',
+    EXCEL_CATEGORIES_TITLE_FONT_WEIGHT: 'excelCategroiesTitleFontWeight',
 };
 
 // 设置本地存储
@@ -34,6 +43,9 @@ export const getLocalStorage = (key) => {
         return null;
     }
 };
+
+
+
 
 // 清除本地存储
 export const clearLocalStorage = (key) => {
