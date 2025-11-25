@@ -229,14 +229,14 @@ export default createStore({
 
 
         // excel卡片顶部字体大小
-        excelCardTopFontSize: 1,
-        excelCardTopFontWeight: 700,
+        excelCardTopFontSize: 0.9,
+        excelCardTopFontWeight: 400,
         // excel热点标题字体大小
         excelCardTitleFontSize: 0.875,
         excelCardTitleFontWeight: 400,
         // excel分类名称字体大小
-        excelCategroiesTitleFontSize: 1.125,
-        excelCategroiesTitleFontWeight: 700,
+        excelCategroiesTitleFontSize: 0.875,
+        excelCategroiesTitleFontWeight: 400,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据

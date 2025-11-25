@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 90px;overflow: hidden;padding: 3px">
+  <div style="height: 83px;overflow: hidden;padding: 3px">
       <img style="height: 100%; object-fit: cover;" :src="require(`@/assets/image/excelribbon/${menuName}.png`)" class="floating-image fade-in-zoom" />
   </div>
 </template>
