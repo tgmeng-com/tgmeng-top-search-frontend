@@ -11,6 +11,76 @@
       >
         {{ menu.name }}
       </div>
+      <el-collapse expand-icon-position="left">
+        <el-collapse-item>
+          <template #title>
+            <span class="menu-item text-gray-600" >
+            自定义设置
+            </span>&nbsp;
+          </template>
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                分类名称：<el-input-number class="input-title" v-model="excelCategroiesTitleFontSize" :min="0.1" :max="2"
+                                          size="small"
+                                          :precision="3" :step="0.025" @change="changeExcelCategoriesTitleFontSize"/>
+              </span>&nbsp;
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                分类加粗：<el-input-number class="input-title" v-model="excelCategroiesTitleFontWeight" :min="100"
+                                          :max="900"
+                                          size="small"
+                                          :precision="0" :step="100" @change="changeExcelCategoriesTitleFontWeight"/>
+            </span>&nbsp;
+            </div>
+            <div></div>
+          </div>
+
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            平台名称：<el-input-number class="input-title" v-model="excelCardTopFontSize" :min="0.1" :max="2"
+                                      size="small"
+                                      :precision="3" :step="0.025" @change="changeExcelCardTopFontSize"/>
+            </span>&nbsp;
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            平台加粗：<el-input-number class="input-title" v-model="excelCardTopFontWeight" :min="100" :max="900"
+                                      size="small"
+                                      :precision="0" :step="100" @change="changeExcelCardTopFontWeight"/>
+            </span>&nbsp;
+            </div>
+            <div></div>
+          </div>
+
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点标题：<el-input-number class="input-title" v-model="excelCardTitleFontSize" :min="0.1" :max="2"
+                                      size="small"
+                                      :precision="3" :step="0.025" @change="changeExcelCardTitleFontSize"/>
+            </span>&nbsp;
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            热点加粗：<el-input-number class="input-title" v-model="excelCardTitleFontWeight" :min="100" :max="900"
+                                      size="small"
+                                      :precision="0" :step="100" @change="changeExcelCardTitleFontWeight"/>
+            </span>&nbsp;
+            </div>
+            <div></div>
+          </div>
+
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="text-sm  whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <el-button @click="cleanExcelLocalStorage" size="small" type="danger" style="background-color: #f78989"
+                         round>重置设置
+              </el-button>
+            </div>
+            <div></div>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
       <div class="menu-item ml-auto text-xs" @click="handleClose">
         ESC/F9退出🐟
       </div>
@@ -26,77 +96,6 @@
         <button @click.stop="handleOpenImage" class="nav-btn right-btn">&#8594;</button>
       </div>
     </div>
-
-    <el-collapse expand-icon-position="left">
-      <el-collapse-item>
-        <template #title>
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-400 text-gray-600 dark:text-gray-100">
-            👉🏻点击展开样式自定义设置👈🏻
-            </span>&nbsp;
-        </template>
-        <div
-            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                分类名称：<el-input-number class="input-title" v-model="excelCategroiesTitleFontSize" :min="0.1" :max="2"
-                                          size="small"
-                                          :precision="3" :step="0.025" @change="changeExcelCategoriesTitleFontSize"/>
-              </span>&nbsp;
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                分类加粗：<el-input-number class="input-title" v-model="excelCategroiesTitleFontWeight" :min="100"
-                                          :max="900"
-                                          size="small"
-                                          :precision="0" :step="100" @change="changeExcelCategoriesTitleFontWeight"/>
-            </span>&nbsp;
-          </div>
-          <div></div>
-        </div>
-
-        <div
-            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            平台名称：<el-input-number class="input-title" v-model="excelCardTopFontSize" :min="0.1" :max="2"
-                                      size="small"
-                                      :precision="3" :step="0.025" @change="changeExcelCardTopFontSize"/>
-            </span>&nbsp;
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            平台加粗：<el-input-number class="input-title" v-model="excelCardTopFontWeight" :min="100" :max="900"
-                                      size="small"
-                                      :precision="0" :step="100" @change="changeExcelCardTopFontWeight"/>
-            </span>&nbsp;
-          </div>
-          <div></div>
-        </div>
-
-        <div
-            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            热点标题：<el-input-number class="input-title" v-model="excelCardTitleFontSize" :min="0.1" :max="2"
-                                      size="small"
-                                      :precision="3" :step="0.025" @change="changeExcelCardTitleFontSize"/>
-            </span>&nbsp;
-            <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            热点加粗：<el-input-number class="input-title" v-model="excelCardTitleFontWeight" :min="100" :max="900"
-                                      size="small"
-                                      :precision="0" :step="100" @change="changeExcelCardTitleFontWeight"/>
-            </span>&nbsp;
-          </div>
-          <div></div>
-        </div>
-
-        <div
-            class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div class="text-sm  whitespace-nowrap overflow-x-auto scrollbar-hide">
-            <el-button @click="cleanExcelLocalStorage" size="small" type="danger" style="background-color: #f78989"
-                       round>重置设置
-            </el-button>
-          </div>
-          <div></div>
-        </div>
-      </el-collapse-item>
-    </el-collapse>
 
     <!-- 表格容器 - 添加 padding-bottom 为 sheet-tabs 留出空间 -->
     <div class="table-container" ref="tableContainer">
@@ -142,7 +141,7 @@
         </thead>
         <tbody>
         <tr >
-          <td class="row-number" :style="[excelCardTitleStyle]">提示</td>
+          <td class="row-number" :style="[excelCardTitleStyle]">状态</td>
           <td
               v-for="(subCat, index) in (activeCategory?.subCategories ?? [])"
               :key="'tip-' + (subCat.title || Math.random())"
