@@ -79,8 +79,11 @@ export default function generateRSS(key) {
         return Promise.resolve([]);
     }
 
-    function escapeXml(str) {
-        if (!str) return '';
+    function escapeXml(str, useCdata = true) {
+        if (str === undefined || str === null) str = '';
+        if (useCdata) {
+            return '<![CDATA[' + String(str).replace(/]]>/g, ']]]]><![CDATA[>') + ']]>';
+        }
         return str.replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
@@ -90,15 +93,14 @@ export default function generateRSS(key) {
 
     return fetchData(info).then(dataInfo => {
         function generateItemXml(item) {
-            const title = item.keyword || '无标题';
-            const link = item.url ? escapeXml(item.url) : '';
-            const description = '';
+            const title = escapeXml(item.keyword || '无标题', true);
+            const link = escapeXml(item.url || '', false);
+            const description = escapeXml(item.description || '', true);
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
-
-                <title><![CDATA[${title}]]></title>
+            <title>${title}</title>
             <link>${link}</link>
-            <description><![CDATA[${description}]]></description>
+            <description>${description}</description>
             <pubDate>${pubDate}</pubDate>
         </item>`;
         }
@@ -115,11 +117,11 @@ export default function generateRSS(key) {
 
                 <rss version="2.0">
                 <channel>
-                <title><![CDATA[${info.title}]]></title>
+                <title>${escapeXml(info.title)}</title>
             <link>https://tgmeng.com</link>
-            <description><![CDATA[${info.description}]]></description>
+            <description>${escapeXml(info.description)}</description>
             <language>zh-cn</language>
-            <lastBuildDate>${new Date(lastBuildDate).toUTCString()}</lastBuildDate>
+            <lastBuildDate>${new Date(lastBuildDate || Date.now()).toUTCString()}</lastBuildDate>
             <image>
                 <url>${info.logo || "https://tgmeng.com/logo.png"}</url>
                 <link>https://tgmeng.com</link>
