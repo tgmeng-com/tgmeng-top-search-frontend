@@ -1,20 +1,20 @@
 export default function generateRSS(key) {
+
     const rssMap = {
         "/news": {
             title: "糖果梦热榜 · 新闻",
             description: "站内新闻分类下所有的平台热点",
             children: {
-                "/news/tencent": {title: "新闻·腾讯", description: "腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent"},
-                "/news/toutiao": {title: "新闻·头条", description: "头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"}
+                "/news/tencent": {title: "糖果梦热榜 · 新闻 · 腾讯", description: "糖果梦热榜 · 新闻 · 腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent",category: "腾讯"},
+                "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",category: "头条"}
             }
         },
         "/media": {
             title: "糖果梦热榜 · 媒体",
             description: "站内媒体分类下所有的平台热点",
             children: {
-                "/media/bilibili": {title: "媒体·B站", description: "B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"},
-                "/media/douyin": {title: "媒体·抖音", description: "抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin"
-                }
+                "/media/bilibili": {title: "糖果梦热榜·媒体·B站", description: "糖果梦热榜 · 媒体 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",category: "B站"},
+                "/media/douyin": {title: "糖果梦热榜·媒体·抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",category: "抖音"}
             }
         }
     };
@@ -77,7 +77,7 @@ export default function generateRSS(key) {
             const description =  `<a href="${link}" target="_blank">点击标题查看详细内容</a>`;
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
-            <title>${info.title} · ${title}</title>
+            <title>${title}  -来自【${info.category}】</title>
             <link>${link}</link>
             <description>${description}</description>
             <pubDate>${pubDate}</pubDate>
