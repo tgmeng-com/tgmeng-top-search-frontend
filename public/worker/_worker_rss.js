@@ -5,16 +5,16 @@ export default function generateRSS(key) {
             title: "糖果梦热榜 · 新闻",
             description: "站内新闻分类下所有的平台热点",
             children: {
-                "/news/tencent": {title: "糖果梦热榜 · 新闻 · 腾讯", description: "糖果梦热榜 · 新闻 · 腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent",category: "腾讯"},
-                "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",category: "头条"}
+                "/news/tencent": {title: "糖果梦热榜 · 新闻 · 腾讯", description: "糖果梦热榜 · 新闻 · 腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent",platform: "腾讯"},
+                "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",platform: "头条"}
             }
         },
         "/media": {
             title: "糖果梦热榜 · 媒体",
             description: "站内媒体分类下所有的平台热点",
             children: {
-                "/media/bilibili": {title: "糖果梦热榜·媒体·B站", description: "糖果梦热榜 · 媒体 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",category: "B站"},
-                "/media/douyin": {title: "糖果梦热榜·媒体·抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",category: "抖音"}
+                "/media/bilibili": {title: "糖果梦热榜·媒体·B站", description: "糖果梦热榜 · 媒体 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",platform: "B站"},
+                "/media/douyin": {title: "糖果梦热榜·媒体·抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "抖音"}
             }
         }
     };
@@ -44,7 +44,8 @@ export default function generateRSS(key) {
                 .then(res => res.json())
                 .then(json => (json.data?.dataInfo || []).map(item => {
                     const pubDate = json.data?.dataUpdateTime ? new Date(json.data.dataUpdateTime).toUTCString() : new Date().toUTCString();
-                    return {...item, pubDate};
+                    const platform = node.platform || '';
+                    return {...item, pubDate, platform};
                 }))
                 .catch(err => {
                     console.error("获取数据失败:", err);
@@ -75,9 +76,10 @@ export default function generateRSS(key) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
             const description =  `点击标题查看详细内容`;
+            const platform = item.platform || '';
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
-            <title>${title}  -来自【${info.category}】</title>
+            <title>${title}  -来自【${platform}】</title>
             <link>${link}</link>
             <description>${description}</description>
             <pubDate>${pubDate}</pubDate>
