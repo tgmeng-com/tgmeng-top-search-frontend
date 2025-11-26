@@ -5,8 +5,18 @@ export default function generateRSS(key) {
             description: "新闻资讯",
             logo: "",
             children: {
-                "/news/tencent": {title: "腾讯", description: "腾讯", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/tencent"},
-                "/news/toutiao": {title: "头条", description: "头条", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"}
+                "/news/tencent": {
+                    title: "腾讯",
+                    description: "腾讯",
+                    logo: "",
+                    link: "https://trendapi.tgmeng.com/api/topsearch/tencent"
+                },
+                "/news/toutiao": {
+                    title: "头条",
+                    description: "头条",
+                    logo: "",
+                    link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"
+                }
             }
         },
         "/media": {
@@ -14,8 +24,18 @@ export default function generateRSS(key) {
             description: "媒体资讯",
             logo: "",
             children: {
-                "/media/bilibili": {title: "B站", description: "B站", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"},
-                "/media/douyin": {title: "抖音", description: "抖音", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/douyin"}
+                "/media/bilibili": {
+                    title: "B站",
+                    description: "B站",
+                    logo: "",
+                    link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"
+                },
+                "/media/douyin": {
+                    title: "抖音",
+                    description: "抖音",
+                    logo: "",
+                    link: "https://trendapi.tgmeng.com/api/topsearch/douyin"
+                }
             }
         }
     };
@@ -59,10 +79,19 @@ export default function generateRSS(key) {
         return Promise.resolve([]);
     }
 
+    function escapeXml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&apos;');
+    }
+
     return fetchData(info).then(dataInfo => {
         function generateItemXml(item) {
             const title = item.keyword || '无标题';
-            const link = item.url || '';
+            const link = item.url ? escapeXml(item.url) : '';
             const description = '';
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
