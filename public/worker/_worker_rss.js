@@ -5,8 +5,8 @@ export default function generateRSS(key) {
             description: "新闻资讯",
             logo: "",
             children: {
-                "/news/baidu": {title: "腾讯", description: "腾讯", logo: "", link: "https://trendapi.tgmeng.com/topsearch/baidu"},
-                "/news/toutiao": {title: "头条", description: "头条", logo: "", link: "https://trendapi.tgmeng.com/topsearch/toutiao"}
+                "/news/tencent": {title: "腾讯", description: "腾讯", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/tencent"},
+                "/news/toutiao": {title: "头条", description: "头条", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"}
             }
         },
         "/media": {
@@ -14,8 +14,8 @@ export default function generateRSS(key) {
             description: "媒体资讯",
             logo: "",
             children: {
-                "/media/bilibili": {title: "B站", description: "B站", logo: "", link: "https://trendapi.tgmeng.com/topsearch/bilibili"},
-                "/media/douyin": {title: "抖音", description: "抖音", logo: "", link: "https://trendapi.tgmeng.com/topsearch/douyin"}
+                "/media/bilibili": {title: "B站", description: "B站", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"},
+                "/media/douyin": {title: "抖音", description: "抖音", logo: "", link: "https://trendapi.tgmeng.com/api/topsearch/douyin"}
             }
         }
     };
