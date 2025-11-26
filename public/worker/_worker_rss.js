@@ -12,7 +12,7 @@ export default function generateRSS(key) {
         "/media": {
             title: "媒体资讯",
             description: "媒体资讯",
-            logo: require('@/assets/logos/tgmeng-trend_bilibili.png'),
+            logo: "",
             children: {
                 "/media/bilibili": {title: "B站", description: "B站", logo: "", link: "https://trendapi.tgmeng.com/topsearch/bilibili"},
                 "/media/douyin": {title: "抖音", description: "抖音", logo: "", link: "https://trendapi.tgmeng.com/topsearch/douyin"}
