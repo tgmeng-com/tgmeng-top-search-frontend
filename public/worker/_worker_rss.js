@@ -74,7 +74,7 @@ export default function generateRSS(key) {
         function generateItemXml(item) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
-            const description =  `<a href="${link}" target="_blank">点击标题查看详细内容</a>`;
+            const description =  `点击标题查看详细内容`;
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
             <title>${title}  -来自【${info.category}】</title>
