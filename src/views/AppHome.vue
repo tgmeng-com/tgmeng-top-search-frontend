@@ -398,11 +398,12 @@ export default {
       }
     },
     handleRssClick(cat) {
-      if (cat.id === 0){
+      if (cat.id === 0) {
         window.open('https://tgmeng.com/rss.xml', '_blank');
-      }else {
+      } else {
         window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
       }
+      window.umami.track('点击RSS:' + cat.name);
     },
 
     // 分类按钮点击事件

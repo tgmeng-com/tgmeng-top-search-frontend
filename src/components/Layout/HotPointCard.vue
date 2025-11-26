@@ -12,7 +12,7 @@
         <component :is="isStar ? 'StarFilled' : 'Star'"/>
       </el-icon>
       <div>
-        <a :href="'https://tgmeng.com' + rss+ '/rss.xml'" target="_blank">
+        <a :href="'https://tgmeng.com' + rss+ '/rss.xml'" target="_blank" @click="handleRssClick(title)">
           <svg xmlns="http://www.w3.org/2000/svg"
                viewBox="0 0 24 24"
                :style="{ width: cardTopStyle.fontSize, height: cardTopStyle.fontSize }">
@@ -214,6 +214,9 @@ export default {
       // 最后一个元素也显示广告
       if (index === this.list.length - 1) return true;
       return false;
+    },
+    handleRssClick(title) {
+      window.umami.track('点击RSS:' + title);
     },
     extractWangYiYunId(url) {
       const match = url.match(/id=(\d+)/);
