@@ -90,7 +90,6 @@ export default function generateRSS(key) {
             <copyright>Copyright ${currentYear} tgmeng.com. All rights reserved.</copyright>
             <managingEditor>糖果梦</managingEditor>
             <webMaster>糖果梦</webMaster>
-            <ttl>1</ttl>
             <atom:link href="https://tgmeng.com${key}/rss.xml" rel="self" type="application/rss+xml" />
             
             <lastBuildDate>${new Date(lastBuildDate || Date.now()).toUTCString()}</lastBuildDate>
