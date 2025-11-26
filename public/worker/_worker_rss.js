@@ -1,23 +1,6 @@
-export default function generateRSS(key) {
+import dataMap from "./_worder_rss_datamap.js";
 
-    const rssMap = {
-        "/news": {
-            title: "糖果梦热榜 · 新闻",
-            description: "站内新闻分类下所有的平台热点",
-            children: {
-                "/news/tencent": {title: "糖果梦热榜 · 新闻 · 腾讯", description: "糖果梦热榜 · 新闻 · 腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent",platform: "腾讯"},
-                "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",platform: "头条"}
-            }
-        },
-        "/media": {
-            title: "糖果梦热榜 · 媒体",
-            description: "站内媒体分类下所有的平台热点",
-            children: {
-                "/media/bilibili": {title: "糖果梦热榜·媒体·B站", description: "糖果梦热榜 · 媒体 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",platform: "B站"},
-                "/media/douyin": {title: "糖果梦热榜·媒体·抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "抖音"}
-            }
-        }
-    };
+export default function generateRSS(key) {
 
     function findNode(map, key) {
         if (map[key]) return map[key];
@@ -31,11 +14,11 @@ export default function generateRSS(key) {
     }
 
     const info = key === "/" ? {
-        title: "聚合 RSS",
+        title: "糖果梦热榜 · 全站热点",
         description: "糖果梦热榜 · 全站热点",
         logo: "",
-        children: rssMap
-    } : findNode(rssMap, key);
+        children: dataMap
+    } : findNode(dataMap, key);
     if (!info) return `<?xml version="1.0"?><rss></rss>`;
 
     function fetchData(node) {
@@ -75,7 +58,7 @@ export default function generateRSS(key) {
         function generateItemXml(item) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
-            const description =  `点击标题查看详细内容`;
+            const description = `点击标题查看详细内容`;
             const platform = item.platform || '';
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
