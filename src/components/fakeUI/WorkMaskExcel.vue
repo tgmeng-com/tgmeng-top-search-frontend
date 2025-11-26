@@ -11,10 +11,10 @@
       >
         {{ menu.name }}
       </div>
-      <el-collapse expand-icon-position="left">
+      <el-collapse expand-icon-position="left" class="menu-item">
         <el-collapse-item>
           <template #title>
-            <span class="menu-item text-gray-600" :style="excelCardTopStyle">
+            <span class="text-gray-600" :style="excelCardTopStyle">
             自定义设置
             </span>&nbsp;
           </template>
@@ -571,8 +571,95 @@ export default {
   padding: 4px 8px;
   border-bottom: 1px solid #ccc;
   z-index: 100;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap; /* 确保不换行 */
+
+  /* 关键：Excel 风格滚动条 */
+  scrollbar-width: auto;
+  scrollbar-color: #c1c1c1 #e3e3e3;
 }
 
+/* 确保在小屏幕下也不换行 */
+@media (max-width: 640px) {
+  .topbar {
+    flex-wrap: nowrap !important;
+    white-space: nowrap;
+  }
+
+  .menu-item {
+    white-space: nowrap;
+    flex-shrink: 0; /* 防止菜单项被压缩 */
+  }
+}
+
+.topbar::-webkit-scrollbar {
+  height: 17px;                     /* Excel 经典高度 */
+}
+
+.topbar::-webkit-scrollbar-track {
+  background: #e3e3e3;
+  border-top: 1px solid #d4d4d4;
+  box-shadow: inset 0 1px 0 #f1f1f1;
+}
+
+.topbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border: 1px solid #a6a6a6;
+  border-top-color: #d4d4d4;
+  border-left-color: #d4d4d4;
+  min-width: 50px;
+}
+
+.topbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+  border-color: #8c8c8c;
+}
+
+.topbar::-webkit-scrollbar-thumb:active {
+  background: #787878;
+  border-color: #696969;
+}
+
+/* 左右箭头按钮（Excel 经典小三角） */
+.topbar::-webkit-scrollbar-button:horizontal:decrement {
+  background:
+      #e3e3e3
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M5 1L1 5l4 4z'/%3E%3C/svg%3E")
+      center center no-repeat;
+  border-right: 1px solid #d4d4d4;
+  width: 17px;
+}
+
+.topbar::-webkit-scrollbar-button:horizontal:increment {
+  background:
+      #e3e3e3
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M1 1l4 4-4 4z'/%3E%3C/svg%3E")
+      center center no-repeat;
+  border-left: 1px solid #d4d4d4;
+  width: 17px;
+}
+
+.topbar::-webkit-scrollbar-button:horizontal:decrement:hover,
+.topbar::-webkit-scrollbar-button:horizontal:increment:hover {
+  background-color: #d4d4d4;
+}
+
+.topbar::-webkit-scrollbar-button:horizontal:decrement:active,
+.topbar::-webkit-scrollbar-button:horizontal:increment:active {
+  background-color: #c1c1c1;
+}
+
+/* 隐藏垂直滚动条（顶部菜单不需要） */
+.topbar::-webkit-scrollbar:vertical {
+  display: none;
+}
+
+/* Firefox 兼容 */
+.topbar {
+  scrollbar-width: auto;
+  scrollbar-color: #c1c1c1 #e3e3e3;
+}
 .menu-item {
   position: relative;
   padding: 2px 8px;
