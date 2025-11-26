@@ -16,7 +16,7 @@ export default {
     notification() {
       ElNotification({
         title: '新功能',
-        message: '新增了摸鱼模式，点击右上方小鱼即可体验',
+        message: '新增支持RSS，可按全站、分类、平台 单独订阅',
         type: 'success',
         position: "top-left",
         duration: 10000
@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     const isBefore = (target) => Date.now() < new Date(target);
-    if (isBefore('2025-11-25')) {
+    if (isBefore('2025-11-28')) {
       this.notification()
     }
   }
