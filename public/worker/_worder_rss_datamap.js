@@ -1,10 +1,29 @@
+// TODO 每次新增平台或者分类后，在这里面加一下RSS
+
 const dataMap = {
     "/news": {
         title: "糖果梦热榜 · 新闻",
         description: "糖果梦热榜 · 新闻",
         children: {
             "/news/tencent": {title: "糖果梦热榜 · 新闻 · 腾讯", description: "糖果梦热榜 · 新闻 · 腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent",platform: "腾讯"},
-            "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",platform: "头条"}
+            "/news/toutiao": {title: "糖果梦热榜 · 新闻 · 头条", description: "糖果梦热榜 · 新闻 · 头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao",platform: "头条"},
+            "/news/wangyi": {title: "糖果梦热榜 · 新闻 · 网易", description: "糖果梦热榜 · 新闻 · 网易", link: "https://trendapi.tgmeng.com/api/topsearch/wangyi",platform: "网易"},
+            "/news/baidu": {title: "糖果梦热榜 · 新闻 · 百度", description: "糖果梦热榜 · 新闻 · 百度", link: "https://trendapi.tgmeng.com/api/topsearch/baidu",platform: "百度"},
+            "/news/niuyueshibao": {title: "糖果梦热榜 · 新闻 · 纽约时报", description: "糖果梦热榜 · 新闻 · 纽约时报", link: "https://trendapi.tgmeng.com/api/topsearch/niuyueshibao",platform: "纽约时报"},
+            "/news/bbc": {title: "糖果梦热榜 · 新闻 · BBC", description: "糖果梦热榜 · 新闻 · BBC", link: "https://trendapi.tgmeng.com/api/topsearch/bbc",platform: "BBC"},
+            "/news/faguang": {title: "糖果梦热榜 · 新闻 · 法广", description: "糖果梦热榜 · 新闻 · 法广", link: "https://trendapi.tgmeng.com/api/topsearch/faguang",platform: "法广"},
+            "/news/pengpaixinwen": {title: "糖果梦热榜 · 新闻 · 澎湃新闻", description: "糖果梦热榜 · 新闻 · 澎湃新闻", link: "https://trendapi.tgmeng.com/api/topsearch/pengpaixinwen",platform: "澎湃新闻"},
+        }
+    },
+    "/wool": {
+        title: "糖果梦热榜 · 羊毛",
+        description: "糖果梦热榜 · 羊毛",
+        children: {
+            "/wool/doubanmaizu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 买", description: "糖果梦热榜 · 羊毛 · 豆瓣组 买", link: "https://trendapi.tgmeng.com/api/topsearch/maizudouban",platform: "豆瓣组 买"},
+            "/wool/doubanpinzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 拼", description: "糖果梦热榜 · 羊毛 · 豆瓣组 拼", link: "https://trendapi.tgmeng.com/api/topsearch/pinzudouban",platform: "豆瓣组 拼"},
+            "/wool/doubanaimaoshenghuo": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", link: "https://trendapi.tgmeng.com/api/topsearch/aimaoshenghuodouban",platform: "豆瓣组 爱猫生活"},
+            "/wool/doubanaimaozaopen": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", link: "https://trendapi.tgmeng.com/api/topsearch/aimaozaopendouban",platform: "豆瓣组 爱猫澡盆"},
+            "/wool/doubangouzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", description: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", link: "https://trendapi.tgmeng.com/api/topsearch/gouzudouban",platform: "豆瓣组 狗组"}
         }
     },
     "/media": {
@@ -12,7 +31,225 @@ const dataMap = {
         description: "糖果梦热榜 · 媒体",
         children: {
             "/media/bilibili": {title: "糖果梦热榜 · 媒体 · B站", description: "糖果梦热榜 · 媒体 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",platform: "B站"},
-            "/media/douyin": {title: "糖果梦热榜 · 媒体 · 抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "抖音"}
+            "/media/douyin": {title: "糖果梦热榜 · 媒体 · 抖音", description: "糖果梦热榜 · 媒体 · 抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "抖音"},
+            "/media/weibo": {title: "糖果梦热榜 · 媒体 · 微博", description: "糖果梦热榜 · 媒体 · 微博", link: "https://trendapi.tgmeng.com/api/topsearch/weibo",platform: "微博"},
+            "/media/youtube": {title: "糖果梦热榜 · 媒体 · Youtube", description: "糖果梦热榜 · 媒体 · Youtube", link: "https://trendapi.tgmeng.com/api/topsearch/global/youtube",platform: "Youtube"},
+            "/media/shaoshupai": {title: "糖果梦热榜 · 媒体 · 少数派", description: "糖果梦热榜 · 媒体 · 少数派", link: "https://trendapi.tgmeng.com/api/topsearch/shaoshupai",platform: "少数派"},
+            "/media/regengbaidu": {title: "糖果梦热榜 · 媒体 · 热梗", description: "糖果梦热榜 · 媒体 · 热梗", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",regengbaidu: "百度热梗"},
+            "/media/caijingbaidu": {title: "糖果梦热榜 · 媒体 · 财经", description: "糖果梦热榜 · 媒体 · 财经", link: "https://trendapi.tgmeng.com/api/topsearch/caijingbaidu",platform: "百度财经"},
+            "/media/minshengbaidu": {title: "糖果梦热榜 · 媒体 · 民生", description: "糖果梦热榜 · 媒体 · 民生", link: "https://trendapi.tgmeng.com/api/topsearch/minshengbaidu",platform: "百度民生"},
+            "/media/qichebaidu": {title: "糖果梦热榜 · 媒体 · 汽车", description: "糖果梦热榜 · 媒体 · 汽车", link: "https://trendapi.tgmeng.com/api/topsearch/qichebaidu",platform: "百度汽车"},
+            "/media/youxibaidu": {title: "糖果梦热榜 · 媒体 · 游戏", description: "糖果梦热榜 · 媒体 · 游戏", link: "https://trendapi.tgmeng.com/api/topsearch/youxibaidu",platform: "百度游戏"},
+            "/media/xiaoshuobaidu": {title: "糖果梦热榜 · 媒体 · 小说", description: "糖果梦热榜 · 媒体 · 小说", link: "https://trendapi.tgmeng.com/api/topsearch/xiaoshuobaidu",platform: "百度小说"}
+
+        }
+    },
+    "/life": {
+        title: "糖果梦热榜 · 生活",
+        description: "糖果梦热榜 · 生活",
+        children: {
+            "/life/renjianqinglvguancha": {title: "糖果梦热榜 · 生活 · 豆瓣组 人间情侣观察", description: "糖果梦热榜 · 生活 · 豆瓣组 人间情侣观察", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/REN_JIAN_QING_LV_GUAN_CHA_DOU_BAN",platform: "豆瓣组 人间情侣观察"},
+            "/life/womendoubudongrenqingshigu": {title: "糖果梦热榜 · 生活 · 豆瓣组 我们都不懂人情世故", description: "糖果梦热榜 · 生活 · 豆瓣组 我们都不懂人情世故", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/WO_MEN_DOU_BU_DONG_REN_QING_SHI_GU_DOU_BAN",platform: "豆瓣组 我们都不懂人情世故"},
+            "/life/shehuixingsiwang": {title: "糖果梦热榜 · 生活 · 豆瓣组 社会性死亡", description: "糖果梦热榜 · 生活 · 豆瓣组 社会性死亡", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/SHE_HUI_XING_SI_WANG_DOU_BAN",platform: "豆瓣组 社会性死亡"},
+            "/life/zhichangtucaodahui": {title: "糖果梦热榜 · 生活 · 豆瓣组 职场吐槽大会", description: "糖果梦热榜 · 生活 · 豆瓣组 职场吐槽大会", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/ZHI_CHANG_TU_CAO_DA_HUI_DOU_BAN",platform: "豆瓣组 职场吐槽大会"},
+            "/life/xiaofeizhuyinixingfhze": {title: "糖果梦热榜 · 生活 · 豆瓣组 消费主义逆行者", description: "糖果梦热榜 · 生活 · 豆瓣组 消费主义逆行者", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/XIAO_FEI_ZHU_YI_NI_XING_ZHE_DOU_BAN",platform: "豆瓣组 消费主义逆行者"},
+            "/life/lanrenshenghuozhibei": {title: "糖果梦热榜 · 生活 · 豆瓣组 懒人生活指北", description: "糖果梦热榜 · 生活 · 豆瓣组 懒人生活指北", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/LAN_REN_SHENG_HUO_ZHI_BEI_DOU_BAN",platform: "豆瓣组 懒人生活指北"},
+            "/life/jintianchuanshenme": {title: "糖果梦热榜 · 生活 · 豆瓣组 今天穿什么", description: "糖果梦热榜 · 生活 · 豆瓣组 今天穿什么", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/JIN_TIAN_CHUAN_SHEN_ME_DOU_BAN",platform: "豆瓣组 今天穿什么"},
+            "/life/shangbanzhejianshi": {title: "糖果梦热榜 · 生活 · 豆瓣组 上班这件事", description: "糖果梦热榜 · 生活 · 豆瓣组 上班这件事", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/SHANG_BAN_ZHE_JIAN_SHI_DOU_BAN",platform: "豆瓣组 上班这件事"},
+            "/life/shechumaifanggongjinhui": {title: "糖果梦热榜 · 生活 · 豆瓣组 社畜买房共进会", description: "糖果梦热榜 · 生活 · 豆瓣组 社畜买房共进会", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/SHE_CHU_MAI_FANG_GONG_JIN_HUI_DOU_BAN",platform: "豆瓣组 社畜买房共进会"},
+            "/life/womendoubudongche": {title: "糖果梦热榜 · 生活 · 豆瓣组 我们都不懂车", description: "糖果梦热榜 · 生活 · 豆瓣组 我们都不懂车", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/WO_MEN_DOU_BU_DONG_CHE_DOU_BAN",platform: "豆瓣组 我们都不懂车"},
+            "/life/jiaoshi": {title: "糖果梦热榜 · 生活 · 豆瓣组 教师", description: "糖果梦热榜 · 生活 · 豆瓣组 教师", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/JIAO_SHI_DOU_BAN",platform: "豆瓣组 教师"},
+            "/life/youyidexiaochuan": {title: "糖果梦热榜 · 生活 · 豆瓣组 友谊的小船", description: "糖果梦热榜 · 生活 · 豆瓣组 友谊的小船", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/YOU_YI_DE_XIAO_CHUAN_DOU_BAN",platform: "豆瓣组 友谊的小船"},
+            "/life/xiachufang": {title: "糖果梦热榜 · 生活 · 豆瓣组 下厨房", description: "糖果梦热榜 · 生活 · 豆瓣组 下厨房", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/XIA_CHU_FANG_DOU_BAN",platform: "豆瓣组 下厨房"},
+            "/life/jiapiantuijian": {title: "糖果梦热榜 · 生活 · 豆瓣组 佳片推荐", description: "糖果梦热榜 · 生活 · 豆瓣组 佳片推荐", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/JIA_PIAN_TUI_JIAN_DOU_BAN",platform: "豆瓣组 佳片推荐"},
+            "/life/wodechengshipaigeinikan": {title: "糖果梦热榜 · 生活 · 豆瓣组 我的城市拍给你看", description: "糖果梦热榜 · 生活 · 豆瓣组 我的城市拍给你看", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/WO_DE_CHENG_SHI_PAI_GEI_NI_KAN_DOU_BAN",platform: "豆瓣组 我的城市拍给你看"},
+            "/life/cunzhuangaihaozhe": {title: "糖果梦热榜 · 生活 · 豆瓣组 村庄爱好者", description: "糖果梦热榜 · 生活 · 豆瓣组 村庄爱好者", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/CUN_ZHUANG_AI_HAO_ZHE_DOU_BAN",platform: "豆瓣组 村庄爱好者"},
+            "/life/taitoukanshu": {title: "糖果梦热榜 · 生活 · 豆瓣组 抬头，看树", description: "糖果梦热榜 · 生活 · 豆瓣组 抬头，看树", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/TAI_TOU_KAN_SHU_DOU_BAN",platform: "豆瓣组 抬头，看树"},
+            "/life/jiemaoyekeai": {title: "糖果梦热榜 · 生活 · 豆瓣组 街猫也可爱", description: "糖果梦热榜 · 生活 · 豆瓣组 街猫也可爱", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/JIE_MAO_YE_KE_AI_DOU_BAN",platform: "豆瓣组 街猫也可爱"},
+            "/life/niaozu": {title: "糖果梦热榜 · 生活 · 豆瓣组 豆瓣鸟组", description: "糖果梦热榜 · 生活 · 豆瓣组 豆瓣鸟组", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/DOU_BAN_NIAO_ZU_DOU_BAN",platform: "豆瓣组 豆瓣鸟组"},
+            "/life/keaishiwufenxiang": {title: "糖果梦热榜 · 生活 · 豆瓣组 可爱事物分享", description: "糖果梦热榜 · 生活 · 豆瓣组 可爱事物分享", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/KE_AI_SHI_WU_FEN_XIANG_DOU_BAN",platform: "豆瓣组 可爱事物分享"}
+        }
+    },
+    "/community": {
+        title: "糖果梦热榜 · 社区",
+        description: "糖果梦热榜 · 社区",
+        children: {
+            "/community/hackernews": {title: "糖果梦热榜 · 社区 · Hacker News", description: "糖果梦热榜 · 社区 · Hacker News", link: "https://trendapi.tgmeng.com/api/topsearch/hackernews",platform: "Hacker News"},
+            "/community/v2ex": {title: "糖果梦热榜 · 社区 · V2EX", description: "糖果梦热榜 · 社区 · V2EX", link: "https://trendapi.tgmeng.com/api/topsearch/v2ex",platform: "V2EX"},
+            "/community/buxingjiehupu": {title: "糖果梦热榜 · 社区 · 虎扑步行街", description: "糖果梦热榜 · 社区 · 虎扑步行街", link: "https://trendapi.tgmeng.com/api/topsearch/buxingjiehupu",platform: "虎扑步行街"},
+            "/community/zhihu": {title: "糖果梦热榜 · 社区 · 知乎", description: "糖果梦热榜 · 社区 · 知乎", link: "https://trendapi.tgmeng.com/api/topsearch/zhihu",platform: "知乎"},
+            "/community/tiebabaidu": {title: "糖果梦热榜 · 社区 · 百度贴吧", description: "糖果梦热榜 · 社区 · 百度贴吧", link: "https://trendapi.tgmeng.com/api/topsearch/tiebabaidu",platform: "百度贴吧"},
+            "/community/douban": {title: "糖果梦热榜 · 社区 · 豆瓣", description: "糖果梦热榜 · 社区 · 豆瓣", link: "https://trendapi.tgmeng.com/api/topsearch/douban",platform: "豆瓣"},
+            "/community/wenzhangjuejin": {title: "糖果梦热榜 · 社区 · 掘金", description: "糖果梦热榜 · 社区 · 掘金", link: "https://trendapi.tgmeng.com/api/topsearch/wenzhangjuejin",platform: "掘金"},
+            "/community/douyin": {title: "糖果梦热榜 · 社区 · nga", description: "糖果梦热榜 · 社区 · NGA", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "nga"}
+        }
+    },
+    "/finance": {
+        title: "糖果梦热榜 · 财经",
+        description: "糖果梦热榜 · 财经",
+        children: {
+            "/finance/cailianshe": {title: "糖果梦热榜 · 财经 · 财联社", description: "糖果梦热榜 · 财经 · 财联社", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",platform: "cailianshe"},
+            "/finance/huaerjiejianwen": {title: "糖果梦热榜 · 财经 · 华尔街见闻", description: "糖果梦热榜 · 财经 · 华尔街见闻", link: "https://trendapi.tgmeng.com/api/topsearch/huaerjiejianwen",platform: "华尔街见闻"},
+            "/finance/tonghuashun": {title: "糖果梦热榜 · 财经 · 同花顺", description: "糖果梦热榜 · 财经 · 同花顺", link: "https://trendapi.tgmeng.com/api/topsearch/tonghuashun",platform: "同花顺"},
+            "/finance/jinrongjie": {title: "糖果梦热榜 · 财经 · 金融界", description: "糖果梦热榜 · 财经 · 金融界", link: "https://trendapi.tgmeng.com/api/topsearch/jinrongjie",platform: "金融界"},
+            "/finance/diyicaijing": {title: "糖果梦热榜 · 财经 · 第一财经", description: "糖果梦热榜 · 财经 · 第一财经", link: "https://trendapi.tgmeng.com/api/topsearch/diyicaijing",platform: "第一财经"},
+            "/finance/gelonghui": {title: "糖果梦热榜 · 财经 · 格隆汇", description: "糖果梦热榜 · 财经 · 格隆汇", link: "https://trendapi.tgmeng.com/api/topsearch/gelonghui",platform: "格隆汇"},
+            "/finance/fabu": {title: "糖果梦热榜 · 财经 · 法布", description: "糖果梦热榜 · 财经 · 法布", link: "https://trendapi.tgmeng.com/api/topsearch/fabu",platform: "法布"},
+            "/finance/jinshi": {title: "糖果梦热榜 · 财经 · 金十", description: "糖果梦热榜 · 财经 · 金十", link: "https://trendapi.tgmeng.com/api/topsearch/jinshi",platform: "金十"}
+
+        }
+    },
+    "/sports": {
+        title: "糖果梦热榜 · 体育",
+        description: "糖果梦热榜 · 体育",
+        children: {
+            "/sports/yangshitiyu": {title: "糖果梦热榜 · 体育 · 央视体育", description: "糖果梦热榜 · 体育 · 央视体育", link: "https://trendapi.tgmeng.com/api/topsearch/yangshitiyu",platform: "央视体育"},
+            "/sports/hupu": {title: "糖果梦热榜 · 体育 · 虎扑", description: "糖果梦热榜 · 体育 · 虎扑", link: "https://trendapi.tgmeng.com/api/topsearch/hupu",platform: "虎扑"},
+            "/sports/xinlangtiyu": {title: "糖果梦热榜 · 体育 · 新浪体育", description: "糖果梦热榜 · 体育 · 新浪体育", link: "https://trendapi.tgmeng.com/api/topsearch/xinlangtiyu",platform: "新浪体育"},
+            "/sports/tiyuwangyi": {title: "糖果梦热榜 · 体育 · 网易体育", description: "糖果梦热榜 · 体育 · 网易体育", link: "https://trendapi.tgmeng.com/api/topsearch/tiyuwangyi",platform: "网易体育"},
+            "/sports/souhutiyu": {title: "糖果梦热榜 · 体育 · 搜狐体育", description: "糖果梦热榜 · 体育 · 搜狐体育", link: "https://trendapi.tgmeng.com/api/topsearch/souhutiyu",platform: "搜狐体育"},
+            "/sports/pptiyu": {title: "糖果梦热榜 · 体育 · PP体育", description: "糖果梦热榜 · 体育 · PP体育", link: "https://trendapi.tgmeng.com/api/topsearch/pptiyu",platform: "PP体育"},
+            "/sports/dongqiudi": {title: "糖果梦热榜 · 体育 · 懂球帝", description: "糖果梦热榜 · 体育 · 懂球帝", link: "https://trendapi.tgmeng.com/api/topsearch/dongqiudi",platform: "懂球帝"},
+            "/sports/zhiboba": {title: "糖果梦热榜 · 体育 · 直播吧", description: "糖果梦热榜 · 体育 · 直播吧", link: "https://trendapi.tgmeng.com/api/topsearch/zhiboba",platform: "直播吧"}
+        }
+    },
+    "/technology": {
+        title: "糖果梦热榜 · 科技",
+        description: "糖果梦热榜 · 科技",
+        children: {
+            "/technology/mit": {title: "糖果梦热榜 · 科技 · MIT科技评论", description: "糖果梦热榜 · 科技 · MIT科技评论", link: "https://trendapi.tgmeng.com/api/topsearch/mit",platform: "MIT科技评论"},
+            "/technology/jiqizhixin": {title: "糖果梦热榜 · 科技 · 机器之心", description: "糖果梦热榜 · 科技 · 机器之心", link: "https://trendapi.tgmeng.com/api/topsearch/jiqizhixin",platform: "机器之心"},
+            "/technology/rengongzhinengguojikejichuangxinzhongxin": {title: "糖果梦热榜 · 科技 · NCSTI-人工智能", description: "糖果梦热榜 · 科技 · NCSTI-人工智能", link: "https://trendapi.tgmeng.com/api/topsearch/rengongzhinengguojikejichuangxinzhongxin",platform: "NCSTI-人工智能"},
+            "/technology/yiyaojiankangguojikejichuangxinzhongxin": {title: "糖果梦热榜 · 科技 · NCSTI-医药健康", description: "糖果梦热榜 · 科技 · NCSTI-医药健康", link: "https://trendapi.tgmeng.com/api/topsearch/yiyaojiankangguojikejichuangxinzhongxin",platform: "NCSTI-医药健康"},
+            "/technology/allstars": {title: "糖果梦热榜 · 科技 · Github Star总榜", description: "糖果梦热榜 · 科技 · B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili",platform: "Github Star总榜"},
+            "/technology/daystars": {title: "糖果梦热榜 · 科技 · Github 近一日新仓库Star", description: "糖果梦热榜 · 科技 · Github 近一日新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/daystars",platform: "Github 近一日新仓库Star"},
+            "/technology/weekstars": {title: "糖果梦热榜 · 科技 · Github 近一周新仓库Star", description: "糖果梦热榜 · 科技 · Githu 近一周新仓库Starb", link: "https://trendapi.tgmeng.com/api/topsearch/github/weekstars",platform: "Github 近一周新仓库Star"},
+            "/technology/monthstars": {title: "糖果梦热榜 · 科技 · Github 近一月新仓库Star", description: "糖果梦热榜 · 科技 · Github 近一月新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/monthstars",platform: "Github 近一月新仓库Star"},
+            "/technology/yearstars": {title: "糖果梦热榜 · 科技 · Github 近一年新仓库Star", description: "糖果梦热榜 · 科技 · Github 近一年新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/yearstars",platform: "Github 近一年新仓库Star"},
+            "/technology/threeyearstars": {title: "糖果梦热榜 · 科技 · Github 近三年新仓库Star", description: "糖果梦热榜 · 科技 · Github 近三年新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/threeyearstars",platform: "Github 近三年新仓库Star"},
+            "/technology/fiveyearstars": {title: "糖果梦热榜 · 科技 · Github 近五年新仓库Star", description: "糖果梦热榜 · 科技 · Github 近五年新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/fiveyearstars",platform: "Github 近五年新仓库Star"},
+            "/technology/tenyearstars": {title: "糖果梦热榜 · 科技 · Github 近十年新仓库Star", description: "糖果梦热榜 · 科技 · Github 近十年新仓库Star", link: "https://trendapi.tgmeng.com/api/topsearch/github/tenyearstars",platform: "Github 近十年新仓库Star"},
+            "/technology/huggingfacespacestrending": {title: "糖果梦热榜 · 科技 · HuggingFace Spaces热门榜", description: "糖果梦热榜 · 科技 · HuggingFace Spaces热门榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacespacestrending",platform: "HuggingFace Spaces热门榜"},
+            "/technology/huggingfacespaceslikes": {title: "糖果梦热榜 · 科技 · HuggingFace Spaces点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Spaces点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacespaceslikes",platform: "HuggingFace Spaces点赞榜"},
+            "/technology/huggingfacemodelstrending": {title: "糖果梦热榜 · 科技 · HuggingFace Models热门榜", description: "糖果梦热榜 · 科技 · HuggingFace Models热门榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacemodelstrending",platform: "HuggingFace Models热门榜"},
+            "/technology/huggingfacemodellikes": {title: "糖果梦热榜 · 科技 · HuggingFace Models点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Models点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacemodellikes",platform: "HuggingFace Models点赞榜"},
+            "/technology/huggingfacedatasetstrending": {title: "糖果梦热榜 · 科技 · HuggingFace Datasets热门榜", description: "糖果梦热榜 · 科技 · HuggingFace Datasets热门榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacedatasetstrending",platform: "HuggingFace Datasets热门榜"},
+            "/technology/huggingfacedatasetslikes": {title: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingfacedatasetslikes",platform: "HuggingFace Datasets点赞榜"}
+        }
+    },
+    "/design": {
+        title: "糖果梦热榜 · 设计",
+        description: "糖果梦热榜 · 设计",
+        children: {
+            "/design/woshipm": {title: "糖果梦热榜 · 设计 · 人人都是产品经理", description: "糖果梦热榜 · 设计 · 人人都是产品经理", link: "https://trendapi.tgmeng.com/api/topsearch/woshipm",platform: "人人都是产品经理"},
+            "/design/youshewang": {title: "糖果梦热榜 · 设计 · 优设网", description: "糖果梦热榜 · 设计 · 优设网", link: "https://trendapi.tgmeng.com/api/topsearch/youshewang",platform: "优设网"},
+            "/design/topys": {title: "糖果梦热榜 · 设计 · TOPYS", description: "糖果梦热榜 · 设计 · TOPYS", link: "https://trendapi.tgmeng.com/api/topsearch/topys",platform: "TOPYS"},
+            "/design/archdaily": {title: "糖果梦热榜 · 设计 · ArchDaily", description: "糖果梦热榜 · 设计 · ArchDaily", link: "https://trendapi.tgmeng.com/api/topsearch/archdaily",platform: "ArchDaily"},
+            "/design/zuopinbangzhanku": {title: "糖果梦热榜 · 设计 · 站酷作品榜", description: "糖果梦热榜 · 设计 · 站酷作品榜", link: "https://trendapi.tgmeng.com/api/topsearch/zuopinbangzhanku",platform: "站酷作品榜"},
+            "/design/qianlibangzhanku": {title: "糖果梦热榜 · 设计 · 站酷潜力榜", description: "糖果梦热榜 · 设计 · 站酷潜力榜", link: "https://trendapi.tgmeng.com/api/topsearch/qianlibangzhanku",platform: "站酷潜力榜"},
+            "/design/wenzhangbangzhanku": {title: "糖果梦热榜 · 设计 · 站酷文章榜", description: "糖果梦热榜 · 设计 · 站酷文章榜", link: "https://trendapi.tgmeng.com/api/topsearch/wenzhangbangzhanku",platform: "站酷文章榜"},
+            "/design/shejidaren": {title: "糖果梦热榜 · 设计 · 设计达人", description: "糖果梦热榜 · 设计 · 设计达人", link: "https://trendapi.tgmeng.com/api/topsearch/shejidaren",platform: "设计达人"},
+            "/design/abduzeedo": {title: "糖果梦热榜 · 设计 · Abduzeedo", description: "糖果梦热榜 · 设计 · Abduzeedo", link: "https://trendapi.tgmeng.com/api/topsearch/abduzeedo",platform: "Abduzeedo"},
+            "/design/core77": {title: "糖果梦热榜 · 设计 · Core77", description: "糖果梦热榜 · 设计 · Core77", link: "https://trendapi.tgmeng.com/api/topsearch/core77",platform: "Core77"},
+            "/design/dribbble": {title: "糖果梦热榜 · 设计 · Dribbble", description: "糖果梦热榜 · 设计 · Dribbble", link: "https://trendapi.tgmeng.com/api/topsearch/dribbble",platform: "Dribbble"},
+            "/design/awwwards": {title: "糖果梦热榜 · 设计 · Awwwards", description: "糖果梦热榜 · 设计 · Awwwards", link: "https://trendapi.tgmeng.com/api/topsearch/awwwards",platform: "Awwwards"},
+            "/design/remenzuopintuyawangguo": {title: "糖果梦热榜 · 设计 · 涂鸦王国热门作品", description: "糖果梦热榜 · 设计 · 涂鸦王国热门作品", link: "https://trendapi.tgmeng.com/api/topsearch/remenzuopintuyawangguo",platform: "涂鸦王国热门作品"},
+            "/design/jingxuanzuopintuyawangguo": {title: "糖果梦热榜 · 设计 · 涂鸦王国精选作品", description: "糖果梦热榜 · 设计 · 涂鸦王国精选作品", link: "https://trendapi.tgmeng.com/api/topsearch/jingxuanzuopintuyawangguo",platform: "涂鸦王国精选作品"},
+            "/design/jinrixinzuotuyawangguo": {title: "糖果梦热榜 · 设计 · 涂鸦王国今日新作", description: "糖果梦热榜 · 设计 · 涂鸦王国今日新作", link: "https://trendapi.tgmeng.com/api/topsearch/jinrixinzuotuyawangguo",platform: "涂鸦王国今日新作"},
+            "/design/faxianxinzuotuyawangguo": {title: "糖果梦热榜 · 设计 · 涂鸦王国发现新作", description: "糖果梦热榜 · 设计 · 涂鸦王国发现新作", link: "https://trendapi.tgmeng.com/api/topsearch/faxianxinzuotuyawangguo",platform: "涂鸦王国发现新作"}
+        }
+    },
+    "/audiovideo": {
+        title: "糖果梦热榜 · 影音",
+        description: "糖果梦热榜 · 影音",
+        children: {
+            "/audiovideo/zhoupiaofangbangmaoyan": {title: "糖果梦热榜 · 影音 · 猫眼 周票房榜", description: "糖果梦热榜 · 影音 · 猫眼 周票房榜", link: "https://trendapi.tgmeng.com/api/topsearch/zhoupiaofangbangmaoyan",platform: "猫眼 周票房榜"},
+            "/audiovideo/xiangkanbangmaoyan": {title: "糖果梦热榜 · 影音 · 猫眼 想看榜", description: "糖果梦热榜 · 影音 · 猫眼 想看榜", link: "https://trendapi.tgmeng.com/api/topsearch/xiangkanbangmaoyan",platform: "猫眼 想看榜"},
+            "/audiovideo/goupiaopingfenbangmaoyan": {title: "糖果梦热榜 · 影音 · 猫眼 购票评分榜", description: "糖果梦热榜 · 影音 · 猫眼 购票评分榜", link: "https://trendapi.tgmeng.com/api/topsearch/goupiaopingfenbangmaoyan",platform: "猫眼 购票评分榜"},
+            "/audiovideo/top100maoyan": {title: "糖果梦热榜 · 影音 · 猫眼 历史总榜", description: "糖果梦热榜 · 影音 · 猫眼 历史总榜", link: "https://trendapi.tgmeng.com/api/topsearch/top100maoyan",platform: "猫眼 历史总榜"},
+            "/audiovideo/biaoshengwangyiyun": {title: "糖果梦热榜 · 影音 · 网易云 飙升榜", description: "糖果梦热榜 · 影音 · 网易云 飙升榜", link: "https://trendapi.tgmeng.com/api/topsearch/biaoshengwangyiyun",platform: "网易云 飙升榜"},
+            "/audiovideo/xingegwangyiyun": {title: "糖果梦热榜 · 影音 · 网易云 新歌榜", description: "糖果梦热榜 · 影音 · 网易云 新歌榜", link: "https://trendapi.tgmeng.com/api/topsearch/xingegwangyiyun",platform: "网易云 新歌榜"},
+            "/audiovideo/yuanchuangwangyiyun": {title: "糖果梦热榜 · 影音 · 网易云 原创榜", description: "糖果梦热榜 · 影音 · 网易云 原创榜", link: "https://trendapi.tgmeng.com/api/topsearch/yuanchuangwangyiyun",platform: "网易云 原创榜"},
+            "/audiovideo/regewangyiyun": {title: "糖果梦热榜 · 影音 · 网易云 热歌榜", description: "糖果梦热榜 · 影音 · 网易云 热歌榜", link: "https://trendapi.tgmeng.com/api/topsearch/regewangyiyun",platform: "网易云 热歌榜"},
+            "/audiovideo/zongyitengxun": {title: "糖果梦热榜 · 影音 · 腾讯视频 综艺", description: "糖果梦热榜 · 影音 · 腾讯视频 综艺", link: "https://trendapi.tgmeng.com/api/topsearch/zongyitengxun",platform: "腾讯视频 综艺"},
+            "/audiovideo/zongyiaiqiyi": {title: "糖果梦热榜 · 影音 · 爱奇艺 综艺", description: "糖果梦热榜 · 影音 · 爱奇艺 综艺", link: "https://trendapi.tgmeng.com/api/topsearch/zongyiaiqiyi",platform: "爱奇艺 综艺"},
+            "/audiovideo/zongyimangguo": {title: "糖果梦热榜 · 影音 · 芒果 综艺", description: "糖果梦热榜 · 影音 · 芒果 综艺", link: "https://trendapi.tgmeng.com/api/topsearch/zongyimangguo",platform: "芒果 综艺"},
+            "/audiovideo/zongyiyouku": {title: "糖果梦热榜 · 影音 · 优酷 综艺", description: "糖果梦热榜 · 影音 · 优酷 综艺", link: "https://trendapi.tgmeng.com/api/topsearch/zongyiyouku",platform: "优酷 综艺"},
+            "/audiovideo/dianshijutengxun": {title: "糖果梦热榜 · 影音 · 腾讯视频 电视剧", description: "糖果梦热榜 · 影音 · 腾讯视频 电视剧", link: "https://trendapi.tgmeng.com/api/topsearch/dianshijutengxun",platform: "腾讯视频 电视剧"},
+            "/audiovideo/dianshijuaiqiyi": {title: "糖果梦热榜 · 影音 · 爱奇艺 电视剧", description: "糖果梦热榜 · 影音 · 爱奇艺 电视剧", link: "https://trendapi.tgmeng.com/api/topsearch/dianshijuaiqiyi",platform: "爱奇艺 电视剧"},
+            "/audiovideo/dianshijumangguo": {title: "糖果梦热榜 · 影音 · 芒果 电视剧", description: "糖果梦热榜 · 影音 · 芒果 电视剧", link: "https://trendapi.tgmeng.com/api/topsearch/dianshijumangguo",platform: "芒果 电视剧"},
+            "/audiovideo/dianshijuyouku": {title: "糖果梦热榜 · 影音 · 优酷 电视剧", description: "糖果梦热榜 · 影音 · 优酷 电视剧", link: "https://trendapi.tgmeng.com/api/topsearch/dianshijuyouku",platform: "优酷 电视剧"},
+            "/audiovideo/dianyingtengxun": {title: "糖果梦热榜 · 影音 · '腾讯视频 电影", description: "糖果梦热榜 · 影音 · '腾讯视频 电影", link: "https://trendapi.tgmeng.com/api/topsearch/dianyingtengxun",platform: "'腾讯视频 电影"},
+            "/audiovideo/dianyingaiqiyi": {title: "糖果梦热榜 · 影音 · 爱奇艺 电影", description: "糖果梦热榜 · 影音 · 爱奇艺 电影", link: "https://trendapi.tgmeng.com/api/topsearch/dianyingaiqiyi",platform: "爱奇艺 电影"},
+            "/audiovideo/dianyingmangguo": {title: "糖果梦热榜 · 影音 · 芒果 电影", description: "糖果梦热榜 · 影音 · 芒果 电影", link: "https://trendapi.tgmeng.com/api/topsearch/dianyingmangguo",platform: "芒果 电影"},
+            "/audiovideo/dianyingyouku": {title: "糖果梦热榜 · 影音 · 优酷 电影", description: "糖果梦热榜 · 影音 · 优酷 电影", link: "https://trendapi.tgmeng.com/api/topsearch/dianyingyouku",platform: "优酷 电影"},
+            "/audiovideo/dongmantengxun": {title: "糖果梦热榜 · 影音 · 腾讯视频 动漫", description: "糖果梦热榜 · 影音 · 腾讯视频 动漫", link: "https://trendapi.tgmeng.com/api/topsearch/dongmantengxun",platform: "腾讯视频 动漫"},
+            "/audiovideo/dongmanaiqiyi": {title: "糖果梦热榜 · 影音 · 爱奇艺 动漫", description: "糖果梦热榜 · 影音 · 爱奇艺 动漫", link: "https://trendapi.tgmeng.com/api/topsearch/dongmanaiqiyi",platform: "爱奇艺 动漫"},
+            "/audiovideo/dongmanmangguo": {title: "糖果梦热榜 · 影音 · 芒果 动漫", description: "糖果梦热榜 · 影音 · 芒果 动漫", link: "https://trendapi.tgmeng.com/api/topsearch/dongmanmangguo",platform: "芒果 动漫"},
+            "/audiovideo/dongmanyouku": {title: "糖果梦热榜 · 影音 · 优酷 动漫", description: "糖果梦热榜 · 影音 · 优酷 动漫", link: "https://trendapi.tgmeng.com/api/topsearch/dongmanyouku",platform: "优酷 动漫"},
+            "/audiovideo/zongbangtengxun": {title: "糖果梦热榜 · 影音 · 腾讯视频 总榜", description: "糖果梦热榜 · 影音 · 腾讯视频 总榜", link: "https://trendapi.tgmeng.com/api/topsearch/zongbangtengxun",platform: "腾讯视频 总榜"},
+            "/audiovideo/zongbangaiqiyi": {title: "糖果梦热榜 · 影音 · 爱奇艺 总榜", description: "糖果梦热榜 · 影音 · 爱奇艺 总榜", link: "https://trendapi.tgmeng.com/api/topsearch/zongbangaiqiyi",platform: "爱奇艺 总榜"},
+            "/audiovideo/zongbangmangguo": {title: "糖果梦热榜 · 影音 · 芒果 总榜", description: "糖果梦热榜 · 影音 · 芒果 总榜", link: "https://trendapi.tgmeng.com/api/topsearch/zongbangmangguo",platform: "芒果 总榜"},
+            "/audiovideo/zongbangyouku": {title: "糖果梦热榜 · 影音 · 优酷 总榜", description: "糖果梦热榜 · 影音 · 优酷 总榜", link: "https://trendapi.tgmeng.com/api/topsearch/zongbangyouku",platform: "优酷 总榜"},
+            "/audiovideo/dianshijubaidu": {title: "糖果梦热榜 · 影音 · 百度 电视剧", description: "糖果梦热榜 · 影音 · 影音", link: "https://trendapi.tgmeng.com/api/topsearch/dianshijubaidu",platform: "百度 电视剧"},
+            "/audiovideo/dianyingbaidu": {title: "糖果梦热榜 · 影音 · 百度 电影", description: "糖果梦热榜 · 影音 · 影音", link: "https://trendapi.tgmeng.com/api/topsearch/dianyingbaidu",platform: "百度 电影"}
+        }
+    },
+    "/game": {
+        title: "糖果梦热榜 · 游戏",
+        description: "糖果梦热榜 · 游戏",
+        children: {
+            "/game/ign": {title: "糖果梦热榜 · 游戏 · IGN", description: "糖果梦热榜 · 游戏 · IGN", link: "https://trendapi.tgmeng.com/api/topsearch/ign",platform: "IGN"},
+            "/game/3dmgame": {title: "糖果梦热榜 · 游戏 · 3DMGAME", description: "糖果梦热榜 · 游戏 · 3DMGAME", link: "https://trendapi.tgmeng.com/api/topsearch/3dmgame",platform: "3DMGAME"},
+            "/game/a9vg": {title: "糖果梦热榜 · 游戏 · A9VG", description: "糖果梦热榜 · 游戏 · A9VG", link: "https://trendapi.tgmeng.com/api/topsearch/a9vg",platform: "A9VG"},
+            "/game/gcores": {title: "糖果梦热榜 · 游戏 · GCORES", description: "糖果梦热榜 · 游戏 · GCORES", link: "https://trendapi.tgmeng.com/api/topsearch/gcores",platform: "GCORES"},
+            "/game/youminxingkong": {title: "糖果梦热榜 · 游戏 · 游民星空", description: "糖果梦热榜 · 游戏 · 游民星空", link: "https://trendapi.tgmeng.com/api/topsearch/youminxingkong",platform: "游民星空"},
+            "/game/youxituoluo": {title: "糖果梦热榜 · 游戏 · 游戏陀螺", description: "糖果梦热榜 · 游戏 · 游戏陀螺", link: "https://trendapi.tgmeng.com/api/topsearch/youxituoluo",platform: "游戏陀螺"},
+            "/game/youyanshe": {title: "糖果梦热榜 · 游戏 · 游研社", description: "糖果梦热榜 · 游戏 · 游研社", link: "https://trendapi.tgmeng.com/api/topsearch/youyanshe",platform: "游研社"},
+            "/game/youxiawang": {title: "糖果梦热榜 · 游戏 · 游侠网", description: "糖果梦热榜 · 游戏 · 游侠网", link: "https://trendapi.tgmeng.com/api/topsearch/youxiawang",platform: "游侠网"},
+            "/game/17173": {title: "糖果梦热榜 · 游戏 · 17173", description: "糖果梦热榜 · 游戏 · 17173", link: "https://trendapi.tgmeng.com/api/topsearch/17173",platform: "17173"}
+
+        }
+    },
+    "/health": {
+        title: "糖果梦热榜 · 健康",
+        description: "糖果梦热榜 · 健康",
+        children: {
+            "/health/shengwugu": {title: "糖果梦热榜 · 健康 · 生物谷", description: "糖果梦热榜 · 健康 · 生物谷", link: "https://trendapi.tgmeng.com/api/topsearch/shengwugu",platform: "生物谷"},
+            "/health/shengmingshibao": {title: "糖果梦热榜 · 健康 · 生命时报", description: "糖果梦热榜 · 健康 · 生命时报", link: "https://trendapi.tgmeng.com/api/topsearch/shengmingshibao",platform: "生命时报"},
+            "/health/dingxiangyuanshequ": {title: "糖果梦热榜 · 健康 · 丁香园社区", description: "糖果梦热榜 · 健康 · 丁香园社区", link: "https://trendapi.tgmeng.com/api/topsearch/dingxiangyuanshequ",platform: "丁香园社区"},
+            "/health/dingxiangyisheng": {title: "糖果梦热榜 · 健康 · 丁香医生", description: "糖果梦热榜 · 健康 · 丁香医生", link: "https://trendapi.tgmeng.com/api/topsearch/dingxiangyisheng",platform: "丁香医生"},
+            "/health/yiyaomofang": {title: "糖果梦热榜 · 健康 · 医药魔方", description: "糖果梦热榜 · 健康 · 医药魔方", link: "https://trendapi.tgmeng.com/api/topsearch/yiyaomofang",platform: "医药魔方"},
+            "/health/jiayidajiankang": {title: "糖果梦热榜 · 健康 · 家医大健康", description: "糖果梦热榜 · 健康 · 家医大健康", link: "https://trendapi.tgmeng.com/api/topsearch/jiayidajiankang",platform: "家医大健康"},
+            "/health/jiankangshibaowang": {title: "糖果梦热榜 · 健康 · 健康时报网", description: "糖果梦热榜 · 健康 · 健康时报网", link: "https://trendapi.tgmeng.com/api/topsearch/jiankangshibaowang",platform: "健康时报网"},
+            "/health/guoke": {title: "糖果梦热榜 · 健康 · 果壳", description: "糖果梦热榜 · 健康 · 果壳", link: "https://trendapi.tgmeng.com/api/topsearch/guoke",platform: "果壳"}
+        }
+    },
+    "/tv": {
+        title: "糖果梦热榜 · 电视",
+        description: "糖果梦热榜 · 电视",
+        children: {
+            "/tv/cctv/1": {title: "糖果梦热榜 · 电视 · CCTV1 综合", description: "糖果梦热榜 · 电视 · CCTV1 综合", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/1",platform: "CCTV1 综合"},
+            "/tv/cctv/2": {title: "糖果梦热榜 · 电视 · CCTV2 财经", description: "糖果梦热榜 · 电视 · CCTV2 财经", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/2",platform: "CCTV2 财经"},
+            "/tv/cctv/3": {title: "糖果梦热榜 · 电视 · CCTV3 综艺", description: "糖果梦热榜 · 电视 · CCTV3 综艺", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/3",platform: "CCTV3 综艺"},
+            "/tv/cctv/4": {title: "糖果梦热榜 · 电视 · CCTV4 亚洲", description: "糖果梦热榜 · 电视 · CCTV4 亚洲", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/4",platform: "CCTV4 亚洲"},
+            "/tv/cctv/europe": {title: "糖果梦热榜 · 电视 · CCTV4 欧洲", description: "糖果梦热榜 · 电视 · CCTV4 欧洲", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/europe",platform: "CCTV4 欧洲"},
+            "/tv/cctv/america": {title: "糖果梦热榜 · 电视 · CCTV4 美洲", description: "糖果梦热榜 · 电视 · CCTV4 美洲", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/america",platform: "CCTV4 美洲"},
+            "/tv/cctv/5": {title: "糖果梦热榜 · 电视 · CCTV5 体育", description: "糖果梦热榜 · 电视 · CCTV5 体育", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/5",platform: "CCTV5 体育"},
+            "/tv/cctv/5plus": {title: "糖果梦热榜 · 电视 · CCTV5 体育赛事", description: "糖果梦热榜 · 电视 · CCTV5 体育赛事", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/5plus",platform: "CCTV5 体育赛事"},
+            "/tv/cctv/6": {title: "糖果梦热榜 · 电视 · CCTV6 电影", description: "糖果梦热榜 · 电视 · CCTV6 电影", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/6",platform: "CCTV6 电影"},
+            "/tv/cctv/7": {title: "糖果梦热榜 · 电视 · CCTV7 国防军事", description: "糖果梦热榜 · 电视 · CCTV7 国防军事", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/7",platform: "CCTV7 国防军事"},
+            "/tv/cctv/8": {title: "糖果梦热榜 · 电视 · CCTV8 电视剧", description: "糖果梦热榜 · 电视 · CCTV8 电视剧", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/8",platform: "CCTV8 电视剧"},
+            "/tv/cctv/jilu": {title: "糖果梦热榜 · 电视 · CCTV9 记录", description: "糖果梦热榜 · 电视 · CCTV9 记录", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/jilu",platform: "CCTV9 记录"},
+            "/tv/cctv/10": {title: "糖果梦热榜 · 电视 · CCTV10 科教", description: "糖果梦热榜 · 电视 · CCTV10 科教", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/10",platform: "CCTV10 科教"},
+            "/tv/cctv/11": {title: "糖果梦热榜 · 电视 · CCTV11 戏曲", description: "糖果梦热榜 · 电视 · CCTV11 戏曲", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/11",platform: "CCTV11 戏曲"},
+            "/tv/cctv/12": {title: "糖果梦热榜 · 电视 · CCTV12 社会与法", description: "糖果梦热榜 · 电视 · CCTV12 社会与法", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/12",platform: "CCTV12 社会与法"},
+            "/tv/cctv/13": {title: "糖果梦热榜 · 电视 · CCTV13 新闻", description: "糖果梦热榜 · 电视 · CCTV13 新闻", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/13",platform: "CCTV13 新闻"},
+            "/tv/cctv/child": {title: "糖果梦热榜 · 电视 · CCTV14 少儿", description: "糖果梦热榜 · 电视 · CCTV14 少儿", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/child",platform: "CCTV14 少儿"},
+            "/tv/cctv/15": {title: "糖果梦热榜 · 电视 · CCTV15 音乐", description: "糖果梦热榜 · 电视 · CCTV15 音乐", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/15",platform: "CCTV15 音乐"},
+            "/tv/cctv/16": {title: "糖果梦热榜 · 电视 · CCTV16 奥林匹克", description: "糖果梦热榜 · 电视 · CCTV16 奥林匹克", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/16",platform: "CCTV16 奥林匹克"},
+            "/tv/cctv/17": {title: "糖果梦热榜 · 电视 · CCTV17 农业与村", description: "糖果梦热榜 · 电视 · CCTV17 农业与村", link: "https://trendapi.tgmeng.com/api/topsearch/cctv/17",platform: "CCTV17 农业与村"}
+
         }
     }
 };
