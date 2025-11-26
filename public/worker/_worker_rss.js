@@ -4,31 +4,16 @@ export default function generateRSS(key) {
             title: "糖果梦热榜 · 新闻",
             description: "站内新闻分类下所有的平台热点",
             children: {
-                "/news/tencent": {
-                    title: "糖果梦热榜 · 新闻 · 腾讯",
-                    description: "站内新闻分类下的腾讯热点",
-                    link: "https://trendapi.tgmeng.com/api/topsearch/tencent"
-                },
-                "/news/toutiao": {
-                    title: "糖果梦热榜 · 新闻 · 头条",
-                    description: "站内新闻分类下的头条热点",
-                    link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"
-                }
+                "/news/tencent": {title: "新闻·腾讯", description: "腾讯", link: "https://trendapi.tgmeng.com/api/topsearch/tencent"},
+                "/news/toutiao": {title: "新闻·头条", description: "头条", link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"}
             }
         },
         "/media": {
             title: "糖果梦热榜 · 媒体",
             description: "站内媒体分类下所有的平台热点",
             children: {
-                "/media/bilibili": {
-                    title: "糖果梦热榜 · 媒体 · B站",
-                    description: "站内媒体分类下的B站热点",
-                    link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"
-                },
-                "/media/douyin": {
-                    title: "糖果梦热榜 · 媒体 · 抖音",
-                    description: "站内媒体分类下的抖音热点",
-                    link: "https://trendapi.tgmeng.com/api/topsearch/douyin"
+                "/media/bilibili": {title: "媒体·B站", description: "B站", link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"},
+                "/media/douyin": {title: "媒体·抖音", description: "抖音", link: "https://trendapi.tgmeng.com/api/topsearch/douyin"
                 }
             }
         }
@@ -89,10 +74,10 @@ export default function generateRSS(key) {
         function generateItemXml(item) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
-            const description =  `点击标题查看详细内容`;
+            const description =  `<a href="${link}" target="_blank">点击标题查看详细内容</a>`;
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
-            <title>${title}</title>
+            <title>${info.title} · ${title}</title>
             <link>${link}</link>
             <description>${description}</description>
             <pubDate>${pubDate}</pubDate>
