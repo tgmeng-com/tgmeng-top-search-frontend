@@ -1,39 +1,33 @@
 export default function generateRSS(key) {
     const rssMap = {
         "/news": {
-            title: "新闻资讯",
-            description: "新闻资讯",
-            logo: "",
+            title: "糖果梦热榜 · 新闻",
+            description: "站内新闻分类下所有的平台热点",
             children: {
                 "/news/tencent": {
-                    title: "腾讯",
-                    description: "腾讯",
-                    logo: "",
+                    title: "糖果梦热榜 · 新闻 · 腾讯",
+                    description: "站内新闻分类下的腾讯热点",
                     link: "https://trendapi.tgmeng.com/api/topsearch/tencent"
                 },
                 "/news/toutiao": {
-                    title: "头条",
-                    description: "头条",
-                    logo: "",
+                    title: "糖果梦热榜 · 新闻 · 头条",
+                    description: "站内新闻分类下的头条热点",
                     link: "https://trendapi.tgmeng.com/api/topsearch/toutiao"
                 }
             }
         },
         "/media": {
-            title: "媒体资讯",
-            description: "媒体资讯",
-            logo: "",
+            title: "糖果梦热榜 · 媒体",
+            description: "站内媒体分类下所有的平台热点",
             children: {
                 "/media/bilibili": {
-                    title: "B站",
-                    description: "B站",
-                    logo: "",
+                    title: "糖果梦热榜 · 媒体 · B站",
+                    description: "站内媒体分类下的B站热点",
                     link: "https://trendapi.tgmeng.com/api/topsearch/bilibili"
                 },
                 "/media/douyin": {
-                    title: "抖音",
-                    description: "抖音",
-                    logo: "",
+                    title: "糖果梦热榜 · 媒体 · 抖音",
+                    description: "站内媒体分类下的抖音热点",
                     link: "https://trendapi.tgmeng.com/api/topsearch/douyin"
                 }
             }
@@ -53,7 +47,7 @@ export default function generateRSS(key) {
 
     const info = key === "/" ? {
         title: "聚合 RSS",
-        description: "汇总全部分类",
+        description: "糖果梦热榜 · 全站热点",
         logo: "",
         children: rssMap
     } : findNode(rssMap, key);
@@ -95,13 +89,14 @@ export default function generateRSS(key) {
         function generateItemXml(item) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
-            const description = escapeXml(item.description || '', true);
+            const description =  `点击标题查看详细内容`;
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
             <title>${title}</title>
             <link>${link}</link>
             <description>${description}</description>
             <pubDate>${pubDate}</pubDate>
+            <guid isPermaLink="false">${link}</guid>
         </item>`;
         }
 
@@ -112,18 +107,26 @@ export default function generateRSS(key) {
             const t = new Date(item.pubDate).getTime();
             return t > latest ? t : latest;
         }, 0) : new Date().getTime();
+        const currentYear = new Date().getFullYear();
 
         const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
-
-                <rss version="2.0">
-                <channel>
-                <title>${escapeXml(info.title)}</title>
+        <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+            <title>${escapeXml(info.title)}</title>
             <link>https://tgmeng.com</link>
             <description>${escapeXml(info.description)}</description>
+            
             <language>zh-cn</language>
+            <copyright>Copyright ${currentYear} tgmeng.com. All rights reserved.</copyright>
+            <managingEditor>糖果梦</managingEditor>
+            <webMaster>糖果梦</webMaster>
+            <ttl>1</ttl>
+            <atom:link href="https://tgmeng.com${key}/rss.xml" rel="self" type="application/rss+xml" />
+            
             <lastBuildDate>${new Date(lastBuildDate || Date.now()).toUTCString()}</lastBuildDate>
             <image>
-                <url>${info.logo || "https://tgmeng.com/logo.png"}</url>
+                <url>https://tgmeng.com/logo.png</url>
+                <title>糖果梦热榜</title>
                 <link>https://tgmeng.com</link>
             </image>
             ${itemsXml}
