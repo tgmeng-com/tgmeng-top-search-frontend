@@ -16,12 +16,13 @@ export default {
         if (url.pathname.endsWith("/rss.xml")) {
             let key = url.pathname.slice(0, -"/rss.xml".length);
             if (key === "") key = "/";
-            const xml = generateRSS(key);
-            return new Response(xml, {
-                headers: {
-                    "content-type": "application/xml",
-                    "cache-control": "no-cache"
-                }
+            return generateRSS(key).then(xml => {
+                return new Response(xml, {
+                    headers: {
+                        "content-type": "application/xml",
+                        "cache-control": "no-cache"
+                    }
+                });
             });
         }
         return env.ASSETS.fetch(request);
