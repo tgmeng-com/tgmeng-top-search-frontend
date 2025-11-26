@@ -1,3 +1,5 @@
+// TODO 里面每个平台的rss值保持和_worker_rss_datamap.js里的一致
+
 class Platform {
     constructor(title, api, logo, sort, rss, isShow = true, isStar = false) {
         this.title = title;
@@ -9,7 +11,7 @@ class Platform {
         this.isShow = isShow;
         this.sort = sort;
         this.isStar = isStar;
-        this.rss = ''
+        this.rss = rss
     }
 }
 
@@ -432,8 +434,8 @@ export default createStore({
                 isShow: true,
                 sort: 8,
                 subCategories: [
-                    new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png'), 39, '/media/mit'),
-                    new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png'), 40, '/media/jiqizhixin'),
+                    new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png'), 39, '/technology/mit'),
+                    new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png'), 40, '/technology/jiqizhixin'),
                     // EurekAlert服务器暂时没法访问，所以先不放了
                     // new Platform('EurekAlert', topSearchForEurekAlert, require('@/assets/logos/tgmeng-trend-eurekalert.png'), 41),
                     new Platform('NCSTI-人工智能', topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png'), 42, '/technology/rengongzhinengguojikejichuangxinzhongxin'),

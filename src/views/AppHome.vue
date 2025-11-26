@@ -21,7 +21,7 @@
               :disabled="!categroiesDraggable"
           >
             <template #item="{ element: cat }">
-              <div class="mr-2 last:mr-0"> <!-- 保持按钮间距 -->
+              <div class="mr-2 last:mr-0 relative"> <!-- 保持按钮间距 -->
                 <button
                     v-show="cat.isShow"
                     :data-umami-event="cat.name"
@@ -37,6 +37,17 @@
                 >
                   <h1><span class="dark:text-dark-text" :style="categroiesTitleStyle">{{ cat.name }}</span></h1>
                 </button>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-80"
+                     @click.stop="handleRssClick(cat)"
+                     v-if="cat.id !== 13"
+                >
+                  <rect width="24" height="24" rx="3" ry="3" fill="#FFA500"/>
+                  <circle cx="6" cy="18" r="2" fill="white"/>
+                  <path d="M4 4c9.941 0 18 8.059 18 18" stroke="white" stroke-width="2" fill="none"/>
+                  <path d="M4 10c6.627 0 12 5.373 12 12" stroke="white" stroke-width="2" fill="none"/>
+                </svg>
               </div>
             </template>
           </draggable>
@@ -224,6 +235,7 @@
                   :updateTime="p.updateTime"
                   :list="p.data"
                   :loading="p.loading"
+                  :rss="p.rss"
                   v-model:isStar="p.isStar"
                   @updateCategroiesCache="updateCategroiesCache"
                   @fetchData="()=>fetchData(p)"
@@ -385,13 +397,20 @@ export default {
         this.handleCategoryClick(this.activeCategory, {skipRoutePush: true});
       }
     },
+    handleRssClick(cat) {
+      if (cat.id === 0){
+        window.open('https://tgmeng.com/rss.xml', '_blank');
+      }else {
+        window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
+      }
+    },
 
     // 分类按钮点击事件
     handleCategoryClick(cat, options = {}) {
       // skipRoutePush，防止重复推路由
       if (!options.skipRoutePush) {
         // excel页面点击分类按钮的时候，不换路由
-        if (this.$route.path !== '/excel'){
+        if (this.$route.path !== '/excel') {
           this.$router.push({name: 'Category', params: {category: cat.routerName}});
         }
       }

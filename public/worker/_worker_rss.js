@@ -1,4 +1,4 @@
-import dataMap from "./_worder_rss_datamap.js";
+import dataMap from "./_worker_rss_datamap.js";
 
 export default function generateRSS(key) {
 

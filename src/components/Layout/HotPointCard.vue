@@ -11,11 +11,24 @@
           :style="cardTopStyle">
         <component :is="isStar ? 'StarFilled' : 'Star'"/>
       </el-icon>
-
-      <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">{{ title }}</h1>
+      <div>
+        <a :href="'https://tgmeng.com' + rss+ '/rss.xml'" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 24 24"
+               :style="{ width: cardTopStyle.fontSize, height: cardTopStyle.fontSize }">
+            <rect width="24" height="24" rx="4" ry="4" fill="#FFA500"/>
+            <circle cx="6" cy="18" r="2" fill="white"/>
+            <path d="M4 4c9.941 0 18 8.059 18 18" stroke="white" stroke-width="2" fill="none"/>
+            <path d="M4 10c6.627 0 12 5.373 12 12" stroke="white" stroke-width="2" fill="none"/>
+          </svg>
+        </a>
+      </div>
+      <h1 class="ml-2 font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">{{
+          title
+        }}</h1>
       <span v-if="cardTimeShow"
-          class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-xl dark:text-dark-text"
-          :style="cardTopTimeStyle">
+            class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-xl dark:text-dark-text"
+            :style="cardTopTimeStyle">
         <el-button
             link
             @click="onRefreshCardData"
@@ -149,14 +162,14 @@
               </template>
             </div>
           </li>
-<!--          &lt;!&ndash; 信息流广告 li &ndash;&gt;-->
-<!--          <li v-if="shouldShowAd(index)">-->
-<!--            <GoogleAdsense ad-client="ca-pub-3286880109560525"-->
-<!--                           ad-slot="4294342531"-->
-<!--                           ad-format="fluid"-->
-<!--                           ad-layout-key="-i1-y+5r-2a-c0"-->
-<!--                           :full-width-responsive="true"/>-->
-<!--          </li>-->
+          <!--          &lt;!&ndash; 信息流广告 li &ndash;&gt;-->
+          <!--          <li v-if="shouldShowAd(index)">-->
+          <!--            <GoogleAdsense ad-client="ca-pub-3286880109560525"-->
+          <!--                           ad-slot="4294342531"-->
+          <!--                           ad-format="fluid"-->
+          <!--                           ad-layout-key="-i1-y+5r-2a-c0"-->
+          <!--                           :full-width-responsive="true"/>-->
+          <!--          </li>-->
         </template>
       </ul>
 
@@ -292,6 +305,7 @@ export default {
     updateTime: String,
     list: Array,
     isStar: Boolean,
+    rss: String,
     loading: {
       type: Boolean,
       default: false,
@@ -312,7 +326,7 @@ export default {
       }
     },
     // 卡片顶部时间样式
-    cardTopTimeStyle(){
+    cardTopTimeStyle() {
       return {
         fontSize: this.cardTopFontSize - 0.125 + 'rem',
         opacity: 0.9,
