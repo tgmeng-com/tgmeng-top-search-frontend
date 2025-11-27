@@ -354,6 +354,6 @@ export default {
   }
 }
 .headStyle{
-  z-index: 10000 !important;
+  z-index: 1900 !important;
 }
 </style>
