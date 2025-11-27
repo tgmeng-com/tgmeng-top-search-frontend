@@ -72,10 +72,6 @@
                       :key="index"
                       class="flex items-start space-x-3"
                   >
-                    <div
-                        class="w-6 h-6 bg-blue-500 text-white text-xs rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      {{ index + 1 }}
-                    </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 text-left">{{ step }}</p>
                   </div>
                 </div>
