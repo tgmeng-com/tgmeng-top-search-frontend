@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-8 py-6">
+  <div class="container mx-auto px-8 py-6" :style="widthPaddingStyle">
     <HeaderComponent/>
     <NotificationComponent/>
     <!-- 友链 -->
@@ -37,6 +37,22 @@ export default {
     return {
       homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
     }
+  },
+  computed: {
+    widthPaddingStyle() {
+      return {
+        width: this.widthPadding + '% !important',
+      }
+    },
+    // 边距缩放，就是屏幕两边的，主要是为了移动端i
+    widthPadding: {
+      get() {
+        return this.$store.state.widthPadding;
+      },
+      set(newPadding) {
+        this.$store.commit('setWidthPadding', newPadding);
+      }
+    }
   }
 }
 </script>
@@ -52,8 +68,5 @@ export default {
   width: 100%;
   margin: 0;
   padding: 0;
-}
-.container{
-  width: 95% !important;
 }
 </style>

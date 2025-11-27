@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/11/27 21:15',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增自定义设置：边距缩进、词云展示、访问量展示'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/11/26 23:40',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增支持RSS，支持全部、分类、平台单独订阅'], tag: 'Feat'

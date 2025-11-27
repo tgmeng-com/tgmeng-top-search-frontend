@@ -22,6 +22,12 @@ export const LOCAL_STORAGE_KEYS = {
     // excel分类名称字体大小
     EXCEL_CATEGORIES_TITLE_FONT_SIZE: 'excelCategroiesTitleFontSize',
     EXCEL_CATEGORIES_TITLE_FONT_WEIGHT: 'excelCategroiesTitleFontWeight',
+    // 词云是否展示
+    WORD_CLOUD_SHOW: 'wordCloudShow',
+    // 访问量展示
+    PAGE_VIEWS_SHOW: 'pageViewsShow',
+    // 边距缩放，就是屏幕两边的，主要是为了移动端i
+    WIDTH_PADDING: 'widthPadding',
 };
 
 // 设置本地存储

@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <div
+      <div v-if="pageViewsShow"
           class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
@@ -93,6 +93,38 @@
             👉🏻点击展开样式自定义设置👈🏻
             </span>&nbsp;
           </template>
+
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 左侧：统计数据（移动端换行显示） -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                边距缩进：<el-input-number class="input-title" v-model="widthPadding" :min="10" :max="100"
+                                          size="small"
+                                          :precision="0" :step="5" @change="changeWidthPadding"/>
+              </span>&nbsp;
+
+              <!-- 自定义分类是否可以拖动-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                词云展示：<el-switch
+                      v-model="wordCloudShow"
+                      size="small"
+                      @change="changeWordCloudShow"/>
+              </span>&nbsp;
+
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                访问量展示：<el-switch
+                  v-model="pageViewsShow"
+                  size="small"
+                  @change="changePageViewsShow"/>
+              </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+
           <div
               class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 左侧：统计数据（移动端换行显示） -->
@@ -208,7 +240,7 @@
         </el-collapse-item>
       </el-collapse>
 
-      <WordCloud/>
+      <WordCloud v-if="wordCloudShow"/>
 
       <div class="mb-10 mt-4">
         <draggable
@@ -345,6 +377,11 @@ export default {
       const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
       const cacheCardTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL)
       const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
+      const cacheWordCloudShow = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW)
+      const cachePageViewsShow = getLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW)
+      const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
+
+
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
@@ -358,6 +395,10 @@ export default {
       this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
       this.cardTitleFull = cacheCardTitleFull ?? this.cardTitleFull;
       this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
+      this.wordCloudShow = cacheWordCloudShow ?? this.wordCloudShow;
+      this.pageViewsShow = cachePageViewsShow ?? this.pageViewsShow;
+      this.widthPadding = cacheWidthPadding ?? this.widthPadding;
+
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 如果没有设置默认值，那就用第一个作为默认分类
@@ -617,6 +658,21 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
       window.umami.track('自定义默认选中的分类id')
     },
+    // 自定义调整词云是否展示
+    changeWordCloudShow() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW, this.wordCloudShow);
+      window.umami.track('自定义词云是否展示')
+    },
+    // 自定义调整访问量展示
+    changePageViewsShow() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW, this.pageViewsShow);
+      window.umami.track('自定义访问量是否展示')
+    },
+    // 自定义调整边距缩放，就是屏幕两边的，主要是为了移动端i
+    changeWidthPadding() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING, this.widthPadding);
+      window.umami.track('自定义边距缩放')
+    },
   },
   computed: {
     isMobile() {
@@ -755,6 +811,31 @@ export default {
       },
       set(value) {
         this.$store.commit('setActiveCategory', value);
+      }
+    },
+    wordCloudShow: {
+      get() {
+        return this.$store.state.wordCloudShow;
+      },
+      set(value) {
+        this.$store.commit('setWordCloudShow', value);
+      }
+    },
+    pageViewsShow: {
+      get() {
+        return this.$store.state.pageViewsShow;
+      },
+      set(value) {
+        this.$store.commit('setPageViewsShow', value);
+      }
+    },
+    // 边距缩放，就是屏幕两边的，主要是为了移动端i
+    widthPadding: {
+      get() {
+        return this.$store.state.widthPadding;
+      },
+      set(value) {
+        this.$store.commit('setWidthPadding', value);
       }
     },
   },

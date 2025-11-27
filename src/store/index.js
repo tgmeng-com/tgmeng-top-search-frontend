@@ -241,6 +241,13 @@ export default createStore({
         excelCategroiesTitleFontSize: 0.875,
         excelCategroiesTitleFontWeight: 400,
 
+        //词云是否展示
+        wordCloudShow: true,
+        // 访问量展示
+        pageViewsShow: true,
+        // 边距缩放，就是屏幕两边的，主要是为了移动端
+        widthPadding: 95,
+
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
         settingMenu: [
@@ -652,6 +659,16 @@ export default createStore({
         },
         setWorkMaskExcelShow(state, newWorkMaskExcelShow) {
             state.workMaskExcelShow = newWorkMaskExcelShow;
+        },
+        setWordCloudShow(state, newShow) {
+            state.wordCloudShow = newShow;
+        },
+        setPageViewsShow(state, newShow) {
+            state.pageViewsShow = newShow;
+        },
+        // 边距缩放，就是屏幕两边的，主要是为了移动端i
+        setWidthPadding(state, newPadding) {
+            state.widthPadding = newPadding;
         },
     }
 });
