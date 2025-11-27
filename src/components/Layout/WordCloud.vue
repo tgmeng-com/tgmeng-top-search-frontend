@@ -89,7 +89,9 @@ export default {
       }
 
       // 转换数据格式
-      const echartsData = chartData.map(item => ({
+      const echartsData = chartData
+          .slice(0, 300)
+          .map(item => ({
         name: item.word,
         value: item.frequency
       }));
