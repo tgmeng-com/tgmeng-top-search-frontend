@@ -63,7 +63,7 @@
                     <!-- 左侧：序号 + logo + 标题 -->
                     <div class="flex items-center flex-1 min-w-0">
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
-                        {{ index }}.
+                        {{ index+1 }}.
                       </span>
                       <!--                      TODO 后续看图片这块怎么弄，是备份一份到图床，还是说搞个映射表-->
                       <!--                      <img v-if="group.dataCardLogo" :src="group.dataCardLogo" alt="logo"-->
