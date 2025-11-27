@@ -54,12 +54,8 @@
               </div>
 
               <!-- 搜索结果 -->
-              <template v-else v-for="(group, gIndex) in searchResults" :key="gIndex">
-                <li v-if="group.groupTitle" class="px-4 py-2 text-xs text-gray-500 dark:text-gray-400">
-                  {{ group.groupTitle }}
-                </li>
-
-                <li v-for="(item, index) in group.dataInfo" :key="`${gIndex}-${index}`"
+              <template v-else>
+                <li v-for="(item, index) in searchResults" :key="`${index}`"
                     class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <a :href="item.url" target="_blank" rel="noopener noreferrer"
                      class="flex items-start justify-between w-full gap-4">
@@ -67,7 +63,7 @@
                     <!-- 左侧：序号 + logo + 标题 -->
                     <div class="flex items-center flex-1 min-w-0">
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
-                        {{ getGlobalIndex(gIndex, index) }}.
+                        {{ index }}.
                       </span>
                       <!--                      TODO 后续看图片这块怎么弄，是备份一份到图床，还是说搞个映射表-->
                       <!--                      <img v-if="group.dataCardLogo" :src="group.dataCardLogo" alt="logo"-->
@@ -79,7 +75,7 @@
 
                     <!-- 右侧：站点名 -->
                     <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                      {{ group.dataCardName }}
+                      {{ item.dataCardName }}
                     </span>
                   </a>
                 </li>
