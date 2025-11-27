@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
+  <header class="sticky top-0 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300 headStyle">
     <div class="mx-auto" style="min-height: 5rem;">
       <div class="flex items-center justify-between h-16 px-4 relative">
 
@@ -352,5 +352,8 @@ export default {
   100% {
     transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
   }
+}
+.headStyle{
+  z-index: 10000 !important;
 }
 </style>
