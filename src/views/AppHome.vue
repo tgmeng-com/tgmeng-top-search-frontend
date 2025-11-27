@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-col">
-    <WorkMaskExcel
-        v-if="workMaskExcelShow"
-        @handleCategoryClick="handleCategoryClick"
+    <TopMessage/>
+    <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"
     />
 
     <main class="flex-grow">
@@ -209,11 +208,9 @@
         </el-collapse-item>
       </el-collapse>
 
-      <div>
-        <WordCloud/>
-      </div>
+      <WordCloud/>
 
-      <section class="mb-10 mt-4">
+      <div class="mb-10 mt-4">
         <draggable
             v-model="activeCategory.subCategories"
             tag="div"
@@ -243,7 +240,9 @@
             </div>
           </template>
         </draggable>
-      </section>
+      </div>
+      <AIFloatReport/>
+      <WalineComment/>
     </main>
   </div>
 </template>
@@ -260,9 +259,15 @@ import {formatSecondsToHMS} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
 import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
+import TopMessage from "@/components/Layout/TopMessage.vue";
+import WalineComment from "@/components/Layout/WalineComment.vue";
+import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 
 export default {
   components: {
+    AIFloatReport,
+    WalineComment,
+    TopMessage,
     WorkMaskExcel,
     CommunityCard: HotPointCard,
     draggable,
