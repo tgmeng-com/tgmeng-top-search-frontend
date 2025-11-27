@@ -1,18 +1,9 @@
-// ⚡ 所有 setting 相关组件都改成懒加载
-// webpackChunkName 相同的会打包到同一个文件里
-
-const SettingLayout = () => import(/* webpackChunkName: "settings" */"@/components/settings/SettingLayout.vue")
-
-const SettingList = () => import(/* webpackChunkName: "settings" */"@/components/settings/SettingList.vue")
-
-const BasicSettings = () => import(/* webpackChunkName: "settings" */"@/components/settings/BasicSettings.vue")
-
-const AboutSettings = () => import(/* webpackChunkName: "settings" */"@/components/settings/AboutSettings.vue")
-
-const DonationSettings = () => import(/* webpackChunkName: "settings" */"@/components/settings/DonationSettings.vue")
-
-const CommunitySettings = () => import(/* webpackChunkName: "settings" */"@/components/settings/CommunitySettings.vue")
-
+import SettingLayout from "@/components/settings/SettingLayout.vue";
+import SettingList from "@/components/settings/SettingList.vue";
+import BasicSettings from "@/components/settings/BasicSettings.vue";
+import AboutSettings from "@/components/settings/AboutSettings.vue";
+import DonationSettings from "@/components/settings/DonationSettings.vue";
+import CommunitySettings from "@/components/settings/CommunitySettings.vue";
 
 export default [
     {
@@ -23,12 +14,12 @@ export default [
                 path: "",
                 // 不再 redirect
                 component: SettingList, // 移动端显示列表
-                meta: {mobileOnly: true},
+                meta: { mobileOnly: true },
             },
-            {path: "about", component: AboutSettings},
-            {path: "basic", component: BasicSettings},
-            {path: "donation", component: DonationSettings},
-            {path: "community", component: CommunitySettings},
+            { path: "about", component: AboutSettings },
+            { path: "basic", component: BasicSettings },
+            { path: "donation", component: DonationSettings },
+            { path: "community", component: CommunitySettings },
         ],
     },
 ];

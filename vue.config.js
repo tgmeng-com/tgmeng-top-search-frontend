@@ -1,7 +1,13 @@
 const { defineConfig } = require('@vue/cli-service')
-
 module.exports = defineConfig({
-    transpileDependencies: true,
-    productionSourceMap: false,
-    // 其他你之前加的优化配置也可以继续放这里
+  transpileDependencies: true
 })
+
+module.exports = {
+  chainWebpack: config => {
+    config.module
+        .rule('js')
+        .exclude.add(/node_modules/)
+        .end()
+  }
+}
