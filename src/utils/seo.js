@@ -10,6 +10,12 @@ export const pathMetaTemplates = {
         image: '/og/og.png',
         category: '关于'
     },
+    '/setting/function': {
+        title: ['功能介绍 - 了解站内各种功能和设置 | 糖果梦热榜'],
+        description: ['了解糖果梦热榜的各种使用功能和设置，还能找到小彩蛋哈，打造属于你独有的个性化热榜网站'],
+        image: '/og/og.png',
+        category: '关于'
+    },
     '/setting/basic': {
         title: ['基础设置 - 个性化新闻热榜定制 | 糖果梦热榜'],
         description: ['在这里定制您的新闻热榜偏好，选择关注的新闻分类，优化您的资讯体验。'],

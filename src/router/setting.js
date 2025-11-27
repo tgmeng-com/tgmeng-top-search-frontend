@@ -4,6 +4,7 @@ import BasicSettings from "@/components/settings/BasicSettings.vue";
 import AboutSettings from "@/components/settings/AboutSettings.vue";
 import DonationSettings from "@/components/settings/DonationSettings.vue";
 import CommunitySettings from "@/components/settings/CommunitySettings.vue";
+import FunctionSettings from "@/components/settings/FunctionSettings.vue";
 
 export default [
     {
@@ -17,6 +18,7 @@ export default [
                 meta: { mobileOnly: true },
             },
             { path: "about", component: AboutSettings },
+            { path: "function", component: FunctionSettings },
             { path: "basic", component: BasicSettings },
             { path: "donation", component: DonationSettings },
             { path: "community", component: CommunitySettings },

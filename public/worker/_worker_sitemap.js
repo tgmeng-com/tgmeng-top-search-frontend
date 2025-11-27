@@ -45,6 +45,7 @@ export default function generateSitemap() {
         {path: "/setting/basic", changefreq: "monthly", priority: 0.5},   // 基本设置
         {path: "/setting/donation", changefreq: "monthly", priority: 0.5},   // 捐赠
         {path: "/setting/community", changefreq: "monthly", priority: 0.5},   // 加入社区
+        {path: "/setting/function", changefreq: "monthly", priority: 0.5},   // 功能介绍
         {path: "/setting", changefreq: "monthly", priority: 0.5},   // 设置
         {path: "/excel", changefreq: "minute", priority: 1.0},   // 设置
 

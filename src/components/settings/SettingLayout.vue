@@ -1,13 +1,14 @@
 <!-- 设置布局 -->
 <template>
-  <div class="min-h-screen ">
+  <div class="min-h-screen">
     <!-- PC端固定左侧 + 内容 -->
-    <div class="hidden md:flex min-h-screen">
-      <div class="w-64  p-4">
+    <div class="hidden md:flex">
+      <!-- 固定左侧导航栏 -->
+      <div class="fixed h-screen w-64 p-4 py-8 overflow-y-auto custom-scrollbar">
         <SettingMenu />
       </div>
-      <main class="flex-1 p-6">
-        <!-- PC端访问 /setting 默认显示关于我们 -->
+      <!-- 右侧内容区域 -->
+      <main class="flex-1 ml-64 min-h-screen p-4 custom-scrollbar">
         <router-view :key="$route.fullPath" />
       </main>
     </div>
@@ -18,6 +19,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script>
@@ -46,3 +48,32 @@ export default {
   },
 };
 </script>
+
+<style>
+/* 自定义滚动条样式 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.6);
+}
+
+/* Firefox 滚动条样式 */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+</style>

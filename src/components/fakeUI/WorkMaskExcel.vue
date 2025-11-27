@@ -1006,21 +1006,25 @@ th {
   margin-top: 10px !important;
 }
 
-/* Excel 风格滚动条 */
+/* Excel 风格滚动条 - 完整版（横向+纵向） */
 .table-container::-webkit-scrollbar {
-  width: 17px;
-  height: 17px;
+  width: 17px;   /* 垂直滚动条宽度 */
+  height: 17px;  /* 水平滚动条高度 */
 }
 
+/* 滚动条轨道 */
 .table-container::-webkit-scrollbar-track {
   background: #f1f1f1;
   border: 1px solid #d4d4d4;
 }
 
+/* 滚动条滑块 */
 .table-container::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border: 1px solid #a6a6a6;
   border-radius: 0;
+  min-width: 50px;  /* 水平滚动条最小宽度 */
+  min-height: 50px; /* 垂直滚动条最小高度 */
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
@@ -1031,18 +1035,17 @@ th {
   background: #787878;
 }
 
+/* 滚动条交叉角 */
 .table-container::-webkit-scrollbar-corner {
   background: #f1f1f1;
   border: 1px solid #d4d4d4;
 }
 
-/* 滚动条按钮 */
+/* ========== 滚动条按钮 ========== */
 .table-container::-webkit-scrollbar-button {
   background: #f1f1f1;
   border: 1px solid #d4d4d4;
   display: block;
-  height: 17px;
-  width: 17px;
 }
 
 .table-container::-webkit-scrollbar-button:hover {
@@ -1051,6 +1054,12 @@ th {
 
 .table-container::-webkit-scrollbar-button:active {
   background: #d4d4d4;
+}
+
+/* 垂直滚动条按钮 */
+.table-container::-webkit-scrollbar-button:vertical {
+  height: 17px;
+  width: 17px;
 }
 
 /* 垂直滚动条上箭头 */
@@ -1067,11 +1076,18 @@ th {
   background-position: center;
 }
 
+/* 水平滚动条按钮 */
+.table-container::-webkit-scrollbar-button:horizontal {
+  height: 17px;
+  width: 17px;
+}
+
 /* 水平滚动条左箭头 */
 .table-container::-webkit-scrollbar-button:horizontal:decrement {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M0 5L6 0v10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
+  border-right: 1px solid #d4d4d4;
 }
 
 /* 水平滚动条右箭头 */
@@ -1079,6 +1095,7 @@ th {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M6 5L0 0v10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
+  border-left: 1px solid #d4d4d4;
 }
 
 /* Firefox 滚动条样式 */

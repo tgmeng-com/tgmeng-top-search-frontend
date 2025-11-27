@@ -6,7 +6,7 @@
           text="AI实时简报"
           :size="60"
           position="top-right"
-          :offset="100"
+          :offset="120"
           @click="clickAISummaryButton"
 
       />

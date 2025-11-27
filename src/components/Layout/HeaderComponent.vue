@@ -1,9 +1,10 @@
 <template>
-  <header class="sticky top-0 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300 headStyle">
-    <div class="mx-auto" style="min-height: 5rem;">
-      <div class="flex items-center justify-between h-16 px-4 relative">
+  <header class="fixed top-0 left-0 right-0 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300 headStyle">
+    <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle"> <!-- 复制父组件的样式 -->
+      <div class="flex items-center justify-between h-full relative">
 
-        <!-- 左侧 Logo -->
+
+      <!-- 左侧 Logo -->
         <div class="flex-shrink-0">
           <router-link to="/" @click="trackUmami('顶部左边LOGO')">
             <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
@@ -194,6 +195,20 @@ export default {
         this.$store.commit('setWorkMaskExcelShow', value);
       }
     },
+    widthPaddingStyle() {
+      return {
+        width: this.widthPadding + '% !important',
+      }
+    },
+    // 边距缩放，就是屏幕两边的，主要是为了移动端i
+    widthPadding: {
+      get() {
+        return this.$store.state.widthPadding;
+      },
+      set(newPadding) {
+        this.$store.commit('setWidthPadding', newPadding);
+      }
+    }
   }
 };
 </script>
