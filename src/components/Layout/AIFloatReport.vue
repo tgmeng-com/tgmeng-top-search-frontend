@@ -39,6 +39,10 @@
                       class="text-sm px-2 py-1 rounded-md bg-fuchsia-300 dark:bg-fuchsia-900 text-gray-600 dark:text-gray-300">
                     简报数据生成时间: <span class="font-medium">{{ aiData?.time || '暂无' }}</span>
                   </span>&nbsp;
+                  <span
+                      class="text-sm px-2 py-1 rounded-md bg-fuchsia-300 dark:bg-rose-900 text-gray-600 dark:text-gray-300">
+                    本次总结消耗Token: <span class="font-medium">{{ aiData?.totalTokens || '暂无' }}</span>
+                  </span>&nbsp;
                 </div>
               </div>
               <div
