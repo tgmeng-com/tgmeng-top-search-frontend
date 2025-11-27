@@ -104,17 +104,31 @@
                                           size="small"
                                           :precision="0" :step="5" @change="changeWidthPadding"/>
               </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 左侧：统计数据（移动端换行显示） -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                词云数量：<el-input-number class="input-title" v-model="wordCloudNum" :min="50" :max="1000"
+                                          size="small"
+                                          :precision="0" :step="50" @change="changeWordCloudNum"/>
+              </span>&nbsp;
 
               <!-- 自定义分类是否可以拖动-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                词云展示：<el-switch
-                      v-model="wordCloudShow"
-                      size="small"
-                      @change="changeWordCloudShow"/>
+                词云模块展示：<el-switch
+                  v-model="wordCloudShow"
+                  size="small"
+                  @change="changeWordCloudShow"/>
               </span>&nbsp;
 
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                访问量展示：<el-switch
+                访问展示：<el-switch
                   v-model="pageViewsShow"
                   size="small"
                   @change="changePageViewsShow"/>
@@ -380,8 +394,7 @@ export default {
       const cacheWordCloudShow = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW)
       const cachePageViewsShow = getLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW)
       const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
-
-
+      const cacheWordCloudNum = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
@@ -398,6 +411,9 @@ export default {
       this.wordCloudShow = cacheWordCloudShow ?? this.wordCloudShow;
       this.pageViewsShow = cachePageViewsShow ?? this.pageViewsShow;
       this.widthPadding = cacheWidthPadding ?? this.widthPadding;
+      this.wordCloudNum = cacheWordCloudNum ?? this.wordCloudNum;
+
+
 
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
@@ -673,6 +689,11 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING, this.widthPadding);
       window.umami.track('自定义边距缩放')
     },
+    // 自定义调整词云数量
+    changeWordCloudNum() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, this.wordCloudNum);
+      window.umami.track('自定义词云数量')
+    },
   },
   computed: {
     isMobile() {
@@ -836,6 +857,15 @@ export default {
       },
       set(value) {
         this.$store.commit('setWidthPadding', value);
+      }
+    },
+    // 词云数量
+    wordCloudNum: {
+      get() {
+        return this.$store.state.wordCloudNum;
+      },
+      set(value) {
+        this.$store.commit('setWordCloudNum', value);
       }
     },
   },

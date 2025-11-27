@@ -90,7 +90,7 @@ export default {
 
       // 转换数据格式
       const echartsData = chartData
-          .slice(0, 300)
+          .slice(0, this.wordCloudNum)
           .map(item => ({
         name: item.word,
         value: item.frequency
@@ -200,6 +200,16 @@ export default {
     // 组件销毁时清理图表
     if (this.chartInstance) {
       this.chartInstance.dispose();
+    }
+  },
+  computed: {
+    wordCloudNum: {
+      get() {
+        return this.$store.state.wordCloudNum;
+      },
+      set(value) {
+        this.$store.commit('setWordCloudNum', value);
+      }
     }
   }
 }

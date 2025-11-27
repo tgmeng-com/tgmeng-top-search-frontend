@@ -28,6 +28,8 @@ export const LOCAL_STORAGE_KEYS = {
     PAGE_VIEWS_SHOW: 'pageViewsShow',
     // 边距缩放，就是屏幕两边的，主要是为了移动端i
     WIDTH_PADDING: 'widthPadding',
+    // 词云数量
+    WORD_CLOUD_NUM: 'wordCloudNum',
 };
 
 // 设置本地存储

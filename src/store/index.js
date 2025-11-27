@@ -247,6 +247,8 @@ export default createStore({
         pageViewsShow: true,
         // 边距缩放，就是屏幕两边的，主要是为了移动端
         widthPadding: 95,
+        // 词云数量
+        wordCloudNum: 300,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -669,6 +671,10 @@ export default createStore({
         // 边距缩放，就是屏幕两边的，主要是为了移动端i
         setWidthPadding(state, newPadding) {
             state.widthPadding = newPadding;
+        },
+        // 词云数量
+        setWordCloudNum(state, newNum) {
+            state.wordCloudNum = newNum;
         },
     }
 });
