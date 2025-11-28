@@ -14,14 +14,16 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         <div v-for="contact in contacts" :key="contact.name" class="card-bg flex flex-col items-center p-6 text-center">
-          <div class="mb-3 w-15 h-15 flex items-center justify-center rounded-full ">
-            <img :src="contact.icon" :alt="contact.name" class="w-16 h-16 object-contain"/>
-          </div>
-          <h3 class="card-title">{{ contact.name }}</h3>
-          <p class="card-desc break-words">{{ contact.desc }}</p>
-          <a v-if="contact.link" :href="contact.link" target="_blank" rel="noopener"
-             class="mt-2 inline-block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
-            立即加入
+          <a :href="contact.link" target="_blank" rel="noopener">
+            <div class="mb-3 w-15 h-15 flex items-center justify-center rounded-full ">
+              <img :src="contact.icon" :alt="contact.name" class="w-16 h-16 object-contain"/>
+            </div>
+            <h3 class="card-title">{{ contact.name }}</h3>
+            <p class="card-desc break-words">{{ contact.desc }}</p>
+            <a v-if="contact.link" :href="contact.link" target="_blank" rel="noopener"
+               class="mt-2 inline-block text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+              立即加入
+            </a>
           </a>
         </div>
       </div>
