@@ -93,6 +93,17 @@
 
         <!-- 右侧设置按钮 -->
         <div class="flex items-center space-x-6">
+
+          <div >
+            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer" @click="() => { trackUmami('顶部右边小鱼')}">
+              <div class="setting-btn" aria-label="微信群">
+                <div style="width: 1.875rem">
+                  <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 微信群">
+                </div>
+              </div>
+            </a>
+          </div>
+
           <div >
             <router-link to="/excel"  @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
               <div class="setting-btn" aria-label="设置">
