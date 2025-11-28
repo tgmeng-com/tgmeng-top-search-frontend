@@ -3,18 +3,11 @@
     <HeaderComponent/>
     <NotificationComponent/>
     <!-- 友链 -->
-    <!--      <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
     <!--      <Home/>-->
     <router-view/>
-    <!-- 主内容和评论区之间 展示Ads广告 -->
-<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"-->
-<!--                   :full-width-responsive="true"/>-->
-    <!-- 页面底部 多重Ads广告-->
-<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
-<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
-<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
-<!--    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>-->
+    <!-- 页面底部 多重广告-->
+    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>
     <el-backtop :right="100" :bottom="100"/>
   </div>
 </template>
@@ -22,20 +15,17 @@
 <script>
 import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import NotificationComponent from "@/components/Layout/NotificationComponent.vue";
-// import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
-// import AdRentCards from "./components/Card/AdRentCards.vue";
+import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 
 export default {
   name: 'App',
   components: {
     NotificationComponent,
     HeaderComponent: HeaderComponent,
-    // GoogleAdsense: GoogleGoogleAdsense,
-    // AdRentCards: AdRentCards,
+    GoogleAdsense: GoogleGoogleAdsense,
   },
   data() {
     return {
-      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
     }
   },
   computed: {

@@ -162,14 +162,14 @@
               </template>
             </div>
           </li>
-          <!--          &lt;!&ndash; 信息流广告 li &ndash;&gt;-->
-          <!--          <li v-if="shouldShowAd(index)">-->
-          <!--            <GoogleAdsense ad-client="ca-pub-3286880109560525"-->
-          <!--                           ad-slot="4294342531"-->
-          <!--                           ad-format="fluid"-->
-          <!--                           ad-layout-key="-i1-y+5r-2a-c0"-->
-          <!--                           :full-width-responsive="true"/>-->
-          <!--          </li>-->
+          <!-- 信息流广告 li -->
+          <li v-if="shouldShowAd(index)">
+            <GoogleAdsense ad-client="ca-pub-3286880109560525"
+                           ad-slot="4294342531"
+                           ad-format="fluid"
+                           ad-layout-key="-i1-y+5r-2a-c0"
+                           :full-width-responsive="true"/>
+          </li>
         </template>
       </ul>
 
@@ -209,8 +209,8 @@ export default {
     isFuture,
     // 判断是否展示信息流广告
     shouldShowAd(index) {
-      // 每10个一条广告（9,19,29,39…）
-      if ((index + 1) % 10 === 0) return true;
+      // 每10个一条广告（14,29,44,59…）
+      if ((index + 1) % 15 === 0) return true;
       // 最后一个元素也显示广告
       if (index === this.list.length - 1) return true;
       return false;

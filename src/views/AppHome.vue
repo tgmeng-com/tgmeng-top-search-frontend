@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col">
     <TopMessage/>
+<!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"
     />
 
@@ -288,6 +289,9 @@
         </draggable>
       </div>
       <AIFloatReport/>
+      <!--     主内容和评论区之间 展示广告 -->
+      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
+                     :full-width-responsive="true"/>
       <WalineComment/>
     </main>
   </div>
@@ -308,9 +312,13 @@ import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
 import TopMessage from "@/components/Layout/TopMessage.vue";
 import WalineComment from "@/components/Layout/WalineComment.vue";
 import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
+import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
+// import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    // AdRentCards,
+    GoogleAdsense,
     AIFloatReport,
     WalineComment,
     TopMessage,
@@ -330,6 +338,7 @@ export default {
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
       windowWidth: window.innerWidth, // 屏幕大小
+      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
     };
   },
   async mounted() {
