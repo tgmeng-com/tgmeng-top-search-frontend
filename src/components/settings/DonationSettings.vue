@@ -7,15 +7,12 @@
         <h1 class="main-title">
           🙏 感谢各位对开源项目的支持
         </h1>
+        <br/>
         <div class="main-desc">
-          <p class="mt-1">
-            您的每一份支持，都是这个项目持续发展的动力！
-            <a class="inline-flex items-center gap-2 px-4 rounded-lg bg-white/5 border border-white/10 text-gray-900 dark:text-gray-100 hover:bg-white/10 transition"
-               href="https://github.com/CandyDream6/tgmeng-top-search-frontend" target="_blank" rel="noopener">
-              👉开源仓库
-            </a>
-          </p>
-          <p class="mt-1 text-sm">打赏后如果没有出现在下面列表，请在微信交流群联系一下站长</p>
+          <p class="mt-1 text-base text-left">赞助的目的是为了服务器的一切支出和糖果梦热榜站点的维护和功能迭代。</p>
+          <p class="mt-1 text-base text-left">感谢佬友的喜欢和赞助，对每一位佬友致以最崇高的敬意！salute！！！</p>
+          <p class="mt-1 text-base text-left">此名单用于记录每个赞助的佬友的名字,以下为时间由近到远的顺序排名</p>
+          <p class="mt-1 text-base text-left">赞助后如果没有出现在下面列表，请在微信交流群联系一下站长</p>
         </div>
       </header>
 
