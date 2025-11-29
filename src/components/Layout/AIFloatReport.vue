@@ -1,15 +1,21 @@
 <template>
   <div>
     <div>
-      <!-- 风格1: 旋转光环 -->
-      <AIFloatButton1
-          text="AI实时简报"
-          :size="60"
-          position="top-right"
-          :offset="120"
-          @click="clickAISummaryButton"
-
-      />
+      <!-- 可拖动的AI浮动按钮 -->
+      <div
+          ref="floatButton"
+          class="fixed pointer-events-auto cursor-move z-[2100] transition-all"
+          :style="buttonStyle"
+          @mousedown="handleMouseDown"
+          @touchstart="handleTouchStart"
+      >
+        <AIFloatButton1
+            text="AI实时简报"
+            :size="buttonSize"
+            position="custom"
+            @click="handleButtonClick"
+        />
+      </div>
     </div>
 
     <!-- 弹框 -->
@@ -170,8 +176,18 @@ export default {
         'cyan-500',
         'pink-500',
         'teal-500',
-        // 'sky-500',
       ],
+      // 拖动相关
+      isDragging: false,
+      dragStartX: 0,
+      dragStartY: 0,
+      dragStartPosX: 0,
+      dragStartPosY: 0,
+      position: {
+        x: 120,
+        y: 120
+      },
+      dragThreshold: 5, // 拖动阈值，小于这个距离算点击
       // 模拟 AI 简报数据
       aiData: {
         "time": "2020/7/8 20:20:20",
@@ -206,12 +222,79 @@ export default {
       }
     }
   },
+  mounted() {
+    // 初始化位置到右上角
+    this.position.x = window.innerWidth - this.buttonSize - 30;
+    this.position.y = 150;
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+    window.removeEventListener('touchmove', this.handleTouchMove);
+    window.removeEventListener('touchend', this.handleTouchEnd);
+  },
+  computed: {
+    // 移动端自适应尺寸
+    buttonSize() {
+      return window.innerWidth < 768 ? 50 : 60;
+    },
+    buttonStyle() {
+      return {
+        left: `${this.position.x}px`,
+        top: `${this.position.y}px`,
+        transition: this.isDragging ? 'none' : 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      };
+    },
+    cardTopFontSize: {
+      get() {
+        return this.$store.state.cardTopFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTopFontSize', value);
+      }
+    },
+    cardTopStyle() {
+      return {
+        fontSize: this.cardTopFontSize + 'rem',
+      }
+    },
+    cardTitleFontSize: {
+      get() {
+        return this.$store.state.cardTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCardTitleFontSize', value);
+      }
+    },
+    cardTitleStyle() {
+      return {
+        fontSize: this.cardTitleFontSize + 'rem',
+      }
+    },
+    categroiesTitleFontSize: {
+      get() {
+        return this.$store.state.categroiesTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCategroiesTitleFontSize', value);
+      }
+    },
+    categroiesTitleStyle() {
+      return {
+        fontSize: this.categroiesTitleFontSize + 'rem',
+        fontWeight: 900,
+      }
+    },
+  },
   methods: {
     getBorderClass(index) {
       const color = this.colors[index % this.colors.length]
       return `border-${color}`
-    }
-    ,
+    },
     getTextClass(index) {
       const color = this.colors[index % this.colors.length]
       return `text-${color}`
@@ -220,6 +303,93 @@ export default {
       const color = this.colors[index % this.colors.length]
       return `bg-${color}`
     },
+
+    // 拖动相关方法
+    handleMouseDown(e) {
+      e.preventDefault();
+      this.startDrag(e.clientX, e.clientY);
+      window.addEventListener('mousemove', this.handleMouseMove);
+      window.addEventListener('mouseup', this.handleMouseUp);
+    },
+    handleMouseMove(e) {
+      this.drag(e.clientX, e.clientY);
+    },
+    handleMouseUp(e) {
+      this.endDrag(e.clientX, e.clientY);
+      window.removeEventListener('mousemove', this.handleMouseMove);
+      window.removeEventListener('mouseup', this.handleMouseUp);
+    },
+    handleTouchStart(e) {
+      const touch = e.touches[0];
+      this.startDrag(touch.clientX, touch.clientY);
+      window.addEventListener('touchmove', this.handleTouchMove, { passive: false });
+      window.addEventListener('touchend', this.handleTouchEnd);
+    },
+    handleTouchMove(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      this.drag(touch.clientX, touch.clientY);
+    },
+    handleTouchEnd(e) {
+      const touch = e.changedTouches[0];
+      this.endDrag(touch.clientX, touch.clientY);
+      window.removeEventListener('touchmove', this.handleTouchMove);
+      window.removeEventListener('touchend', this.handleTouchEnd);
+    },
+    startDrag(clientX, clientY) {
+      this.isDragging = true;
+      this.dragStartX = clientX;
+      this.dragStartY = clientY;
+      this.dragStartPosX = this.position.x;
+      this.dragStartPosY = this.position.y;
+    },
+    drag(clientX, clientY) {
+      if (!this.isDragging) return;
+
+      const deltaX = clientX - this.dragStartX;
+      const deltaY = clientY - this.dragStartY;
+
+      let newX = this.dragStartPosX + deltaX;
+      let newY = this.dragStartPosY + deltaY;
+
+      // 边界限制
+      const maxX = window.innerWidth - this.buttonSize;
+      const maxY = window.innerHeight - this.buttonSize;
+
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+
+      this.position.x = newX;
+      this.position.y = newY;
+    },
+    endDrag(clientX, clientY) {
+      if (!this.isDragging) return;
+
+      // 计算拖动距离
+      const deltaX = clientX - this.dragStartX;
+      const deltaY = clientY - this.dragStartY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      this.isDragging = false;
+
+      // 如果拖动距离小于阈值，视为点击
+      if (distance < this.dragThreshold) {
+        this.clickAISummaryButton();
+      }
+    },
+    handleButtonClick() {
+      // AIFloatButton内部的点击事件会触发这里
+      // 但我们已经在endDrag中处理了，所以这里可以为空或者做其他处理
+    },
+    handleResize() {
+      // 窗口大小变化时，确保按钮不会超出边界
+      const maxX = window.innerWidth - this.buttonSize;
+      const maxY = window.innerHeight - this.buttonSize;
+
+      this.position.x = Math.max(0, Math.min(this.position.x, maxX));
+      this.position.y = Math.max(0, Math.min(this.position.y, maxY));
+    },
+
     clickAISummaryButton() {
       window.umami.track('AI实时简报按钮')
       this.showModal = true;
@@ -231,58 +401,6 @@ export default {
         this.loading = false;
       })
     }
-  }
-  ,
-  computed: {
-    cardTopFontSize: {
-      get() {
-        return this.$store.state.cardTopFontSize;
-      }
-      ,
-      set(value) {
-        this.$store.commit('setCardTopFontSize', value);
-      }
-    }
-    ,
-    cardTopStyle() {
-      return {
-        fontSize: this.cardTopFontSize + 'rem',
-      }
-    }
-    ,
-    cardTitleFontSize: {
-      get() {
-        return this.$store.state.cardTitleFontSize;
-      }
-      ,
-      set(value) {
-        this.$store.commit('setCardTitleFontSize', value);
-      }
-    }
-    ,
-    cardTitleStyle() {
-      return {
-        fontSize: this.cardTitleFontSize + 'rem',
-      }
-    }
-    ,
-    categroiesTitleFontSize: {
-      get() {
-        return this.$store.state.categroiesTitleFontSize;
-      }
-      ,
-      set(value) {
-        this.$store.commit('setCategroiesTitleFontSize', value);
-      }
-    }
-    ,
-    categroiesTitleStyle() {
-      return {
-        fontSize: this.categroiesTitleFontSize + 'rem',
-        fontWeight: 900,
-      }
-    }
-    ,
   }
 }
 </script>

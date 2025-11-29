@@ -5,6 +5,7 @@
 <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
     <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
+    <AIFloatReport/>
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
@@ -289,7 +290,6 @@
           </template>
         </draggable>
       </div>
-      <AIFloatReport/>
       <!--     主内容和评论区之间 展示广告 -->
       <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
                      :full-width-responsive="true"/>
