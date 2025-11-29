@@ -1,10 +1,9 @@
 <template>
   <header class="fixed top-0 left-0 right-0 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300 headStyle">
-    <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle"> <!-- 复制父组件的样式 -->
+    <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle">
       <div class="flex items-center justify-between h-full relative">
 
-
-      <!-- 左侧 Logo -->
+        <!-- 左侧 Logo -->
         <div class="flex-shrink-0">
           <router-link to="/" @click="trackUmami('顶部左边LOGO')">
             <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
@@ -13,7 +12,6 @@
 
         <!-- 搜索框 -->
         <div class="flex-1 relative flex justify-center z-50 mx-4">
-
           <input
               v-model="input"
               type="text"
@@ -41,7 +39,6 @@
             </div>
 
             <ul class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[60vh] overflow-y-auto">
-
               <div v-if="loading" class="flex flex-col items-center justify-center text-gray-400" style="height: 80px;">
                 <div class="atom-spinner">
                   <div class="spinner-inner">
@@ -60,21 +57,14 @@
                     class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                   <a :href="item.url" target="_blank" rel="noopener noreferrer"
                      class="flex items-start justify-between w-full gap-4">
-
-                    <!-- 左侧：序号 + logo + 标题 -->
                     <div class="flex items-center flex-1 min-w-0">
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
                         {{ index+1 }}.
                       </span>
-                      <!--                      TODO 后续看图片这块怎么弄，是备份一份到图床，还是说搞个映射表-->
-                      <!--                      <img v-if="group.dataCardLogo" :src="group.dataCardLogo" alt="logo"-->
-                      <!--                           class="w-4 h-4 mr-2 flex-shrink-0"/>-->
                       <span class="text-gray-900 dark:text-gray-100 break-words">
                         {{ item.keyword }}
                       </span>
                     </div>
-
-                    <!-- 右侧：站点名 -->
                     <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
                       {{ item.dataCardName }}
                     </span>
@@ -91,11 +81,10 @@
           </div>
         </div>
 
-        <!-- 右侧设置按钮 -->
-        <div class="flex items-center space-x-6">
-
-          <div >
-            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer" @click="() => { trackUmami('顶部右边小鱼')}">
+        <!-- 右侧设置按钮 - 桌面端显示全部 -->
+        <div class="hidden md:flex items-center space-x-6">
+          <div>
+            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer" @click="() => { trackUmami('顶部右边微信群')}">
               <div class="setting-btn" aria-label="微信群">
                 <div style="width: 1.875rem">
                   <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 微信群">
@@ -104,9 +93,31 @@
             </a>
           </div>
 
-          <div >
+          <div>
+            <a  href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"  @click="() => { trackUmami('顶部右边github')}">
+              <div class="setting-btn" aria-label="GitHub仓库">
+                <div style="width: 1.875rem">
+                  <img :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
+                       alt="糖果梦热榜 - GitHub仓库">
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div>
+            <div @click="() => { trackUmami('顶部右边主题切换');toggleTheme()}">
+              <div class="setting-btn" aria-label="主题切换">
+                <div style="width: 1.875rem">
+                  <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
+                       alt="糖果梦热榜 - 主题切换">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
             <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
-              <div class="setting-btn" aria-label="设置">
+              <div class="setting-btn" aria-label="摸鱼模式">
                 <div style="width: 1.875rem">
                   <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
                 </div>
@@ -114,7 +125,7 @@
             </a>
           </div>
 
-          <div >
+          <div>
             <router-link to="/setting" @click="trackUmami('顶部右边设置')">
               <div class="setting-btn" aria-label="设置">
                 <div style="width: 1.875rem">
@@ -125,8 +136,67 @@
           </div>
         </div>
 
+        <!-- 移动端汉堡菜单按钮 -->
+        <div class="md:hidden flex items-center">
+          <button @click="toggleMobileMenu" class="p-2 text-gray-600 dark:text-gray-300" aria-label="菜单">
+            <svg v-if="!showMobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- 移动端下拉菜单 -->
+    <transition name="slide-fade">
+      <div v-if="showMobileMenu" class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
+        <div class="container mx-auto px-8 py-4" :style="widthPaddingStyle">
+          <div class="flex flex-col space-y-4">
+            <!-- 微信群 -->
+            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer"
+               @click="() => { trackUmami('移动端菜单-微信群'); toggleMobileMenu() }"
+               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img src="../../assets/image/wechat-logo.png" alt="微信群" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">加入微信群</span>
+            </a>
+
+            <!-- GitHub仓库 -->
+            <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"
+               @click="() => { trackUmami('移动端菜单-GitHub'); toggleMobileMenu() }"
+               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')" alt="糖果梦热榜 - GitHub仓库" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">GitHub仓库</span>
+            </a>
+
+            <!-- 主题切换 -->
+            <div
+               @click="() => { trackUmami('移动端菜单-主题切换');toggleTheme(); toggleMobileMenu()}"
+               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')" alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
+            </div>
+
+            <!-- 摸鱼模式 -->
+            <a @click="() => { trackUmami('移动端菜单-摸鱼模式'); clickWorkMaskExcelButton(); toggleMobileMenu() }"
+               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+              <img src="../../assets/image/fish.png" alt="摸鱼模式" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">摸鱼模式</span>
+            </a>
+
+            <!-- 设置 -->
+            <router-link to="/setting"
+                         @click="() => { trackUmami('移动端菜单-设置'); toggleMobileMenu() }"
+                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img src="../../assets/image/setting.png" alt="设置" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">设置中心</span>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </transition>
   </header>
 </template>
 
@@ -141,21 +211,28 @@ export default {
       inputSearchDisable: false,
       searchResults: [],
       loading: false,
-      isDark: true, // 保留
+      isDark: true,
+      showMobileMenu: false, // 移动端菜单状态
     };
   },
   mounted() {
-    // 只读取 localStorage，不重置默认亮暗
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       this.isDark = savedTheme === 'dark'
     } else {
-      // 没有保存时，默认暗色（无需检查系统偏好）
       this.isDark = true
     }
     document.documentElement.classList.toggle('dark', this.isDark)
   },
   methods: {
+    toggleTheme() {
+      this.isDark = !this.isDark
+      document.documentElement.classList.toggle('dark', this.isDark)
+      localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
+    },
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu;
+    },
     clickWorkMaskExcelButton(){
       store.commit('setFishModeChooseShow', true)
     },
@@ -196,7 +273,7 @@ export default {
         return {
           maxHeight: '60vh',
           overflowY: 'auto',
-          textAlign: 'left' // 🔹 强制移动端内容左对齐
+          textAlign: 'left'
         };
       }
       return {};
@@ -230,7 +307,6 @@ export default {
         width: this.widthPadding + '% !important',
       }
     },
-    // 边距缩放，就是屏幕两边的，主要是为了移动端i
     widthPadding: {
       get() {
         return this.$store.state.widthPadding;
@@ -318,11 +394,31 @@ export default {
   cursor: not-allowed;
   animation: none;
 }
+
 .setting-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   transition: transform 0.2s ease;
+}
+
+/* 移动端菜单过渡动画 */
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
 }
 
 /* 加载动画样式*/
@@ -398,6 +494,7 @@ export default {
     transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
   }
 }
+
 .headStyle{
   z-index: 1900 !important;
 }

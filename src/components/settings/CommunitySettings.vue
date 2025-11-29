@@ -52,7 +52,7 @@ export default {
         {
           name: 'GitHub',
           desc: '关注我们的 GitHub 仓库，提交 PR 或 Issue',
-          icon: require('@/assets/image/github-logo.png'),
+          icon: require('@/assets/image/github-logo-light.png'),
           link: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend'
         },
       ]
