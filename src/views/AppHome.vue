@@ -5,7 +5,6 @@
 <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
     <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
-    <AIFloatReport/>
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
@@ -312,7 +311,6 @@ import WordCloud from '@/components/Layout/WordCloud.vue'
 import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
 import TopMessage from "@/components/Layout/TopMessage.vue";
 import WalineComment from "@/components/Layout/WalineComment.vue";
-import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
@@ -323,7 +321,6 @@ export default {
     WorkMaskVsCode,
     // AdRentCards,
     GoogleAdsense,
-    AIFloatReport,
     WalineComment,
     TopMessage,
     WorkMaskExcel,
