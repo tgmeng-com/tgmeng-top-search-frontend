@@ -249,6 +249,8 @@ export default createStore({
         widthPadding: 95,
         // 词云数量
         wordCloudNum: 300,
+        // 摸鱼模式选择面板
+        fishModeChooseShow:false,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -583,6 +585,7 @@ export default createStore({
         ],
         activeCategory: {},
         workMaskExcelShow: false,
+        workMaskVsCodeShow: false,
         // 顶部卡片位
         homeHeaderAdsCard: [
             {id:1,name: '某某AI1', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-11-28 10:30:00",expireTime:"2025-11-28 23:59:59", status: 'active',desc: '某某集团',content:"***@gmail.com",note: '内部备注：首页顶部横幅广告'},
@@ -667,6 +670,9 @@ export default createStore({
         setWorkMaskExcelShow(state, newWorkMaskExcelShow) {
             state.workMaskExcelShow = newWorkMaskExcelShow;
         },
+        setWorkMaskVsCodeShow(state, newWorkMaskVsCodeShow) {
+            state.workMaskVsCodeShow = newWorkMaskVsCodeShow;
+        },
         setWordCloudShow(state, newShow) {
             state.wordCloudShow = newShow;
         },
@@ -681,5 +687,8 @@ export default createStore({
         setWordCloudNum(state, newNum) {
             state.wordCloudNum = newNum;
         },
+        setFishModeChooseShow(state, newFishModeChoose){
+            state.fishModeChooseShow = newFishModeChoose;
+        }
     }
 });

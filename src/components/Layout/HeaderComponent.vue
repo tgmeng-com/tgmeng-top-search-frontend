@@ -105,13 +105,13 @@
           </div>
 
           <div >
-            <router-link to="/excel"  @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
+            <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
               <div class="setting-btn" aria-label="设置">
                 <div style="width: 1.875rem">
-                  <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 设置中心">
+                  <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
                 </div>
               </div>
-            </router-link>
+            </a>
           </div>
 
           <div >
@@ -132,7 +132,7 @@
 
 <script>
 import {cacheSearchForAllByWord} from "@/api/api";
-
+import store from "@/store";
 export default {
   data() {
     return {
@@ -157,7 +157,10 @@ export default {
   },
   methods: {
     clickWorkMaskExcelButton(){
-      this.workMaskExcelShow = true;
+      store.commit('setFishModeChooseShow', true)
+    },
+    clickWorkMaskVsCodeButton(){
+      this.workMaskVsCodeShow = true;
     },
     getGlobalIndex(groupIndex, itemIndex) {
       const beforeGroupsCount = this.searchResults
@@ -204,6 +207,22 @@ export default {
       },
       set(value) {
         this.$store.commit('setWorkMaskExcelShow', value);
+      }
+    },
+    workMaskVsCodeShow:{
+      get() {
+        return this.$store.state.workMaskVsCodeShow;
+      },
+      set(value) {
+        this.$store.commit('setWorkMaskVsCodeShow', value);
+      }
+    },
+    fishModeChooseShow:{
+      get() {
+        return this.$store.state.fishModeChooseShow;
+      },
+      set(value) {
+        this.$store.commit('setFishModeChooseShow', value);
       }
     },
     widthPaddingStyle() {

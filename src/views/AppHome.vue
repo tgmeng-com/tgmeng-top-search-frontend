@@ -1,9 +1,10 @@
 <template>
   <div class="flex flex-col">
     <TopMessage/>
+    <FishModeChoose/>
 <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
-    <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"
-    />
+    <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
+    <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
@@ -313,10 +314,13 @@ import TopMessage from "@/components/Layout/TopMessage.vue";
 import WalineComment from "@/components/Layout/WalineComment.vue";
 import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
+import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
+import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    WorkMaskVsCode,
     // AdRentCards,
     GoogleAdsense,
     AIFloatReport,
@@ -325,7 +329,8 @@ export default {
     WorkMaskExcel,
     CommunityCard: HotPointCard,
     draggable,
-    WordCloud
+    WordCloud,
+    FishModeChoose
   },
   data() {
     return {
@@ -461,7 +466,7 @@ export default {
         this.handleCategoryClick(matchedCat, {skipRoutePush: true});
       } else if (!matchedCat) {
         // 路由不存在或非法 → 回到根路径，显示默认分类
-        if (this.$route.path !== '/' && this.$route.path !== '/excel') {
+        if (this.$route.path !== '/' && this.$route.path !== '/excel' && this.$route.path !== '/vscode') {
           // 仅当路径不是 / 时才替换 URL
           this.$router.replace({path: '/'});
         }
@@ -482,7 +487,7 @@ export default {
       // skipRoutePush，防止重复推路由
       if (!options.skipRoutePush) {
         // excel页面点击分类按钮的时候，不换路由
-        if (this.$route.path !== '/excel') {
+        if (this.$route.path !== '/excel' && this.$route.path !== '/vscode' ) {
           this.$router.push({name: 'Category', params: {category: cat.routerName}});
         }
       }
@@ -825,6 +830,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setWorkMaskExcelShow', value);
+      }
+    },
+    workMaskVsCodeShow: {
+      get() {
+        return this.$store.state.workMaskVsCodeShow;
+      },
+      set(value) {
+        this.$store.commit('setWorkMaskVsCodeShow', value);
       }
     },
     categroies: {

@@ -122,7 +122,13 @@ export const pathMetaTemplates = {
         title: ['摸鱼模式 - Excel表格尽情摸鱼 | 糖果梦热榜'],
         description: ['提供Excel模式的实时热榜，上班摸鱼随心看新闻，尽享丝滑'],
         image: '/og/og.png',
-        category: '收藏'
+        category: '摸鱼'
+    },
+    '/vscode': {
+        title: ['摸鱼模式 - VsCode专业开发 | 糖果梦热榜'],
+        description: ['完美的VsCode模式，上班摸鱼第一把好手'],
+        image: '/og/og.png',
+        category: '摸鱼'
     },
     '/all': {
         title: ['全部热榜 - 全站热门内容汇总 | 糖果梦热榜'],

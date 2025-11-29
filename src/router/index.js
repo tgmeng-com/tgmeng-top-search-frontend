@@ -7,6 +7,7 @@ import store from "@/store";
 const routes = [
     { path: '/', name: 'Home', component: Home },
     { path: '/excel', name: 'Excel', component: Home },
+    { path: '/vscode', name: 'VsCode', component: Home },
     ...settingRoutes,
     { path: '/:category', name: 'Category', component: Home },
 ]
@@ -33,8 +34,11 @@ router.beforeEach((to, from, next) => {
     if (to.name === 'Excel') {
         // 路由为 'Excel' 时，设置 Vuex 状态
         store.commit('setWorkMaskExcelShow', true)
+    }else if (to.name === 'VsCode'){
+        store.commit('setWorkMaskVsCodeShow', true)
     }else {
         store.commit('setWorkMaskExcelShow', false)
+        store.commit('setWorkMaskVsCodeShow', false)
     }
     next()  // 跳转到目标路由
 })
