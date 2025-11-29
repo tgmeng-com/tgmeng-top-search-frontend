@@ -35,8 +35,9 @@
               >
                 <div class="card-glow" :style="{ background: mode.glowColor }"></div>
                 <div class="card-header">
-                  <div class="icon-wrapper" :class="mode.iconClass" :style="{ background: mode.gradient, boxShadow: mode.shadow }">
-                    <img :src="mode.iconUrl" :alt="mode.title" class="mode-icon" />
+                  <div class="icon-wrapper" :class="mode.iconClass"
+                       :style="{ background: mode.gradient, boxShadow: mode.shadow }">
+                    <img :src="mode.iconUrl" :alt="mode.title" class="mode-icon"/>
                   </div>
                   <div class="badge" :class="{ current: mode.isCurrent }">
                     {{ mode.badgeText }}
@@ -154,7 +155,7 @@ export default {
     }
   },
   computed: {
-    fishModeChooseShow:{
+    fishModeChooseShow: {
       get() {
         return this.$store.state.fishModeChooseShow;
       },
@@ -181,12 +182,13 @@ export default {
     select(modeId) {
       this.selected = modeId
     },
-    confirmMode(){
+    confirmMode() {
       store.commit('setFishModeChooseShow', false)
       const mode = this.selectedMode;
       if (mode && mode.route) {
         this.$router?.push({name: mode.route})
       }
+      window.umami.track('摸鱼模式进入：' + this.selectedMode?.shortName || '模式')
     }
   },
   beforeUnmount() {
@@ -217,8 +219,12 @@ export default {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* 主面板 */
@@ -228,10 +234,9 @@ export default {
   background: linear-gradient(145deg, rgba(30, 33, 42, 0.95), rgba(20, 23, 32, 0.95));
   border-radius: 24px;
   overflow: hidden;
-  box-shadow:
-      0 25px 80px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(255, 255, 255, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6),
+  0 0 0 1px rgba(255, 255, 255, 0.08),
+  inset 0 1px 0 rgba(255, 255, 255, 0.05);
   position: relative;
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -269,16 +274,19 @@ export default {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .bg-mesh {
   position: absolute;
   inset: 0;
-  background-image:
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 30px 30px;
   pointer-events: none;
 }
@@ -385,9 +393,8 @@ export default {
 .mode-card.active {
   background: rgba(50, 55, 70, 0.7);
   border-color: rgba(64, 158, 255, 0.5);
-  box-shadow:
-      0 0 0 3px rgba(64, 158, 255, 0.15),
-      0 12px 40px rgba(64, 158, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.15),
+  0 12px 40px rgba(64, 158, 255, 0.25);
   transform: translateY(-4px);
 }
 
@@ -425,7 +432,7 @@ export default {
 .mode-icon {
   width: 40px;
   height: 40px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   transition: transform 0.3s;
 }
 
@@ -528,8 +535,14 @@ export default {
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.8; }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
 }
 
 /* 底部 */
@@ -572,9 +585,8 @@ export default {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow:
-      0 4px 16px rgba(64, 158, 255, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(64, 158, 255, 0.3),
+  inset 0 1px 0 rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -594,9 +606,8 @@ export default {
 
 .confirm-btn:hover {
   transform: translateY(-2px);
-  box-shadow:
-      0 6px 20px rgba(64, 158, 255, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(64, 158, 255, 0.4),
+  inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .confirm-btn:active {
