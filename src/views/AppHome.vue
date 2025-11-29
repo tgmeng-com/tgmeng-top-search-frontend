@@ -253,6 +253,24 @@
             <div>
             </div>
           </div>
+
+          <!-- 用户样式自定义调整   -->
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <!-- 重置设置 -->
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <div class="text-sm  whitespace-nowrap overflow-x-auto scrollbar-hide">
+                <el-button @click="cleanExcelLocalStorage" size="small" type="danger" style="background-color: #f78989"
+                           round>重置设置
+                </el-button>
+              </div>
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+
+
         </el-collapse-item>
       </el-collapse>
 
@@ -302,7 +320,7 @@ import HotPointCard from '@/components/Layout/HotPointCard.vue';
 import {
   LOCAL_STORAGE_KEYS,
   getLocalStorage,
-  setLocalStorage,
+  setLocalStorage, clearLocalStorage,
 } from "@/utils/localStorageUtils";
 import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
 import {formatSecondsToHMS} from "@/utils/timeUtils";
@@ -704,6 +722,40 @@ export default {
     changeWordCloudNum() {
       setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, this.wordCloudNum);
       window.umami.track('自定义词云数量')
+    },
+    cleanExcelLocalStorage() {
+      this.$confirm('此操作将清除上述所有设置（不包括卡片拖动和分类拖动的顺序以及收藏内容）', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING);
+        clearLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM);
+
+        this.$message({
+          type: 'success',
+          message: '已重置，请刷新页面重新加载!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
     },
   },
   computed: {
