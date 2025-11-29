@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/11/29 18:10',
+              events: [{
+                id: 1, title: '新增功能', desc: ['实时简报按钮可拖动'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/11/29 10:10',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增vscode摸鱼模式'], tag: 'Feat'
