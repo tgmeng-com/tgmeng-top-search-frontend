@@ -563,6 +563,14 @@ export function topSearchForJinShi(data) {
     })
 }
 
+export function topSearchForZhiTongCaiJing(data) {
+    return request({
+        url: '/topsearch/zhitongcaijing',
+        method: 'get',
+        data: data
+    })
+}
+
 export function topSearchForNiuYueShiBao(data) {
     return request({
         url: '/topsearch/niuyueshibao',

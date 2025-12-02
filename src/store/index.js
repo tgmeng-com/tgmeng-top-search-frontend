@@ -86,6 +86,7 @@ import {
     topSearchForGeLongHui,
     topSearchForFaBu,
     topSearchForJinShi,
+    topSearchForZhiTongCaiJing,
     topSearchForNiuYueShiBao,
     topSearchForBBC,
     topSearchForFaGuang,
@@ -285,7 +286,6 @@ export default createStore({
                     new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png'), 6, '/news/bbc'),
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png'), 7, '/news/faguang'),
                     new Platform('澎湃新闻', topSearchForPengPaiXinWen, require('@/assets/logos/tgmeng-trend_pengpaixinwen.png'), 7.1, '/news/pengpaixinwen'),
-                    // new Platform('大纪元', topSearchForDaJiYuan, require('@/assets/logos/tgmeng-trend_dajiyuan.png'),8),
                 ]
             },
             {
@@ -420,6 +420,7 @@ export default createStore({
                     new Platform('格隆汇', topSearchForGeLongHui, require('@/assets/logos/tgmeng-trend_gelonghui.png'), 28, '/finance/gelonghui'),
                     new Platform('法布', topSearchForFaBu, require('@/assets/logos/tgmeng-trend_fabu.png'), 29, '/finance/fabu'),
                     new Platform('金十', topSearchForJinShi, require('@/assets/logos/tgmeng-trend_jinshi.png'), 30, '/finance/jinshi'),
+                    new Platform('智通财经', topSearchForZhiTongCaiJing, require('@/assets/logos/tgmeng-trend_zhitongcaijing.png'), 30.1, '/finance/zhitongcaijing'),
                 ]
             },
             {
