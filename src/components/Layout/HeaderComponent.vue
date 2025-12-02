@@ -3,15 +3,13 @@
     <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle">
       <div class="flex items-center justify-between h-full relative">
 
-        <!-- 左侧 Logo 和网站名称 -->
-        <div class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
-          <router-link to="/" @click="trackUmami('顶部左边LOGO')">
-            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-10 h-10 sm:w-12 sm:h-12">
-          </router-link>
+        <!-- 左侧 Logo 和网站名称 - 整体可点击 -->
+        <router-link to="/" @click="trackUmami('顶部左边LOGO')" class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3 cursor-pointer">
+          <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-10 h-10 sm:w-12 sm:h-12">
           <span class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
             糖果梦热榜
           </span>
-        </div>
+        </router-link>
 
         <!-- 搜索框 -->
         <div class="flex-1 relative flex justify-center z-50 mx-4">
@@ -215,7 +213,7 @@ export default {
       searchResults: [],
       loading: false,
       isDark: true,
-      showMobileMenu: false, // 移动端菜单状态
+      showMobileMenu: false,
     };
   },
   mounted() {
