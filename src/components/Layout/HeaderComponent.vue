@@ -3,11 +3,14 @@
     <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle">
       <div class="flex items-center justify-between h-full relative">
 
-        <!-- 左侧 Logo -->
-        <div class="flex-shrink-0">
+        <!-- 左侧 Logo 和网站名称 -->
+        <div class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
           <router-link to="/" @click="trackUmami('顶部左边LOGO')">
-            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-12 h-12">
+            <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-10 h-10 sm:w-12 sm:h-12">
           </router-link>
+          <span class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
+            糖果梦热榜
+          </span>
         </div>
 
         <!-- 搜索框 -->
@@ -173,8 +176,8 @@
 
             <!-- 主题切换 -->
             <div
-               @click="() => { trackUmami('移动端菜单-主题切换');toggleTheme(); toggleMobileMenu()}"
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                @click="() => { trackUmami('移动端菜单-主题切换');toggleTheme(); toggleMobileMenu()}"
+                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')" alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
             </div>
