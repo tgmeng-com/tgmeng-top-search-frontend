@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/04 02:50',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增支持客户端安装'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/11/29 18:10',
               events: [{
                 id: 1, title: '新增功能', desc: ['实时简报按钮可拖动'], tag: 'Feat'

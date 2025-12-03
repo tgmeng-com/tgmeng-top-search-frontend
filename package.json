@@ -2,11 +2,14 @@
   "name": "tgmeng-top-search-frontend",
   "version": "1.0.0",
   "private": true,
+  "description": "``` npm install ```",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": "babel.config.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -24,6 +27,7 @@
     "echarts": "^5.6.0",
     "echarts-wordcloud": "^2.1.0",
     "element-plus": "^2.10.3",
+    "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-router": "^4.6.3",
     "vuedraggable": "^4.1.0",
@@ -36,6 +40,7 @@
     "@vue/babel-preset-app": "^5.0.8",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^7.32.0",
@@ -63,9 +68,6 @@
     "not dead",
     "not ie 11"
   ],
-  "description": "``` npm install ```",
-  "main": "babel.config.js",
   "keywords": [],
-  "author": "",
   "license": "ISC"
 }

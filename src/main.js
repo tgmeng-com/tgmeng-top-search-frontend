@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faNewspaper, faSearch, faMoon, faSun);
 import { createHead } from '@vueuse/head'  // <-- 导入 vueuse/head
 import { MotionPlugin } from '@vueuse/motion'
+import './registerServiceWorker'
 
 const app = createApp(App)
 app.use(router)  // <-- 使用 router
