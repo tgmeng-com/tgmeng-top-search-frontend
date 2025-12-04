@@ -1423,4 +1423,15 @@ export function cacheSearchForAISummaryData(data) {
     })
 }
 
+export function topSearchForAdsPassword(password) {
+    return request({
+        url: '/topsearch/password/ads',
+        method: 'post',
+        data: {
+            password: password
+        }
+    })
+}
+
+
 

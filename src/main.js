@@ -11,7 +11,7 @@ import router from './router'  // <-- 导入 router
 import { library } from '@fortawesome/fontawesome-svg-core'
 // 导入需要的图标
 import { faNewspaper, faSearch, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // 添加图标到库
 library.add(faNewspaper, faSearch, faMoon, faSun);

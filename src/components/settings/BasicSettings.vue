@@ -1,4 +1,3 @@
-
 <!-- 基本设置 -->
 <template>
   <div class="min-h-screen pb-16 bg-transparent">
@@ -33,7 +32,8 @@
                     inactive-color="#C0CCDA"
                     @change="changeCategroyStatus">
                 </el-switch>
-                <img :src="p.logo" style="width: 1.25rem; margin-left: 0.5rem; margin-right: 0.5rem;" :alt="p.title" class="rounded-s">
+                <img :src="p.logo" style="width: 1.25rem; margin-left: 0.5rem; margin-right: 0.5rem;" :alt="p.title"
+                     class="rounded-s">
                 <span class="card-desc">{{ p.title }}</span>
               </div>
             </div>
@@ -55,6 +55,30 @@
         </div>
       </section>
 
+      <!--  广告    -->
+      <section class="mt-16">
+        <h2 class="text-left text-xl font-bold text-gray-900 dark:text-gray-100">广告状态</h2><br/>
+        <p class="text-left text-gray-900 dark:text-gray-100">大家可以用各种去广告插件屏蔽站内的谷歌广告，当然也可以在这里一键关闭站内所有谷歌广告</p>
+        <p class="text-left text-gray-900 dark:text-gray-100">如果有能力的朋友，还是希望能够随便点点广告，你点一次，我可能就有0.00001￥，哈哈哈</p>
+        <div class="mt-4 text-left card-bg">
+          <span class="card-title">广告状态</span>&nbsp;&nbsp;
+          <el-switch
+              :model-value="adsEnabled"
+              active-color="#13ce66"
+              inactive-color="#C0CCDA"
+              @update:model-value="changeAdsStatus">
+          </el-switch>
+        </div>
+      </section>
+
+      <!-- 密码确认对话框 -->
+      <PasswordConfirm
+          v-model:visible="showPasswordDialog"
+          title="安全验证"
+          description="关闭广告的密码在交流群的群公告里<br> PS1对于的值，可以自行直接查看"
+          :on-confirm="handlePasswordConfirm"
+      />
+
       <!--  样式自定义    -->
       <section class="mt-16">
         <h2 class="text-left text-xl font-bold text-gray-900 dark:text-gray-100">样式自定义</h2>
@@ -68,7 +92,9 @@
   </div>
 </template>
 <script>
-import {clearAllLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+import {clearAllLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+import PasswordConfirm from "@/components/UI/PasswordConfirm.vue";
+import {topSearchForAdsPassword} from "@/api/api";
 
 export default {
   data() {
@@ -76,9 +102,12 @@ export default {
       activeName: '新闻',
       categroies: this.$store.state.categroies,
       isDark: true,
+      showPasswordDialog: false,
     };
   },
-  computed: {},
+  components: {
+    PasswordConfirm
+  },
   methods: {
     notificationMessage() {
       this.$notify({
@@ -110,6 +139,20 @@ export default {
       localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
       window.umami.track('明暗主题切换');
     },
+    changeAdsStatus() {
+      this.showPasswordDialog = true;
+    },
+    async handlePasswordConfirm(password) {
+      const res = await topSearchForAdsPassword(password);
+      const adsPasswordReal = res?.data?.data || false;
+      if (adsPasswordReal) {
+        this.adsEnabled = !this.adsEnabled;
+        setLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED, this.adsEnabled);
+        this.$message.success('操作成功');
+      } else {
+        throw new Error('密码错误');
+      }
+    },
     cleanLocalStorage() {
       this.$confirm('此操作将清除所有历史个人设置，包括排序、收藏、隐藏/展示、自定义样式等等所有个人设置', {
         confirmButtonText: '确定',
@@ -139,7 +182,20 @@ export default {
       this.isDark = true
     }
     document.documentElement.classList.toggle('dark', this.isDark)
-  }
+
+    const cacheAdsEnabled = getLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED)
+    this.adsEnabled = cacheAdsEnabled ?? this.adsEnabled
+  },
+  computed: {
+    adsEnabled: {
+      get() {
+        return this.$store.state.adsEnabled;
+      },
+      set(value) {
+        this.$store.commit('setAdsEnabled', value);
+      }
+    },
+  },
 };
 </script>
 

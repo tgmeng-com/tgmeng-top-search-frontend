@@ -30,6 +30,8 @@ export const LOCAL_STORAGE_KEYS = {
     WIDTH_PADDING: 'widthPadding',
     // 词云数量
     WORD_CLOUD_NUM: 'wordCloudNum',
+    // 广告是否展示
+    ADS_ENABLED: 'adsEnabled'
 };
 
 // 设置本地存储

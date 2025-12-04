@@ -16,7 +16,7 @@ export default {
     notification() {
       ElNotification({
         title: '新功能',
-        message: '新增支持RSS，可按全站、分类、平台 单独订阅',
+        message: '可在设置中一键关闭本站内的谷歌广告',
         type: 'success',
         position: "top-left",
         duration: 10000
@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     const isBefore = (target) => Date.now() < new Date(target);
-    if (isBefore('2025-11-28')) {
+    if (isBefore('2025-12-6')) {
       this.notification()
     }
   }

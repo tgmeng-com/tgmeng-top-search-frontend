@@ -9,7 +9,7 @@
     <!--      <Home/>-->
     <router-view/>
     <!-- 页面底部 多重广告-->
-    <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>
+    <GoogleAdsense v-if="$store.state.adsEnabled" ad-client="ca-pub-3286880109560525" ad-slot="7002721768" ad-format="autorelaxed"/>
     <el-backtop :right="100" :bottom="100"/>
   </div>
 </template>

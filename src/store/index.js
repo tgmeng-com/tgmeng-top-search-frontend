@@ -252,6 +252,8 @@ export default createStore({
         wordCloudNum: 300,
         // 摸鱼模式选择面板
         fishModeChooseShow:false,
+        // 广告是否开启
+        adsEnabled: true,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -690,6 +692,10 @@ export default createStore({
         },
         setFishModeChooseShow(state, newFishModeChoose){
             state.fishModeChooseShow = newFishModeChoose;
-        }
+        },
+        // 广告是否开启
+        setAdsEnabled(state, newAdsEnabled) {
+            state.adsEnabled = newAdsEnabled;
+        },
     }
 });

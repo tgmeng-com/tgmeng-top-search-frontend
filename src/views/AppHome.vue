@@ -308,7 +308,7 @@
         </draggable>
       </div>
       <!--     主内容和评论区之间 展示广告 -->
-      <GoogleAdsense ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
+      <GoogleAdsense v-if="$store.state.adsEnabled"  ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
                      :full-width-responsive="true"/>
       <WalineComment/>
     </main>
