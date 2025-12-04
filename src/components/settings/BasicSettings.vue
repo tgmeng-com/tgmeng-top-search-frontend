@@ -148,6 +148,7 @@ export default {
       if (adsPasswordReal) {
         this.adsEnabled = !this.adsEnabled;
         setLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED, this.adsEnabled);
+        window.umami.track('成功屏蔽网站广告');
         this.$message.success('操作成功');
       } else {
         throw new Error('密码错误');
