@@ -72,7 +72,7 @@
             今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
           </span>&nbsp;
           <!-- 今日访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300":class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
             今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
