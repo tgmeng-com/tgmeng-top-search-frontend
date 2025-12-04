@@ -57,11 +57,11 @@
 
       <!--  广告    -->
       <section class="mt-16">
-        <h2 class="text-left text-xl font-bold text-gray-900 dark:text-gray-100">广告状态</h2><br/>
+        <h2 class="text-left text-xl font-bold text-gray-900 dark:text-gray-100">广告</h2><br/>
         <p class="text-left text-gray-900 dark:text-gray-100">大家可以用各种去广告插件屏蔽站内的谷歌广告，当然也可以在这里一键关闭站内所有谷歌广告</p>
         <p class="text-left text-gray-900 dark:text-gray-100">如果有能力的朋友，还是希望能够随便点点广告，你点一次，我可能就有0.00001￥，哈哈哈</p>
         <div class="mt-4 text-left card-bg">
-          <span class="card-title">广告状态</span>&nbsp;&nbsp;
+          <span class="card-title">广告展示</span>&nbsp;&nbsp;
           <el-switch
               :model-value="adsEnabled"
               active-color="#13ce66"
