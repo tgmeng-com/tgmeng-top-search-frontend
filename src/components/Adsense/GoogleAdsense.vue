@@ -24,9 +24,6 @@ export default {
   methods: {
     loadAdsScript() {
       return new Promise((resolve) => {
-        if (!this.$store.state.adsEnabled) {
-          return;
-        }
         if (document.getElementById('adsbygoogle-script')) {
           resolve();
           return;
@@ -42,6 +39,9 @@ export default {
     }
   },
   mounted() {
+    if (!this.$store.state.adsEnabled) {
+      return;
+    }
     // 加载广告脚本
     this.loadAdsScript().then(() => {
       try {
