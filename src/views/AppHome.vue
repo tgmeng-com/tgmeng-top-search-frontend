@@ -60,25 +60,25 @@
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
             总访问量: <span class="font-medium">{{ umamiAllViews }}</span>
           </span>&nbsp;
           <!-- 总访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
             总时长: <span class="font-medium">{{ umamiAllTime }}</span>
           </span>&nbsp;
           <!-- 今日访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
             今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
           </span>&nbsp;
           <!-- 今日访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300":class="{'stats-updating': isUpdating}">
             今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300">
-            在线: <span class="font-medium">{{ umamiActive }}</span>
-          </span>
+          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300" :class="{'stats-updating': isUpdating}">
+    在线: <span class="font-medium">{{ umamiActive }}</span>
+  </span>
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div
@@ -357,6 +357,7 @@ export default {
       preDragSortList: [], // 拖动前的 sort 列表
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
+      umamiStatsTimer: null, // 新增：统计数据定时器
       windowWidth: window.innerWidth, // 屏幕大小
       homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
     };
@@ -368,6 +369,11 @@ export default {
       this.refreshData();
     }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
 
+    // 新增：定时刷新统计数据（每30秒刷新一次）
+    this.umamiStatsTimer = setInterval(() => {
+      this.initUmami();
+    }, 5 * 1000); // 每5秒刷新一次统计数据
+
     window.addEventListener('resize', this.handleResize);
   },
   // 离开页面或者切换路由的时候，关闭定时器，避免造成内存泄露
@@ -376,6 +382,13 @@ export default {
       clearInterval(this.refreshTimer);
       this.refreshTimer = null;
     }
+
+    // 新增：清理统计数据定时器
+    if (this.umamiStatsTimer) {
+      clearInterval(this.umamiStatsTimer);
+      this.umamiStatsTimer = null;
+    }
+
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
@@ -614,6 +627,7 @@ export default {
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
     },
+
     initUmami() {
       umamiActive()
           .then((res) => {
@@ -1030,6 +1044,15 @@ export default {
 
 :deep(.el-collapse-item__content) {
   padding: 0 !important;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.stats-updating {
+  animation: pulse 0.5s ease-in-out;
 }
 
 </style>
