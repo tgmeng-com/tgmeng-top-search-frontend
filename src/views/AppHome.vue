@@ -424,6 +424,7 @@ export default {
       const cachePageViewsShow = getLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW)
       const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
       const cacheWordCloudNum = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM)
+      const cacheGoogleAdsEnable = getLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
@@ -441,6 +442,7 @@ export default {
       this.pageViewsShow = cachePageViewsShow ?? this.pageViewsShow;
       this.widthPadding = cacheWidthPadding ?? this.widthPadding;
       this.wordCloudNum = cacheWordCloudNum ?? this.wordCloudNum;
+      this.adsEnabled = cacheGoogleAdsEnable ?? this.adsEnabled;
 
 
 
@@ -939,6 +941,14 @@ export default {
         this.$store.commit('setWordCloudNum', value);
       }
     },
+    adsEnabled:{
+      get() {
+        return this.$store.state.adsEnabled;
+      },
+      set(value) {
+        this.$store.commit('setAdsEnabled', value);
+      }
+    }
   },
   watch: {
     /// 监听路由变化，切换分类

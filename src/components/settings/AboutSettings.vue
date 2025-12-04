@@ -225,7 +225,7 @@ export default {
             {
               date: '2025/12/04 02:50',
               events: [{
-                id: 1, title: '新增功能', desc: ['新增支持客户端安装'], tag: 'Feat'
+                id: 1, title: '新增功能', desc: ['新增支持客户端安装，新增支持一键屏蔽广告'], tag: 'Feat'
               }]
             },
             {
