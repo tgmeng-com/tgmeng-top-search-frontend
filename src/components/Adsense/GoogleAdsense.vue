@@ -11,20 +11,22 @@
 export default {
   name: "GoogleAdsense",
   data() {
-    return {
-    }
+    return {}
   },
   props: {
     adClient: {type: String, default: "ca-pub-3286880109560525"},
     adSlot: {type: String, required: true, default: "9081541454"},
     adFormat: {type: String, default: "auto"},
     style: {type: String, default: 'display:block'},
-    adLayoutKey: { type: String, default: "" },
-    fullWidthResponsive: { type: Boolean, default: false }
+    adLayoutKey: {type: String, default: ""},
+    fullWidthResponsive: {type: Boolean, default: false}
   },
-  methods:{
+  methods: {
     loadAdsScript() {
       return new Promise((resolve) => {
+        if (!this.$store.state.adsEnabled) {
+          return;
+        }
         if (document.getElementById('adsbygoogle-script')) {
           resolve();
           return;
