@@ -93,7 +93,7 @@ export default {
       this.notificationShow = false;
     },
 
-    /** ---------------- 收藏提示 ---------------- **/
+    /** ---------------- 提示安装客户端弹框 ---------------- **/
     // 提示安装客户端弹框
     showInstallClientPrompt() {
       this.showNotification({
@@ -101,6 +101,11 @@ export default {
         title: '添加本站到主屏幕',
         message: '将本站添加到主屏幕，便于随时快速访问',
         buttons: [
+          {
+            text: '稍后提醒',
+            type: 'secondary',
+            action: this.hideNotification
+          },
           {
             text: '立即添加',
             type: 'primary',
@@ -115,11 +120,6 @@ export default {
                 this.deferredPrompt = null;
               }
             }
-          },
-          {
-            text: '稍后提醒',
-            type: 'secondary',
-            action: this.hideNotification
           }
         ]
       });

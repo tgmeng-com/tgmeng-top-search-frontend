@@ -1433,5 +1433,135 @@ export function topSearchForAdsPassword(password) {
     })
 }
 
+export function cacheSearchForwuaipojie(data) {
+    return request({
+        url: '/topsearch/wuaipojie',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForshuimushequ(data) {
+    return request({
+        url: '/topsearch/shuimushequ',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForchongbuluo(data) {
+    return request({
+        url: '/topsearch/chongbuluo',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForxianzhishequ(data) {
+    return request({
+        url: '/topsearch/xianzhishequ',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForkdsshanghaitoutiao(data) {
+    return request({
+        url: '/topsearch/kdsshanghaitoutiao',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForkanxue(data) {
+    return request({
+        url: '/topsearch/kanxue',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFortongxinrenjiayuan(data) {
+    return request({
+        url: '/topsearch/tongxinrenjiayuan',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForemacschina(data) {
+    return request({
+        url: '/topsearch/emacschina',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForrubychina(data) {
+    return request({
+        url: '/topsearch/rubychina',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForkaidiwang(data) {
+    return request({
+        url: '/topsearch/kaidiwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForzhiwubuyankuajingdianshangshequ(data) {
+    return request({
+        url: '/topsearch/zhiwubuyankuajingdianshangshequ',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForkaiyuanzixun(data) {
+    return request({
+        url: '/topsearch/kaiyuanzixun',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForjingguanzhijia(data) {
+    return request({
+        url: '/topsearch/jingguanzhijia',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
 
 

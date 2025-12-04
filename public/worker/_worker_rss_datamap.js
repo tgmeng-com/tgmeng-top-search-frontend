@@ -81,7 +81,21 @@ const dataMap = {
             "/community/tiebabaidu": {title: "糖果梦热榜 · 社区 · 百度贴吧", description: "糖果梦热榜 · 社区 · 百度贴吧", link: "https://trendapi.tgmeng.com/api/topsearch/tiebabaidu",platform: "百度贴吧"},
             "/community/douban": {title: "糖果梦热榜 · 社区 · 豆瓣", description: "糖果梦热榜 · 社区 · 豆瓣", link: "https://trendapi.tgmeng.com/api/topsearch/douban",platform: "豆瓣"},
             "/community/wenzhangjuejin": {title: "糖果梦热榜 · 社区 · 掘金", description: "糖果梦热榜 · 社区 · 掘金", link: "https://trendapi.tgmeng.com/api/topsearch/wenzhangjuejin",platform: "掘金"},
-            "/community/douyin": {title: "糖果梦热榜 · 社区 · nga", description: "糖果梦热榜 · 社区 · NGA", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "nga"}
+            "/community/douyin": {title: "糖果梦热榜 · 社区 · nga", description: "糖果梦热榜 · 社区 · NGA", link: "https://trendapi.tgmeng.com/api/topsearch/douyin",platform: "nga"},
+
+            "/community/wuaipojie": {title: "糖果梦热榜 · 社区 · 吾爱破解", description: "糖果梦热榜 · 社区 · 吾爱破解", link: "https://trendapi.tgmeng.com/api/topsearch/wuaipojie",platform: "吾爱破解"},
+            "/community/shuimushequ": {title: "糖果梦热榜 · 社区 · 水木社区", description: "糖果梦热榜 · 社区 · 水木社区", link: "https://trendapi.tgmeng.com/api/topsearch/shuimushequ",platform: "水木社区"},
+            "/community/chongbuluo": {title: "糖果梦热榜 · 社区 · 虫部落", description: "糖果梦热榜 · 社区 · 虫部落", link: "https://trendapi.tgmeng.com/api/topsearch/chongbuluo",platform: "虫部落"},
+            "/community/xianzhishequ": {title: "糖果梦热榜 · 社区 · 先知社区", description: "糖果梦热榜 · 社区 · 先知社区", link: "https://trendapi.tgmeng.com/api/topsearch/xianzhishequ",platform: "先知社区"},
+            "/community/kdsshanghaitoutiao": {title: "糖果梦热榜 · 社区 · 宽带山", description: "糖果梦热榜 · 社区 · 宽带山", link: "https://trendapi.tgmeng.com/api/topsearch/kdsshanghaitoutiao",platform: "宽带山"},
+            "/community/kanxue": {title: "糖果梦热榜 · 社区 · 看雪", description: "糖果梦热榜 · 社区 · 看雪", link: "https://trendapi.tgmeng.com/api/topsearch/kanxue",platform: "看雪"},
+            "/community/tongxinrenjiayuan": {title: "糖果梦热榜 · 社区 · 通信人家园", description: "糖果梦热榜 · 社区 · 通信人家园", link: "https://trendapi.tgmeng.com/api/topsearch/tongxinrenjiayuan",platform: "通信人家园"},
+            "/community/emacschina": {title: "糖果梦热榜 · 社区 · Emacs China", description: "糖果梦热榜 · 社区 · Emacs China", link: "https://trendapi.tgmeng.com/api/topsearch/emacschina",platform: "Emacs China"},
+            "/community/rubychina": {title: "糖果梦热榜 · 社区 · Ruby China", description: "糖果梦热榜 · 社区 · Ruby China", link: "https://trendapi.tgmeng.com/api/topsearch/rubychina",platform: "Ruby China"},
+            "/community/kaidiwang": {title: "糖果梦热榜 · 社区 · 凯迪网", description: "糖果梦热榜 · 社区 · 凯迪网", link: "https://trendapi.tgmeng.com/api/topsearch/kaidiwang",platform: "凯迪网"},
+            "/community/zhiwubuyankuajingdianshangshequ": {title: "糖果梦热榜 · 社区 · We Are Seller", description: "糖果梦热榜 · 社区 · We Are Seller", link: "https://trendapi.tgmeng.com/api/topsearch/zhiwubuyankuajingdianshangshequ",platform: "We Are Seller"},
+            "/community/kaiyuanzixun": {title: "糖果梦热榜 · 社区 · 开源资讯", description: "糖果梦热榜 · 社区 · 开源资讯", link: "https://trendapi.tgmeng.com/api/topsearch/kaiyuanzixun",platform: "开源资讯"},
+            "/community/jingguanzhijia": {title: "糖果梦热榜 · 社区 · 经管之家", description: "糖果梦热榜 · 社区 · 经管之家", link: "https://trendapi.tgmeng.com/api/topsearch/jingguanzhijia",platform: "经管之家"}
         }
     },
     "/finance": {
@@ -95,8 +109,8 @@ const dataMap = {
             "/finance/diyicaijing": {title: "糖果梦热榜 · 财经 · 第一财经", description: "糖果梦热榜 · 财经 · 第一财经", link: "https://trendapi.tgmeng.com/api/topsearch/diyicaijing",platform: "第一财经"},
             "/finance/gelonghui": {title: "糖果梦热榜 · 财经 · 格隆汇", description: "糖果梦热榜 · 财经 · 格隆汇", link: "https://trendapi.tgmeng.com/api/topsearch/gelonghui",platform: "格隆汇"},
             "/finance/fabu": {title: "糖果梦热榜 · 财经 · 法布", description: "糖果梦热榜 · 财经 · 法布", link: "https://trendapi.tgmeng.com/api/topsearch/fabu",platform: "法布"},
-            "/finance/jinshi": {title: "糖果梦热榜 · 财经 · 金十", description: "糖果梦热榜 · 财经 · 金十", link: "https://trendapi.tgmeng.com/api/topsearch/jinshi",platform: "金十"}
-
+            "/finance/jinshi": {title: "糖果梦热榜 · 财经 · 金十", description: "糖果梦热榜 · 财经 · 金十", link: "https://trendapi.tgmeng.com/api/topsearch/jinshi",platform: "金十"},
+            "/finance/zhitongcaijing": {title: "糖果梦热榜 · 财经 · 智通财经", description: "糖果梦热榜 · 财经 · 智通财经", link: "https://trendapi.tgmeng.com/api/topsearch/zhitongcaijing",platform: "智通财经"}
         }
     },
     "/sports": {

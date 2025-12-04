@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/05 02:20',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增13个社区：吾爱破解、水木社区、虫部落、先知社区、宽带山、看雪、通信人家园、Emacs China、Ruby China、凯迪网、We Are Seller、开源资讯、经管之家'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/04 02:50',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增支持客户端安装，新增支持一键屏蔽广告'], tag: 'Feat'
