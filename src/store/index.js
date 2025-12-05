@@ -190,7 +190,7 @@ import {
     topSearchForCCTV16,
     topSearchForCCTV17,
     topSearchForPengPaiXinWen,
-    cacheSearchForwuaipojie,
+    // cacheSearchForwuaipojie,
     cacheSearchForshuimushequ,
     cacheSearchForchongbuluo,
     cacheSearchForxianzhishequ,
@@ -438,13 +438,9 @@ export default createStore({
                     // new Platform('一亩三分地', topSearchForYiMuSanFenDi, require('@/assets/logos/tgmeng-trend_yimusanfendi.png'), 22.7),
                     new Platform('掘金', topSearchForWenZhangJueJin, require('@/assets/logos/tgmeng-trend_juejin.png'), 22.8, '/community/wenzhangjuejin'),
                     new Platform('NGA', topSearchForNga, require('@/assets/logos/tgmeng-trend_nga.png'), 22.9, '/community/douyin'),
-
-                    new Platform('吾爱破解', cacheSearchForwuaipojie, require('@/assets/logos/tgmeng-trend_wuaipojie.png'), 22.91, '/community/wuaipojie'),
-                    new Platform('水木社区', cacheSearchForshuimushequ, require('@/assets/logos/tgmeng-trend_shuimushequ.png'), 22.92, '/community/shuimushequ'),
                     new Platform('虫部落', cacheSearchForchongbuluo, require('@/assets/logos/tgmeng-trend_chongbuluo.png'), 22.93, '/community/chongbuluo'),
-                    new Platform('先知社区', cacheSearchForxianzhishequ, require('@/assets/logos/tgmeng-trend_xianzhishequ.png'), 22.94, '/community/xianzhishequ'),
                     new Platform('宽带山', cacheSearchForkdsshanghaitoutiao, require('@/assets/logos/tgmeng-trend_kdsshanghaitoutiao.png'), 22.95, '/community/kdsshanghaitoutiao'),
-                    new Platform('看雪', cacheSearchForkanxue, require('@/assets/logos/tgmeng-trend_kanxue.png'), 22.96, '/community/kanxue'),
+
                     new Platform('通信人家园', cacheSearchFortongxinrenjiayuan, require('@/assets/logos/tgmeng-trend_tongxinrenjiayuan.png'), 22.97, '/community/tongxinrenjiayuan'),
                     new Platform('Emacs China', cacheSearchForemacschina, require('@/assets/logos/tgmeng-trend_emacschina.png'), 22.98, '/community/emacschina'),
                     new Platform('Ruby China', cacheSearchForrubychina, require('@/assets/logos/tgmeng-trend_rubychina.png'), 22.99, '/community/rubychina'),
@@ -452,6 +448,11 @@ export default createStore({
                     new Platform('We Are Seller', cacheSearchForzhiwubuyankuajingdianshangshequ, require('@/assets/logos/tgmeng-trend_zhiwubuyankuajingdianshangshequ.png'), 22.9, '/community/zhiwubuyankuajingdianshangshequ'),
                     new Platform('开源资讯', cacheSearchForkaiyuanzixun, require('@/assets/logos/tgmeng-trend_kaiyuanzixun.png'), 22.992, '/community/kaiyuanzixun'),
                     new Platform('经管之家', cacheSearchForjingguanzhijia, require('@/assets/logos/tgmeng-trend_jingguanzhijia.png'), 22.993, '/community/jingguanzhijia'),
+                    new Platform('看雪', cacheSearchForkanxue, require('@/assets/logos/tgmeng-trend_kanxue.png'), 22.9931, '/community/kanxue'),
+                    new Platform('水木社区', cacheSearchForshuimushequ, require('@/assets/logos/tgmeng-trend_shuimushequ.png'), 22.9932, '/community/shuimushequ'),
+                    new Platform('先知社区', cacheSearchForxianzhishequ, require('@/assets/logos/tgmeng-trend_xianzhishequ.png'), 22.994, '/community/xianzhishequ'),
+                    // 这个吾爱破解服务器访问不了，先不展示
+                    // new Platform('吾爱破解', cacheSearchForwuaipojie, require('@/assets/logos/tgmeng-trend_wuaipojie.png'), 22.995, '/community/wuaipojie'),
                 ]
             },
             {
