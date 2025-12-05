@@ -1563,5 +1563,206 @@ export function cacheSearchForjingguanzhijia(data) {
     })
 }
 
+export function cacheSearchFor36ke(data) {
+    return request({
+        url: '/topsearch/36ke',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForitzhijia(data) {
+    return request({
+        url: '/topsearch/itzhijia',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForjikegongyuan(data) {
+    return request({
+        url: '/topsearch/jikegongyuan',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForreadhub(data) {
+    return request({
+        url: '/topsearch/readhub',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFortaimeiti(data) {
+    return request({
+        url: '/topsearch/taimeiti',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForzhongguancunzaixian(data) {
+    return request({
+        url: '/topsearch/zhongguancunzaixian',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForlandianwang(data) {
+    return request({
+        url: '/topsearch/landianwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForchuangyebang(data) {
+    return request({
+        url: '/topsearch/chuangyebang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForiheima(data) {
+    return request({
+        url: '/topsearch/iheima',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForleifengwang(data) {
+    return request({
+        url: '/topsearch/leifengwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForquantianhoukeji(data) {
+    return request({
+        url: '/topsearch/quantianhoukeji',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForwulianwangzhiku(data) {
+    return request({
+        url: '/topsearch/wulianwangzhiku',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForkuaikeji(data) {
+    return request({
+        url: '/topsearch/kuaikeji',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFortechweb(data) {
+    return request({
+        url: '/topsearch/techweb',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForlixiangshenghuoshiyanshi(data) {
+    return request({
+        url: '/topsearch/lixiangshenghuoshiyanshi',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForduozhi(data) {
+    return request({
+        url: '/topsearch/duozhi',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForjiemodui(data) {
+    return request({
+        url: '/topsearch/jiemodui',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForaimeiwang(data) {
+    return request({
+        url: '/topsearch/aimeiwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForzhanzhangzhijia(data) {
+    return request({
+        url: '/topsearch/zhanzhangzhijia',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForlieyunwang(data) {
+    return request({
+        url: '/topsearch/lieyunwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
 
 

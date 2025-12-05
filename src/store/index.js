@@ -204,6 +204,28 @@ import {
     cacheSearchForkaiyuanzixun,
     cacheSearchForjingguanzhijia,
 
+    cacheSearchFor36ke,
+    cacheSearchForitzhijia,
+    cacheSearchForjikegongyuan,
+    cacheSearchForreadhub,
+    cacheSearchFortaimeiti,
+    cacheSearchForzhongguancunzaixian,
+    cacheSearchForlandianwang,
+    cacheSearchForchuangyebang,
+    cacheSearchForiheima,
+    cacheSearchForleifengwang,
+    cacheSearchForquantianhoukeji,
+    cacheSearchForwulianwangzhiku,
+    cacheSearchForkuaikeji,
+    cacheSearchFortechweb,
+    cacheSearchForlixiangshenghuoshiyanshi,
+    cacheSearchForduozhi,
+    cacheSearchForjiemodui,
+    cacheSearchForaimeiwang,
+    cacheSearchForzhanzhangzhijia,
+    cacheSearchForlieyunwang,
+
+
 } from '@/api/api';
 
 export default createStore({
@@ -476,6 +498,27 @@ export default createStore({
                 subCategories: [
                     new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png'), 39, '/technology/mit'),
                     new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png'), 40, '/technology/jiqizhixin'),
+                    new Platform('36氪', cacheSearchFor36ke, require('@/assets/logos/tgmeng-trend_36ke.png'), 40.1, '/technology/36ke'),
+                    new Platform('IT之家', cacheSearchForitzhijia, require('@/assets/logos/tgmeng-trend_itzhijia.png'), 40.11, '/technology/itzhijia'),
+                    new Platform('极客公园', cacheSearchForjikegongyuan, require('@/assets/logos/tgmeng-trend_jikegongyuan.png'), 40.12, '/technology/jikegongyuan'),
+                    new Platform('ReadHub', cacheSearchForreadhub, require('@/assets/logos/tgmeng-trend_readhub.png'), 40.13, '/technology/readhub'),
+                    new Platform('钛媒体', cacheSearchFortaimeiti, require('@/assets/logos/tgmeng-trend_taimeiti.png'), 40.14, '/technology/taimeiti'),
+                    new Platform('中关村在线', cacheSearchForzhongguancunzaixian, require('@/assets/logos/tgmeng-trend_zhongguancunzaixian.png'), 40.15, '/technology/zhongguancunzaixian'),
+                    new Platform('蓝点网', cacheSearchForlandianwang, require('@/assets/logos/tgmeng-trend_landianwang.png'), 40.16, '/technology/landianwang'),
+                    new Platform('创业邦', cacheSearchForchuangyebang, require('@/assets/logos/tgmeng-trend_chuangyebang.png'), 40.17, '/technology/chuangyebang'),
+                    new Platform('i黑马', cacheSearchForiheima, require('@/assets/logos/tgmeng-trend_iheima.png'), 40.18, '/technology/iheima'),
+                    new Platform('雷锋网', cacheSearchForleifengwang, require('@/assets/logos/tgmeng-trend_leifengwang.png'), 40.19, '/technology/leifengwang'),
+                    new Platform('全天候科技', cacheSearchForquantianhoukeji, require('@/assets/logos/tgmeng-trend_quantianhoukeji.png'), 40.20, '/technology/quantianhoukeji'),
+                    new Platform('物联网智库', cacheSearchForwulianwangzhiku, require('@/assets/logos/tgmeng-trend_wulianwangzhiku.png'), 40.21, '/technology/wulianwangzhiku'),
+                    new Platform('快科技', cacheSearchForkuaikeji, require('@/assets/logos/tgmeng-trend_kuaikeji.png'), 40.22, '/technology/kuaikeji'),
+                    new Platform('TechWeb', cacheSearchFortechweb, require('@/assets/logos/tgmeng-trend_techweb.png'), 40.23, '/technology/techweb'),
+                    new Platform('理想生活实验室', cacheSearchForlixiangshenghuoshiyanshi, require('@/assets/logos/tgmeng-trend_lixiangshenghuoshiyanshi.png'), 40.24, '/technology/lixiangshenghuoshiyanshi'),
+                    new Platform('多知', cacheSearchForduozhi, require('@/assets/logos/tgmeng-trend_duozhi.png'), 40.25, '/technology/duozhi'),
+                    new Platform('芥末堆', cacheSearchForjiemodui, require('@/assets/logos/tgmeng-trend_jiemodui.png'), 40.26, '/technology/jiemodui'),
+                    new Platform('艾媒网', cacheSearchForaimeiwang, require('@/assets/logos/tgmeng-trend_aimeiwang.png'), 40.27, '/technology/aimeiwang'),
+                    new Platform('站长之家', cacheSearchForzhanzhangzhijia, require('@/assets/logos/tgmeng-trend_zhanzhangzhijia.png'), 40.28, '/technology/zhanzhangzhijia'),
+                    new Platform('猎云网', cacheSearchForlieyunwang, require('@/assets/logos/tgmeng-trend_lieyunwang.png'), 40.29, '/technology/lieyunwang'),
+
                     // EurekAlert服务器暂时没法访问，所以先不放了
                     // new Platform('EurekAlert', topSearchForEurekAlert, require('@/assets/logos/tgmeng-trend-eurekalert.png'), 41),
                     new Platform('NCSTI-人工智能', topSearchForRenGongZhiNengGuoJiKeJiChuangXinZhongXin, require('@/assets/logos/tgmeng-trend_ncsti.png'), 42, '/technology/rengongzhinengguojikejichuangxinzhongxin'),

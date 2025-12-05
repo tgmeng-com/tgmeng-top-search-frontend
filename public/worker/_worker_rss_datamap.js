@@ -148,7 +148,29 @@ const dataMap = {
             "/technology/huggingfacemodelstrending": {title: "糖果梦热榜 · 科技 · HuggingFace Models热门榜", description: "糖果梦热榜 · 科技 · HuggingFace Models热门榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingface/modelstrending",platform: "HuggingFace Models热门榜"},
             "/technology/huggingfacemodellikes": {title: "糖果梦热榜 · 科技 · HuggingFace Models点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Models点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingface/modelslikes",platform: "HuggingFace Models点赞榜"},
             "/technology/huggingfacedatasetstrending": {title: "糖果梦热榜 · 科技 · HuggingFace Datasets热门榜", description: "糖果梦热榜 · 科技 · HuggingFace Datasets热门榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingface/datasetstrending",platform: "HuggingFace Datasets热门榜"},
-            "/technology/huggingfacedatasetslikes": {title: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingface/datasetslikes",platform: "HuggingFace Datasets点赞榜"}
+            "/technology/huggingfacedatasetslikes": {title: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", description: "糖果梦热榜 · 科技 · HuggingFace Datasets点赞榜", link: "https://trendapi.tgmeng.com/api/topsearch/global/huggingface/datasetslikes",platform: "HuggingFace Datasets点赞榜"},
+
+
+            "/technology/36ke": {title: "糖果梦热榜 · 科技 ·36氪", description: "糖果梦热榜 · 科技 · 36氪", link: "https://trendapi.tgmeng.com/api/topsearch/36ke",platform: "36氪"},
+            "/technology/itzhijia": {title: "糖果梦热榜 · 科技 · IT之家", description: "糖果梦热榜 · 科技 · IT之家", link: "https://trendapi.tgmeng.com/api/topsearch/itzhijia",platform: "IT之家"},
+            "/technology/jikegongyuan": {title: "糖果梦热榜 · 科技 · 极客公园", description: "糖果梦热榜 · 科技 · 极客公园", link: "https://trendapi.tgmeng.com/api/topsearch/jikegongyuan",platform: "极客公园"},
+            "/technology/readhub": {title: "糖果梦热榜 · 科技 · ReadHub", description: "糖果梦热榜 · 科技 · ReadHub", link: "https://trendapi.tgmeng.com/api/topsearch/readhub",platform: "ReadHub"},
+            "/technology/taimeiti": {title: "糖果梦热榜 · 科技 · 钛媒体", description: "糖果梦热榜 · 科技 · 钛媒体", link: "https://trendapi.tgmeng.com/api/topsearch/taimeiti",platform: "钛媒体"},
+            "/technology/zhongguancunzaixian": {title: "糖果梦热榜 · 科技 · 中关村在线", description: "糖果梦热榜 · 科技 · 中关村在线", link: "https://trendapi.tgmeng.com/api/topsearch/zhongguancunzaixian",platform: "中关村在线"},
+            "/technology/landianwang": {title: "糖果梦热榜 · 科技 · 蓝点网", description: "糖果梦热榜 · 科技 · 蓝点网", link: "https://trendapi.tgmeng.com/api/topsearch/landianwang",platform: "蓝点网"},
+            "/technology/chuangyebang": {title: "糖果梦热榜 · 科技 · 创业邦", description: "糖果梦热榜 · 科技 · 创业邦", link: "https://trendapi.tgmeng.com/api/topsearch/chuangyebang",platform: "创业邦"},
+            "/technology/iheima": {title: "糖果梦热榜 · 科技 · i黑马", description: "糖果梦热榜 · 科技 · i黑马", link: "https://trendapi.tgmeng.com/api/topsearch/iheima",platform: "i黑马"},
+            "/technology/leifengwang": {title: "糖果梦热榜 · 科技 · 雷锋网", description: "糖果梦热榜 · 科技 · 雷锋网", link: "https://trendapi.tgmeng.com/api/topsearch/leifengwang",platform: "雷锋网"},
+            "/technology/quantianhoukeji": {title: "糖果梦热榜 · 科技 · 全天候科技", description: "糖果梦热榜 · 科技 · 全天候科技", link: "https://trendapi.tgmeng.com/api/topsearch/quantianhoukeji",platform: "全天候科技"},
+            "/technology/wulianwangzhiku": {title: "糖果梦热榜 · 科技 · 物联网智库", description: "糖果梦热榜 · 科技 · 物联网智库", link: "https://trendapi.tgmeng.com/api/topsearch/wulianwangzhiku",platform: "物联网智库"},
+            "/technology/kuaikeji": {title: "糖果梦热榜 · 科技 · 快科技", description: "糖果梦热榜 · 科技 · 快科技", link: "https://trendapi.tgmeng.com/api/topsearch/kuaikeji",platform: "快科技"},
+            "/technology/techweb": {title: "糖果梦热榜 · 科技 · TechWeb", description: "糖果梦热榜 · 科技 · TechWeb", link: "https://trendapi.tgmeng.com/api/topsearch/techweb",platform: "TechWeb"},
+            "/technology/lixiangshenghuoshiyanshi": {title: "糖果梦热榜 · 科技 · 理想生活实验室", description: "糖果梦热榜 · 科技 · 理想生活实验室", link: "https://trendapi.tgmeng.com/api/topsearch/lixiangshenghuoshiyanshi",platform: "理想生活实验室"},
+            "/technology/duozhi": {title: "糖果梦热榜 · 科技 · 多知", description: "糖果梦热榜 · 科技 · 多知", link: "https://trendapi.tgmeng.com/api/topsearch/duozhi",platform: "多知"},
+            "/technology/jiemodui": {title: "糖果梦热榜 · 科技 · 芥末堆", description: "糖果梦热榜 · 科技 · 芥末堆", link: "https://trendapi.tgmeng.com/api/topsearch/jiemodui",platform: "芥末堆"},
+            "/technology/aimeiwang": {title: "糖果梦热榜 · 科技 · 艾媒网", description: "糖果梦热榜 · 科技 · 艾媒网", link: "https://trendapi.tgmeng.com/api/topsearch/aimeiwang",platform: "艾媒网"},
+            "/technology/zhanzhangzhijia": {title: "糖果梦热榜 · 科技 · 站长之家", description: "糖果梦热榜 · 科技 · 站长之家", link: "https://trendapi.tgmeng.com/api/topsearch/zhanzhangzhijia",platform: "站长之家"},
+            "/technology/lieyunwang": {title: "糖果梦热榜 · 科技 · 猎云网", description: "糖果梦热榜 · 科技 · 猎云网", link: "https://trendapi.tgmeng.com/api/topsearch/lieyunwang",platform: "猎云网"},
         }
     },
     "/design": {
