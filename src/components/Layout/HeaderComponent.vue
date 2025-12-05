@@ -18,9 +18,57 @@
               type="text"
               placeholder="实时热点、一搜即达"
               @keyup.enter="handleEnter"
+              @focus="handleInputFocus"
+              @input="handleInputChange"
               :disabled="inputSearchDisable"
               class="search-input"
           />
+
+          <!-- 历史搜索记录 -->
+          <div
+              v-if="showHistory"
+              :class="[
+              'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg overflow-y-auto z-50',
+              'md:absolute md:top-full md:left-1/2 md:-translate-x-1/2',
+              'fixed top-16 left-0 w-full p-2 md:p-0 mt-2'
+            ]"
+              :style="mobileResultStyle"
+          >
+            <!-- 标题栏 -->
+            <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">历史搜索</span>
+              <button
+                  @click="clearHistory"
+                  class="text-xs text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+              >
+                清空
+              </button>
+            </div>
+
+            <ul class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[60vh] overflow-y-auto">
+              <li
+                  v-for="(item, index) in searchHistory"
+                  :key="index"
+                  @click="selectHistory(item)"
+                  class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center justify-between group"
+              >
+                <div class="flex items-center flex-1 min-w-0">
+                  <svg class="w-4 h-4 mr-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span class="text-gray-900 dark:text-gray-100 truncate">{{ item }}</span>
+                </div>
+                <button
+                    @click="deleteHistoryItem(item, $event)"
+                    class="ml-2 opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-all flex-shrink-0"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
 
           <!-- 搜索结果 -->
           <div
@@ -204,6 +252,7 @@
 <script>
 import {cacheSearchForAllByWord} from "@/api/api";
 import store from "@/store";
+import {clearLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
 export default {
   data() {
     return {
@@ -214,6 +263,9 @@ export default {
       loading: false,
       isDark: true,
       showMobileMenu: false,
+      showHistory: false,
+      searchHistory: [],
+      maxHistoryItems: 20,
     };
   },
   mounted() {
@@ -224,8 +276,78 @@ export default {
       this.isDark = true
     }
     document.documentElement.classList.toggle('dark', this.isDark)
+
+    // 加载历史搜索记录
+    this.loadSearchHistory();
+
+  },
+  beforeUnmount() {
   },
   methods: {
+    // 加载历史搜索
+    loadSearchHistory() {
+      const history = getLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY);
+      if (history) {
+        try {
+          this.searchHistory = JSON.parse(history);
+        } catch (e) {
+          this.searchHistory = [];
+        }
+      }
+    },
+    // 保存历史搜索
+    saveSearchHistory(keyword) {
+      if (!keyword || !keyword.trim()) return;
+
+      // 移除已存在的相同关键词
+      this.searchHistory = this.searchHistory.filter(item => item !== keyword);
+
+      // 添加到开头
+      this.searchHistory.unshift(keyword);
+
+      // 限制数量
+      if (this.searchHistory.length > this.maxHistoryItems) {
+        this.searchHistory = this.searchHistory.slice(0, this.maxHistoryItems);
+      }
+
+      // 保存到 localStorage
+      setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
+    },
+    // 删除单条历史记录
+    deleteHistoryItem(keyword, event) {
+      event.stopPropagation();
+      this.searchHistory = this.searchHistory.filter(item => item !== keyword);
+      setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
+      // localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
+    },
+    // 清空历史记录
+    clearHistory(event) {
+      if (event) event.stopPropagation();
+      this.searchHistory = [];
+      clearLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY)
+    },
+    // 选择历史记录 - 直接搜索
+    selectHistory(keyword) {
+      this.input = keyword;
+      this.showHistory = false;
+      this.handleEnter();
+    },
+    // 输入框获得焦点
+    handleInputFocus() {
+      if (this.searchHistory.length > 0 && !this.input.trim()) {
+        this.showHistory = true;
+        this.showResults = false;
+      }
+    },
+    // 输入框内容变化
+    handleInputChange() {
+      if (this.input.trim()) {
+        this.showHistory = false;
+      } else if (this.searchHistory.length > 0) {
+        this.showHistory = true;
+        this.showResults = false;
+      }
+    },
     toggleTheme() {
       this.isDark = !this.isDark
       document.documentElement.classList.toggle('dark', this.isDark)
@@ -250,8 +372,12 @@ export default {
       window.umami.track('🔎热点检索:' + this.input)
       if (!this.input.trim()) return;
 
+      // 保存到历史记录
+      this.saveSearchHistory(this.input.trim());
+
       this.inputSearchDisable = true;
       this.showResults = true;
+      this.showHistory = false;
       this.loading = true;
       this.searchResults = [];
 

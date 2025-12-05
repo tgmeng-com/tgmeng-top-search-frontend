@@ -31,7 +31,9 @@ export const LOCAL_STORAGE_KEYS = {
     // 词云数量
     WORD_CLOUD_NUM: 'wordCloudNum',
     // 广告是否展示
-    ADS_ENABLED: 'adsEnabled'
+    ADS_ENABLED: 'adsEnabled',
+    // 搜索历史
+    SEARCH_HISTORY: 'searchHistory'
 };
 
 // 设置本地存储

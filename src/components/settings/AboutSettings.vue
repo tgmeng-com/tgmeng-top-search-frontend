@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/06 07:20',
+              events: [{
+                id: 1, title: '新增功能', desc: ['搜索框添加历史记录功能，点击可直接进行搜索'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/06 06:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增数个财经类'], tag: 'Feat'
