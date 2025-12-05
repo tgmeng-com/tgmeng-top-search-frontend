@@ -13,6 +13,10 @@ const dataMap = {
             "/news/bbc": {title: "糖果梦热榜 · 新闻 · BBC", description: "糖果梦热榜 · 新闻 · BBC", link: "https://trendapi.tgmeng.com/api/topsearch/bbc",platform: "BBC"},
             "/news/faguang": {title: "糖果梦热榜 · 新闻 · 法广", description: "糖果梦热榜 · 新闻 · 法广", link: "https://trendapi.tgmeng.com/api/topsearch/faguang",platform: "法广"},
             "/news/pengpaixinwen": {title: "糖果梦热榜 · 新闻 · 澎湃新闻", description: "糖果梦热榜 · 新闻 · 澎湃新闻", link: "https://trendapi.tgmeng.com/api/topsearch/pengpaixinwen",platform: "澎湃新闻"},
+            "/news/zhongguoxinwenwang": {title: "糖果梦热榜 · 媒体 · 中国新闻网", description: "糖果梦热榜 · 媒体 · 中国新闻网", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "中国新闻网"},
+            "/news/xinjingbao": {title: "糖果梦热榜 · 媒体 · 新京报", description: "糖果梦热榜 · 媒体 · 新京报", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "新京报"},
+            "/news/zaker": {title: "糖果梦热榜 · 媒体 · ZAKER", description: "糖果梦热榜 · 媒体 · ZAKER", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "ZAKER"},
+            "/news/xingdaohuanqiu": {title: "糖果梦热榜 · 媒体 · 星岛环球", description: "糖果梦热榜 · 媒体 · 星岛环球", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "星岛环球"}
         }
     },
     "/wool": {
@@ -40,8 +44,14 @@ const dataMap = {
             "/media/minshengbaidu": {title: "糖果梦热榜 · 媒体 · 民生", description: "糖果梦热榜 · 媒体 · 民生", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/minsheng",platform: "百度民生"},
             "/media/qichebaidu": {title: "糖果梦热榜 · 媒体 · 汽车", description: "糖果梦热榜 · 媒体 · 汽车", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/qiche",platform: "百度汽车"},
             "/media/youxibaidu": {title: "糖果梦热榜 · 媒体 · 游戏", description: "糖果梦热榜 · 媒体 · 游戏", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/youxi",platform: "百度游戏"},
-            "/media/xiaoshuobaidu": {title: "糖果梦热榜 · 媒体 · 小说", description: "糖果梦热榜 · 媒体 · 小说", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "百度小说"}
+            "/media/xiaoshuobaidu": {title: "糖果梦热榜 · 媒体 · 小说", description: "糖果梦热榜 · 媒体 · 小说", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "百度小说"},
 
+            "/media/weixindushu": {title: "糖果梦热榜 · 媒体 · 微信读书", description: "糖果梦热榜 · 媒体 · 微信读书", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "微信读书"},
+            "/media/acfun": {title: "糖果梦热榜 · 媒体 · acfun", description: "糖果梦热榜 · 媒体 · acfun", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "acfun"},
+            "/media/meimanbaike": {title: "糖果梦热榜 · 媒体 · 美漫百科", description: "糖果梦热榜 · 媒体 · 美漫百科", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "美漫百科"},
+            "/media/shiguangwang": {title: "糖果梦热榜 · 媒体 · 时光网", description: "糖果梦热榜 · 媒体 · 时光网", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "时光网"},
+            "/media/jiandan": {title: "糖果梦热榜 · 媒体 · 煎蛋", description: "糖果梦热榜 · 媒体 · 煎蛋", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "煎蛋"},
+            "/media/dianshimao": {title: "糖果梦热榜 · 媒体 · 电视猫", description: "糖果梦热榜 · 媒体 · 电视猫", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "电视猫"}
         }
     },
     "/life": {
@@ -243,8 +253,8 @@ const dataMap = {
             "/game/youxituoluo": {title: "糖果梦热榜 · 游戏 · 游戏陀螺", description: "糖果梦热榜 · 游戏 · 游戏陀螺", link: "https://trendapi.tgmeng.com/api/topsearch/youxituoluo",platform: "游戏陀螺"},
             "/game/youyanshe": {title: "糖果梦热榜 · 游戏 · 游研社", description: "糖果梦热榜 · 游戏 · 游研社", link: "https://trendapi.tgmeng.com/api/topsearch/youyanshe",platform: "游研社"},
             "/game/youxiawang": {title: "糖果梦热榜 · 游戏 · 游侠网", description: "糖果梦热榜 · 游戏 · 游侠网", link: "https://trendapi.tgmeng.com/api/topsearch/youxiawang",platform: "游侠网"},
-            "/game/17173": {title: "糖果梦热榜 · 游戏 · 17173", description: "糖果梦热榜 · 游戏 · 17173", link: "https://trendapi.tgmeng.com/api/topsearch/17173",platform: "17173"}
-
+            "/game/17173": {title: "糖果梦热榜 · 游戏 · 17173", description: "糖果梦热榜 · 游戏 · 17173", link: "https://trendapi.tgmeng.com/api/topsearch/17173",platform: "17173"},
+            "/game/dianwanbang": {title: "糖果梦热榜 · 媒体 · 电玩帮", description: "糖果梦热榜 · 媒体 · 电玩帮", link: "https://trendapi.tgmeng.com/api/topsearch/baidu/xiaoshuo",platform: "电玩帮"}
         }
     },
     "/health": {

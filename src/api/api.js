@@ -1764,5 +1764,115 @@ export function cacheSearchForlieyunwang(data) {
     })
 }
 
+export function cacheSearchForweixindushu(data) {
+    return request({
+        url: '/topsearch/weixindushu',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForacfun(data) {
+    return request({
+        url: '/topsearch/acfun',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFormeimanbaike(data) {
+    return request({
+        url: '/topsearch/meimanbaike',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForshiguangwang(data) {
+    return request({
+        url: '/topsearch/shiguangwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForjiandan(data) {
+    return request({
+        url: '/topsearch/jiandan',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFordianwanbang(data) {
+    return request({
+        url: '/topsearch/dianwanbang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchFordianshimao(data) {
+    return request({
+        url: '/topsearch/dianshimao',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForzhongguoxinwenwang(data) {
+    return request({
+        url: '/topsearch/zhongguoxinwenwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForzaker(data) {
+    return request({
+        url: '/topsearch/zaker',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForxinjingbao(data) {
+    return request({
+        url: '/topsearch/xinjingbao',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+export function cacheSearchForxingdaohuanqiu(data) {
+    return request({
+        url: '/topsearch/xingdaohuanqiu',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
 
 

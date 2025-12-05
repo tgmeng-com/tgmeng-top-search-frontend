@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/06 00:20',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增数个新闻、媒体、游戏平台'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/05 08:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增20个科技社区'], tag: 'Feat'

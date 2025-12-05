@@ -225,6 +225,18 @@ import {
     cacheSearchForzhanzhangzhijia,
     cacheSearchForlieyunwang,
 
+    cacheSearchForweixindushu,
+    cacheSearchForacfun,
+    cacheSearchFormeimanbaike,
+    cacheSearchForshiguangwang,
+    cacheSearchForjiandan,
+    cacheSearchFordianwanbang,
+    cacheSearchFordianshimao,
+    cacheSearchForzhongguoxinwenwang,
+    cacheSearchForzaker,
+    cacheSearchForxinjingbao,
+    cacheSearchForxingdaohuanqiu,
+
 
 } from '@/api/api';
 
@@ -322,6 +334,10 @@ export default createStore({
                     new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png'), 6, '/news/bbc'),
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png'), 7, '/news/faguang'),
                     new Platform('澎湃新闻', topSearchForPengPaiXinWen, require('@/assets/logos/tgmeng-trend_pengpaixinwen.png'), 7.1, '/news/pengpaixinwen'),
+                    new Platform('中国新闻网', cacheSearchForzhongguoxinwenwang, require('@/assets/logos/tgmeng-trend_zhongguoxinwenwang.png'), 7.2, '/news/zhongguoxinwenwang'),
+                    new Platform('新京报', cacheSearchForxinjingbao, require('@/assets/logos/tgmeng-trend_xinjingbao.png'), 7.3, '/news/xinjingbao'),
+                    new Platform('ZAKER', cacheSearchForzaker, require('@/assets/logos/tgmeng-trend_zaker.png'), 7.31, '/news/zaker'),
+                    new Platform('星岛环球', cacheSearchForxingdaohuanqiu, require('@/assets/logos/tgmeng-trend_xingdaohuanqiu.png'), 7.4, '/news/xingdaohuanqiu'),
                 ]
             },
             {
@@ -348,8 +364,14 @@ export default createStore({
                     new Platform('B站', topSearchForBilibili, require('@/assets/logos/tgmeng-trend_bilibili.png'), 9, '/media/bilibili'),
                     new Platform('抖音', topSearchForDouYin, require('@/assets/logos/tgmeng-trend_douyin.png'), 10, '/media/douyin'),
                     new Platform('微博', topSearchForWeiBo, require('@/assets/logos/tgmeng-trend_weibo.png'), 11, '/media/weibo'),
+                    new Platform('AcFun', cacheSearchForacfun, require('@/assets/logos/tgmeng-trend_acfun.png'), 11.1, '/media/acfun'),
                     new Platform('Youtube', topSearchForYoutube, require('@/assets/logos/tgmeng-trend_youtube.png'), 13, '/media/youtube'),
+                    new Platform('美漫百科', cacheSearchFormeimanbaike, require('@/assets/logos/tgmeng-trend_meimanbaike.png'), 13.1, '/media/meimanbaike'),
+                    new Platform('时光网', cacheSearchForshiguangwang, require('@/assets/logos/tgmeng-trend_shiguangwang.png'), 13.2, '/media/shiguangwang'),
+                    new Platform('煎蛋', cacheSearchForjiandan, require('@/assets/logos/tgmeng-trend_jiandan.png'), 13.3, '/media/jiandan'),
                     new Platform('少数派', topSearchForShaoShuPai, require('@/assets/logos/tgmeng-trend_shaoshupai.png'), 16, '/media/shaoshupai'),
+                    new Platform('微信读书', cacheSearchForweixindushu, require('@/assets/logos/tgmeng-trend_weixindushu.png'), 16.1, '/media/weixindushu'),
+                    new Platform('电视猫', cacheSearchFordianshimao, require('@/assets/logos/tgmeng-trend_dianshimao.png'), 16.2, '/media/dianshimao'),
                     new Platform('热梗', topSearchForReGengBaiDu, require('@/assets/logos/tgmeng-trend_regeng.png'), 17, '/media/regengbaidu'),
                     new Platform('财经', topSearchForCaiJingBaiDu, require('@/assets/logos/tgmeng-trend_caijing.png'), 18, '/media/caijingbaidu'),
                     new Platform('民生', topSearchForMinShengBaiDu, require('@/assets/logos/tgmeng-trend_minsheng.png'), 19, '/media/minshengbaidu'),
@@ -627,6 +649,7 @@ export default createStore({
                     new Platform('游研社', topSearchForYouYanShe, require('@/assets/logos/tgmeng-trend_youyanshe.png'), 130, '/game/youyanshe'),
                     new Platform('游侠网', topSearchForYouXiaWang, require('@/assets/logos/tgmeng-trend_youxiawang.png'), 131, '/game/youxiawang'),
                     new Platform('17173', topSearchFor17173, require('@/assets/logos/tgmeng-trend_17173.png'), 132, '/game/17173'),
+                    new Platform('电玩帮', cacheSearchFordianwanbang, require('@/assets/logos/tgmeng-trend_dianwanbang.png'), 132.1, '/game/dianwanbang'),
                 ]
             },
             {
