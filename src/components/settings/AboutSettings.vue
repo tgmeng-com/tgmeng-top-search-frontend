@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/06 06:20',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增数个财经类'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/06 00:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增数个新闻、媒体、游戏平台'], tag: 'Feat'

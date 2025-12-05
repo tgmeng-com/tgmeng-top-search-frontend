@@ -1874,5 +1874,181 @@ export function cacheSearchForxingdaohuanqiu(data) {
     })
 }
 
+export function cacheSearchFor21jingjiwang(data) {
+    return request({
+        url: '/topsearch/21jingjiwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchFordongfangcaifuwang(data) {
+    return request({
+        url: '/topsearch/dongfangcaifuwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchFormbazhiku(data) {
+    return request({
+        url: '/topsearch/mbazhiku',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForjingjiguanchawang(data) {
+    return request({
+        url: '/topsearch/jingjiguanchawang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForshidaizaixian(data) {
+    return request({
+        url: '/topsearch/shidaizaixian',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForjingsecaijing(data) {
+    return request({
+        url: '/topsearch/jingsecaijing',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForxinlangcaijing(data) {
+    return request({
+        url: '/topsearch/xinlangcaijing',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForkuaijitoutiao(data) {
+    return request({
+        url: '/topsearch/kuaijitoutiao',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForlaohucaijing(data) {
+    return request({
+        url: '/topsearch/laohucaijing',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForblockbeats(data) {
+    return request({
+        url: '/topsearch/blockbeats',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForhuitongcaijing(data) {
+    return request({
+        url: '/topsearch/huitongcaijing',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchFormeijingwang(data) {
+    return request({
+        url: '/topsearch/meijingwang',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForxuangutong(data) {
+    return request({
+        url: '/topsearch/xuangutong',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForchaincatcher(data) {
+    return request({
+        url: '/topsearch/chaincatcher',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchForkechuangbanribao(data) {
+    return request({
+        url: '/topsearch/kechuangbanribao',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
+export function cacheSearchFortengxunshejikaifangpingtai(data) {
+    return request({
+        url: '/topsearch/tengxunshejikaifangpingtai',
+        method: 'get',
+        data: {
+            word: data
+        }
+    })
+}
+
+
 
 

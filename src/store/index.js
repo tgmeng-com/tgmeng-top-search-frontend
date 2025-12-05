@@ -237,6 +237,22 @@ import {
     cacheSearchForxinjingbao,
     cacheSearchForxingdaohuanqiu,
 
+    cacheSearchFor21jingjiwang,
+    cacheSearchFordongfangcaifuwang,
+    cacheSearchFormbazhiku,
+    cacheSearchForjingjiguanchawang,
+    cacheSearchForshidaizaixian,
+    cacheSearchForjingsecaijing,
+    cacheSearchForxinlangcaijing,
+    cacheSearchForkuaijitoutiao,
+    cacheSearchForlaohucaijing,
+    cacheSearchForblockbeats,
+    cacheSearchForhuitongcaijing,
+    cacheSearchFormeijingwang,
+    cacheSearchForxuangutong,
+    cacheSearchForchaincatcher,
+    cacheSearchForkechuangbanribao,
+    cacheSearchFortengxunshejikaifangpingtai
 
 } from '@/api/api';
 
@@ -335,6 +351,7 @@ export default createStore({
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png'), 7, '/news/faguang'),
                     new Platform('澎湃新闻', topSearchForPengPaiXinWen, require('@/assets/logos/tgmeng-trend_pengpaixinwen.png'), 7.1, '/news/pengpaixinwen'),
                     new Platform('中国新闻网', cacheSearchForzhongguoxinwenwang, require('@/assets/logos/tgmeng-trend_zhongguoxinwenwang.png'), 7.2, '/news/zhongguoxinwenwang'),
+                    new Platform('MBA智库', cacheSearchFormbazhiku, require('@/assets/logos/tgmeng-trend_mbazhiku.png'), 7.21, '/news/mbazhiku'),
                     new Platform('新京报', cacheSearchForxinjingbao, require('@/assets/logos/tgmeng-trend_xinjingbao.png'), 7.3, '/news/xinjingbao'),
                     new Platform('ZAKER', cacheSearchForzaker, require('@/assets/logos/tgmeng-trend_zaker.png'), 7.31, '/news/zaker'),
                     new Platform('星岛环球', cacheSearchForxingdaohuanqiu, require('@/assets/logos/tgmeng-trend_xingdaohuanqiu.png'), 7.4, '/news/xingdaohuanqiu'),
@@ -493,7 +510,22 @@ export default createStore({
                     new Platform('法布', topSearchForFaBu, require('@/assets/logos/tgmeng-trend_fabu.png'), 29, '/finance/fabu'),
                     new Platform('金十', topSearchForJinShi, require('@/assets/logos/tgmeng-trend_jinshi.png'), 30, '/finance/jinshi'),
                     new Platform('智通财经', topSearchForZhiTongCaiJing, require('@/assets/logos/tgmeng-trend_zhitongcaijing.png'), 30.1, '/finance/zhitongcaijing'),
-                ]
+
+                    new Platform('21经济网', cacheSearchFor21jingjiwang, require('@/assets/logos/tgmeng-trend_21jingjiwang.png'), 30.2, '/finance/21jingjiwang'),
+                    new Platform('东方财富网', cacheSearchFordongfangcaifuwang, require('@/assets/logos/tgmeng-trend_dongfangcaifuwang.png'), 30.3, '/finance/dongfangcaifuwang'),
+                    new Platform('经济观察网', cacheSearchForjingjiguanchawang, require('@/assets/logos/tgmeng-trend_jingjiguanchawang.png'), 30.5, '/finance/jingjiguanchawang'),
+                    new Platform('时代在线', cacheSearchForshidaizaixian, require('@/assets/logos/tgmeng-trend_shidaizaixian.png'), 30.6, '/finance/shidaizaixian'),
+                    new Platform('金色财经', cacheSearchForjingsecaijing, require('@/assets/logos/tgmeng-trend_jingsecaijing.png'), 30.7, '/finance/jingsecaijing'),
+                    new Platform('新浪财经', cacheSearchForxinlangcaijing, require('@/assets/logos/tgmeng-trend_xinlangcaijing.png'), 30.8, '/finance/xinlangcaijing'),
+                    new Platform('会计头条', cacheSearchForkuaijitoutiao, require('@/assets/logos/tgmeng-trend_kuaijitoutiao.png'), 30.9, '/finance/kuaijitoutiao'),
+                    new Platform('老虎财经', cacheSearchForlaohucaijing, require('@/assets/logos/tgmeng-trend_laohucaijing.png'), 30.91, '/finance/laohucaijing'),
+                    new Platform('BlockBeats', cacheSearchForblockbeats, require('@/assets/logos/tgmeng-trend_blockbeats.png'), 30.92, '/finance/blockbeats'),
+                    new Platform('汇通财经', cacheSearchForhuitongcaijing, require('@/assets/logos/tgmeng-trend_huitongcaijing.png'), 30.93, '/finance/huitongcaijing'),
+                    new Platform('每经网', cacheSearchFormeijingwang, require('@/assets/logos/tgmeng-trend_meijingwang.png'), 30.94, '/finance/meijingwang'),
+                    new Platform('选股通', cacheSearchForxuangutong, require('@/assets/logos/tgmeng-trend_xuangutong.png'), 30.95, '/finance/xuangutong'),
+                    new Platform('Chain Catcher', cacheSearchForchaincatcher, require('@/assets/logos/tgmeng-trend_chaincatcher.png'), 30.96, '/finance/chaincatcher'),
+                    new Platform('科创板日报', cacheSearchForkechuangbanribao, require('@/assets/logos/tgmeng-trend_kechuangbanribao.png'), 30.97, '/finance/kechuangbanribao'),
+                ],
             },
             {
                 name: '体育',
@@ -585,6 +617,7 @@ export default createStore({
                     new Platform('涂鸦王国精选作品', topSearchForJingXuanZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 57, '/design/jingxuanzuopintuyawangguo'),
                     new Platform('涂鸦王国今日新作', topSearchForJinRiXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 58, '/design/jinrixinzuotuyawangguo'),
                     new Platform('涂鸦王国发现新作', topSearchForFaXianXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 59, '/design/faxianxinzuotuyawangguo'),
+                    new Platform('腾讯设计开放平台', cacheSearchFortengxunshejikaifangpingtai, require('@/assets/logos/tgmeng-trend_tengxunshejikaifangpingtai.png'), 59.1, '/design/tengxunshejikaifangpingtai'),
                 ]
             },
             {
