@@ -321,6 +321,11 @@ export default createStore({
         searchKeyword: '', // 新增：搜索关键词
         searchTrigger: 0,  // 新增：搜索触发器（用于触发 watch）
 
+        // 过滤中包含的关键字
+        includeWord:[],
+        // 过滤中排除的关键字
+        unincludeWord:[],
+
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -831,6 +836,12 @@ export default createStore({
         triggerSearch(state, keyword) {
             state.searchKeyword = keyword;
             state.searchTrigger++; // 递增触发器，确保每次都能触发 watch
+        },
+        setIncludeWord(state, newNum) {
+            state.includeWord = newNum;
+        },
+        setUnincludeWord(state, newNum) {
+            state.unincludeWord = newNum;
         },
     }
 });

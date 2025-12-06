@@ -6,7 +6,7 @@
         <!-- 左侧 Logo 和网站名称 - 整体可点击 -->
         <router-link to="/" @click="trackUmami('顶部左边LOGO')" class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3 cursor-pointer">
           <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-10 h-10 sm:w-12 sm:h-12">
-          <span class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
+          <span v-if="!isMobile" class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
             糖果梦热榜
           </span>
         </router-link>
@@ -277,6 +277,7 @@ export default {
       showHistory: false,
       searchHistory: [],
       maxHistoryItems: 20,
+      windowWidth: window.innerWidth
     };
   },
 
@@ -429,6 +430,9 @@ export default {
   },
 
   computed: {
+    isMobile() {
+      return this.windowWidth < 768; // 手机屏幕宽度
+    },
     mobileResultStyle() {
       if (window.innerWidth < 640) {
         return {

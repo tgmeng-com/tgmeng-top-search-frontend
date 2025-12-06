@@ -33,7 +33,11 @@ export const LOCAL_STORAGE_KEYS = {
     // 广告是否展示
     ADS_ENABLED: 'adsEnabled',
     // 搜索历史
-    SEARCH_HISTORY: 'searchHistory'
+    SEARCH_HISTORY: 'searchHistory',
+    // 过滤中包含的关键字
+    INCLUDE_WORD: 'includeWord',
+    // 过滤中排除的挂念子
+    UNINCLUDE_WORD: 'unincludeWord',
 };
 
 // 设置本地存储

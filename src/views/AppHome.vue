@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <TopMessage/>
     <FishModeChoose/>
-<!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
+    <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
     <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
 
@@ -56,27 +56,32 @@
       </div>
 
       <div v-if="pageViewsShow"
-          class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+           class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
             总访问量: <span class="font-medium">{{ umamiAllViews }}</span>
           </span>&nbsp;
           <!-- 总访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
             总时长: <span class="font-medium">{{ umamiAllTime }}</span>
           </span>&nbsp;
           <!-- 今日访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
             今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
           </span>&nbsp;
           <!-- 今日访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300" :class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
             今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
           </span>&nbsp;
           <!-- 实时在线人数 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300" :class="{'stats-updating': isUpdating}">
+          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300"
+                :class="{'stats-updating': isUpdating}">
     在线: <span class="font-medium">{{ umamiActive }}</span>
   </span>
         </div>
@@ -99,7 +104,7 @@
           <div
               class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 左侧：统计数据（移动端换行显示） -->
-            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+            <div class="text-left text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide ">
 
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                 边距缩进：<el-input-number class="input-title" v-model="widthPadding" :min="10" :max="100"
@@ -257,6 +262,61 @@
           <!-- 用户样式自定义调整   -->
           <div
               class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+              <span
+                  class="text-xs px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center">
+                包含关键词：
+                <el-input-tag
+                    v-model="includeWord"
+                    :tag-type="'success'"
+                    :tag-effect="'dark'"
+                    clearable
+                    size="small"
+                    @change="changeIncludeWord"
+                    placeholder="输入要包含的关键词"
+                >
+                  <template #tag="{ value }">
+                    <div class="flex items-center">
+                      <el-icon class="mr-1">
+                        <ElementPlus/>
+                      </el-icon>
+                      <span>{{ value }}</span>
+                    </div>
+                  </template>
+                </el-input-tag>
+              </span>
+
+              <span
+                  class="mt-3 text-xs px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center">
+                排除关键词：
+                <el-input-tag
+                    v-model="unincludeWord"
+                    :tag-type="'danger'"
+                    :tag-effect="'dark'"
+                    clearable
+                    size="small"
+                    @change="changeUnincludeWord"
+                    placeholder="输入要过滤的关键词"
+                >
+                  <template #tag="{ value }">
+                    <div class="flex items-center">
+                      <el-icon class="mr-1">
+                        <ElementPlus/>
+                      </el-icon>
+                      <span>{{ value }}</span>
+                    </div>
+                  </template>
+                </el-input-tag>
+              </span>&nbsp;
+            </div>
+            <!-- 右侧：更新时间（移动端换行显示） -->
+            <div>
+            </div>
+          </div>
+
+          <!-- 用户样式自定义调整   -->
+          <div
+              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 重置设置 -->
             <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
               <div class="text-sm  whitespace-nowrap overflow-x-auto scrollbar-hide">
@@ -308,7 +368,8 @@
         </draggable>
       </div>
       <!--     主内容和评论区之间 展示广告 -->
-      <GoogleAdsense v-if="$store.state.adsEnabled"  ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto"
+      <GoogleAdsense v-if="$store.state.adsEnabled" ad-client="ca-pub-3286880109560525" ad-slot="9081541454"
+                     ad-format="auto"
                      :full-width-responsive="true"/>
       <WalineComment/>
     </main>
@@ -359,7 +420,7 @@ export default {
       refreshTimer: null, // 定时器 ID
       umamiStatsTimer: null, // 新增：统计数据定时器
       windowWidth: window.innerWidth, // 屏幕大小
-      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
+      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard,
     };
   },
   async mounted() {
@@ -438,6 +499,8 @@ export default {
       const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
       const cacheWordCloudNum = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM)
       const cacheGoogleAdsEnable = getLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED)
+      const cacheIncludeWord = getLocalStorage(LOCAL_STORAGE_KEYS.INCLUDE_WORD)
+      const cacheunincludeWord = getLocalStorage(LOCAL_STORAGE_KEYS.UNINCLUDE_WORD)
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
@@ -456,7 +519,8 @@ export default {
       this.widthPadding = cacheWidthPadding ?? this.widthPadding;
       this.wordCloudNum = cacheWordCloudNum ?? this.wordCloudNum;
       this.adsEnabled = cacheGoogleAdsEnable ?? this.adsEnabled;
-
+      this.includeWord = cacheIncludeWord ?? this.includeWord;
+      this.unincludeWord = cacheunincludeWord ?? this.unincludeWord;
 
 
       // 把其他分类下的数据放到全部分类下
@@ -465,6 +529,44 @@ export default {
       this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[0];
       // 首次进入页面，检查路由参数是否合法
       this.handleRouteCategory();
+    },
+
+    filterByWords(texts, includeWords = [], excludeWords = [], getter = null) {
+      if (!Array.isArray(texts)) return [];
+
+      // getter 处理
+      const getText = typeof getter === "function"
+          ? getter
+          : (item => item);
+
+      // 处理 include / exclude：trim + 非空 + 小写
+      const includes = (includeWords || [])
+          .map(w => w.trim().toLowerCase())
+          .filter(Boolean);
+
+      const excludes = (excludeWords || [])
+          .map(w => w.trim().toLowerCase())
+          .filter(Boolean);
+
+      return texts.filter(item => {
+        let text = getText(item);
+
+        if (text == null) return false;
+        if (typeof text !== "string") text = String(text);
+
+        const t = text.trim().toLowerCase(); // ⭐ 文本转小写
+        if (!t) return false;
+
+        // include
+        const includeOK =
+            includes.length === 0 || includes.some(w => t.includes(w));
+
+        // exclude
+        const excludeOK =
+            excludes.length === 0 || !excludes.some(w => t.includes(w));
+
+        return includeOK && excludeOK;
+      });
     },
 
     // 访问接口拿数据
@@ -477,6 +579,13 @@ export default {
             const data = res?.data?.data || {};
             subCategory.updateTime = data.dataUpdateTime || '';
             subCategory.data = Array.isArray(data.dataInfo) ? data.dataInfo : [];
+            // 过滤掉
+            subCategory.data = this.filterByWords(
+                Array.isArray(data.dataInfo) ? data.dataInfo : [],
+                this.includeWord,      // 必须包含
+                this.unincludeWord,      // 不包含
+                item => item.keyword   // 从 keyword 判断
+            );
           })
           .catch((err) => {
             console.warn(`加载失败：${subCategory.name}`, err);
@@ -502,7 +611,8 @@ export default {
         }
         this.handleCategoryClick(this.activeCategory, {skipRoutePush: true});
       }
-    },
+    }
+    ,
     handleRssClick(cat) {
       if (cat.id === 0) {
         window.open('https://tgmeng.com/rss.xml', '_blank');
@@ -510,14 +620,15 @@ export default {
         window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
       }
       window.umami.track('点击RSS:' + cat.name);
-    },
+    }
+    ,
 
     // 分类按钮点击事件
     handleCategoryClick(cat, options = {}) {
       // skipRoutePush，防止重复推路由
       if (!options.skipRoutePush) {
         // excel页面点击分类按钮的时候，不换路由
-        if (this.$route.path !== '/excel' && this.$route.path !== '/vscode' ) {
+        if (this.$route.path !== '/excel' && this.$route.path !== '/vscode') {
           this.$router.push({name: 'Category', params: {category: cat.routerName}});
         }
       }
@@ -540,7 +651,8 @@ export default {
           this.fetchData(subCat);
         }
       });
-    },
+    }
+    ,
 
     // 刷新当前分类下的数据
     refreshData() {
@@ -569,7 +681,8 @@ export default {
       //   //   this.fetchData(subCat);
       //   // }
       // })
-    },
+    }
+    ,
 
     // 初始化全部分类，就是把其他分类下的东西放到全部分类下，方便展示
     initAllCategroies() {
@@ -580,15 +693,18 @@ export default {
           this.activeCategory.subCategories.push(subCat)
         });
       })
-    },
+    }
+    ,
     // 拖动开始时，保存当前 sort 列表
     onDragStart() {
       this.preDragSortList = this.activeCategory.subCategories.map(item => item.sort);
-    },
+    }
+    ,
     // 拖动大分类开始时，保存当前 sort 列表
     onDragFatherCatStart() {
       this.preDragFatherCatSortList = this.categroies.map(item => item.sort);
-    },
+    }
+    ,
     //保存拖动卡片后的顺序
     onDragEnd() {
       // 拖动完成后，更新每个卡片的 sort 属性
@@ -598,7 +714,8 @@ export default {
       });
       this.updateCategroiesCache();
       window.umami.track('拖拽排序')
-    },
+    }
+    ,
     //保存大分类拖动卡片后的顺序
     onDragFatherCatEnd() {
       // 拖动完成后，更新每个卡片的 sort 属性
@@ -608,7 +725,8 @@ export default {
       });
       this.updateCategroiesCache();
       window.umami.track('拖拽排序')
-    },
+    }
+    ,
     updateCategroiesCache() {
       // 放到缓存里
       const clonedForStorage = JSON.parse(JSON.stringify(this.categroies));
@@ -623,10 +741,12 @@ export default {
         })
       });
       setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES, clonedForStorage);
-    },
+    }
+    ,
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
-    },
+    }
+    ,
 
     initUmami() {
       umamiActive()
@@ -658,87 +778,114 @@ export default {
           })
           .finally(() => {
           });
-    },
+    }
+    ,
     // 自定义调整卡片列数
     changeCardCols() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS, this.cardCols);
       window.umami.track('自定义卡片列数')
-    },
+    }
+    ,
     // 自定义调整卡片高度
     changeCardHeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT, this.cardHeight);
       window.umami.track('自定义卡片高度')
-    },
+    }
+    ,
     // 自定义标题字体大小
     changeCardTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE, this.cardTitleFontSize);
       window.umami.track('自定义热点标题字体大小')
-    },
+    }
+    ,
     // 自定义调整分类名称字体大小
     changeCategroiesTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE, this.categroiesTitleFontSize);
       window.umami.track('自定义分类名称字体大小')
-    },
+    }
+    ,
     // 自定义调整卡片顶部字体大小
     changeCardTopFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE, this.cardTopFontSize);
       window.umami.track('自定义卡片标题字体大小')
-    },
+    }
+    ,
     // 自定义调整卡片是否可以拖动
     changeCardDraggable() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE, this.cardDraggable);
       window.umami.track('自定义卡片是否可以拖动')
-    },
+    }
+    ,
     // 自定义调整分类是否可以拖动
     changeCategroiesDraggable() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE, this.categroiesDraggable);
       window.umami.track('自定义分类是否可以拖动')
-    },
+    }
+    ,
     // 自定义调整卡片标题是否完整显示
     changeCardHotTitleFull() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL, this.cardHotTitleFull);
       window.umami.track('自定义热点标题是否完整显示')
-    },
+    }
+    ,
     // 自定义调整卡片标题是否完整显示
     changeCardTitleFull() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL, this.cardTitleFull);
       window.umami.track('自定义卡片标题是否完整显示')
-    },
+    }
+    ,
     // 自定义调整热点热度值是否显示
     changeCardHotScoreShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
       window.umami.track('自定义热点热度值是否显示')
-    },
+    }
+    ,
     // 自定义调整卡片时间是否显示
     changeCardTimeShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW, this.cardTimeShow);
       window.umami.track('自定义卡片时间是否显示')
-    },
+    }
+    ,
     // 自定义调整默认选中的分类id
     changeDefaultActiveCategroyId() {
       setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
       window.umami.track('自定义默认选中的分类id')
-    },
+    }
+    ,
     // 自定义调整词云是否展示
     changeWordCloudShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW, this.wordCloudShow);
       window.umami.track('自定义词云是否展示')
-    },
+    }
+    ,
     // 自定义调整访问量展示
     changePageViewsShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW, this.pageViewsShow);
       window.umami.track('自定义访问量是否展示')
-    },
+    }
+    ,
     // 自定义调整边距缩放，就是屏幕两边的，主要是为了移动端i
     changeWidthPadding() {
       setLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING, this.widthPadding);
       window.umami.track('自定义边距缩放')
-    },
+    }
+    ,
     // 自定义调整词云数量
     changeWordCloudNum() {
       setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, this.wordCloudNum);
       window.umami.track('自定义词云数量')
     },
+    changeIncludeWord() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.INCLUDE_WORD, this.includeWord);
+      window.umami.track('🔓添加过滤关键字包含：' + this.includeWord)
+      this.handleCategoryClick(this.activeCategory, {skipRoutePush: true})
+    },
+    changeUnincludeWord() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.UNINCLUDE_WORD, this.unincludeWord);
+      window.umami.track('🔒添加过滤关键字排除：' + this.unincludeWord)
+      this.handleCategoryClick(this.activeCategory, {skipRoutePush: true})
+    }
+    ,
     cleanExcelLocalStorage() {
       this.$confirm('此操作将清除上述所有设置（不包括卡片拖动和分类拖动的顺序以及收藏内容）', {
         confirmButtonText: '确定',
@@ -772,7 +919,8 @@ export default {
           message: '已取消'
         });
       });
-    },
+    }
+    ,
   },
   computed: {
     isMobile() {
@@ -955,14 +1103,31 @@ export default {
         this.$store.commit('setWordCloudNum', value);
       }
     },
-    adsEnabled:{
+    adsEnabled: {
       get() {
         return this.$store.state.adsEnabled;
       },
       set(value) {
         this.$store.commit('setAdsEnabled', value);
       }
-    }
+    },
+    includeWord: {
+      get() {
+        return this.$store.state.includeWord;
+      },
+      set(value) {
+        this.$store.commit('setIncludeWord', value);
+      }
+    },
+    unincludeWord: {
+      get() {
+        return this.$store.state.unincludeWord;
+      },
+      set(value) {
+        this.$store.commit('setUnincludeWord', value);
+      }
+    },
+
   },
   watch: {
     /// 监听路由变化，切换分类
@@ -1046,9 +1211,45 @@ export default {
   padding: 0 !important;
 }
 
+:deep(.el-input-tag) {
+  background-color: unset !important;
+  box-shadow: unset !important;
+  min-height: 1rem !important;
+}
+
+:deep(.el-input-tag--small) {
+  --el-input-tag-padding: 0px !important;
+  line-height: normal !important;
+}
+
+:deep(.el-tag--small) {
+  height: 14px !important;
+}
+
+:deep(.el-input-tag__input-wrapper) {
+  height: 14px !important;
+}
+
+:deep(.el-icon.mr-1) {
+  display: none !important;
+}
+
+:deep(.el-tag__content) {
+  line-height: unset !important;
+}
+
+:deep(.el-select__wrapper) {
+  background-color: unset !important;
+}
+
+
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .stats-updating {
