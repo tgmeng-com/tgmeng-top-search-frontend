@@ -61,7 +61,10 @@ export default {
   methods: {
     initPWA() {
       // iOS Safari: 手动提示
-      if (this.isIOS && !this.isInStandaloneMode) {
+      if (this.isIOS && this.isInStandaloneMode) {
+        // iOS 已经安装，不提示
+        return;
+      }else if (this.isIOS && !this.isInStandaloneMode) {
         setTimeout(() => {
           this.showInstallIOSPrompt()
         }, 2000);
