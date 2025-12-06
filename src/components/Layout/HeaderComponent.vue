@@ -27,6 +27,7 @@
           <!-- 历史搜索记录 -->
           <div
               v-if="showHistory"
+              data-history-panel
               :class="[
               'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg overflow-y-auto z-50',
               'md:absolute md:top-full md:left-1/2 md:-translate-x-1/2',
@@ -39,10 +40,18 @@
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300">历史搜索</span>
               <button
                   @click="clearHistory"
-                  class="text-xs text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+                  class="text-sm text-gray-500 hover:text-red-500 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
               >
                 清空
               </button>
+
+              <!-- 关闭按钮 -->
+              <div class="flex justify-end p-2">
+                <button @click="showHistory = false"
+                        class="text-red-700 hover:text-red-500 dark:hover:text-red-500 text-3xl">&times;
+                </button>
+              </div>
+
             </div>
 
             <ul class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[60vh] overflow-y-auto">
@@ -73,6 +82,7 @@
           <!-- 搜索结果 -->
           <div
               v-if="showResults"
+              data-result-panel
               :class="[
               'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg overflow-y-auto z-50',
               'md:absolute md:top-full md:left-1/2 md:-translate-x-1/2',
@@ -83,7 +93,7 @@
             <!-- 关闭按钮 -->
             <div class="flex justify-end p-2">
               <button @click="showResults = false" :disabled="loading"
-                      class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-xl">&times;
+                      class="text-red-700 hover:text-red-500 dark:hover:text-red-500 text-3xl">&times;
               </button>
             </div>
 
@@ -110,7 +120,7 @@
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
                         {{ index+1 }}.
                       </span>
-                      <span class="text-gray-900 dark:text-gray-100 break-words">
+                      <span class="text-gray-900 dark:text-gray-100 break-words text-left">
                         {{ item.keyword }}
                       </span>
                     </div>
@@ -253,6 +263,7 @@
 import {cacheSearchForAllByWord} from "@/api/api";
 import store from "@/store";
 import {clearLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+
 export default {
   data() {
     return {
@@ -268,6 +279,20 @@ export default {
       maxHistoryItems: 20,
     };
   },
+
+  watch: {
+    // 监听来自词云的搜索触发
+    '$store.state.searchTrigger'() {
+      const keyword = this.$store.state.searchKeyword;
+      if (keyword) {
+        this.input = keyword;
+        this.handleEnter();
+        // 滚动到页面顶部，让用户看到搜索结果
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  },
+
   mounted() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -281,8 +306,10 @@ export default {
     this.loadSearchHistory();
 
   },
+
   beforeUnmount() {
   },
+
   methods: {
     // 加载历史搜索
     loadSearchHistory() {
@@ -295,6 +322,7 @@ export default {
         }
       }
     },
+
     // 保存历史搜索
     saveSearchHistory(keyword) {
       if (!keyword || !keyword.trim()) return;
@@ -313,25 +341,28 @@ export default {
       // 保存到 localStorage
       setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
     },
+
     // 删除单条历史记录
     deleteHistoryItem(keyword, event) {
       event.stopPropagation();
       this.searchHistory = this.searchHistory.filter(item => item !== keyword);
       setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
-      // localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
     },
+
     // 清空历史记录
     clearHistory(event) {
       if (event) event.stopPropagation();
       this.searchHistory = [];
       clearLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY)
     },
+
     // 选择历史记录 - 直接搜索
     selectHistory(keyword) {
       this.input = keyword;
       this.showHistory = false;
       this.handleEnter();
     },
+
     // 输入框获得焦点
     handleInputFocus() {
       if (this.searchHistory.length > 0 && !this.input.trim()) {
@@ -339,6 +370,7 @@ export default {
         this.showResults = false;
       }
     },
+
     // 输入框内容变化
     handleInputChange() {
       if (this.input.trim()) {
@@ -390,10 +422,12 @@ export default {
             this.loading = false;
           });
     },
+
     trackUmami(label) {
       if (window.umami) window.umami.track(label);
     }
   },
+
   computed: {
     mobileResultStyle() {
       if (window.innerWidth < 640) {
@@ -405,6 +439,7 @@ export default {
       }
       return {};
     },
+
     workMaskExcelShow: {
       get() {
         return this.$store.state.workMaskExcelShow;
@@ -413,6 +448,7 @@ export default {
         this.$store.commit('setWorkMaskExcelShow', value);
       }
     },
+
     workMaskVsCodeShow:{
       get() {
         return this.$store.state.workMaskVsCodeShow;
@@ -421,6 +457,7 @@ export default {
         this.$store.commit('setWorkMaskVsCodeShow', value);
       }
     },
+
     fishModeChooseShow:{
       get() {
         return this.$store.state.fishModeChooseShow;
@@ -429,11 +466,13 @@ export default {
         this.$store.commit('setFishModeChooseShow', value);
       }
     },
+
     widthPaddingStyle() {
       return {
         width: this.widthPadding + '% !important',
       }
     },
+
     widthPadding: {
       get() {
         return this.$store.state.widthPadding;

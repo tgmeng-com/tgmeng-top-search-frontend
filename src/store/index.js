@@ -317,6 +317,11 @@ export default createStore({
         // 广告是否开启
         adsEnabled: true,
 
+        // 这个是词云点击后存储的，然后用于header里面的搜索框调用
+        searchKeyword: '', // 新增：搜索关键词
+        searchTrigger: 0,  // 新增：搜索触发器（用于触发 watch）
+
+
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
         settingMenu: [
@@ -821,6 +826,11 @@ export default createStore({
         // 广告是否开启
         setAdsEnabled(state, newAdsEnabled) {
             state.adsEnabled = newAdsEnabled;
+        },
+        // 词云触发搜索框用的
+        triggerSearch(state, keyword) {
+            state.searchKeyword = keyword;
+            state.searchTrigger++; // 递增触发器，确保每次都能触发 watch
         },
     }
 });

@@ -92,9 +92,9 @@ export default {
       const echartsData = chartData
           .slice(0, this.wordCloudNum)
           .map(item => ({
-        name: item.word,
-        value: item.frequency
-      }));
+            name: item.word,
+            value: item.frequency
+          }));
 
       // 销毁旧的图表实例
       if (this.chartInstance) {
@@ -186,6 +186,17 @@ export default {
       };
 
       this.chartInstance.setOption(option);
+
+      // 添加点击事件监听
+      this.chartInstance.on('click', (params) => {
+        if (params.name) {
+          // 通过 Vuex 触发搜索
+          this.$store.commit('triggerSearch', params.name);
+          if (window.umami) {
+            window.umami.track('☁️🔍词云点击搜索:' + params.name);
+          }
+        }
+      });
 
       // 响应窗口大小变化
       window.addEventListener('resize', () => {
