@@ -309,7 +309,8 @@ export default createStore({
         // 访问量展示
         pageViewsShow: true,
         // 边距缩放，就是屏幕两边的，主要是为了移动端
-        widthPadding: 95,
+        widthPadding: 75,
+        cardWidthForPhone: 100,
         // 词云数量
         wordCloudNum: 300,
         // 摸鱼模式选择面板
@@ -928,6 +929,9 @@ export default createStore({
         // 边距缩放，就是屏幕两边的，主要是为了移动端i
         setWidthPadding(state, newPadding) {
             state.widthPadding = newPadding;
+        },
+        setCardWidthForPhone(state, newWidth) {
+            state.cardWidthForPhone = newWidth;
         },
         // 词云数量
         setWordCloudNum(state, newNum) {

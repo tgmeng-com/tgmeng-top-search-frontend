@@ -104,7 +104,8 @@
           <div
               class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <!-- 左侧：统计数据（移动端换行显示） -->
-            <div class="text-left text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide ">
+            <div
+                class="text-left text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide ">
 
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                 边距缩进：<el-input-number class="input-title" v-model="widthPadding" :min="10" :max="100"
@@ -253,6 +254,13 @@
             卡片高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
                                     @change="changeCardHeight"/>
           </span>&nbsp;
+              <!-- 自定义款-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片宽(移动端)：<el-input-number class="input-height" v-model="cardWidthForPhone" :min="10" :max="100"
+                                            size="small"
+                                            :step="5" :precision="0"
+                                            @change="changeCardWidthForPhone"/>
+                </span>&nbsp;
             </div>
             <!-- 右侧：更新时间（移动端换行显示） -->
             <div>
@@ -337,11 +345,44 @@
       <WordCloud v-if="wordCloudShow"/>
 
       <div class="mb-10 mt-4">
+        <!-- 手机端：横向滚动容器 -->
+        <div class="md:hidden overflow-x-auto hide-scrollbar">
+          <draggable
+              v-model="activeCategory.subCategories"
+              tag="div"
+              item-key="title"
+              class="flex gap-4 pb-4"
+              :animation="300"
+              :handle="'.drag-handle'"
+              @start="onDragStart"
+              @end="onDragEnd"
+              :disabled="!cardDraggable"
+          >
+            <template #item="{ element: p }">
+              <div v-show="p.isShow" class="flex-shrink-0 " :style="cardWidthForPhoneStyle">
+                <CommunityCard
+                    :key="p.title"
+                    :title="p.title"
+                    :logo="p.logo"
+                    :updateTime="p.updateTime"
+                    :list="p.data"
+                    :loading="p.loading"
+                    :rss="p.rss"
+                    v-model:isStar="p.isStar"
+                    @updateCategroiesCache="updateCategroiesCache"
+                    @fetchData="()=>fetchData(p)"
+                />
+              </div>
+            </template>
+          </draggable>
+        </div>
+
+        <!-- PC端：网格布局 -->
         <draggable
             v-model="activeCategory.subCategories"
             tag="div"
             item-key="title"
-            class="grid gap-6 cols-1 md:grid-cols-2"
+            class="hidden md:grid gap-6 grid-cols-1 md:grid-cols-2"
             :style="gridStyle"
             :animation="300"
             :handle="'.drag-handle'"
@@ -483,6 +524,7 @@ export default {
       // 用缓存里的自定义样式替换一下全部数据里的自定义样式
       const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
       const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
+      const cacheCardWidthForPhone = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE)
       const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
       const cacheCategroiesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE)
       const cacheCardTopFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE)
@@ -504,6 +546,7 @@ export default {
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
+      this.cardWidthForPhone = cacheCardWidthForPhone ?? this.cardWidthForPhone;
       this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
       this.categroiesTitleFontSize = cacheCategroiesTitleFontSize ?? this.categroiesTitleFontSize;
       this.cardTopFontSize = cacheCardTopFontSize ?? this.cardTopFontSize;
@@ -790,6 +833,11 @@ export default {
     changeCardHeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT, this.cardHeight);
       window.umami.track('自定义卡片高度')
+    },
+
+    changeCardWidthForPhone() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE, this.cardWidthForPhone);
+      window.umami.track('自定义卡片宽度')
     }
     ,
     // 自定义标题字体大小
@@ -1127,7 +1175,19 @@ export default {
         this.$store.commit('setUnincludeWord', value);
       }
     },
-
+    cardWidthForPhone: {
+      get() {
+        return this.$store.state.cardWidthForPhone;
+      },
+      set(value) {
+        this.$store.commit('setCardWidthForPhone', value);
+      }
+    },
+    cardWidthForPhoneStyle() {
+      return {
+        width: this.cardWidthForPhone + '% !important',
+      }
+    },
   },
   watch: {
     /// 监听路由变化，切换分类
@@ -1254,6 +1314,37 @@ export default {
 
 .stats-updating {
   animation: pulse 0.5s ease-in-out;
+}
+
+/* 隐藏滚动条但保持滚动功能 */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 可选：添加滚动指示器 */
+.overflow-x-auto {
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.flex-shrink-0 {
+  scroll-snap-align: start;
+}
+
+/* 手机端卡片容器 - 让卡片内部可以滚动 */
+.card-wrapper-mobile {
+  height: 70vh; /* 固定高度，让卡片内部可以滚动 */
+  overflow: visible; /* 允许卡片内部自行处理滚动 */
+}
+
+.card-wrapper-mobile > * {
+  height: 100%;
+  overflow-y: auto; /* 确保卡片内部可以纵向滚动 */
 }
 
 </style>

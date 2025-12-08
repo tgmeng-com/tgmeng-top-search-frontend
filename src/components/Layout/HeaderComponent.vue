@@ -1,6 +1,6 @@
 <template>
   <header class="fixed top-0 left-0 right-0 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300 headStyle">
-    <div class="container mx-auto px-8 h-24" :style="widthPaddingStyle">
+    <div class="container mx-auto h-24" :style="widthPaddingStyle">
       <div class="flex items-center justify-between h-full relative">
 
         <!-- 左侧 Logo 和网站名称 - 整体可点击 -->

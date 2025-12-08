@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-8 py-24" :style="widthPaddingStyle">
+  <div class="container mx-auto py-24" :style="widthPaddingStyle">
     <HeaderComponent/>
     <NotificationComponent/>
     <AIFloatReport/>
