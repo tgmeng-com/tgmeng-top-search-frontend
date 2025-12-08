@@ -16,7 +16,7 @@ export default {
     notification() {
       ElNotification({
         title: '新功能',
-        message: '可在设置中一键关闭本站内的谷歌广告',
+        message: '订阅推送功能上线，顶部🚀图标',
         type: 'success',
         position: "top-left",
         duration: 10000
