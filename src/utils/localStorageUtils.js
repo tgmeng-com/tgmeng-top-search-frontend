@@ -11,6 +11,7 @@ export const LOCAL_STORAGE_KEYS = {
     CATEGORIES_DRAGGABLE: 'categroiesDraggable',
     CARD_HOT_SCORE_SHOW: 'cardHotScoreShow',
     CARD_TIME_SHOW: 'cardTimeShow',
+    CARD_HORIZONTAL_SCROLLING: 'cardHorizontalScrolling',
     CARD_HOT_TITLE_FULL: 'cardHotTitleFull',
     CARD_TITLE_FULL: 'cardTitleFull',
     DEFAULT_CATEGORY_ID: 'defaultCategoryId',

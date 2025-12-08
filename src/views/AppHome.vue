@@ -262,9 +262,18 @@
             卡片高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
                                     @change="changeCardHeight"/>
           </span>&nbsp;
+              <!-- 自定义移动端横向/竖向滚动-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            卡片横向滚动：<el-switch
+                  v-model="cardHorizontalScrolling"
+                  active-value="horizontal"
+                  inactive-value="vertical"
+                  size="small"
+                  @change="changeCardHorizontalScrolling"/>
+          </span>&nbsp;
               <!-- 自定义款-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            卡片宽(移动端)：<el-input-number class="input-height" v-model="cardWidthForPhone" :min="10" :max="100"
+            卡片宽(移动端横向)：<el-input-number class="input-height" v-model="cardWidthForPhone" :min="10" :max="100"
                                             size="small"
                                             :step="5" :precision="0"
                                             @change="changeCardWidthForPhone"/>
@@ -353,13 +362,13 @@
       <WordCloud v-if="wordCloudShow"/>
 
       <div class="mb-10 mt-4">
-        <!-- 手机端：横向滚动容器 -->
-        <div class="md:hidden overflow-x-auto hide-scrollbar">
+        <!-- 手机端：可切换横向/竖向滚动 -->
+        <div class="md:hidden" :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''">
           <draggable
               v-model="activeCategory.subCategories"
               tag="div"
               item-key="title"
-              class="flex gap-4 pb-4"
+              :class="cardHorizontalScrolling === 'horizontal' ? 'flex gap-4 pb-4' : 'grid grid-cols-1 gap-4'"
               :animation="300"
               :handle="'.drag-handle'"
               @start="onDragStart"
@@ -367,7 +376,11 @@
               :disabled="!cardDraggable"
           >
             <template #item="{ element: p }">
-              <div v-show="p.isShow" class="flex-shrink-0 " :style="cardWidthForPhoneStyle">
+              <div
+                  v-show="p.isShow"
+                  :class="cardHorizontalScrolling === 'horizontal' ? 'flex-shrink-0' : ''"
+                  :style="cardHorizontalScrolling === 'horizontal' ? cardWidthForPhoneStyle : ''"
+              >
                 <CommunityCard
                     :key="p.title"
                     :title="p.title"
@@ -455,7 +468,7 @@ export default {
     CommunityCard: HotPointCard,
     draggable,
     WordCloud,
-    FishModeChoose
+    FishModeChoose,
   },
   data() {
     return {
@@ -469,7 +482,7 @@ export default {
       refreshTimer: null, // 定时器 ID
       umamiStatsTimer: null, // 新增：统计数据定时器
       windowWidth: window.innerWidth, // 屏幕大小
-      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard,
+      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
     };
   },
   async mounted() {
@@ -541,6 +554,7 @@ export default {
 
       const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
       const cacheCardTimeShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW)
+      const cacheCardHorizontalScrolling = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HORIZONTAL_SCROLLING)
       const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
       const cacheCardTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL)
       const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
@@ -563,6 +577,7 @@ export default {
       this.categroiesDraggable = cacheCategroiesDraggable ?? this.categroiesDraggable;
       this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
       this.cardTimeShow = cacheCardTimeShow ?? this.cardTimeShow;
+      this.cardHorizontalScrolling = cacheCardHorizontalScrolling ?? this.cardHorizontalScrolling;
       this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
       this.cardTitleFull = cacheCardTitleFull ?? this.cardTitleFull;
       this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
@@ -902,6 +917,10 @@ export default {
     changeCardTimeShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW, this.cardTimeShow);
       window.umami.track('自定义卡片时间是否显示')
+    },
+    changeCardHorizontalScrolling(){
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HORIZONTAL_SCROLLING, this.cardHorizontalScrolling);
+      window.umami.track('自定义卡片移动端横向滚动')
     }
     ,
     // 自定义调整默认选中的分类id
@@ -1067,6 +1086,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardTimeShow', value);
+      }
+    },
+    cardHorizontalScrolling:{
+      get() {
+        return this.$store.state.cardHorizontalScrolling;
+      },
+      set(value) {
+        this.$store.commit('setCardHorizontalScrolling', value);
       }
     },
     cardHotTitleFull: {

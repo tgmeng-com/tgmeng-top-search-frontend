@@ -318,6 +318,8 @@ export default createStore({
         // 摸鱼模式选择面板
         fishModeChooseShow: false,
         subscriptionSettingShow: false,
+        // 卡片横向滚动
+        cardHorizontalScrolling: 'horizontal',
         // 广告是否开启
         adsEnabled: false,
 
@@ -947,6 +949,9 @@ export default createStore({
         },
         setSubscriptionSettingShow(state, newSubscription) {
             state.subscriptionSettingShow = newSubscription;
+        },
+        setCardHorizontalScrolling(state, newCardHorizontalScrolling) {
+            state.cardHorizontalScrolling = newCardHorizontalScrolling;
         },
         // 广告是否开启
         setAdsEnabled(state, newAdsEnabled) {
