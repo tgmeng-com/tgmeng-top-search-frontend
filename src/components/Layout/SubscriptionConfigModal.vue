@@ -150,8 +150,8 @@ export default {
             name: '钉钉',
             icon: require('@/assets/image/dingding.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(0,162,255,.18),transparent 60%)',
-            webhookPlaceholder:'Webhook URL(必填)',
-            secretPlaceholder:'Secret(机器人设置中的加签，必填)',
+            webhookPlaceholder: 'Webhook URL(必填)',
+            secretPlaceholder: 'Secret(机器人设置中的加签，必填)',
             webhook: '',
             secret: ''
           },
@@ -160,8 +160,8 @@ export default {
             name: '飞书',
             icon: require('@/assets/image/feishu.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(255,89,89,.18),transparent 60%)',
-            webhookPlaceholder:'Webhook URL(必填)',
-            secretPlaceholder:'Secret(机器人设置中的签名校验，必填)',
+            webhookPlaceholder: 'Webhook URL(必填)',
+            secretPlaceholder: 'Secret(机器人设置中的签名校验，必填)',
             webhook: '',
             secret: ''
           },
@@ -170,8 +170,8 @@ export default {
             name: 'Telegram',
             icon: require('@/assets/image/telegram.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
-            webhookPlaceholder:'BOT_TOKEN(搜BotFather创建机器人后返回的)',
-            secretPlaceholder:'GROUP_ID(拉机器人进群，发消息对话，然后访问https://api.telegram.org/bot<BOT_TOKEN>/getUpdates 就能看到群id，必填)',
+            webhookPlaceholder: 'BOT_TOKEN(搜BotFather创建机器人后返回的)',
+            secretPlaceholder: 'GROUP_ID(拉机器人进群，发消息对话，然后访问https://api.telegram.org/bot<BOT_TOKEN>/getUpdates 就能看到群id，必填)',
             webhook: '',
             secret: ''
           }
@@ -197,9 +197,9 @@ export default {
     window.removeEventListener('keydown', this.onKey)
   },
   methods: {
-    webhookInit(){
+    webhookInit() {
       this.form.accessKey = getLocalStorage(LOCAL_STORAGE_KEYS.WEBHOOK_ACCESS_KEY)
-      if (this.form.accessKey){
+      if (this.form.accessKey) {
         this.applyKey()
       }
     },
@@ -222,7 +222,9 @@ export default {
       const successMessage = '密钥有效';
       const errorMessage = '密钥无效，请检查';
       if (!this.form.accessKey || !this.isValidKey(this.form.accessKey)) {
-        this.$message.error(errorMessage);
+        if (this.subscriptionSettingShow) {
+          this.$message.error(errorMessage);
+        }
       } else {
         getSubscriptionConfig(this.form)
             .then(res => {
@@ -238,14 +240,18 @@ export default {
                 })
                 setLocalStorage(LOCAL_STORAGE_KEYS.WEBHOOK_ACCESS_KEY, this.form.accessKey);
                 window.umami.track('webhook密钥成功缓存');
-                this.$message.success(successMessage);
+                if (this.subscriptionSettingShow) {
+                  this.$message.success(successMessage);
+                }
               } else {
                 this.form.keywords = []
                 this.form.platforms.forEach(item => {
                   item.webhook = '';
                   item.secret = '';
                 })
-                this.$message.error(errorMessage);
+                if (this.subscriptionSettingShow) {
+                  this.$message.error(errorMessage);
+                }
               }
             })
             .finally(() => {
@@ -260,9 +266,9 @@ export default {
       updateSubscriptionConfig(this.form)
           .then(res => {
             const result = res?.data?.data || false;
-            if (result){
+            if (result) {
               this.$message.success("配置更新成功")
-            }else {
+            } else {
               this.$message.error("配置更新失败")
             }
           })
