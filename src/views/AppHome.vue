@@ -363,7 +363,11 @@
 
       <div class="mb-10 mt-4">
         <!-- 手机端：可切换横向/竖向滚动 -->
-        <div class="md:hidden" :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''">
+        <div
+            ref="mobileScrollContainer"
+            class="md:hidden" :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''"
+            @scroll="onMobileScroll"
+        >
           <draggable
               v-model="activeCategory.subCategories"
               tag="div"
@@ -482,7 +486,8 @@ export default {
       refreshTimer: null, // 定时器 ID
       umamiStatsTimer: null, // 新增：统计数据定时器
       windowWidth: window.innerWidth, // 屏幕大小
-      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard
+      homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard,
+      categoryScrollPositions: {}, // 存储每个分类横向的滚动位置
     };
   },
   async mounted() {
@@ -515,6 +520,21 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
+    // 🆕 新增方法1：监听滚动，保存位置
+    onMobileScroll() {
+      if (this.$refs.mobileScrollContainer && this.cardHorizontalScrolling === 'horizontal') {
+        this.categoryScrollPositions[this.activeCategory.id] = this.$refs.mobileScrollContainer.scrollLeft;
+      }
+    },
+
+    // 🆕 新增方法2：恢复滚动位置
+    restoreCategoryScrollPosition() {
+      this.$nextTick(() => {
+        if (this.$refs.mobileScrollContainer && this.cardHorizontalScrolling === 'horizontal') {
+          this.$refs.mobileScrollContainer.scrollLeft = this.categoryScrollPositions[this.activeCategory.id] || 0;
+        }
+      });
+    },
     handleResize() {
       this.windowWidth = window.innerWidth; // 更新 windowWidth
     },
@@ -701,6 +721,8 @@ export default {
         }
       }
       this.activeCategory = cat;
+      // 🆕 新增：恢复该分类的滚动位置
+      this.restoreCategoryScrollPosition();
       // 把全部数据下收藏的卡片方法收藏分类下
       if (cat.name === '收藏') {
         // 先清空收藏分类下的卡片
