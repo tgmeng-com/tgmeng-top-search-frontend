@@ -304,6 +304,8 @@ export default createStore({
         excelCategroiesTitleFontSize: 0.875,
         excelCategroiesTitleFontWeight: 400,
 
+        // 顶部轮播字体展示
+        topCarouselFontShow: true,
         //词云是否展示
         wordCloudShow: true,
         // 访问量展示
@@ -317,7 +319,7 @@ export default createStore({
         fishModeChooseShow: false,
         subscriptionSettingShow: false,
         // 广告是否开启
-        adsEnabled: true,
+        adsEnabled: false,
 
         // 这个是词云点击后存储的，然后用于header里面的搜索框调用
         searchKeyword: '', // 新增：搜索关键词
@@ -919,6 +921,9 @@ export default createStore({
         },
         setWorkMaskVsCodeShow(state, newWorkMaskVsCodeShow) {
             state.workMaskVsCodeShow = newWorkMaskVsCodeShow;
+        },
+        setTopCarouselFontShow(state, newTopCarouselFontShow) {
+            state.topCarouselFontShow = newTopCarouselFontShow;
         },
         setWordCloudShow(state, newShow) {
             state.wordCloudShow = newShow;

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <TopMessage/>
+    <TopMessage v-if="topCarouselFontShow"/>
     <FishModeChoose/>
     <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
@@ -8,7 +8,7 @@
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="mb-16 mt-8 overflow-x-auto scrollbar-hide">
+      <div class="mb-8 mt-8 overflow-x-auto scrollbar-hide">
         <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
           <draggable
               v-model="categroies"
@@ -111,6 +111,14 @@
                 边距缩进：<el-input-number class="input-title" v-model="widthPadding" :min="10" :max="100"
                                           size="small"
                                           :precision="0" :step="5" @change="changeWidthPadding"/>
+              </span>&nbsp;
+
+              <!-- 顶部轮播字体展示-->
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                轮播字体展示：<el-switch
+                  v-model="topCarouselFontShow"
+                  size="small"
+                  @change="changeTopCarouselFontShow"/>
               </span>&nbsp;
             </div>
             <!-- 右侧：更新时间（移动端换行显示） -->
@@ -536,6 +544,7 @@ export default {
       const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
       const cacheCardTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL)
       const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
+      const cacheTopCarouselFontShow = getLocalStorage(LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW)
       const cacheWordCloudShow = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW)
       const cachePageViewsShow = getLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW)
       const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
@@ -557,6 +566,7 @@ export default {
       this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
       this.cardTitleFull = cacheCardTitleFull ?? this.cardTitleFull;
       this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
+      this.topCarouselFontShow = cacheTopCarouselFontShow ?? this.topCarouselFontShow;
       this.wordCloudShow = cacheWordCloudShow ?? this.wordCloudShow;
       this.pageViewsShow = cachePageViewsShow ?? this.pageViewsShow;
       this.widthPadding = cacheWidthPadding ?? this.widthPadding;
@@ -898,6 +908,11 @@ export default {
     changeDefaultActiveCategroyId() {
       setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
       window.umami.track('自定义默认选中的分类id')
+    },
+
+    changeTopCarouselFontShow() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW, this.topCarouselFontShow);
+      window.umami.track('自定义词云是否展示')
     }
     ,
     // 自定义调整词云是否展示
@@ -1115,6 +1130,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setActiveCategory', value);
+      }
+    },
+    topCarouselFontShow:{
+      get() {
+        return this.$store.state.topCarouselFontShow;
+      },
+      set(value) {
+        this.$store.commit('setTopCarouselFontShow', value);
       }
     },
     wordCloudShow: {

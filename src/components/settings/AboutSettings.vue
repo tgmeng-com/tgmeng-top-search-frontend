@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/08 18:20',
+              events: [{
+                id: 1, title: '新增优化', desc: ['移动端卡片改为左右滑动;移动端卡片可以调整宽度;顶部滚动字体可关闭显示'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/08 08:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增订阅推送：支持飞书、钉钉、TG'], tag: 'Feat'
