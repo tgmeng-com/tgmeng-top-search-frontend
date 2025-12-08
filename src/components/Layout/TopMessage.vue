@@ -1,6 +1,6 @@
 <template>
   <div class="top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
-    <div class="py-2 flex flex-col items-center text-lg space-y-1">
+    <div class="py-2 pb-8 flex flex-col items-center text-lg space-y-1">
 
       <!--      &lt;!&ndash; 第一行可横向滑动 &ndash;&gt;-->
       <!--      <div class="overflow-x-auto whitespace-nowrap scrollbar-hide w-full text-center">-->

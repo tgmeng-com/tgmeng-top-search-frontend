@@ -8,8 +8,8 @@
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="mb-8 mt-8 overflow-x-auto scrollbar-hide">
-        <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
+      <div class="overflow-x-auto scrollbar-hide sticky top-24 z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100">
+        <div class="inline-flex space-x-2 py-0.5 pb-4 justify-center mx-auto whitespace-nowrap">
           <draggable
               v-model="categroies"
               tag="div"
@@ -264,7 +264,7 @@
           </span>&nbsp;
               <!-- 自定义移动端横向/竖向滚动-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            卡片横向滚动：<el-switch
+            卡片横向滚动(移动端)：<el-switch
                   v-model="cardHorizontalScrolling"
                   active-value="horizontal"
                   inactive-value="vertical"
@@ -1417,6 +1417,16 @@ export default {
 .card-wrapper-mobile > * {
   height: 100%;
   overflow-y: auto; /* 确保卡片内部可以纵向滚动 */
+}
+
+.category-nav-sticky {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+  0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark .category-nav-sticky {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+  0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
 </style>
