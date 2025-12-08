@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     const isBefore = (target) => Date.now() < new Date(target);
-    if (isBefore('2025-12-6')) {
+    if (isBefore('2025-12-9')) {
       this.notification()
     }
   }
