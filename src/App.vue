@@ -3,6 +3,7 @@
     <HeaderComponent/>
     <NotificationComponent/>
     <AIFloatReport/>
+    <SubscriptionConfigModal/>
     <ClientInstall/>
     <!-- 友链 -->
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
@@ -19,6 +20,7 @@ import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import NotificationComponent from "@/components/Layout/NotificationComponent.vue";
 import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
+import SubscriptionConfigModal from "@/components/Layout/SubscriptionConfigModal.vue";
 import ClientInstall from "@/components/UI/ClientInstall.vue";
 
 export default {
@@ -29,6 +31,7 @@ export default {
     HeaderComponent: HeaderComponent,
     GoogleAdsense: GoogleGoogleAdsense,
     ClientInstall: ClientInstall,
+    SubscriptionConfigModal,
   },
   data() {
     return {

@@ -16,7 +16,7 @@ class Platform {
 }
 
 import {createStore} from 'vuex';
-import {Avatar, Setting, Money, InfoFilled,Odometer} from "@element-plus/icons-vue";
+import {Avatar, Setting, Money, InfoFilled, Odometer} from "@element-plus/icons-vue";
 import {
     topSearchForYoutube,
     topSearchForBaiDu,
@@ -313,7 +313,8 @@ export default createStore({
         // 词云数量
         wordCloudNum: 300,
         // 摸鱼模式选择面板
-        fishModeChooseShow:false,
+        fishModeChooseShow: false,
+        subscriptionSettingShow: false,
         // 广告是否开启
         adsEnabled: true,
 
@@ -322,10 +323,9 @@ export default createStore({
         searchTrigger: 0,  // 新增：搜索触发器（用于触发 watch）
 
         // 过滤中包含的关键字
-        includeWord:[],
+        includeWord: [],
         // 过滤中排除的关键字
-        unincludeWord:[],
-
+        unincludeWord: [],
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -726,15 +726,123 @@ export default createStore({
         workMaskVsCodeShow: false,
         // 顶部卡片位
         homeHeaderAdsCard: [
-            {id:1,name: '某某AI1', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-11-28 10:30:00",expireTime:"2025-11-28 23:59:59", status: 'active',desc: '某某集团',content:"***@gmail.com",note: '内部备注：首页顶部横幅广告'},
-            {id:2,name: '某某公司', logo: require('@/assets/image/girl/1 (1).jpg'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某集团',content:"qq:12345",note: '内部备注：首页顶部横幅广告'},
-            {id:3,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"微信：***",note: '内部备注：首页顶部横幅广告'},
-            {id:4,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
-            {id:5,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
-            {id:6,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
-            {id:7,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
-            {id:8,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'active',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
-            {id:9,name: '某某公司', logo: require('@/assets/ads/test.png'), url: 'https://tgmeng.com',show:true,startTime:"2025-01-01 00:00:00",expireTime:"2025-11-28 23:59:59",status: 'expired',  desc: '某某公司',content:"",note: '内部备注：首页顶部横幅广告'},
+            {
+                id: 1,
+                name: '某某AI1',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-11-28 10:30:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某集团',
+                content: "***@gmail.com",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 2,
+                name: '某某公司',
+                logo: require('@/assets/image/girl/1 (1).jpg'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某集团',
+                content: "qq:12345",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 3,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "微信：***",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 4,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 5,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 6,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 7,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 8,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'active',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
+            {
+                id: 9,
+                name: '某某公司',
+                logo: require('@/assets/ads/test.png'),
+                url: 'https://tgmeng.com',
+                show: true,
+                startTime: "2025-01-01 00:00:00",
+                expireTime: "2025-11-28 23:59:59",
+                status: 'expired',
+                desc: '某某公司',
+                content: "",
+                note: '内部备注：首页顶部横幅广告'
+            },
         ]
 
     },
@@ -825,8 +933,11 @@ export default createStore({
         setWordCloudNum(state, newNum) {
             state.wordCloudNum = newNum;
         },
-        setFishModeChooseShow(state, newFishModeChoose){
+        setFishModeChooseShow(state, newFishModeChoose) {
             state.fishModeChooseShow = newFishModeChoose;
+        },
+        setSubscriptionSettingShow(state, newSubscription) {
+            state.subscriptionSettingShow = newSubscription;
         },
         // 广告是否开启
         setAdsEnabled(state, newAdsEnabled) {

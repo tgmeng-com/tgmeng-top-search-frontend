@@ -2049,6 +2049,22 @@ export function cacheSearchFortengxunshejikaifangpingtai(data) {
     })
 }
 
+export function getSubscriptionConfig(data) {
+    return request({
+        url: '/topsearch/subscription/getSubscriptionConfig',
+        method: 'post',
+        data: data
+    })
+}
+
+export function updateSubscriptionConfig(data) {
+    return request({
+        url: '/topsearch/subscription/updateSubscriptionConfig',
+        method: 'post',
+        data: data
+    })
+}
+
 
 
 

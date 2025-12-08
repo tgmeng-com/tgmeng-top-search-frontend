@@ -223,6 +223,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/08 08:20',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增订阅推送：支持飞书、钉钉、TG'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/06 08:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增词云可直接点击触发搜索'], tag: 'Feat'

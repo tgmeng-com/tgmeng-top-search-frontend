@@ -175,6 +175,16 @@
           </div>
 
           <div>
+            <div @click="() => { trackUmami('顶部右边订阅');clickSubscriptionSettingButton()}">
+              <div class="setting-btn" aria-label="推送订阅">
+                <div style="width: 1.875rem">
+                  <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 推送订阅">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
             <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
               <div class="setting-btn" aria-label="摸鱼模式">
                 <div style="width: 1.875rem">
@@ -236,6 +246,14 @@
                 class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')" alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
+            </div>
+
+            <!-- 订阅设置 -->
+            <div
+                @click="() => { trackUmami('移动端菜单-主题切换');clickSubscriptionSettingButton(); toggleMobileMenu()}"
+                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 订阅设置" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">订阅设置</span>
             </div>
 
             <!-- 摸鱼模式 -->
@@ -392,6 +410,9 @@ export default {
     clickWorkMaskExcelButton(){
       store.commit('setFishModeChooseShow', true)
     },
+    clickSubscriptionSettingButton(){
+      store.commit('setSubscriptionSettingShow', true)
+    },
     clickWorkMaskVsCodeButton(){
       this.workMaskVsCodeShow = true;
     },
@@ -471,6 +492,14 @@ export default {
       }
     },
 
+    subscriptionSettingShow:{
+      get() {
+        return this.$store.state.subscriptionSettingShow;
+      },
+      set(value) {
+        this.$store.commit('setSubscriptionSettingShow', value);
+      }
+    },
     widthPaddingStyle() {
       return {
         width: this.widthPadding + '% !important',

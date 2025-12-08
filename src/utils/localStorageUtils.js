@@ -38,6 +38,8 @@ export const LOCAL_STORAGE_KEYS = {
     INCLUDE_WORD: 'includeWord',
     // 过滤中排除的挂念子
     UNINCLUDE_WORD: 'unincludeWord',
+    // webhook订阅用的密钥
+    WEBHOOK_ACCESS_KEY: '',
 };
 
 // 设置本地存储
