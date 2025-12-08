@@ -34,7 +34,7 @@
                 <input
                     v-model="form.accessKey"
                     type="text"
-                    placeholder="输入访问密钥（可选）"
+                    placeholder="输入访问密钥(必填，如果没有可以在微信交流群公告中获取)"
                     class="key-input"
                 />
               </div>
@@ -101,9 +101,9 @@
 
                   <div class="inputs">
                     <!-- 修复：确保可以输入 -->
-                    <input v-model="plat.webhook" placeholder="Webhook URL"
+                    <input v-model="plat.webhook" :placeholder="plat.webhookPlaceholder"
                            class="modern-input secret"/>
-                    <input v-model="plat.secret" placeholder="Secret（可选）"
+                    <input v-model="plat.secret" :placeholder="plat.secretPlaceholder"
                            class="modern-input secret"/>
                   </div>
                 </div>
@@ -150,6 +150,8 @@ export default {
             name: '钉钉',
             icon: require('@/assets/image/dingding.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(0,162,255,.18),transparent 60%)',
+            webhookPlaceholder:'Webhook URL(必填)',
+            secretPlaceholder:'Secret(机器人设置中的加签，必填)',
             webhook: '',
             secret: ''
           },
@@ -158,6 +160,8 @@ export default {
             name: '飞书',
             icon: require('@/assets/image/feishu.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(255,89,89,.18),transparent 60%)',
+            webhookPlaceholder:'Webhook URL(必填)',
+            secretPlaceholder:'Secret(机器人设置中的签名校验，必填)',
             webhook: '',
             secret: ''
           },
@@ -166,6 +170,8 @@ export default {
             name: 'Telegram',
             icon: require('@/assets/image/telegram.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
+            webhookPlaceholder:'BOT_TOKEN(搜BotFather创建机器人后返回的)',
+            secretPlaceholder:'GROUP_ID(拉机器人进群，发消息对话，然后访问https://api.telegram.org/bot<BOT_TOKEN>/getUpdates 就能看到群id，必填)',
             webhook: '',
             secret: ''
           }
