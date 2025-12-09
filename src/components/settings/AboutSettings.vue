@@ -231,6 +231,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/09 08:30',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增企业微信订阅推送'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/09 02:20',
               events: [{
                 id: 1, title: '新增功能', desc: ['移动端卡片横向/竖向滚动可以自定义切换；横向滚动每次记住滚动的位置，切换分类后会回到原来的位置'], tag: 'Feat'

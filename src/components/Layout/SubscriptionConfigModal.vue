@@ -100,11 +100,60 @@
                   </div>
 
                   <div class="inputs">
-                    <!-- 修复：确保可以输入 -->
-                    <input v-model="plat.webhook" :placeholder="plat.webhookPlaceholder"
-                           class="modern-input secret"/>
-                    <input v-model="plat.secret" :placeholder="plat.secretPlaceholder"
-                           class="modern-input secret"/>
+                    <!-- Webhook 输入框 -->
+                    <div class="input-with-tip">
+                      <input v-model="plat.webhook" :placeholder="plat.webhookPlaceholder"
+                             class="modern-input secret"/>
+                      <div class="tip-icon" :data-tip="plat.webhookTip">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <circle cx="8" cy="8" r="6"/>
+                          <path d="M8 7v4M8 5h.01"/>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- Secret 输入框（其他平台） -->
+                    <div v-if="plat.type!=='QIYEWEIXIN'" class="input-with-tip">
+                      <input v-model="plat.secret" :placeholder="plat.secretPlaceholder"
+                             class="modern-input secret"/>
+                      <div class="tip-icon" :data-tip="plat.secretTip">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <circle cx="8" cy="8" r="6"/>
+                          <path d="M8 7v4M8 5h.01"/>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <!-- 下拉选择框（企业微信） -->
+                    <div v-else class="input-with-tip">
+                      <div class="custom-select" :class="{ active: plat.selectOpen }">
+                        <div class="select-trigger modern-input secret" @click="plat.selectOpen = !plat.selectOpen">
+                          <span>{{ plat.secret || '请选择推送格式' }}</span>
+                          <svg class="arrow" :class="{ rotate: plat.selectOpen }" width="12" height="12"
+                               viewBox="0 0 12 12">
+                            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                          </svg>
+                        </div>
+                        <div class="select-dropdown" v-show="plat.selectOpen">
+                          <div class="select-option"
+                               :class="{ selected: plat.secret === 'markdown' }"
+                               @click="plat.secret = 'markdown'; plat.selectOpen = false">
+                            markdown
+                          </div>
+                          <div class="select-option"
+                               :class="{ selected: plat.secret === 'text' }"
+                               @click="plat.secret = 'text'; plat.selectOpen = false">
+                            text
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tip-icon" :data-tip="plat.secretTip">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <circle cx="8" cy="8" r="6"/>
+                          <path d="M8 7v4M8 5h.01"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -151,7 +200,9 @@ export default {
             icon: require('@/assets/image/dingding.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(0,162,255,.18),transparent 60%)',
             webhookPlaceholder: 'Webhook URL(必填)',
-            secretPlaceholder: 'Secret(机器人设置中的加签，必填)',
+            webhookTip:'钉钉机器人的WebHook的URL地址',
+            secretPlaceholder: 'Secret(必填)',
+            secretTip:'钉钉机器人设置中的加签',
             webhook: '',
             secret: ''
           },
@@ -161,23 +212,53 @@ export default {
             icon: require('@/assets/image/feishu.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(255,89,89,.18),transparent 60%)',
             webhookPlaceholder: 'Webhook URL(必填)',
-            secretPlaceholder: 'Secret(机器人设置中的签名校验，必填)',
+            webhookTip:'飞书机器人的WebHook的URL地址',
+            secretPlaceholder: 'Secret(必填)',
+            secretTip:'飞书机器人设置中的签名校验',
             webhook: '',
             secret: ''
+          },
+          {
+            type: 'QIYEWEIXIN',
+            name: '企业微信',
+            icon: require('@/assets/image/qiyeweixin.png'),
+            glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
+            webhookPlaceholder: 'Webhook URL(必填)',
+            webhookTip:'企业微信机器人的WebHook的URL地址',
+            secretPlaceholder: '推送格式',
+            secretTip:'markdown或者text\n\nmarkdown格式：只能在企业微信中看，微信中会提示:暂不支持此消息类型，点击前往企业微信查看\n\ntext格式：微信和企业微信中都能看，标题的超链接会直接显示在标题后面',
+            webhook: '',
+            secret: '',
           },
           {
             type: 'TELEGRAM',
             name: 'Telegram',
             icon: require('@/assets/image/telegram.png'),
             glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
-            webhookPlaceholder: 'BOT_TOKEN(搜BotFather创建机器人后返回的)',
-            secretPlaceholder: 'GROUP_ID(拉机器人进群，发消息对话，然后访问https://api.telegram.org/bot<BOT_TOKEN>/getUpdates 就能看到群id，必填)',
+            webhookPlaceholder: 'BOT_TOKEN(必填)',
+            webhookTip:'1.打开 Telegram 搜索 BotFather\n2.输入/start\n3.输入 /newbot\n4.给 bot 起名（显示名）\n5.再起一个用户名（必须以 bot 结尾）\n6.BotFather 会返回：\nUse this token to access the HTTP API:\n1234567890:AAE1BlaBlaBla....\n7.这个就是 bot_token，相当于飞书/钉钉的 webhook',
+            secretPlaceholder: 'chat_id(必填)',
+            secretTip:'1.拉机器人进群\n2.随便在群里发一句话3.然后浏览器访问 https://api.telegram.org/bot<BOT_TOKEN>/getUpdates,例如\nhttps://api.telegram.org/bot12345678:AbCdEf123/getUpdates\n4.返回结果就能看到chat_id,这个id通常是负数,例如-123456789\n' +
+                '{\n' +
+                '\u00A0\u00A0"ok": true,\n' +
+                '\u00A0\u00A0"result": [\n' +
+                '\u00A0\u00A0\u00A0\u00A0{\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"message": {\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"chat": {\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"id": -123456789,\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"type": "private"\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0}\n' +
+                '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0}\n' +
+                '\u00A0\u00A0\u00A0\u00A0}\n' +
+                '\u00A0\u00A0]\n' +
+                '}',
             webhook: '',
             secret: ''
           }
         ]
       },
-    }
+
+  }
   },
   computed: {
     subscriptionSettingShow: {
@@ -551,7 +632,7 @@ export default {
   border-radius: 16px;
   padding: 18px;
   cursor: pointer;
-  overflow: hidden;
+  overflow: visible;
   transition: all .35s cubic-bezier(.16, 1, .3, 1)
 }
 
@@ -758,5 +839,184 @@ export default {
   to {
     transform: rotate(360deg)
   }
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.select-trigger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.select-trigger .arrow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.5;
+  margin-left: 8px;
+}
+
+.select-trigger .arrow.rotate {
+  transform: rotate(180deg);
+  opacity: 0.8;
+}
+
+.select-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #262834;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.select-option {
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.select-option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+  transition: width 0.3s ease;
+}
+
+.select-option:hover::before {
+  width: 100%;
+}
+
+.select-option:hover {
+  background: rgba(99, 102, 241, 0.05);
+  padding-left: 22px;
+}
+
+.select-option.selected {
+  background: linear-gradient( #30313C, #272A36);
+  color: #2db302;
+  font-weight: 500;
+}
+
+.select-option.selected::after {
+  content: '✓';
+  position: absolute;
+  right: 18px;
+  opacity: 0.8;
+}
+
+/* 输入框容器 */
+.input-with-tip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-with-tip .modern-input,
+.input-with-tip .custom-select {
+  flex: 1;
+}
+
+/* 提示图标 */
+.tip-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: help;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tip-icon:hover {
+  color: #64b5ff;
+}
+
+/* Tooltip 提示框 */
+.tip-icon::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 10px 14px;
+  background: rgba(20, 23, 32, 0.98);
+  color: #e6edf3;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1000;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+/* 小三角箭头 */
+.tip-icon::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  right: 8px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(20, 23, 32, 0.98);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+}
+
+.tip-icon:hover::after,
+.tip-icon:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 </style>
