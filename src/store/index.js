@@ -268,6 +268,22 @@ export default createStore({
         umamiAllViews: '🚀',
         // 总访问时长
         umamiAllTime: '🚀',
+        umamiSubscriptionData: {
+            AllSubscriptionData: {
+                FEISHU: '🚀',
+                DINGDING: '🚀',
+                QIYEWEIXIN: '🚀',
+                TELEGRAM: '🚀',
+                NTFY: '🚀',
+            },
+            TodaySubscriptionData: {
+                FEISHU: '🚀',
+                DINGDING: '🚀',
+                QIYEWEIXIN: '🚀',
+                TELEGRAM: '🚀',
+                NTFY: '🚀',
+            }
+        },
         // 卡片列数
         cardCols: 4,
         // 卡片高度

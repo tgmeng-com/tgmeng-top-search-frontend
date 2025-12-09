@@ -56,7 +56,7 @@
       </div>
 
       <div v-if="pageViewsShow"
-           class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 左侧：统计数据（移动端换行显示） -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <!-- 总访问量 -->
@@ -91,6 +91,85 @@
           数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟，豆瓣2-10分钟，词云1分钟）
         </div>
       </div>
+
+      <div v-if="pageViewsShow"
+           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <!-- 历史订阅推送 -->
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            历史订阅推送
+          </span>&nbsp;
+          <!-- 飞书 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            飞书: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.FEISHU }}</span>
+          </span>&nbsp;
+          <!-- 钉钉 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            钉钉: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.DINGDING }}</span>
+          </span>&nbsp;
+          <!-- 企业微信 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            企业微信: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.QIYEWEIXIN }}</span>
+          </span>&nbsp;
+          <!-- Telegram -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            Telegram: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.TELEGRAM }}</span>
+          </span>&nbsp;
+          <!-- NTFY -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            NTFY: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.NTFY }}</span>
+          </span>&nbsp;
+        </div>
+        <!-- 右侧：更新时间（移动端换行显示） -->
+        <div>
+        </div>
+      </div>
+
+      <div v-if="pageViewsShow"
+           class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <!-- 今日订阅推送 -->
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            今日订阅推送
+          </span>&nbsp;
+          <!-- 飞书 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            飞书: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.FEISHU }}</span>
+          </span>&nbsp;
+          <!-- 钉钉 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            钉钉: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.DINGDING }}</span>
+          </span>&nbsp;
+          <!-- 企业微信 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            企业微信: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.QIYEWEIXIN }}</span>
+          </span>&nbsp;
+          <!-- Telegram -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            Telegram: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.TELEGRAM }}</span>
+          </span>&nbsp;
+          <!-- NTFY -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            NTFY: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.NTFY }}</span>
+          </span>&nbsp;
+        </div>
+        <!-- 右侧：更新时间（移动端换行显示） -->
+        <div>
+        </div>
+      </div>
+
 
       <el-collapse expand-icon-position="left">
         <el-collapse-item>
@@ -274,9 +353,9 @@
               <!-- 自定义款-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             卡片宽(移动端横向)：<el-input-number class="input-height" v-model="cardWidthForPhone" :min="10" :max="100"
-                                            size="small"
-                                            :step="5" :precision="0"
-                                            @change="changeCardWidthForPhone"/>
+                                                size="small"
+                                                :step="5" :precision="0"
+                                                @change="changeCardWidthForPhone"/>
                 </span>&nbsp;
             </div>
             <!-- 右侧：更新时间（移动端换行显示） -->
@@ -444,13 +523,9 @@
 
 <script>
 import HotPointCard from '@/components/Layout/HotPointCard.vue';
-import {
-  LOCAL_STORAGE_KEYS,
-  getLocalStorage,
-  setLocalStorage, clearLocalStorage,
-} from "@/utils/localStorageUtils";
-import {umamiActive, umamiStatsToday, umamiStatsAll} from "@/api/apiForUmami";
-import {formatSecondsToHMS} from "@/utils/timeUtils";
+import {clearLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage,} from "@/utils/localStorageUtils";
+import {umamiActive, umamiEventValues, umamiStatsAll, umamiStatsToday} from "@/api/apiForUmami";
+import {formatSecondsToHMS, getAllTimeStartTimestamp, getTodayStartTimestamp} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
 import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
@@ -481,6 +556,8 @@ export default {
       umamiTodayTime: this.$store.state.umamiTodayTime,
       umamiAllViews: this.$store.state.umamiAllViews,
       umamiAllTime: this.$store.state.umamiAllTime,
+      umamiSubscriptionData: this.$store.state.umamiSubscriptionData,
+
       preDragSortList: [], // 拖动前的 sort 列表
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
@@ -868,8 +945,41 @@ export default {
           })
           .finally(() => {
           });
-    }
-    ,
+      const platforms = [
+        { event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉' },
+        { event: '订阅推送-飞书', key: 'FEISHU', name: '飞书' },
+        { event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信' },
+        { event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram' },
+        { event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY' }
+      ];
+
+      this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
+      this.loadPlatformsData(platforms, getTodayStartTimestamp(), 'TodaySubscriptionData');
+    },
+    loadPlatformsData(platforms, startTimestamp, storeKey) {
+      Promise.all(
+          platforms.map(platform =>
+              umamiEventValues(platform.event, startTimestamp)
+                  .then((res) => {
+                    const result = res?.data;
+                    return {
+                      key: platform.key,
+                      value: Array.isArray(result)
+                          ? result.reduce((acc, item) => acc + (Number(item.value) * item.total), 0)
+                          : '加载失败'
+                    };
+                  })
+                  .catch((err) => {
+                    console.warn(`${platform.name}订阅数统计失败:`, err);
+                    return {key: platform.key, value: '加载失败'};
+                  })
+          )
+      ).then((results) => {
+        results.forEach(({key, value}) => {
+          this.$store.state.umamiSubscriptionData[storeKey][key] = value;
+        });
+      });
+    },
     // 自定义调整卡片列数
     changeCardCols() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS, this.cardCols);
@@ -880,7 +990,8 @@ export default {
     changeCardHeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT, this.cardHeight);
       window.umami.track('自定义卡片高度')
-    },
+    }
+    ,
 
     changeCardWidthForPhone() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE, this.cardWidthForPhone);
@@ -939,8 +1050,9 @@ export default {
     changeCardTimeShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW, this.cardTimeShow);
       window.umami.track('自定义卡片时间是否显示')
-    },
-    changeCardHorizontalScrolling(){
+    }
+    ,
+    changeCardHorizontalScrolling() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HORIZONTAL_SCROLLING, this.cardHorizontalScrolling);
       window.umami.track('自定义卡片移动端横向滚动')
     }
@@ -949,7 +1061,8 @@ export default {
     changeDefaultActiveCategroyId() {
       setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
       window.umami.track('自定义默认选中的分类id')
-    },
+    }
+    ,
 
     changeTopCarouselFontShow() {
       setLocalStorage(LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW, this.topCarouselFontShow);
@@ -978,12 +1091,14 @@ export default {
     changeWordCloudNum() {
       setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, this.wordCloudNum);
       window.umami.track('自定义词云数量')
-    },
+    }
+    ,
     changeIncludeWord() {
       setLocalStorage(LOCAL_STORAGE_KEYS.INCLUDE_WORD, this.includeWord);
       window.umami.track('🔓添加过滤关键字包含：' + this.includeWord)
       this.handleCategoryClick(this.activeCategory, {skipRoutePush: true})
-    },
+    }
+    ,
     changeUnincludeWord() {
       setLocalStorage(LOCAL_STORAGE_KEYS.UNINCLUDE_WORD, this.unincludeWord);
       window.umami.track('🔒添加过滤关键字排除：' + this.unincludeWord)
@@ -1110,7 +1225,7 @@ export default {
         this.$store.commit('setCardTimeShow', value);
       }
     },
-    cardHorizontalScrolling:{
+    cardHorizontalScrolling: {
       get() {
         return this.$store.state.cardHorizontalScrolling;
       },
@@ -1181,7 +1296,7 @@ export default {
         this.$store.commit('setActiveCategory', value);
       }
     },
-    topCarouselFontShow:{
+    topCarouselFontShow: {
       get() {
         return this.$store.state.topCarouselFontShow;
       },
