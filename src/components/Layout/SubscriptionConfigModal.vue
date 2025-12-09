@@ -254,6 +254,18 @@ export default {
                 '}',
             webhook: '',
             secret: ''
+          },
+          {
+            type: 'NTFY',
+            name: 'NTFY',
+            icon: require('@/assets/image/ntfy.png'),
+            glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
+            webhookPlaceholder: 'Webhook URL(必填)',
+            webhookTip:'你的ntfy的服务器地址加上tipic名，例如：https://ntfy.sh/Xiz2J23124324',
+            secretPlaceholder: '不填',
+            secretTip:'不需要填这个',
+            webhook: '',
+            secret: '',
           }
         ]
       },
@@ -443,8 +455,7 @@ export default {
 }
 
 .config-panel {
-  width: 100%;
-  max-width: 860px;
+  width: 80%;
   height: 90vh;
   max-height: 900px;
   background: linear-gradient(145deg, rgba(30, 33, 42, .95), rgba(20, 23, 32, .95));
@@ -620,9 +631,25 @@ export default {
 
 .platforms-grid {
   display: grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);  /* 默认 3 列 */
   gap: 18px;
   margin-top: 24px
+}
+
+/* 中等屏幕：2 列 */
+@media (max-width: 1024px) {
+  .platforms-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 小屏幕：1 列（已有的样式保持不变） */
+@media (max-width: 768px) {
+  .platforms-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 20px
+  }
 }
 
 .platform-card {
