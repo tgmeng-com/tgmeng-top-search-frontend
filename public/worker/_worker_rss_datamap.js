@@ -279,7 +279,6 @@ const dataMap = {
         children: {
             "/health/shengwugu": {title: "糖果梦热榜 · 健康 · 生物谷", description: "糖果梦热榜 · 健康 · 生物谷", link: "https://trendapi.tgmeng.com/api/topsearch/shengwugu",platform: "生物谷"},
             "/health/shengmingshibao": {title: "糖果梦热榜 · 健康 · 生命时报", description: "糖果梦热榜 · 健康 · 生命时报", link: "https://trendapi.tgmeng.com/api/topsearch/shengmingshibao",platform: "生命时报"},
-            "/health/dingxiangyuanshequ": {title: "糖果梦热榜 · 健康 · 丁香园社区", description: "糖果梦热榜 · 健康 · 丁香园社区", link: "https://trendapi.tgmeng.com/api/topsearch/dingxiangyuanshequ",platform: "丁香园社区"},
             "/health/dingxiangyisheng": {title: "糖果梦热榜 · 健康 · 丁香医生", description: "糖果梦热榜 · 健康 · 丁香医生", link: "https://trendapi.tgmeng.com/api/topsearch/dingxiangyisheng",platform: "丁香医生"},
             "/health/yiyaomofang": {title: "糖果梦热榜 · 健康 · 医药魔方", description: "糖果梦热榜 · 健康 · 医药魔方", link: "https://trendapi.tgmeng.com/api/topsearch/yiyaomofang",platform: "医药魔方"},
             "/health/jiayidajiankang": {title: "糖果梦热榜 · 健康 · 家医大健康", description: "糖果梦热榜 · 健康 · 家医大健康", link: "https://trendapi.tgmeng.com/api/topsearch/jiayidajiankang",platform: "家医大健康"},

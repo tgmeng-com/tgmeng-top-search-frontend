@@ -1187,14 +1187,6 @@ export function topSearchForDingXiangYiSheng(data) {
     })
 }
 
-export function topSearchForDingXiangYuanSheQu(data) {
-    return request({
-        url: '/topsearch/dingxiangyuanshequ',
-        method: 'get',
-        data: data
-    })
-}
-
 export function topSearchForShengMingShiBao(data) {
     return request({
         url: '/topsearch/shengmingshibao',

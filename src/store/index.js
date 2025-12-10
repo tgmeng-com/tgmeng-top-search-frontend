@@ -164,7 +164,6 @@ import {
     topSearchForShengWuGu,
     topSearchForYiYaoMoFang,
     topSearchForDingXiangYiSheng,
-    topSearchForDingXiangYuanSheQu,
     topSearchForShengMingShiBao,
     topSearchForJiaYiDaJianKang,
     topSearchForGuoKe,
@@ -725,7 +724,6 @@ export default createStore({
                 subCategories: [
                     new Platform('生物谷', topSearchForShengWuGu, require('@/assets/logos/tgmeng-trend_shengwugu.png'), 133, '/health/shengwugu'),
                     new Platform('生命时报', topSearchForShengMingShiBao, require('@/assets/logos/tgmeng-trend_shengmingshibao.png'), 134, '/health/shengmingshibao'),
-                    new Platform('丁香园社区', topSearchForDingXiangYuanSheQu, require('@/assets/logos/tgmeng-trend_dingxiangyuanshequ.png'), 135, '/health/dingxiangyuanshequ'),
                     new Platform('丁香医生', topSearchForDingXiangYiSheng, require('@/assets/logos/tgmeng-trend_dingxiangyisheng.png'), 136, '/health/dingxiangyisheng'),
                     new Platform('医药魔方', topSearchForYiYaoMoFang, require('@/assets/logos/tgmeng-trend_yiyaomofang.png'), 137, '/health/yiyaomofang'),
                     new Platform('家医大健康', topSearchForJiaYiDaJianKang, require('@/assets/logos/tgmeng-trend_jiayidajiankang.png'), 138, '/health/jiayidajiankang'),
