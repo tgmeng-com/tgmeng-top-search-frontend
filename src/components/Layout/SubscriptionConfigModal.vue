@@ -1632,8 +1632,8 @@ export default {
   position: absolute;
   bottom: calc(100% + 8px);
   right: 0;
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 250px;
+  max-width: 250px;
   padding: 10px 14px;
   background: rgba(20, 23, 32, 0.98);
   color: #e6edf3;
