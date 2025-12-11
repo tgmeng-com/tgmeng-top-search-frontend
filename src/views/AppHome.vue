@@ -577,7 +577,7 @@ export default {
     // 新增：定时刷新统计数据（每5秒刷新一次）
     this.umamiStatsTimer = setInterval(() => {
       this.initUmami();
-    }, 5 * 1000); // 每5秒刷新一次统计数据
+    }, 10 * 1000); // 每10秒刷新一次统计数据
 
     window.addEventListener('resize', this.handleResize);
   },
