@@ -569,15 +569,15 @@ export default {
   },
   async mounted() {
     this.initializePlatforms();
-    // 定时刷新数据
-    this.refreshTimer = setInterval(() => {
-      this.refreshData();
-    }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
-
-    // 新增：定时刷新统计数据（每5秒刷新一次）
-    this.umamiStatsTimer = setInterval(() => {
-      this.initUmami();
-    }, 5 * 1000); // 每5秒刷新一次统计数据
+    // // 定时刷新数据
+    // this.refreshTimer = setInterval(() => {
+    //   this.refreshData();
+    // }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
+    //
+    // // 新增：定时刷新统计数据（每5秒刷新一次）
+    // this.umamiStatsTimer = setInterval(() => {
+    //   this.initUmami();
+    // }, 5 * 1000); // 每5秒刷新一次统计数据
 
     window.addEventListener('resize', this.handleResize);
   },
@@ -823,31 +823,31 @@ export default {
 
     // 刷新当前分类下的数据
     refreshData() {
-      // this.activeCategory.subCategories.forEach(subCat => {
-      //   // TODO 因为有人反馈，看着看着自动刷新了，所以这里先不写这个逻辑
-      //   // // 不同平台的时间不同，例如后台github数据是每20-40分钟刷新，那么前端就是判断github数据时间和当前时间相差40分钟的时候，再去主动更新
-      //   // let singleUpdateTime = 60 * 1000;
-      //   // switch (true) {
-      //   //   case subCat.title.includes('Star总榜') || subCat.title.includes('新仓库Star'):
-      //   //     singleUpdateTime = 40 * 60 * 1000; // 40分钟
-      //   //     break;
-      //   //   case subCat.title.includes('网易云'):
-      //   //     singleUpdateTime = 15 * 60 * 1000; // 15分钟
-      //   //     break;
-      //   //   default:
-      //   //     singleUpdateTime = 60 * 1000; // 默认1分钟
-      //   // }
-      //   // // 检查是否超过60秒没有更新
-      //   // const updateTimestamp = new Date(subCat.updateTime.replace(/-/g, '/')).getTime();
-      //   // if (subCat.isShow && new Date() - new Date(updateTimestamp) > singleUpdateTime) {
-      //   //   this.fetchData(subCat);
-      //   // }
-      //
-      //   // 如果当前某个平台下数据为空，也主动刷新一下,这个也先不加了，防止被一些平台进行了ip限制的话，频繁请求导致一直被限制
-      //   // if (subCat.isShow && subCat.data.length === 0) {
-      //   //   this.fetchData(subCat);
-      //   // }
-      // })
+      this.activeCategory.subCategories.forEach(subCat => {
+        // TODO 因为有人反馈，看着看着自动刷新了，所以这里先不写这个逻辑
+        // 不同平台的时间不同，例如后台github数据是每20-40分钟刷新，那么前端就是判断github数据时间和当前时间相差40分钟的时候，再去主动更新
+        let singleUpdateTime = 60 * 1000;
+        switch (true) {
+          case subCat.title.includes('Star总榜') || subCat.title.includes('新仓库Star'):
+            singleUpdateTime = 40 * 60 * 1000; // 40分钟
+            break;
+          case subCat.title.includes('网易云'):
+            singleUpdateTime = 15 * 60 * 1000; // 15分钟
+            break;
+          default:
+            singleUpdateTime = 60 * 1000; // 默认1分钟
+        }
+        // 检查是否超过60秒没有更新
+        const updateTimestamp = new Date(subCat.updateTime.replace(/-/g, '/')).getTime();
+        if (subCat.isShow && new Date() - new Date(updateTimestamp) > singleUpdateTime) {
+          this.fetchData(subCat);
+        }
+
+        // 如果当前某个平台下数据为空，也主动刷新一下,这个也先不加了，防止被一些平台进行了ip限制的话，频繁请求导致一直被限制
+        if (subCat.isShow && subCat.data.length === 0) {
+          this.fetchData(subCat);
+        }
+      })
     }
     ,
 
