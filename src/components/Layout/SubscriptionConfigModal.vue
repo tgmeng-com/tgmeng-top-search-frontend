@@ -378,7 +378,17 @@ export default {
           icon: require('@/assets/image/ntfy.png'),
           glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
           webhookPlaceholder: 'Webhook URL(必填)',
-          webhookTip:'你的ntfy的服务器地址加上tipic名，例如：https://ntfy.sh/Xiz2J23124324',
+          webhookTip:'你的ntfy的服务器地址加上tipic名，\n例如：https://ntfy.sh/Xiz2J23124324',
+          secretPlaceholder: '不填',
+          secretTip:'不需要填这个',
+        },
+        {
+          type: 'GOTIFY',
+          name: 'GOTIFY',
+          icon: require('@/assets/image/gotify.png'),
+          glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
+          webhookPlaceholder: 'Webhook URL(必填)',
+          webhookTip:'你的gotify的服务器地址加上token，\n\n例如：https://<你的服务器地址>/message?token=<你的token>，\n\n比如：https://gotify.fuck.you/message?token=Awsdfs34235Isdf',
           secretPlaceholder: '不填',
           secretTip:'不需要填这个',
         }
