@@ -207,8 +207,8 @@ export default {
             {
               avatar: require('@/assets/avatars/project/jiangxinbixin.png'),
               name: '将心比心',
-              role: 'Tgmeng群友',
-              work: '提供AI实时简报功能开发过程中DeepSeek的deepseek-chat模型的key测试',
+              role: '糖果梦群友',
+              work: '提供AI实时简报功能开发过程中DeepSeek的deepseek-chat模型的key测试。提供Gotify测试期间的Gotify服务',
               link: ''
             },
             {
@@ -216,6 +216,13 @@ export default {
               name: '欧阳淇淇',
               role: 'LinuxDO佬友',
               work: '提供大语言模型Key源解决方案;提供公益站【黑与白】大模型免费调用',
+              link: ''
+            },
+            {
+              avatar: require('@/assets/avatars/project/alvaishanglexiaohong.png'),
+              name: '阿绿爱上了小红',
+              role: '糖果梦群友',
+              work: '提供移动端UI设计思路：热点列表横向滚动，极大提升了移动端用户体验',
               link: ''
             },
           ],
