@@ -361,7 +361,7 @@ docker-compose logs -f --tail=50 tgmeng-top-search-frontend
 
 ## 💐 致谢
 
-- <h4>  <a href="https://linux.do" target="_blank">LINUX DO</a> 感谢L站的各位大佬们的耐心指导与帮助，受益匪浅，感激之情难以言表
+- 
 
 ---
 
