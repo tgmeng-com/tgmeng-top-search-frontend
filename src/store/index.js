@@ -274,6 +274,7 @@ export default createStore({
                 QIYEWEIXIN: '🚀',
                 TELEGRAM: '🚀',
                 NTFY: '🚀',
+                GOTIFY: '🚀',
             },
             TodaySubscriptionData: {
                 FEISHU: '🚀',
@@ -281,6 +282,7 @@ export default createStore({
                 QIYEWEIXIN: '🚀',
                 TELEGRAM: '🚀',
                 NTFY: '🚀',
+                GOTIFY: '🚀',
             }
         },
         // 卡片列数
