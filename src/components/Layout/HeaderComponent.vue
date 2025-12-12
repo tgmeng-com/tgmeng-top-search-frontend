@@ -1,12 +1,16 @@
 <template>
-  <header class="fixed top-0 left-0 right-0 bg-light-bg/100 dark:bg-dark-bg/100 backdrop-blur-md transition-all duration-300 headStyle">
+  <header
+      class="fixed top-0 left-0 right-0 bg-light-bg/100 dark:bg-dark-bg/100 backdrop-blur-md transition-all duration-300 headStyle">
     <div class="container mx-auto h-24" :style="widthPaddingStyle">
       <div class="flex items-center justify-between h-full relative">
 
         <!-- 左侧 Logo 和网站名称 - 整体可点击 -->
-        <router-link to="/" @click="trackUmami('顶部左边LOGO')" class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3 cursor-pointer">
-          <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜" class="logo w-10 h-10 sm:w-12 sm:h-12">
-          <span v-if="!isMobile" class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
+        <router-link to="/" @click="trackUmami('顶部左边LOGO')"
+                     class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3 cursor-pointer">
+          <img src="../../assets/image/logo.png" alt="糖果梦热榜 - 聚合全网热门排行榜"
+               class="logo w-10 h-10 sm:w-12 sm:h-12">
+          <span v-if="!isMobile"
+                class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide">
             糖果梦热榜
           </span>
         </router-link>
@@ -62,8 +66,10 @@
                   class="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex items-center justify-between group"
               >
                 <div class="flex items-center flex-1 min-w-0">
-                  <svg class="w-4 h-4 mr-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  <svg class="w-4 h-4 mr-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                   <span class="text-gray-900 dark:text-gray-100 truncate">{{ item }}</span>
                 </div>
@@ -118,7 +124,7 @@
                      class="flex items-start justify-between w-full gap-4">
                     <div class="flex items-center flex-1 min-w-0">
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
-                        {{ index+1 }}.
+                        {{ index + 1 }}.
                       </span>
                       <span class="text-gray-900 dark:text-gray-100 break-words text-left">
                         {{ item.keyword }}
@@ -143,65 +149,81 @@
         <!-- 右侧设置按钮 - 桌面端显示全部 -->
         <div class="hidden md:flex items-center space-x-6">
           <div>
-            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer" @click="() => { trackUmami('顶部右边微信群')}">
-              <div class="setting-btn" aria-label="微信群">
-                <div style="width: 1.875rem">
-                  <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 微信群">
+            <el-tooltip content="加入微信群" placement="bottom">
+              <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer"
+                 @click="() => { trackUmami('顶部右边微信群')}">
+                <div class="setting-btn" aria-label="微信群">
+                  <div style="width: 1.875rem">
+                    <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 微信群">
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </el-tooltip>
           </div>
 
           <div>
-            <a  href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"  @click="() => { trackUmami('顶部右边github')}">
-              <div class="setting-btn" aria-label="GitHub仓库">
-                <div style="width: 1.875rem">
-                  <img :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
-                       alt="糖果梦热榜 - GitHub仓库">
+            <el-tooltip content="GitHub源码" placement="bottom">
+              <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank"
+                 rel="noopener noreferrer"
+                 @click="() => { trackUmami('顶部右边github')}">
+                <div class="setting-btn" aria-label="GitHub仓库">
+                  <div style="width: 1.875rem">
+                    <img
+                        :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
+                        alt="糖果梦热榜 - GitHub仓库">
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </el-tooltip>
           </div>
 
           <div>
-            <div @click="() => { trackUmami('顶部右边主题切换');toggleTheme()}">
-              <div class="setting-btn" aria-label="主题切换">
-                <div style="width: 1.875rem">
-                  <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
-                       alt="糖果梦热榜 - 主题切换">
+            <el-tooltip content="主题切换" placement="bottom">
+              <div @click="() => { trackUmami('顶部右边主题切换');toggleTheme()}">
+                <div class="setting-btn" aria-label="主题切换">
+                  <div style="width: 1.875rem">
+                    <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
+                         alt="糖果梦热榜 - 主题切换">
+                  </div>
                 </div>
               </div>
-            </div>
+            </el-tooltip>
           </div>
 
           <div>
-            <div @click="() => { trackUmami('顶部右边订阅');clickSubscriptionSettingButton()}">
-              <div class="setting-btn" aria-label="推送订阅">
-                <div style="width: 1.875rem">
-                  <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 推送订阅">
+            <el-tooltip content="推送订阅" placement="bottom">
+              <div @click="() => { trackUmami('顶部右边订阅');clickSubscriptionSettingButton()}">
+                <div class="setting-btn" aria-label="推送订阅">
+                  <div style="width: 1.875rem">
+                    <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 推送订阅">
+                  </div>
                 </div>
               </div>
-            </div>
+            </el-tooltip>
           </div>
 
           <div>
-            <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
-              <div class="setting-btn" aria-label="摸鱼模式">
-                <div style="width: 1.875rem">
-                  <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
+            <el-tooltip content="摸鱼模式" placement="bottom">
+              <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
+                <div class="setting-btn" aria-label="摸鱼模式">
+                  <div style="width: 1.875rem">
+                    <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            </el-tooltip>
           </div>
 
           <div>
-            <router-link to="/setting" @click="trackUmami('顶部右边设置')">
-              <div class="setting-btn" aria-label="设置">
-                <div style="width: 1.875rem">
-                  <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
+            <el-tooltip content="设置" placement="bottom">
+              <router-link to="/setting" @click="trackUmami('顶部右边设置')">
+                <div class="setting-btn" aria-label="设置">
+                  <div style="width: 1.875rem">
+                    <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
+                  </div>
                 </div>
-              </div>
-            </router-link>
+              </router-link>
+            </el-tooltip>
           </div>
         </div>
 
@@ -221,7 +243,8 @@
 
     <!-- 移动端下拉菜单 -->
     <transition name="slide-fade">
-      <div v-if="showMobileMenu" class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
+      <div v-if="showMobileMenu"
+           class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
         <div class="container mx-auto px-8 py-4" :style="widthPaddingStyle">
           <div class="flex flex-col space-y-4">
             <!-- 微信群 -->
@@ -236,7 +259,9 @@
             <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"
                @click="() => { trackUmami('移动端菜单-GitHub'); toggleMobileMenu() }"
                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')" alt="糖果梦热榜 - GitHub仓库" class="w-8 h-8">
+              <img
+                  :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
+                  alt="糖果梦热榜 - GitHub仓库" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">GitHub仓库</span>
             </a>
 
@@ -244,7 +269,8 @@
             <div
                 @click="() => { trackUmami('移动端菜单-主题切换');toggleTheme(); toggleMobileMenu()}"
                 class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')" alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
+              <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
+                   alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
             </div>
 
@@ -307,7 +333,7 @@ export default {
         this.input = keyword;
         this.handleEnter();
         // 滚动到页面顶部，让用户看到搜索结果
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
       }
     }
   },
@@ -407,13 +433,13 @@ export default {
     toggleMobileMenu() {
       this.showMobileMenu = !this.showMobileMenu;
     },
-    clickWorkMaskExcelButton(){
+    clickWorkMaskExcelButton() {
       store.commit('setFishModeChooseShow', true)
     },
-    clickSubscriptionSettingButton(){
+    clickSubscriptionSettingButton() {
       store.commit('setSubscriptionSettingShow', true)
     },
-    clickWorkMaskVsCodeButton(){
+    clickWorkMaskVsCodeButton() {
       this.workMaskVsCodeShow = true;
     },
     getGlobalIndex(groupIndex, itemIndex) {
@@ -474,7 +500,7 @@ export default {
       }
     },
 
-    workMaskVsCodeShow:{
+    workMaskVsCodeShow: {
       get() {
         return this.$store.state.workMaskVsCodeShow;
       },
@@ -483,7 +509,7 @@ export default {
       }
     },
 
-    fishModeChooseShow:{
+    fishModeChooseShow: {
       get() {
         return this.$store.state.fishModeChooseShow;
       },
@@ -492,7 +518,7 @@ export default {
       }
     },
 
-    subscriptionSettingShow:{
+    subscriptionSettingShow: {
       get() {
         return this.$store.state.subscriptionSettingShow;
       },
@@ -694,7 +720,7 @@ export default {
   }
 }
 
-.headStyle{
+.headStyle {
   z-index: 1900 !important;
 }
 </style>
