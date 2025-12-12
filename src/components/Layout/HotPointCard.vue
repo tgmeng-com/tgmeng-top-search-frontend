@@ -116,7 +116,7 @@
               <template v-else-if="title.includes('豆瓣组')">
                 <span :style="cardSecondTitleStyle"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
-                  👩‍👧‍👦{{ item.commentCount }}
+                  👩‍👧‍👦{{  formatHotScore(item.commentCount) }}
                 </span>
                 <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
@@ -157,7 +157,7 @@
 
               <template v-else>
                 <span :style="cardSecondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
-                  🔥{{ item.hotScore }}
+                  🔥{{ formatHotScore(item.hotScore) }}
                 </span>
               </template>
             </div>
@@ -300,6 +300,26 @@ export default {
     },
     onRefreshCardData() {
       this.$emit('fetchData')
+    },
+    formatHotScore(value) {
+      // 判断是不是纯数字
+      if (!/^\d+$/.test(value)) {
+        return value; // 非纯数字，不处理
+      }
+
+      const num = Number(value);
+
+      if (num >= 1e9) {
+        return (num / 1e9).toFixed(2).replace(/\.00$/, '').replace(/\.0$/, '') + 'B';
+      }
+      if (num >= 1e6) {
+        return (num / 1e6).toFixed(2).replace(/\.00$/, '').replace(/\.0$/, '') + 'M';
+      }
+      if (num >= 1e3) {
+        const k = num / 1e3;
+        return k.toFixed(k < 10 ? 2 : 1).replace(/\.00$/, '').replace(/\.0$/, '') + 'K';
+      }
+      return num.toString();
     }
   },
   props: {
