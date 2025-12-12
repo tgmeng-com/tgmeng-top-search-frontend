@@ -288,7 +288,7 @@ export default createStore({
         // 卡片列数
         cardCols: 4,
         // 卡片高度
-        cardHeight: 30,
+        cardHeight: 20,
         // 卡片是否可以拖动
         cardDraggable: true,
         // 分类是否可以拖动
