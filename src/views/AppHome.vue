@@ -1155,9 +1155,9 @@ export default {
   computed: {
     topMessageHeight() {
       if(this.isMobile){
-        return {top: this.$store.state.topMessageHeight -4 + 'rem'}
+        return {top: this.$store.state.topMessageHeight -1 + 'rem',paddingBottom:0.6+'rem'}
       }
-      return {top: this.$store.state.topMessageHeight + 'rem'}
+      return {top: this.$store.state.topMessageHeight + 'rem',paddingBottom:1+'rem'}
     },
     topSettingHeight() {
       if(this.isMobile){

@@ -349,7 +349,7 @@ export default createStore({
         // 过滤中排除的关键字
         unincludeWord: [],
 
-        topMessageHeight: 9, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
+        topMessageHeight: 6, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据

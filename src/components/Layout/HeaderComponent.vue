@@ -533,7 +533,7 @@ export default {
     },
     topMessageHeight() {
       if(this.isMobile){
-        return {height: this.$store.state.topMessageHeight -4 + 'rem'}
+        return {height: this.$store.state.topMessageHeight -1 + 'rem'}
       }
       return {height: this.$store.state.topMessageHeight + 'rem'}
     },
