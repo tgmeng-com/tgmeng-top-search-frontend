@@ -1,6 +1,6 @@
 <template>
   <div class="top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-md transition-all duration-300">
-    <div class="py-2 pb-8 flex flex-col items-center text-lg space-y-1">
+    <div class="flex flex-col items-center text-lg space-y-1" :style="topMessageHeight">
 
       <!--      &lt;!&ndash; 第一行可横向滑动 &ndash;&gt;-->
       <!--      <div class="overflow-x-auto whitespace-nowrap scrollbar-hide w-full text-center">-->
@@ -56,8 +56,20 @@ export default {
         '超强自定义 · 打造专属你的热榜风格',
         '100%开源透明 · GitHub全代码可查',
         '活跃开发者社区 · 一起交流共同进化'
-      ]
+      ],
+      windowWidth: window.innerWidth, // 屏幕大小
     }
+  },
+  computed: {
+    isMobile() {
+      return this.windowWidth < 768; // 手机屏幕宽度
+    },
+    topMessageHeight() {
+      if (this.isMobile) {
+        return {paddingBottom: 0 + 'rem'}
+      }
+      return {paddingBottom: 2 + 'rem'}
+    },
   }
 }
 </script>

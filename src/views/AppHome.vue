@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col" :style="topSettingHeight">
     <TopMessage v-if="topCarouselFontShow"/>
     <FishModeChoose/>
     <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
@@ -8,7 +8,7 @@
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="overflow-x-auto scrollbar-hide sticky top-24 z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100">
+      <div class="overflow-x-auto scrollbar-hide sticky z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100" :style="topMessageHeight">
         <div class="inline-flex space-x-2 py-0.5 pb-4 justify-center mx-auto whitespace-nowrap">
           <draggable
               v-model="categroies"
@@ -40,7 +40,7 @@
                 </button>
                 <svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24"
-                     class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-80"
+                     class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-50"
                      @click.stop="handleRssClick(cat)"
                      v-if="cat.id !== 13"
                 >
@@ -1153,6 +1153,18 @@ export default {
     ,
   },
   computed: {
+    topMessageHeight() {
+      if(this.isMobile){
+        return {top: this.$store.state.topMessageHeight -4 + 'rem'}
+      }
+      return {top: this.$store.state.topMessageHeight + 'rem'}
+    },
+    topSettingHeight() {
+      if(this.isMobile){
+        return {marginTop: -2 + 'rem'}
+      }
+      return {marginTop: this.$store.state.topMessageHeight-6 + 'rem'}
+    },
     isMobile() {
       return this.windowWidth < 768; // 手机屏幕宽度
     },

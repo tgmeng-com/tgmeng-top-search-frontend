@@ -1,7 +1,7 @@
 <template>
   <header
       class="fixed top-0 left-0 right-0 bg-light-bg/100 dark:bg-dark-bg/100 backdrop-blur-md transition-all duration-300 headStyle">
-    <div class="container mx-auto h-24" :style="widthPaddingStyle">
+    <div class="container mx-auto" :style="[widthPaddingStyle,topMessageHeight]">
       <div class="flex items-center justify-between h-full relative">
 
         <!-- 左侧 Logo 和网站名称 - 整体可点击 -->
@@ -530,6 +530,12 @@ export default {
       return {
         width: this.widthPadding + '% !important',
       }
+    },
+    topMessageHeight() {
+      if(this.isMobile){
+        return {height: this.$store.state.topMessageHeight -4 + 'rem'}
+      }
+      return {height: this.$store.state.topMessageHeight + 'rem'}
     },
 
     widthPadding: {

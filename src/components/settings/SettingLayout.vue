@@ -4,11 +4,11 @@
     <!-- PC端固定左侧 + 内容 -->
     <div class="hidden md:flex">
       <!-- 固定左侧导航栏 -->
-      <div class="fixed h-screen w-64 p-4 py-8 overflow-y-auto custom-scrollbar">
+      <div class="fixed h-screen w-64 p-4 py-20 overflow-y-auto custom-scrollbar">
         <SettingMenu />
       </div>
       <!-- 右侧内容区域 -->
-      <main class="flex-1 ml-64 min-h-screen p-4 custom-scrollbar">
+      <main class="flex-1 ml-64 min-h-screen p-4 py-12 custom-scrollbar">
         <router-view :key="$route.fullPath" />
       </main>
     </div>

@@ -290,7 +290,7 @@ export default createStore({
         // 卡片高度
         cardHeight: 20,
         // 卡片是否可以拖动
-        cardDraggable: true,
+        cardDraggable: false,
         // 分类是否可以拖动
         categroiesDraggable: false,
         // 卡片热度值是否显示
@@ -322,11 +322,11 @@ export default createStore({
         excelCategroiesTitleFontWeight: 400,
 
         // 顶部轮播字体展示
-        topCarouselFontShow: true,
+        topCarouselFontShow: false,
         //词云是否展示
-        wordCloudShow: true,
+        wordCloudShow: false,
         // 访问量展示
-        pageViewsShow: true,
+        pageViewsShow: false,
         // 边距缩放，就是屏幕两边的，主要是为了移动端
         widthPadding: 75,
         cardWidthForPhone: 100,
@@ -348,6 +348,8 @@ export default createStore({
         includeWord: [],
         // 过滤中排除的关键字
         unincludeWord: [],
+
+        topMessageHeight: 9, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
