@@ -336,7 +336,7 @@ export default createStore({
         fishModeChooseShow: false,
         subscriptionSettingShow: false,
         // 卡片横向滚动
-        cardHorizontalScrolling: 'horizontal',
+        cardHorizontalScrolling: 'vertical',
         // 广告是否开启
         adsEnabled: false,
 
