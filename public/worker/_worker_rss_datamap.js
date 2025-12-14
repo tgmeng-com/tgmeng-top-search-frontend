@@ -196,6 +196,10 @@ const dataMap = {
             "/technology/aimeiwang": {title: "糖果梦热榜 · 科技 · 艾媒网", description: "糖果梦热榜 · 科技 · 艾媒网", link: "https://trendapi.tgmeng.com/api/topsearch/aimeiwang",platform: "艾媒网"},
             "/technology/zhanzhangzhijia": {title: "糖果梦热榜 · 科技 · 站长之家", description: "糖果梦热榜 · 科技 · 站长之家", link: "https://trendapi.tgmeng.com/api/topsearch/zhanzhangzhijia",platform: "站长之家"},
             "/technology/lieyunwang": {title: "糖果梦热榜 · 科技 · 猎云网", description: "糖果梦热榜 · 科技 · 猎云网", link: "https://trendapi.tgmeng.com/api/topsearch/lieyunwang",platform: "猎云网"},
+
+            "/technology/aliyunshequ": {title: "糖果梦热榜 · 科技 · 阿里云社区", description: "糖果梦热榜 · 科技 · 阿里云社区", link: "https://trendapi.tgmeng.com/api/topsearch/aliyunshequ",platform: "阿里云社区"},
+            "/technology/tengxunyunshequ": {title: "糖果梦热榜 · 科技 · 腾讯云社区", description: "糖果梦热榜 · 科技 · 腾讯云社区", link: "https://trendapi.tgmeng.com/api/topsearch/tengxunyunshequ",platform: "腾讯云社区"},
+            "/technology/meituanshequ": {title: "糖果梦热榜 · 科技 · 美团社区", description: "糖果梦热榜 · 科技 · 美团社区", link: "https://trendapi.tgmeng.com/api/topsearch/meituanshequ",platform: "美团社区"},
         }
     },
     "/design": {

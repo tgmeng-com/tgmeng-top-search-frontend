@@ -251,7 +251,11 @@ import {
     cacheSearchForxuangutong,
     cacheSearchForchaincatcher,
     cacheSearchForkechuangbanribao,
-    cacheSearchFortengxunshejikaifangpingtai
+    cacheSearchFortengxunshejikaifangpingtai,
+
+    topSearchAliYunSheQu,
+    topSearchTengXunYunSheQu,
+    topSearchMeiTuanSheQu
 
 } from '@/api/api';
 
@@ -589,6 +593,11 @@ export default createStore({
                 subCategories: [
                     new Platform('MIT科技评论', topSearchForMIT, require('@/assets/logos/tgmeng-trend-mit.png'), 39, '/technology/mit'),
                     new Platform('机器之心', topSearchJiQiZhiXin, require('@/assets/logos/tgmeng-trend_jiqizhixin.png'), 40, '/technology/jiqizhixin'),
+
+                    new Platform('阿里云社区', topSearchAliYunSheQu, require('@/assets/logos/tgmeng-trend_aliyunshequ.png'), 40.01, '/technology/aliyunshequ'),
+                    new Platform('腾讯云社区', topSearchTengXunYunSheQu, require('@/assets/logos/tgmeng-trend_tengxunyunshequ.png'), 40.02, '/technology/tengxunyunshequ'),
+                    new Platform('美团社区', topSearchMeiTuanSheQu, require('@/assets/logos/tgmeng-trend_meituanshequ.png'), 40.03, '/technology/meituanshequ'),
+
                     new Platform('36氪', cacheSearchFor36ke, require('@/assets/logos/tgmeng-trend_36ke.png'), 40.1, '/technology/36ke'),
                     new Platform('IT之家', cacheSearchForitzhijia, require('@/assets/logos/tgmeng-trend_itzhijia.png'), 40.11, '/technology/itzhijia'),
                     new Platform('极客公园', cacheSearchForjikegongyuan, require('@/assets/logos/tgmeng-trend_jikegongyuan.png'), 40.12, '/technology/jikegongyuan'),

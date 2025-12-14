@@ -238,6 +238,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/15 06:55',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增阿里云社区、腾讯云社区、美团社区'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/09 08:30',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增企业微信订阅推送'], tag: 'Feat'

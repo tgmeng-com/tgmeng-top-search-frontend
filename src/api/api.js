@@ -2057,6 +2057,27 @@ export function updateSubscriptionConfig(data) {
     })
 }
 
+export function topSearchAliYunSheQu(data) {
+    return request({
+        url: '/topsearch/aliyunshequ',
+        method: 'post',
+        data: data
+    })
+}
 
+export function topSearchTengXunYunSheQu(data) {
+    return request({
+        url: '/topsearch/tengxunyunshequ',
+        method: 'post',
+        data: data
+    })
+}
 
+export function topSearchMeiTuanSheQu(data) {
+    return request({
+        url: '/topsearch/meituanshequ',
+        method: 'post',
+        data: data
+    })
+}
 
