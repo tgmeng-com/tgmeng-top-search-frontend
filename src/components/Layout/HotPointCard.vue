@@ -63,7 +63,7 @@
 
       <!-- ✅ 有数据 -->
       <ul v-else-if="list && list.length > 0" class="space-y-3">
-        <template v-for="(item, index) in list" :key="index">
+        <template v-for="(item, index) in list.slice(0,cardListLimit)" :key="index">
           <!-- 正常内容 li -->
           <li class="flex items-center justify-between">
             <!-- 序号 -->
@@ -116,7 +116,7 @@
               <template v-else-if="title.includes('豆瓣组')">
                 <span :style="cardSecondTitleStyle"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
-                  👩‍👧‍👦{{  formatHotScore(item.commentCount) }}
+                  👩‍👧‍👦{{ formatHotScore(item.commentCount) }}
                 </span>
                 <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
@@ -432,6 +432,14 @@ export default {
         this.$store.commit('setCardTitleFull', value);
       }
     },
+    cardListLimit: {
+      get() {
+        return this.$store.state.cardListLimit;
+      },
+      set(value) {
+        this.$store.commit('setCardListLimit', value);
+      }
+    }
   }
 }
 </script>

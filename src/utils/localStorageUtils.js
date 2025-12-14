@@ -3,6 +3,7 @@ export const LOCAL_STORAGE_KEYS = {
     CATEGORIES: 'categroies',
     CARD_COLS: 'cardCols',
     CARD_HEIGHT: 'cardHeight',
+    CARD_LIST_LIMIT: 'cardListLimit',
     CARD_WIDTH_FOR_PHONE: 'cardWidthForPhone',
     CARD_TITLE_FONT_SIZE: 'cardTitleFontSize',
     CATEGORIES_TITLE_FONT_SIZE: 'categroiesTitleFontSize',

@@ -8,7 +8,8 @@
 
     <main class="flex-grow">
       <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-      <div class="overflow-x-auto scrollbar-hide sticky z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100" :style="topMessageHeight">
+      <div class="overflow-x-auto scrollbar-hide sticky z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100"
+           :style="topMessageHeight">
         <div class="inline-flex space-x-2 py-0.5 pb-4 justify-center mx-auto whitespace-nowrap">
           <draggable
               v-model="categroies"
@@ -108,27 +109,27 @@
           <!-- 钉钉 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            钉钉: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.DINGDING }}</span>
+            钉钉: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.DINGDING }}</span>
           </span>&nbsp;
           <!-- 企业微信 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            企业微信: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.QIYEWEIXIN }}</span>
+            企业微信: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.QIYEWEIXIN }}</span>
           </span>&nbsp;
           <!-- Telegram -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            Telegram: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.TELEGRAM }}</span>
+            Telegram: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.TELEGRAM }}</span>
           </span>&nbsp;
           <!-- NTFY -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            NTFY: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.NTFY }}</span>
+            NTFY: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.NTFY }}</span>
           </span>&nbsp;
           <!-- GOTIFY -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            GOTIFY: <span class="font-medium">{{  this.umamiSubscriptionData.AllSubscriptionData.GOTIFY }}</span>
+            GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.GOTIFY }}</span>
           </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
@@ -152,27 +153,27 @@
           <!-- 钉钉 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            钉钉: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.DINGDING }}</span>
+            钉钉: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.DINGDING }}</span>
           </span>&nbsp;
           <!-- 企业微信 -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            企业微信: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.QIYEWEIXIN }}</span>
+            企业微信: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.QIYEWEIXIN }}</span>
           </span>&nbsp;
           <!-- Telegram -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            Telegram: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.TELEGRAM }}</span>
+            Telegram: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.TELEGRAM }}</span>
           </span>&nbsp;
           <!-- NTFY -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            NTFY: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.NTFY }}</span>
+            NTFY: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.NTFY }}</span>
           </span>&nbsp;
           <!-- GOTIFY -->
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
-            GOTIFY: <span class="font-medium">{{  this.umamiSubscriptionData.TodaySubscriptionData.GOTIFY }}</span>
+            GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.GOTIFY }}</span>
           </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
@@ -209,15 +210,7 @@
                   size="small"
                   @change="changeTopCarouselFontShow"/>
               </span>&nbsp;
-            </div>
-            <!-- 右侧：更新时间（移动端换行显示） -->
-            <div>
-            </div>
-          </div>
-          <div
-              class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <!-- 左侧：统计数据（移动端换行显示） -->
-            <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                 词云数量：<el-input-number class="input-title" v-model="wordCloudNum" :min="50" :max="1000"
                                           size="small"
@@ -351,6 +344,11 @@
             卡片高：<el-input-number class="input-height" v-model="cardHeight" :min="1" :max="500" size="small"
                                     @change="changeCardHeight"/>
           </span>&nbsp;
+              <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                热点个数：<el-input-number class="input-title" v-model="cardListLimit" :min="3" :max="200"
+                                          size="small"
+                                          :precision="0" :step="5" @change="changeCardListLimit"/>
+              </span>&nbsp;
               <!-- 自定义移动端横向/竖向滚动-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             卡片横向滚动(移动端)：<el-switch
@@ -360,7 +358,7 @@
                   size="small"
                   @change="changeCardHorizontalScrolling"/>
           </span>&nbsp;
-              <!-- 自定义款-->
+              <!-- 自定义宽-->
               <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             卡片宽(移动端横向)：<el-input-number class="input-height" v-model="cardWidthForPhone" :min="10" :max="100"
                                                 size="small"
@@ -652,6 +650,7 @@ export default {
       // 用缓存里的自定义样式替换一下全部数据里的自定义样式
       const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
       const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
+      const cardListLimit = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_LIST_LIMIT)
       const cacheCardWidthForPhone = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE)
       const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
       const cacheCategroiesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE)
@@ -676,6 +675,7 @@ export default {
 
       this.cardCols = cacheCardCols ?? this.cardCols;
       this.cardHeight = cacheCardHeight ?? this.cardHeight;
+      this.cardListLimit = cardListLimit ?? this.cardListLimit;
       this.cardWidthForPhone = cacheCardWidthForPhone ?? this.cardWidthForPhone;
       this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
       this.categroiesTitleFontSize = cacheCategroiesTitleFontSize ?? this.categroiesTitleFontSize;
@@ -956,12 +956,12 @@ export default {
           .finally(() => {
           });
       const platforms = [
-        { event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉' },
-        { event: '订阅推送-飞书', key: 'FEISHU', name: '飞书' },
-        { event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信' },
-        { event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram' },
-        { event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY' },
-        { event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY' }
+        {event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉'},
+        {event: '订阅推送-飞书', key: 'FEISHU', name: '飞书'},
+        {event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信'},
+        {event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram'},
+        {event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY'},
+        {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'}
       ];
 
       this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
@@ -1003,7 +1003,12 @@ export default {
       window.umami.track('自定义卡片高度')
     }
     ,
-
+    // 自定义调整卡片列表数
+    changeCardListLimit() {
+      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_LIST_LIMIT, this.cardListLimit);
+      window.umami.track('自定义卡片列表数')
+    }
+    ,
     changeCardWidthForPhone() {
       setLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE, this.cardWidthForPhone);
       window.umami.track('自定义卡片宽度')
@@ -1154,16 +1159,16 @@ export default {
   },
   computed: {
     topMessageHeight() {
-      if(this.isMobile){
-        return {top: this.$store.state.topMessageHeight -1 + 'rem',paddingBottom:0.6+'rem'}
+      if (this.isMobile) {
+        return {top: this.$store.state.topMessageHeight - 1 + 'rem', paddingBottom: 0.6 + 'rem'}
       }
-      return {top: this.$store.state.topMessageHeight + 'rem',paddingBottom:1+'rem'}
+      return {top: this.$store.state.topMessageHeight + 'rem', paddingBottom: 1 + 'rem'}
     },
     topSettingHeight() {
-      if(this.isMobile){
+      if (this.isMobile) {
         return {marginTop: -2 + 'rem'}
       }
-      return {marginTop: this.$store.state.topMessageHeight-6 + 'rem'}
+      return {marginTop: this.$store.state.topMessageHeight - 6 + 'rem'}
     },
     isMobile() {
       return this.windowWidth < 768; // 手机屏幕宽度
@@ -1182,6 +1187,15 @@ export default {
       },
       set(value) {
         this.$store.commit('setCardHeight', value);
+      }
+    },
+    // 自定义调整卡片列表数
+    cardListLimit: {
+      get() {
+        return this.$store.state.cardListLimit;
+      },
+      set(value) {
+        this.$store.commit('setCardListLimit', value);
       }
     },
     cardCols: {
