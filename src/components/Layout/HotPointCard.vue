@@ -40,7 +40,7 @@
           </el-icon>
         </el-button>
 
-        {{ updateTime }}
+        {{ timeAgo(updateTime) }}
       </span>
     </div>
 
@@ -201,12 +201,67 @@ export default {
       playingIndex: null,
       isPaused: true,
       isLoop: false,  // 默认不循环播放
+      currentUpdateTime: this.updateTime,  // 保存当前更新时间
+      now: new Date(),  // 添加一个响应式的当前时间
+      intervalId: null,  // 存储定时器的 ID
     };
   },
   methods: {
     isPast,
     isBetween,
     isFuture,
+    timeAgo(date) {
+      const parsedDate = new Date(date);
+
+      // 如果传入的日期无效，返回“加载中”
+      if (isNaN(parsedDate)) {
+        return "加载中";
+      }
+
+      const diffInSeconds = Math.floor((this.now - parsedDate) / 1000);
+
+      if (diffInSeconds < 60) {
+        return `${diffInSeconds}秒前`; // 小于一分钟的秒数
+      }
+
+      const diffInMinutes = Math.floor(diffInSeconds / 60);
+      if (diffInMinutes < 60) {
+        const remainingSeconds = diffInSeconds % 60;
+        return `${diffInMinutes}分${remainingSeconds}秒前`; // 小于一小时的分钟和秒
+      }
+
+      const diffInHours = Math.floor(diffInMinutes / 60);
+      if (diffInHours < 24) {
+        const remainingMinutes = diffInMinutes % 60;
+        const remainingSeconds = diffInSeconds % 60;
+        return `${diffInHours}时${remainingMinutes}分${remainingSeconds}秒前`; // 小于一天的小时、分钟和秒
+      }
+
+      const diffInDays = Math.floor(diffInHours / 24);
+      if (diffInDays < 30) {
+        const remainingHours = diffInHours % 24;
+        const remainingMinutes = diffInMinutes % 60;
+        const remainingSeconds = diffInSeconds % 60;
+        return `${diffInDays}天${remainingHours}时${remainingMinutes}分${remainingSeconds}秒前`; // 小于30天的天数、小时、分钟、秒
+      }
+
+      const diffInMonths = Math.floor(diffInDays / 30);
+      if (diffInMonths < 12) {
+        const remainingDays = diffInDays % 30;
+        const remainingHours = diffInHours % 24;
+        const remainingMinutes = diffInMinutes % 60;
+        const remainingSeconds = diffInSeconds % 60;
+        return `${diffInMonths}月${remainingDays}天${remainingHours}时${remainingMinutes}分${remainingSeconds}秒前`; // 小于12个月的月份、天数、小时、分钟、秒
+      }
+
+      const diffInYears = Math.floor(diffInMonths / 12);
+      const remainingMonths = diffInMonths % 12;
+      const remainingDays = diffInDays % 30;
+      const remainingHours = diffInHours % 24;
+      const remainingMinutes = diffInMinutes % 60;
+      const remainingSeconds = diffInSeconds % 60;
+      return `${diffInYears}年${remainingMonths}月${remainingDays}天${remainingHours}时${remainingMinutes}分${remainingSeconds}秒前`; // 超过12个月的年、月、天、小时、分钟、秒
+    },
     // 判断是否展示信息流广告
     shouldShowAd(index) {
       // 每10个一条广告（14,29,44,59…）
@@ -320,6 +375,18 @@ export default {
         return k.toFixed(k < 10 ? 2 : 1).replace(/\.00$/, '').replace(/\.0$/, '') + 'K';
       }
       return num.toString();
+    }
+  },
+  mounted() {
+    // 每秒更新一次时间
+    this.intervalId = setInterval(() => {
+      this.now = new Date();  // ✅ 只更新 now
+    }, 1000);  // 改成 1000ms（1秒）
+  },
+  beforeUnmount() {
+    // 清除定时器，防止内存泄漏
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   },
   props: {
