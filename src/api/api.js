@@ -2081,3 +2081,12 @@ export function topSearchMeiTuanSheQu(data) {
     })
 }
 
+export function topSearchFor0818Tuan(data) {
+    return request({
+        url: '/topsearch/0818tuan',
+        method: 'post',
+        data: data
+    })
+}
+
+

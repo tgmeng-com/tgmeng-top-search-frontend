@@ -255,7 +255,8 @@ import {
 
     topSearchAliYunSheQu,
     topSearchTengXunYunSheQu,
-    topSearchMeiTuanSheQu
+    topSearchMeiTuanSheQu,
+    topSearchFor0818Tuan
 
 } from '@/api/api';
 
@@ -409,6 +410,7 @@ export default createStore({
                     new Platform('豆瓣组 爱猫生活', topSearchForAiMaoShengHuoDouBan, require('@/assets/logos/tgmeng-trend_doubanaimaoshenghuo.png'), 8.3, '/wool/doubanaimaoshenghuo'),
                     new Platform('豆瓣组 爱猫澡盆', topSearchForAiMaoZaoPenDouBan, require('@/assets/logos/tgmeng-trend_doubanaimaozaopen.png'), 8.4, '/wool/doubanaimaozaopen'),
                     new Platform('豆瓣组 狗组', topSearchForGouZuDouBan, require('@/assets/logos/tgmeng-trend_doubangouzu.png'), 8.5, '/wool/doubangouzu'),
+                    new Platform('0818团', topSearchFor0818Tuan, require('@/assets/logos/tgmeng-trend_0818tuan.png'), 8.6, '/wool/0818tuan'),
                 ]
             },
             {

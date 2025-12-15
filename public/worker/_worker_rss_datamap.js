@@ -28,7 +28,8 @@ const dataMap = {
             "/wool/doubanpinzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 拼", description: "糖果梦热榜 · 羊毛 · 豆瓣组 拼", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/pinzu",platform: "豆瓣组 拼"},
             "/wool/doubanaimaoshenghuo": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/aimaoshenghuo",platform: "豆瓣组 爱猫生活"},
             "/wool/doubanaimaozaopen": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/aimaozaopen",platform: "豆瓣组 爱猫澡盆"},
-            "/wool/doubangouzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", description: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/gouzu",platform: "豆瓣组 狗组"}
+            "/wool/doubangouzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", description: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/gouzu",platform: "豆瓣组 狗组"},
+            "/wool/0818tuan": {title: "糖果梦热榜 · 羊毛 · 0818团", description: "糖果梦热榜 · 羊毛 · 0818团", link: "https://trendapi.tgmeng.com/api/topsearch/0818tuan",platform: "0818团"}
         }
     },
     "/media": {
