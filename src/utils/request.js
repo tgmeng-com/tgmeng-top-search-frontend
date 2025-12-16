@@ -3,7 +3,7 @@ import axios from "axios";
 export function request(config) {
     const instance = axios.create({
         // TODO 替换为你自己的后端接口地址
-        baseURL: window.APP_CONFIG?.VUE_APP_API_BASE_URL || process.env.VUE_APP_API_BASE_URL || 'http://127.0.0.1:4399/api/',
+        baseURL: process.env.VUE_APP_API_BASE_URL || window.APP_CONFIG?.VUE_APP_API_BASE_URL ||  'http://127.0.0.1:4399/api/',
         timeout: 600000
     });
 
