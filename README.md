@@ -321,6 +321,8 @@
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CandyDream6/tgmeng-top-search-frontend)
 
+- 设置环境变量 VUE_APP_API_BASE_URL=<你的后端地址>/api/ 例如 http://127.0.0.1:4399/api/
+
 ### 2 Docker镜像一键部署
 
 ```shell
