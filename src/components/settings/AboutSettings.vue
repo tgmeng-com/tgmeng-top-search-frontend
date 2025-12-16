@@ -193,7 +193,7 @@ export default {
             {
               avatar: require('@/assets/avatars/project/Jhhgiyv.png'),
               name: 'Jhhgiyv',
-              role: 'LinuxDO佬友',
+              role: '热心佬友',
               work: '优酷Cookie获取方式提供',
               link: ''
             },
@@ -214,7 +214,7 @@ export default {
             {
               avatar: require('@/assets/avatars/project/ouyangqiqi.png'),
               name: '欧阳淇淇',
-              role: 'LinuxDO佬友',
+              role: '黑与白公益站站长',
               work: '提供大语言模型Key源解决方案;提供公益站【黑与白】大模型免费调用',
               link: ''
             },
