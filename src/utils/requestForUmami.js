@@ -2,10 +2,10 @@ import axios from "axios";
 
 export function request(config) {
     const instance = axios.create({
-        baseURL:  process.env.VUE_APP_UMAMI_BASE_URL,
+        baseURL:  window.APP_CONFIG?.VUE_APP_UMAMI_BASE_URL || process.env.VUE_APP_UMAMI_BASE_URL || 'https://umami.test.com/',
         timeout: 600000,
         headers: {
-            Authorization: process.env.VUE_APP_UMAMI_AUTH
+            Authorization: window.APP_CONFIG?.VUE_APP_UMAMI_AUTH || process.env.VUE_APP_UMAMI_AUTH || 'Bearer 123456'
         }
     });
 

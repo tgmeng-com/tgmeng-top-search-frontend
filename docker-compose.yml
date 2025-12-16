@@ -7,6 +7,10 @@ services:
     # context: .  # 使用当前目录的 Dockerfile
     ports:
       - "8080:80"  # 映射主机 8080 端口到容器 80 端口
+    environment:
+      - VUE_APP_API_BASE_URL=${VUE_APP_API_BASE_URL:-http://127.0.0.1:4399/api/}
+      - VUE_APP_UMAMI_BASE_URL=${VUE_APP_UMAMI_BASE_URL:-https://umami.test.com/}
+      - VUE_APP_UMAMI_AUTH=${VUE_APP_UMAMI_AUTH:-BearerDefaultAuthToken}
     restart: unless-stopped  # 容器异常退出时自动重启，除非手动停止
 
 # 使用

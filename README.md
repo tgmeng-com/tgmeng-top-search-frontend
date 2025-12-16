@@ -326,7 +326,8 @@
 ```shell
 docker pull tgmeng/tgmeng-top-search-frontend:latest                     # 这是dockerhub里的镜像
 # docker pull ghcr.io/tgmeng-com/tgmeng-top-search-frontend:latest       # 这是ghcr里的镜像，和上面是一样的，拉哪个都行
-docker run -d -p 8080:80 --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
+docker run -d -p 8080:80 -e VUE_APP_API_BASE_URL=<你的后端地址>/api/ --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
+# 例如:docker run -d -p 8080:80 -e VUE_APP_API_BASE_URL=http://127.0.0.1:4399/api/ --name tgmeng-top-search-frontend tgmeng/tgmeng-top-search-frontend:latest
 docker ps
 docker logs -f --tail=50 tgmeng-top-search-frontend
 ```
@@ -336,7 +337,8 @@ docker logs -f --tail=50 tgmeng-top-search-frontend
 - 下载本项目根目录下的docker-compose.yml，然后在他的同级目录执行下面命令
 
 ```shell
-docker-compose up -d
+VUE_APP_API_BASE_URL=<你的后端地址>/api/ docker-compose up -d
+# 例如:VUE_APP_API_BASE_URL=http://127.0.0.1:4399/api/ docker-compose up -d
 docker-compose ps
 docker-compose logs -f --tail=50 tgmeng-top-search-frontend
 ```
