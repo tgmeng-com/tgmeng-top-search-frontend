@@ -2089,4 +2089,150 @@ export function topSearchFor0818Tuan(data) {
     })
 }
 
-
+export function  cacheSearchForQooAppShouJiYouXi(data) {
+    return request({
+        url: '/topsearch/qooapp/shoujiyouxi',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchForQooAppPcZhuJi(data) {
+    return request({
+        url: '/topsearch/qooapp/pczhuji',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchForBaHaMuTeShouJi(data) {
+    return request({
+        url: '/topsearch/bahamute/shouji',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchForBaHaMuTePc(data) {
+    return request({
+        url: '/topsearch/bahamute/pc',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchForBaHaMuTeTv(data) {
+    return request({
+        url: '/topsearch/bahamute/tv',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchForBaHaMuTeXinXun(data) {
+    return request({
+        url: '/topsearch/bahamute/xinxun',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerPc(data) {
+    return request({
+        url: '/topsearch/4gamer/pc',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerXbox(data) {
+    return request({
+        url: '/topsearch/4gamer/xbox',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerPs(data) {
+    return request({
+        url: '/topsearch/4gamer/ps',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerSwitch(data) {
+    return request({
+        url: '/topsearch/4gamer/switch',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerSmartPhone(data) {
+    return request({
+        url: '/topsearch/4gamer/smartphone',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerVr(data) {
+    return request({
+        url: '/topsearch/4gamer/vr',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerHardWare(data) {
+    return request({
+        url: '/topsearch/4gamer/hardware',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerArcade(data) {
+    return request({
+        url: '/topsearch/4gamer/arcade',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerAnalog(data) {
+    return request({
+        url: '/topsearch/4gamer/analog',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerWii(data) {
+    return request({
+        url: '/topsearch/4gamer/wii',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerVita(data) {
+    return request({
+        url: '/topsearch/4gamer/vita',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchFor4GamerNds(data) {
+    return request({
+        url: '/topsearch/4gamer/nds',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchGameBaseShouJiYouXi(data) {
+    return request({
+        url: '/topsearch/gamebase/shoujiyouxi',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchGameBasePc(data) {
+    return request({
+        url: '/topsearch/gamebase/pc',
+        method: 'post',
+        data: data
+    })
+}
+export function  cacheSearchGameBaseTvZhangJi(data) {
+    return request({
+        url: '/topsearch/gamebase/tvzhangji',
+        method: 'post',
+        data: data
+    })
+}

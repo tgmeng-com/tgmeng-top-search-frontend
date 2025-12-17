@@ -256,7 +256,29 @@ import {
     topSearchAliYunSheQu,
     topSearchTengXunYunSheQu,
     topSearchMeiTuanSheQu,
-    topSearchFor0818Tuan
+    topSearchFor0818Tuan,
+
+    cacheSearchForQooAppShouJiYouXi,
+    cacheSearchForQooAppPcZhuJi,
+    cacheSearchForBaHaMuTeShouJi,
+    cacheSearchForBaHaMuTePc,
+    cacheSearchForBaHaMuTeTv,
+    cacheSearchForBaHaMuTeXinXun,
+    cacheSearchFor4GamerPc,
+    cacheSearchFor4GamerXbox,
+    cacheSearchFor4GamerPs,
+    cacheSearchFor4GamerSwitch,
+    cacheSearchFor4GamerSmartPhone,
+    cacheSearchFor4GamerVr,
+    cacheSearchFor4GamerHardWare,
+    cacheSearchFor4GamerArcade,
+    cacheSearchFor4GamerAnalog,
+    cacheSearchFor4GamerWii,
+    cacheSearchFor4GamerVita,
+    cacheSearchFor4GamerNds,
+    cacheSearchGameBaseShouJiYouXi,
+    cacheSearchGameBasePc,
+    cacheSearchGameBaseTvZhangJi,
 
 } from '@/api/api';
 
@@ -730,7 +752,31 @@ export default createStore({
                     new Platform('游侠网', topSearchForYouXiaWang, require('@/assets/logos/tgmeng-trend_youxiawang.png'), 131, '/game/youxiawang'),
                     new Platform('17173', topSearchFor17173, require('@/assets/logos/tgmeng-trend_17173.png'), 132, '/game/17173'),
                     new Platform('电玩帮', cacheSearchFordianwanbang, require('@/assets/logos/tgmeng-trend_dianwanbang.png'), 132.1, '/game/dianwanbang'),
+
+                    new Platform('QooApp 手機遊戲', cacheSearchForQooAppShouJiYouXi, require('@/assets/logos/tgmeng-trend_qooapp.png'), 132.1, '/game/qooapp/shoujiyouxi'),
+                    new Platform('QooApp PC&主機', cacheSearchForQooAppPcZhuJi, require('@/assets/logos/tgmeng-trend_qooapp.png'), 132.1, '/game/qooapp/pczhuji'),
+                    new Platform('巴哈姆特 手機', cacheSearchForBaHaMuTeShouJi, require('@/assets/logos/tgmeng-trend_bahamute.png'), 132.1, '/game/bahamute/shouji'),
+                    new Platform('巴哈姆特 PC', cacheSearchForBaHaMuTePc, require('@/assets/logos/tgmeng-trend_bahamute.png'), 132.1, '/game/bahamute/pc'),
+                    new Platform('巴哈姆特 TV', cacheSearchForBaHaMuTeTv, require('@/assets/logos/tgmeng-trend_bahamute.png'), 132.1, '/game/bahamute/tv'),
+                    new Platform('巴哈姆特 新訊', cacheSearchForBaHaMuTeXinXun, require('@/assets/logos/tgmeng-trend_bahamute.png'), 132.1, '/game/bahamute/xinxun'),
+                    new Platform('4Gamer PC', cacheSearchFor4GamerPc, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/pc'),
+                    new Platform('4Gamer Xbox', cacheSearchFor4GamerXbox, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/xbox'),
+                    new Platform('4Gamer PS5/PS4', cacheSearchFor4GamerPs, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/ps'),
+                    new Platform('4Gamer Switch', cacheSearchFor4GamerSwitch, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/switch'),
+                    new Platform('4Gamer スマホ', cacheSearchFor4GamerSmartPhone, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/smartphone'),
+                    new Platform('4Gamer VR', cacheSearchFor4GamerVr, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/vr'),
+                    new Platform('4Gamer ハードウェア', cacheSearchFor4GamerHardWare, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/hardware'),
+                    new Platform('4Gamer AC', cacheSearchFor4GamerArcade, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/arcade'),
+                    new Platform('4Gamer アナログ', cacheSearchFor4GamerAnalog, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/analog'),
+                    new Platform('4Gamer Wii', cacheSearchFor4GamerWii, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/wii'),
+                    new Platform('4Gamer PSV', cacheSearchFor4GamerVita, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/vita'),
+                    new Platform('4Gamer 3DS', cacheSearchFor4GamerNds, require('@/assets/logos/tgmeng-trend_4gamer.png'), 132.1, '/game/4gamer/nds'),
+                    new Platform('遊戲基地 手機遊戲', cacheSearchGameBaseShouJiYouXi, require('@/assets/logos/tgmeng-trend_youxijidi.png'), 132.1, '/game/gamebase/shoujiyouxi'),
+                    new Platform('遊戲基地 PC', cacheSearchGameBasePc, require('@/assets/logos/tgmeng-trend_youxijidi.png'), 132.1, '/game/gamebase/pc'),
+                    new Platform('遊戲基地 TV掌機', cacheSearchGameBaseTvZhangJi, require('@/assets/logos/tgmeng-trend_youxijidi.png'), 132.1, '/game/gamebase/tvzhangji'),
                 ]
+
+
             },
             {
                 name: '健康',

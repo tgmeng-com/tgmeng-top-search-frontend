@@ -238,6 +238,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/18 02:00',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增21个游戏平台'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/15 13:00',
               events: [{
                 id: 1, title: '优化功能', desc: ['卡片时间更改为动态相对时间'], tag: 'Feat'
