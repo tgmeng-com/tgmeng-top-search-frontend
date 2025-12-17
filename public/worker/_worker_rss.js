@@ -59,7 +59,7 @@ export default function generateRSS(key) {
             const title = escapeXml(item.keyword || '无标题', true);
             const link = escapeXml(item.url || '', false);
             const description = `点击标题查看详细内容`;
-            const platform = item.platform || '';
+            const platform = escapeXml(item.platform || '', true);
             const pubDate = item.pubDate || new Date().toUTCString();
             return `<item>
             <title>${title}  -来自【${platform}】</title>
