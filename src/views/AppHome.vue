@@ -583,9 +583,11 @@ export default {
     // }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
     //
     // 新增：定时刷新统计数据（每5秒刷新一次）
-    this.umamiStatsTimer = setInterval(() => {
-      this.initUmami();
-    }, 10 * 1000); // 每10秒刷新一次统计数据
+    if (this.pageViewsShow){
+      this.umamiStatsTimer = setInterval(() => {
+        this.initUmami();
+      }, 10 * 1000); // 每10秒刷新一次统计数据
+    }
 
     window.addEventListener('resize', this.handleResize);
   },
@@ -926,46 +928,48 @@ export default {
     ,
 
     initUmami() {
-      umamiActive()
-          .then((res) => {
-            this.umamiActive = res?.data?.visitors || 1;
-          })
-          .catch((err) => {
-            console.warn(`umami实时在线人数加载失败`, err);
-          })
-          .finally(() => {
-          });
-      umamiStatsToday()
-          .then((res) => {
-            this.umamiTodayViews = res?.data?.pageviews?.value || '加载失败';
-            this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
-          })
-          .catch((err) => {
-            console.warn(`umami近24小时统计数据加载失败`, err);
-          })
-          .finally(() => {
-          });
-      umamiStatsAll()
-          .then((res) => {
-            this.umamiAllViews = res?.data?.pageviews?.value || '加载失败';
-            this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
-          })
-          .catch((err) => {
-            console.warn(`umami历史统计数据加载失败`, err);
-          })
-          .finally(() => {
-          });
-      const platforms = [
-        {event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉'},
-        {event: '订阅推送-飞书', key: 'FEISHU', name: '飞书'},
-        {event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信'},
-        {event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram'},
-        {event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY'},
-        {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'}
-      ];
+      if (this.pageViewsShow){
+        umamiActive()
+            .then((res) => {
+              this.umamiActive = res?.data?.visitors || 1;
+            })
+            .catch((err) => {
+              console.warn(`umami实时在线人数加载失败`, err);
+            })
+            .finally(() => {
+            });
+        umamiStatsToday()
+            .then((res) => {
+              this.umamiTodayViews = res?.data?.pageviews?.value || '加载失败';
+              this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+            })
+            .catch((err) => {
+              console.warn(`umami近24小时统计数据加载失败`, err);
+            })
+            .finally(() => {
+            });
+        umamiStatsAll()
+            .then((res) => {
+              this.umamiAllViews = res?.data?.pageviews?.value || '加载失败';
+              this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+            })
+            .catch((err) => {
+              console.warn(`umami历史统计数据加载失败`, err);
+            })
+            .finally(() => {
+            });
+        const platforms = [
+          {event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉'},
+          {event: '订阅推送-飞书', key: 'FEISHU', name: '飞书'},
+          {event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信'},
+          {event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram'},
+          {event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY'},
+          {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'}
+        ];
 
-      this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
-      this.loadPlatformsData(platforms, getTodayStartTimestamp(), 'TodaySubscriptionData');
+        this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
+        this.loadPlatformsData(platforms, getTodayStartTimestamp(), 'TodaySubscriptionData');
+      }
     },
     loadPlatformsData(platforms, startTimestamp, storeKey) {
       Promise.all(
