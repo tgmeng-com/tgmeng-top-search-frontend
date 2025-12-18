@@ -97,6 +97,10 @@
                     :style="cardSecondTitleStyle" style="opacity: 0.5"><br/>· {{ text }}
               </span>
               </template>
+              <!-- GitHub二级标题 -->
+              <template v-else-if="title.includes('新仓库') || title === 'Star总榜'">
+                <span v-if="item.desc" :style="cardSecondTitleStyle" style="opacity: 0.5"><br/>{{ item.desc }}</span>
+              </template>
             </a>
 
             <!-- 评分/播放/信息 -->
