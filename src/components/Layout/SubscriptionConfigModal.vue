@@ -394,7 +394,7 @@ export default {
         },
         {
           type: 'WANGYIPOPO',
-          name: '网易泡泡',
+          name: '网易泡泡（参考钉钉实现）',
           icon: require('@/assets/image/wangyipopo.png'),
           glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
           webhookPlaceholder: 'Webhook URL(必填)',
