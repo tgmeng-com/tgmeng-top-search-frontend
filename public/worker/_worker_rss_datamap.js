@@ -29,7 +29,8 @@ const dataMap = {
             "/wool/doubanaimaoshenghuo": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫生活", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/aimaoshenghuo",platform: "豆瓣组 爱猫生活"},
             "/wool/doubanaimaozaopen": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", description: "糖果梦热榜 · 羊毛 · 豆瓣组 爱猫澡盆", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/aimaozaopen",platform: "豆瓣组 爱猫澡盆"},
             "/wool/doubangouzu": {title: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", description: "糖果梦热榜 · 羊毛 · 豆瓣组 狗组", link: "https://trendapi.tgmeng.com/api/topsearch/xiaozudouban/gouzu",platform: "豆瓣组 狗组"},
-            "/wool/0818tuan": {title: "糖果梦热榜 · 羊毛 · 0818团", description: "糖果梦热榜 · 羊毛 · 0818团", link: "https://trendapi.tgmeng.com/api/topsearch/0818tuan",platform: "0818团"}
+            "/wool/0818tuan": {title: "糖果梦热榜 · 羊毛 · 0818团", description: "糖果梦热榜 · 羊毛 · 0818团", link: "https://trendapi.tgmeng.com/api/topsearch/0818tuan",platform: "0818团"},
+            "/wool/nodelocyouhui": {title: "糖果梦热榜 · 羊毛 · NodeLoc优惠", description: "糖果梦热榜 · 羊毛 · NodeLoc优惠", link: "https://trendapi.tgmeng.com/api/topsearch/nodeloc/youhui",platform: "NodeLoc优惠"}
         }
     },
     "/media": {
@@ -88,6 +89,7 @@ const dataMap = {
         children: {
             "/community/hackernews": {title: "糖果梦热榜 · 社区 · Hacker News", description: "糖果梦热榜 · 社区 · Hacker News", link: "https://trendapi.tgmeng.com/api/topsearch/hackernews",platform: "Hacker News"},
             "/community/v2ex": {title: "糖果梦热榜 · 社区 · V2EX", description: "糖果梦热榜 · 社区 · V2EX", link: "https://trendapi.tgmeng.com/api/topsearch/v2ex",platform: "V2EX"},
+            "/community/nodelochot": {title: "糖果梦热榜 · 社区 · NodeLoc最热", description: "糖果梦热榜 · 社区 · NodeLoc最热", link: "https://trendapi.tgmeng.com/api/topsearch/nodeloc/hot",platform: "NodeLoc最热"},
             "/community/buxingjiehupu": {title: "糖果梦热榜 · 社区 · 虎扑步行街", description: "糖果梦热榜 · 社区 · 虎扑步行街", link: "https://trendapi.tgmeng.com/api/topsearch/buxingjiehupu",platform: "虎扑步行街"},
             "/community/zhihu": {title: "糖果梦热榜 · 社区 · 知乎", description: "糖果梦热榜 · 社区 · 知乎", link: "https://trendapi.tgmeng.com/api/topsearch/zhihu",platform: "知乎"},
             "/community/tiebabaidu": {title: "糖果梦热榜 · 社区 · 百度贴吧", description: "糖果梦热榜 · 社区 · 百度贴吧", link: "https://trendapi.tgmeng.com/api/topsearch/tiebabaidu",platform: "百度贴吧"},
@@ -201,6 +203,9 @@ const dataMap = {
             "/technology/aliyunshequ": {title: "糖果梦热榜 · 科技 · 阿里云社区", description: "糖果梦热榜 · 科技 · 阿里云社区", link: "https://trendapi.tgmeng.com/api/topsearch/aliyunshequ",platform: "阿里云社区"},
             "/technology/tengxunyunshequ": {title: "糖果梦热榜 · 科技 · 腾讯云社区", description: "糖果梦热榜 · 科技 · 腾讯云社区", link: "https://trendapi.tgmeng.com/api/topsearch/tengxunyunshequ",platform: "腾讯云社区"},
             "/technology/meituanshequ": {title: "糖果梦热榜 · 科技 · 美团社区", description: "糖果梦热榜 · 科技 · 美团社区", link: "https://trendapi.tgmeng.com/api/topsearch/meituanshequ",platform: "美团社区"},
+            "/technology/zhiyuanshequ": {title: "糖果梦热榜 · 科技 · 智源社区", description: "糖果梦热榜 · 科技 · 智源社区", link: "https://trendapi.tgmeng.com/api/topsearch/zhiyuanshequ",platform: "智源社区"},
+            "/technology/liangziwei": {title: "糖果梦热榜 · 科技 · 量子位", description: "糖果梦热榜 · 科技 · 量子位", link: "https://trendapi.tgmeng.com/api/topsearch/liangziwei",platform: "量子位"},
+            "/technology/xinzhiyuan": {title: "糖果梦热榜 · 科技 · 新智元", description: "糖果梦热榜 · 科技 · 新智元", link: "https://trendapi.tgmeng.com/api/topsearch/xinzhiyuan",platform: "新智元"},
         }
     },
     "/design": {

@@ -256,6 +256,11 @@ import {
     topSearchAliYunSheQu,
     topSearchTengXunYunSheQu,
     topSearchMeiTuanSheQu,
+
+    topSearchZhiYuanSheQu,
+    topSearchLiangZiWei,
+    topSearchXinZhiYuan,
+
     topSearchFor0818Tuan,
 
     cacheSearchForQooAppShouJiYouXi,
@@ -279,6 +284,9 @@ import {
     cacheSearchGameBaseShouJiYouXi,
     cacheSearchGameBasePc,
     cacheSearchGameBaseTvZhangJi,
+
+    topSearchForLodeLocYouHui,
+    topSearchForNodeLocHot
 
 } from '@/api/api';
 
@@ -433,6 +441,7 @@ export default createStore({
                     new Platform('豆瓣组 爱猫澡盆', topSearchForAiMaoZaoPenDouBan, require('@/assets/logos/tgmeng-trend_doubanaimaozaopen.png'), 8.4, '/wool/doubanaimaozaopen'),
                     new Platform('豆瓣组 狗组', topSearchForGouZuDouBan, require('@/assets/logos/tgmeng-trend_doubangouzu.png'), 8.5, '/wool/doubangouzu'),
                     new Platform('0818团', topSearchFor0818Tuan, require('@/assets/logos/tgmeng-trend_0818tuan.png'), 8.6, '/wool/0818tuan'),
+                    new Platform('NodeLoc', topSearchForLodeLocYouHui, require('@/assets/logos/tgmeng-trend_nodeloc.png'), 8.7, '/wool/nodelocyouhui'),
                 ]
             },
             {
@@ -534,6 +543,7 @@ export default createStore({
                 subCategories: [
                     new Platform('Hacker News', topSearchForHackerNews, require('@/assets/logos/tgmeng-trend_hackernews.png'), 22.1, '/community/hackernews'),
                     new Platform('V2EX', topSearchForV2ex, require('@/assets/logos/tgmeng-trend_v2ex.png'), 22.2, '/community/v2ex'),
+                    new Platform('NodeLoc', topSearchForNodeLocHot, require('@/assets/logos/tgmeng-trend_nodeloc.png'), 22.21, '/community/nodelochot'),
                     new Platform('虎扑步行街', topSearchForBuXingJieHuPu, require('@/assets/logos/tgmeng-trend_buxingjiehupu.png'), 22.3, '/community/buxingjiehupu'),
                     new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png'), 22.4, '/community/zhihu'),
                     new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png'), 22.5, '/community/tiebabaidu'),
@@ -621,6 +631,10 @@ export default createStore({
                     new Platform('阿里云社区', topSearchAliYunSheQu, require('@/assets/logos/tgmeng-trend_aliyunshequ.png'), 40.01, '/technology/aliyunshequ'),
                     new Platform('腾讯云社区', topSearchTengXunYunSheQu, require('@/assets/logos/tgmeng-trend_tengxunyunshequ.png'), 40.02, '/technology/tengxunyunshequ'),
                     new Platform('美团社区', topSearchMeiTuanSheQu, require('@/assets/logos/tgmeng-trend_meituanshequ.png'), 40.03, '/technology/meituanshequ'),
+
+                    new Platform('智源社区', topSearchZhiYuanSheQu, require('@/assets/logos/tgmeng-trend_zhiyuanshequ.png'), 40.04, '/technology/zhiyuanshequ'),
+                    new Platform('量子位', topSearchLiangZiWei, require('@/assets/logos/tgmeng-trend_liangziwei.png'), 40.05, '/technology/liangziwei'),
+                    new Platform('新智元', topSearchXinZhiYuan, require('@/assets/logos/tgmeng-trend_xinzhiyuan.png'), 40.06, '/technology/xinzhiyuan'),
 
                     new Platform('36氪', cacheSearchFor36ke, require('@/assets/logos/tgmeng-trend_36ke.png'), 40.1, '/technology/36ke'),
                     new Platform('IT之家', cacheSearchForitzhijia, require('@/assets/logos/tgmeng-trend_itzhijia.png'), 40.11, '/technology/itzhijia'),

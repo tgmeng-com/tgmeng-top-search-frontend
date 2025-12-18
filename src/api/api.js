@@ -2236,3 +2236,43 @@ export function  cacheSearchGameBaseTvZhangJi(data) {
         data: data
     })
 }
+
+export function  topSearchZhiYuanSheQu(data) {
+    return request({
+        url: '/topsearch/zhiyuanshequ',
+        method: 'post',
+        data: data
+    })
+}
+
+export function  topSearchLiangZiWei(data) {
+    return request({
+        url: '/topsearch/liangziwei',
+        method: 'post',
+        data: data
+    })
+}
+
+export function  topSearchXinZhiYuan(data) {
+    return request({
+        url: '/topsearch/xinzhiyuan',
+        method: 'post',
+        data: data
+    })
+}
+
+export function topSearchForLodeLocYouHui(data) {
+    return request({
+        url: '/topsearch/nodeloc/youhui',
+        method: 'post',
+        data: data
+    })
+}
+
+export function topSearchForNodeLocHot(data) {
+    return request({
+        url: '/topsearch/nodeloc/hot',
+        method: 'post',
+        data: data
+    })
+}

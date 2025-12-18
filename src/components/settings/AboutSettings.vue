@@ -238,6 +238,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/18 23:00',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增智源社区、量子位、新智元、NodeLoc'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/18 02:00',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增21个游戏平台'], tag: 'Feat'
