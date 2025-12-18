@@ -394,13 +394,13 @@ export default {
         },
         {
           type: 'WANGYIPOPO',
-          name: '网易POPO',
+          name: '网易泡泡',
           icon: require('@/assets/image/wangyipopo.png'),
           glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
           webhookPlaceholder: 'Webhook URL(必填)',
-          webhookTip:'网易POPO机器人的WebHook的URL地址',
+          webhookTip:'网易泡泡机器人的WebHook的URL地址',
           secretPlaceholder: 'Secret(必填)',
-          secretTip:'网易POPO机器人设置中的加签',
+          secretTip:'网易泡泡机器人设置中的加签',
         }
       ],
 
