@@ -391,6 +391,16 @@ export default {
           webhookTip:'你的gotify的服务器地址加上token，\n\n例如：https://<你的服务器地址>/message?token=<你的token>，\n\n比如：https://gotify.fuck.you/message?token=Awsdfs34235Isdf',
           secretPlaceholder: '不填',
           secretTip:'不需要填这个',
+        },
+        {
+          type: 'WANGYIPOPO',
+          name: '网易POPO',
+          icon: require('@/assets/image/wangyipopo.png'),
+          glow: 'radial-gradient(circle at 50% 0%,rgba(42,171,238,.18),transparent 60%)',
+          webhookPlaceholder: 'Webhook URL(必填)',
+          webhookTip:'网易POPO机器人的WebHook的URL地址',
+          secretPlaceholder: 'Secret(必填)',
+          secretTip:'网易POPO机器人设置中的加签',
         }
       ],
 
