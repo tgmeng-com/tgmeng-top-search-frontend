@@ -1646,29 +1646,9 @@ export function cacheSearchForquantianhoukeji(data) {
     })
 }
 
-export function cacheSearchForwulianwangzhiku(data) {
-    return request({
-        url: '/topsearch/wulianwangzhiku',
-        method: 'get',
-        data: {
-            word: data
-        }
-    })
-}
-
 export function cacheSearchForkuaikeji(data) {
     return request({
         url: '/topsearch/kuaikeji',
-        method: 'get',
-        data: {
-            word: data
-        }
-    })
-}
-
-export function cacheSearchFortechweb(data) {
-    return request({
-        url: '/topsearch/techweb',
         method: 'get',
         data: {
             word: data
