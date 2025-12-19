@@ -194,7 +194,6 @@ import {
     cacheSearchForchongbuluo,
     cacheSearchForxianzhishequ,
     cacheSearchForkdsshanghaitoutiao,
-    cacheSearchForkanxue,
     cacheSearchFortongxinrenjiayuan,
     cacheSearchForemacschina,
     cacheSearchForrubychina,
@@ -561,7 +560,6 @@ export default createStore({
                     new Platform('We Are Seller', cacheSearchForzhiwubuyankuajingdianshangshequ, require('@/assets/logos/tgmeng-trend_zhiwubuyankuajingdianshangshequ.png'), 22.9, '/community/zhiwubuyankuajingdianshangshequ'),
                     new Platform('开源资讯', cacheSearchForkaiyuanzixun, require('@/assets/logos/tgmeng-trend_kaiyuanzixun.png'), 22.992, '/community/kaiyuanzixun'),
                     new Platform('经管之家', cacheSearchForjingguanzhijia, require('@/assets/logos/tgmeng-trend_jingguanzhijia.png'), 22.993, '/community/jingguanzhijia'),
-                    new Platform('看雪', cacheSearchForkanxue, require('@/assets/logos/tgmeng-trend_kanxue.png'), 22.9931, '/community/kanxue'),
                     new Platform('水木社区', cacheSearchForshuimushequ, require('@/assets/logos/tgmeng-trend_shuimushequ.png'), 22.9932, '/community/shuimushequ'),
                     new Platform('先知社区', cacheSearchForxianzhishequ, require('@/assets/logos/tgmeng-trend_xianzhishequ.png'), 22.9934, '/community/xianzhishequ'),
                     // 这个吾爱破解服务器访问不了，先不展示

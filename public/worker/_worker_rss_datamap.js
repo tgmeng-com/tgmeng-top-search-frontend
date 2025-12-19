@@ -102,7 +102,6 @@ const dataMap = {
             "/community/chongbuluo": {title: "糖果梦热榜 · 社区 · 虫部落", description: "糖果梦热榜 · 社区 · 虫部落", link: "https://trendapi.tgmeng.com/api/topsearch/chongbuluo",platform: "虫部落"},
             "/community/xianzhishequ": {title: "糖果梦热榜 · 社区 · 先知社区", description: "糖果梦热榜 · 社区 · 先知社区", link: "https://trendapi.tgmeng.com/api/topsearch/xianzhishequ",platform: "先知社区"},
             "/community/kdsshanghaitoutiao": {title: "糖果梦热榜 · 社区 · 宽带山", description: "糖果梦热榜 · 社区 · 宽带山", link: "https://trendapi.tgmeng.com/api/topsearch/kdsshanghaitoutiao",platform: "宽带山"},
-            "/community/kanxue": {title: "糖果梦热榜 · 社区 · 看雪", description: "糖果梦热榜 · 社区 · 看雪", link: "https://trendapi.tgmeng.com/api/topsearch/kanxue",platform: "看雪"},
             "/community/tongxinrenjiayuan": {title: "糖果梦热榜 · 社区 · 通信人家园", description: "糖果梦热榜 · 社区 · 通信人家园", link: "https://trendapi.tgmeng.com/api/topsearch/tongxinrenjiayuan",platform: "通信人家园"},
             "/community/emacschina": {title: "糖果梦热榜 · 社区 · Emacs China", description: "糖果梦热榜 · 社区 · Emacs China", link: "https://trendapi.tgmeng.com/api/topsearch/emacschina",platform: "Emacs China"},
             "/community/rubychina": {title: "糖果梦热榜 · 社区 · Ruby China", description: "糖果梦热榜 · 社区 · Ruby China", link: "https://trendapi.tgmeng.com/api/topsearch/rubychina",platform: "Ruby China"},

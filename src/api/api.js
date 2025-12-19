@@ -1475,16 +1475,6 @@ export function cacheSearchForkdsshanghaitoutiao(data) {
     })
 }
 
-export function cacheSearchForkanxue(data) {
-    return request({
-        url: '/topsearch/kanxue',
-        method: 'get',
-        data: {
-            word: data
-        }
-    })
-}
-
 export function cacheSearchFortongxinrenjiayuan(data) {
     return request({
         url: '/topsearch/tongxinrenjiayuan',
