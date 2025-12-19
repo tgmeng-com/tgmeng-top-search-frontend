@@ -678,14 +678,6 @@ export function topSearchForFaXianXinZuoTuYaWangGuo(data) {
     })
 }
 
-export function topSearchForSheJiDaRen(data) {
-    return request({
-        url: '/topsearch/shejidaren',
-        method: 'get',
-        data: data
-    })
-}
-
 export function topSearchForTopys(data) {
     return request({
         url: '/topsearch/topys',

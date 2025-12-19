@@ -100,7 +100,6 @@ import {
     topSearchForJingXuanZuoPinTuYaWangGuo,
     topSearchForJinRiXinZuoTuYaWangGuo,
     topSearchForFaXianXinZuoTuYaWangGuo,
-    topSearchForSheJiDaRen,
     topSearchForTopys,
     topSearchForArchDaily,
     topSearchForDribbble,
@@ -680,10 +679,10 @@ export default createStore({
                     new Platform('优设网', topSearchForYouSheWang, require('@/assets/logos/tgmeng-trend_youshewang.png'), 45, '/design/youshewang'),
                     new Platform('TOPYS', topSearchForTopys, require('@/assets/logos/tgmeng-trend_topys.png'), 46, '/design/topys'),
                     new Platform('ArchDaily', topSearchForArchDaily, require('@/assets/logos/tgmeng-trend_archdaily.jpg'), 47, '/design/archdaily'),
+                    new Platform('腾讯设计开放平台', cacheSearchFortengxunshejikaifangpingtai, require('@/assets/logos/tgmeng-trend_tengxunshejikaifangpingtai.png'), 47.1, '/design/tengxunshejikaifangpingtai'),
                     new Platform('站酷作品榜', topSearchForZhanKuZuoPinBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg'), 48, '/design/zuopinbangzhanku'),
                     new Platform('站酷潜力榜', topSearchForZhanKuQianLiBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg'), 49, '/design/qianlibangzhanku'),
                     new Platform('站酷文章榜', topSearchForZhanKuWenZhangBang, require('@/assets/logos/tgmeng-trend_zhanku.jpg'), 50, '/design/wenzhangbangzhanku'),
-                    new Platform('设计达人', topSearchForSheJiDaRen, require('@/assets/logos/tgmeng-trend_shejidaren.png'), 51, '/design/shejidaren'),
                     new Platform('Abduzeedo', topSearchForAbduzeedo, require('@/assets/logos/tgmeng-trend_abduzeedo.png'), 52, '/design/abduzeedo'),
                     new Platform('Core77', topSearchForCore77, require('@/assets/logos/tgmeng-trend_core77.jpg'), 53, '/design/core77'),
                     new Platform('Dribbble', topSearchForDribbble, require('@/assets/logos/tgmeng-trend_dribbble.jpg'), 54, '/design/dribbble'),
@@ -692,7 +691,6 @@ export default createStore({
                     new Platform('涂鸦王国精选作品', topSearchForJingXuanZuoPinTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 57, '/design/jingxuanzuopintuyawangguo'),
                     new Platform('涂鸦王国今日新作', topSearchForJinRiXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 58, '/design/jinrixinzuotuyawangguo'),
                     new Platform('涂鸦王国发现新作', topSearchForFaXianXinZuoTuYaWangGuo, require('@/assets/logos/tgmeng-trend_tuyawangguo.jpg'), 59, '/design/faxianxinzuotuyawangguo'),
-                    new Platform('腾讯设计开放平台', cacheSearchFortengxunshejikaifangpingtai, require('@/assets/logos/tgmeng-trend_tengxunshejikaifangpingtai.png'), 59.1, '/design/tengxunshejikaifangpingtai'),
                 ]
             },
             {

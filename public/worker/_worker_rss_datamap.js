@@ -215,7 +215,6 @@ const dataMap = {
             "/design/zuopinbangzhanku": {title: "糖果梦热榜 · 设计 · 站酷作品榜", description: "糖果梦热榜 · 设计 · 站酷作品榜", link: "https://trendapi.tgmeng.com/api/topsearch/zhanku/zuopinbang",platform: "站酷作品榜"},
             "/design/qianlibangzhanku": {title: "糖果梦热榜 · 设计 · 站酷潜力榜", description: "糖果梦热榜 · 设计 · 站酷潜力榜", link: "https://trendapi.tgmeng.com/api/topsearch/zhanku/qianlibang",platform: "站酷潜力榜"},
             "/design/wenzhangbangzhanku": {title: "糖果梦热榜 · 设计 · 站酷文章榜", description: "糖果梦热榜 · 设计 · 站酷文章榜", link: "https://trendapi.tgmeng.com/api/topsearch/zhanku/wenzhangbang",platform: "站酷文章榜"},
-            "/design/shejidaren": {title: "糖果梦热榜 · 设计 · 设计达人", description: "糖果梦热榜 · 设计 · 设计达人", link: "https://trendapi.tgmeng.com/api/topsearch/shejidaren",platform: "设计达人"},
             "/design/abduzeedo": {title: "糖果梦热榜 · 设计 · Abduzeedo", description: "糖果梦热榜 · 设计 · Abduzeedo", link: "https://trendapi.tgmeng.com/api/topsearch/abduzeedo",platform: "Abduzeedo"},
             "/design/core77": {title: "糖果梦热榜 · 设计 · Core77", description: "糖果梦热榜 · 设计 · Core77", link: "https://trendapi.tgmeng.com/api/topsearch/core77",platform: "Core77"},
             "/design/dribbble": {title: "糖果梦热榜 · 设计 · Dribbble", description: "糖果梦热榜 · 设计 · Dribbble", link: "https://trendapi.tgmeng.com/api/topsearch/dribbble",platform: "Dribbble"},
