@@ -180,7 +180,6 @@ const dataMap = {
 
             "/technology/36ke": {title: "糖果梦热榜 · 科技 ·36氪", description: "糖果梦热榜 · 科技 · 36氪", link: "https://trendapi.tgmeng.com/api/topsearch/36ke",platform: "36氪"},
             "/technology/itzhijia": {title: "糖果梦热榜 · 科技 · IT之家", description: "糖果梦热榜 · 科技 · IT之家", link: "https://trendapi.tgmeng.com/api/topsearch/itzhijia",platform: "IT之家"},
-            "/technology/jikegongyuan": {title: "糖果梦热榜 · 科技 · 极客公园", description: "糖果梦热榜 · 科技 · 极客公园", link: "https://trendapi.tgmeng.com/api/topsearch/jikegongyuan",platform: "极客公园"},
             "/technology/readhub": {title: "糖果梦热榜 · 科技 · ReadHub", description: "糖果梦热榜 · 科技 · ReadHub", link: "https://trendapi.tgmeng.com/api/topsearch/readhub",platform: "ReadHub"},
             "/technology/taimeiti": {title: "糖果梦热榜 · 科技 · 钛媒体", description: "糖果梦热榜 · 科技 · 钛媒体", link: "https://trendapi.tgmeng.com/api/topsearch/taimeiti",platform: "钛媒体"},
             "/technology/zhongguancunzaixian": {title: "糖果梦热榜 · 科技 · 中关村在线", description: "糖果梦热榜 · 科技 · 中关村在线", link: "https://trendapi.tgmeng.com/api/topsearch/zhongguancunzaixian",platform: "中关村在线"},

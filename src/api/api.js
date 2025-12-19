@@ -1565,16 +1565,6 @@ export function cacheSearchForitzhijia(data) {
     })
 }
 
-export function cacheSearchForjikegongyuan(data) {
-    return request({
-        url: '/topsearch/jikegongyuan',
-        method: 'get',
-        data: {
-            word: data
-        }
-    })
-}
-
 export function cacheSearchForreadhub(data) {
     return request({
         url: '/topsearch/readhub',

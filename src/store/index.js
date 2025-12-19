@@ -204,7 +204,6 @@ import {
 
     cacheSearchFor36ke,
     cacheSearchForitzhijia,
-    cacheSearchForjikegongyuan,
     cacheSearchForreadhub,
     cacheSearchFortaimeiti,
     cacheSearchForzhongguancunzaixian,
@@ -636,7 +635,6 @@ export default createStore({
 
                     new Platform('36氪', cacheSearchFor36ke, require('@/assets/logos/tgmeng-trend_36ke.png'), 40.1, '/technology/36ke'),
                     new Platform('IT之家', cacheSearchForitzhijia, require('@/assets/logos/tgmeng-trend_itzhijia.png'), 40.11, '/technology/itzhijia'),
-                    new Platform('极客公园', cacheSearchForjikegongyuan, require('@/assets/logos/tgmeng-trend_jikegongyuan.png'), 40.12, '/technology/jikegongyuan'),
                     new Platform('ReadHub', cacheSearchForreadhub, require('@/assets/logos/tgmeng-trend_readhub.png'), 40.13, '/technology/readhub'),
                     new Platform('钛媒体', cacheSearchFortaimeiti, require('@/assets/logos/tgmeng-trend_taimeiti.png'), 40.14, '/technology/taimeiti'),
                     new Platform('中关村在线', cacheSearchForzhongguancunzaixian, require('@/assets/logos/tgmeng-trend_zhongguancunzaixian.png'), 40.15, '/technology/zhongguancunzaixian'),
