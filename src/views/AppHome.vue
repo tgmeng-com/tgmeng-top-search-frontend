@@ -2,6 +2,7 @@
   <div class="flex flex-col" :style="topSettingHeight">
     <TopMessage v-if="topCarouselFontShow"/>
     <FishModeChoose/>
+    <HotPointHistoryComponent/>
     <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
     <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
@@ -542,10 +543,12 @@ import WalineComment from "@/components/Layout/WalineComment.vue";
 import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
+import HotPointHistoryComponent from "@/components/Layout/HotPointHistoryComponent.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    HotPointHistoryComponent,
     WorkMaskVsCode,
     // AdRentCards,
     GoogleAdsense,

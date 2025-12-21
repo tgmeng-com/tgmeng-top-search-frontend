@@ -75,7 +75,9 @@
               'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300']">
               {{ index + 1 }}
             </span>
-
+            <span class="-ml-2 mr-1 cursor-pointer" @click="clickHotPointTrend(item.keyword)">
+                📈
+            </span>
             <!-- 标题 -->
             <a :href="item.url" target="_blank" rel="noopener noreferrer"
                class="dark:text-dark-text hot-title hover:underline"
@@ -190,6 +192,7 @@
 import {StarFilled, Star, Refresh, Loading} from '@element-plus/icons-vue'
 import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import {isBetween, isFuture, isPast} from "@/utils/timeUtils";
+import store from "@/store";
 
 export default {
   components: {
@@ -208,12 +211,18 @@ export default {
       currentUpdateTime: this.updateTime,  // 保存当前更新时间
       now: new Date(),  // 添加一个响应式的当前时间
       intervalId: null,  // 存储定时器的 ID
+      historyTrendData: [],
     };
   },
   methods: {
     isPast,
     isBetween,
     isFuture,
+    clickHotPointTrend(title){
+      store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataBoardUseTitle', title)
+      window.umami.track('📊热点历史追踪:' + title);
+    },
     timeAgo(date) {
       const parsedDate = new Date(date);
 
@@ -406,6 +415,14 @@ export default {
     },
   },
   computed: {
+    historyDataBoardShow: {
+      get() {
+        return this.$store.state.historyDataBoardShow;
+      },
+      set(value) {
+        this.$store.commit('setHistoryDataBoardShow', value);
+      }
+    },
     // 卡片顶部标题样式
     cardTopStyle() {
       return {

@@ -364,6 +364,10 @@ export default createStore({
         wordCloudNum: 300,
         // 摸鱼模式选择面板
         fishModeChooseShow: false,
+        // 历史数据面板
+        historyDataBoardShow: false,
+        // 历史组件里面使用的标题
+        historyDataBoardUseTitle: '',
         subscriptionSettingShow: false,
         // 卡片横向滚动
         cardHorizontalScrolling: 'vertical',
@@ -1027,6 +1031,14 @@ export default createStore({
         },
         setFishModeChooseShow(state, newFishModeChoose) {
             state.fishModeChooseShow = newFishModeChoose;
+        },
+        // 历史数据面板
+        setHistoryDataBoardShow(state, newHistoryDataBoardShow) {
+            state.historyDataBoardShow = newHistoryDataBoardShow;
+        },
+        // 历史组件里面使用的标题
+        setHistoryDataBoardUseTitle(state, newTitle) {
+            state.historyDataBoardUseTitle = newTitle;
         },
         setSubscriptionSettingShow(state, newSubscription) {
             state.subscriptionSettingShow = newSubscription;

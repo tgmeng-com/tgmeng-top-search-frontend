@@ -2228,3 +2228,13 @@ export function topSearchForNodeLocHot(data) {
         data: data
     })
 }
+
+export function searchHistoryTrending(data) {
+    return request({
+        url: '/topsearch/history/hotpoint',
+        method: 'post',
+        data: {
+            title: data
+        }
+    })
+}
