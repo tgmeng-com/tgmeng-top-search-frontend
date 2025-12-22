@@ -1,15 +1,7 @@
 <!-- SuddenHotPointComponent.vue -->
 <template>
   <div class="sudden-hotspots-page mt-4 mb-10">
-    <div class="page-header">
-      <!-- 优化后的顶部说明：简洁、紧凑、美观 -->
-      <div class="header-tip mt-2">
-        <span class="tip-text dark:text-dark-text">
-          🤖 本页面所有数据每分钟更新一次<br/>
-          🤖 实时捕捉多平台同时爆发的相似话题（前1-2项部分时间存在指纹干扰，仅供参考）
-        </span>
-      </div>
-
+    <div class="page-header mb-4">
       <!-- Tab 切换 -->
       <div class="tab-buttons dark:text-dark-text">
         <button
@@ -47,6 +39,20 @@
         >
           10天
         </button>
+      </div>
+      <div class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <!-- 历史订阅推送 -->
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            🤖 实时捕捉多平台同时爆发的相似话题（前1-2项部分时间存在指纹干扰，仅供参考）
+          </span>&nbsp;
+        </div>
+        <!-- 右侧：更新时间（移动端换行显示） -->
+        <div>
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            🤖 本页面所有数据每分钟更新一次
+          </span>&nbsp;
+        </div>
       </div>
     </div>
 
@@ -326,7 +332,6 @@ export default {
 
 .page-header {
   text-align: center;
-  margin-bottom: 32px; /* 减少底部间距，让整体更紧凑 */
 }
 
 /* 新增：顶部提示条 - 简洁优雅 */
