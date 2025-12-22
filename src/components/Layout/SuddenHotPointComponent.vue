@@ -134,7 +134,7 @@
                   <span class="time-badge dark:text-dark-text">{{ formatFullTime(record.dataUpdateTime) }}</span>
                 </div>
                 <div class="dark:text-dark-text hot-title " :class="{'hot-title-full':cardHotTitleFull}">
-                    <span class="mr-2 cursor-pointer" @click.stop.prevent="clickHotPointTrend(item.keyword)">
+                    <span class="mr-2 cursor-pointer" @click.stop.prevent="clickHotPointTrend(item.title)">
                       📈
                     </span>
                   {{ record.title }}
