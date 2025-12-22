@@ -398,6 +398,14 @@ export default createStore({
         ],
         categroies: [
             {
+                name: '🔥突发',
+                routerName: 'sudden',
+                id: -1,
+                isShow: true,
+                sort: -1,
+                subCategories: [],
+            },
+            {
                 name: '全部',
                 routerName: 'all',
                 id: 0,

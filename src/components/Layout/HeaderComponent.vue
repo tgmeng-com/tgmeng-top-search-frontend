@@ -126,6 +126,9 @@
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
                         {{ index + 1 }}.
                       </span>
+                      <span class="ml-1 mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(item.keyword)">
+                          📈
+                      </span>
                       <span class="text-gray-900 dark:text-gray-100 break-words text-left">
                         {{ item.keyword }}
                       </span>
@@ -356,6 +359,11 @@ export default {
   },
 
   methods: {
+    clickHotPointTrend(title){
+      store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataBoardUseTitle', title)
+      window.umami.track('📊热点历史追踪');
+    },
     // 加载历史搜索
     loadSearchHistory() {
       const history = getLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY);

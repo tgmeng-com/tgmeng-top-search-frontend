@@ -49,6 +49,7 @@ export default function generateSitemap() {
         {path: "/setting", changefreq: "monthly", priority: 0.5},   // 设置
         {path: "/excel", changefreq: "minute", priority: 1.0},   // 设置
         {path: "/vscode", changefreq: "minute", priority: 1.0},   // 设置
+        {path: "/sudden", changefreq: "minute", priority: 1.0},   // 突发热点
 
     ];
 

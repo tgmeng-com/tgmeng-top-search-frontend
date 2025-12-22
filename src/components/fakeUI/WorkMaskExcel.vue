@@ -176,6 +176,9 @@
                 rel="noopener noreferrer"
                 style="cursor: pointer"
             >
+              <span class="cursor-pointer" @click.stop.prevent="clickHotPointTrend(subCat.data[rowIndex - 1].keyword)">
+                          📈
+              </span>
               {{ subCat.data[rowIndex - 1].keyword }}
             </a>
           </td>
@@ -242,6 +245,7 @@ import {
   setLocalStorage,
   clearLocalStorage
 } from "@/utils/localStorageUtils";
+import store from "@/store";
 
 export default {
   name: "WorkMaskExcel",
@@ -402,6 +406,11 @@ export default {
     document.body.style.overflow = '';
   },
   methods: {
+    clickHotPointTrend(title){
+      store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataBoardUseTitle', title)
+      window.umami.track('📊热点历史追踪');
+    },
     clickMenu(index) {
       this.activeMenuIndex = index;
     },

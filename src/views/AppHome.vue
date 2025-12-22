@@ -44,7 +44,7 @@
                      viewBox="0 0 24 24"
                      class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-50"
                      @click.stop="handleRssClick(cat)"
-                     v-if="cat.id !== 13"
+                     v-if="cat.id !== 13 && cat.id !== -1"
                 >
                   <rect width="24" height="24" rx="3" ry="3" fill="#FFA500"/>
                   <circle cx="6" cy="18" r="2" fill="white"/>
@@ -449,18 +449,59 @@
 
       <WordCloud v-if="wordCloudShow"/>
 
-      <div class="mb-10 mt-4">
-        <!-- 手机端：可切换横向/竖向滚动 -->
-        <div
-            ref="mobileScrollContainer"
-            class="md:hidden" :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''"
-            @scroll="onMobileScroll"
-        >
+      <div v-if="activeCategory.routerName==='sudden'">
+        <SuddenHotPointComponent/>
+      </div>
+      <div v-else>
+        <div class="mb-10 mt-4">
+          <!-- 手机端：可切换横向/竖向滚动 -->
+          <div
+              ref="mobileScrollContainer"
+              class="md:hidden"
+              :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''"
+              @scroll="onMobileScroll"
+          >
+            <draggable
+                v-model="activeCategory.subCategories"
+                tag="div"
+                item-key="title"
+                :class="cardHorizontalScrolling === 'horizontal' ? 'flex gap-4 pb-4' : 'grid grid-cols-1 gap-4'"
+                :animation="300"
+                :handle="'.drag-handle'"
+                @start="onDragStart"
+                @end="onDragEnd"
+                :disabled="!cardDraggable"
+            >
+              <template #item="{ element: p }">
+                <div
+                    v-show="p.isShow"
+                    :class="cardHorizontalScrolling === 'horizontal' ? 'flex-shrink-0' : ''"
+                    :style="cardHorizontalScrolling === 'horizontal' ? cardWidthForPhoneStyle : ''"
+                >
+                  <CommunityCard
+                      :key="p.title"
+                      :title="p.title"
+                      :logo="p.logo"
+                      :updateTime="p.updateTime"
+                      :list="p.data"
+                      :loading="p.loading"
+                      :rss="p.rss"
+                      v-model:isStar="p.isStar"
+                      @updateCategroiesCache="updateCategroiesCache"
+                      @fetchData="()=>fetchData(p)"
+                  />
+                </div>
+              </template>
+            </draggable>
+          </div>
+
+          <!-- PC端：网格布局 -->
           <draggable
               v-model="activeCategory.subCategories"
               tag="div"
               item-key="title"
-              :class="cardHorizontalScrolling === 'horizontal' ? 'flex gap-4 pb-4' : 'grid grid-cols-1 gap-4'"
+              class="hidden md:grid gap-6 grid-cols-1 md:grid-cols-2"
+              :style="gridStyle"
               :animation="300"
               :handle="'.drag-handle'"
               @start="onDragStart"
@@ -468,11 +509,7 @@
               :disabled="!cardDraggable"
           >
             <template #item="{ element: p }">
-              <div
-                  v-show="p.isShow"
-                  :class="cardHorizontalScrolling === 'horizontal' ? 'flex-shrink-0' : ''"
-                  :style="cardHorizontalScrolling === 'horizontal' ? cardWidthForPhoneStyle : ''"
-              >
+              <div v-show="p.isShow">
                 <CommunityCard
                     :key="p.title"
                     :title="p.title"
@@ -489,37 +526,6 @@
             </template>
           </draggable>
         </div>
-
-        <!-- PC端：网格布局 -->
-        <draggable
-            v-model="activeCategory.subCategories"
-            tag="div"
-            item-key="title"
-            class="hidden md:grid gap-6 grid-cols-1 md:grid-cols-2"
-            :style="gridStyle"
-            :animation="300"
-            :handle="'.drag-handle'"
-            @start="onDragStart"
-            @end="onDragEnd"
-            :disabled="!cardDraggable"
-        >
-          <template #item="{ element: p }">
-            <div v-show="p.isShow">
-              <CommunityCard
-                  :key="p.title"
-                  :title="p.title"
-                  :logo="p.logo"
-                  :updateTime="p.updateTime"
-                  :list="p.data"
-                  :loading="p.loading"
-                  :rss="p.rss"
-                  v-model:isStar="p.isStar"
-                  @updateCategroiesCache="updateCategroiesCache"
-                  @fetchData="()=>fetchData(p)"
-              />
-            </div>
-          </template>
-        </draggable>
       </div>
       <!--     主内容和评论区之间 展示广告 -->
       <GoogleAdsense v-if="$store.state.adsEnabled" ad-client="ca-pub-3286880109560525" ad-slot="9081541454"
@@ -544,10 +550,12 @@ import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
 import HotPointHistoryComponent from "@/components/Layout/HotPointHistoryComponent.vue";
+import SuddenHotPointComponent from "@/components/Layout/SuddenHotPointComponent.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    SuddenHotPointComponent,
     HotPointHistoryComponent,
     WorkMaskVsCode,
     // AdRentCards,
@@ -586,7 +594,7 @@ export default {
     // }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
     //
     // 新增：定时刷新统计数据（每5秒刷新一次）
-    if (this.pageViewsShow){
+    if (this.pageViewsShow) {
       this.umamiStatsTimer = setInterval(() => {
         this.initUmami();
       }, 10 * 1000); // 每10秒刷新一次统计数据
@@ -816,7 +824,7 @@ export default {
       // 🆕 新增：恢复该分类的滚动位置
       this.restoreCategoryScrollPosition();
       // 把全部数据下收藏的卡片方法收藏分类下
-      if (cat.name === '收藏') {
+      if (cat.routerName === 'favorites') {
         // 先清空收藏分类下的卡片
         this.activeCategory.subCategories.splice(0)
         this.categroies[0].subCategories.forEach(subCat => {
@@ -825,6 +833,12 @@ export default {
           }
         })
       }
+
+      // 突发热点
+      if (cat.routerName === 'sudden') {
+        console.log(cat.routerName)
+      }
+
       // 对数据进行排序，因为从缓存中拿到的用户的sort数据，我们需要根据这个sort展示
       this.sortedSubCategories();
       cat.subCategories.forEach(subCat => {
@@ -868,7 +882,10 @@ export default {
 
     // 初始化全部分类，就是把其他分类下的东西放到全部分类下，方便展示
     initAllCategroies() {
-      this.activeCategory = this.categroies[0];
+      this.activeCategory = this.categroies.find(
+          category => category.routerName === "all"
+      );
+      // this.activeCategory = this.categroies[0];
       this.activeCategory.subCategories = []
       this.categroies.forEach(cat => {
         cat.subCategories.forEach(subCat => {
@@ -931,7 +948,7 @@ export default {
     ,
 
     initUmami() {
-      if (this.pageViewsShow){
+      if (this.pageViewsShow) {
         umamiActive()
             .then((res) => {
               this.umamiActive = res?.data?.visitors || 1;

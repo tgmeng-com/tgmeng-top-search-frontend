@@ -119,13 +119,13 @@ export const pathMetaTemplates = {
         category: '收藏'
     },
     '/excel': {
-        title: ['摸鱼模式 - Excel表格尽情摸鱼 | 糖果梦热榜'],
+        title: ['工作模式 - Excel表格 | 糖果梦热榜'],
         description: ['提供Excel模式的实时热榜，上班摸鱼随心看新闻，尽享丝滑'],
         image: '/og/og.png',
         category: '摸鱼'
     },
     '/vscode': {
-        title: ['摸鱼模式 - VsCode专业开发 | 糖果梦热榜'],
+        title: ['工作模式 - VsCode专业开发 | 糖果梦热榜'],
         description: ['完美的VsCode模式，上班摸鱼第一把好手'],
         image: '/og/og.png',
         category: '摸鱼'
@@ -135,6 +135,12 @@ export const pathMetaTemplates = {
         description: ['提供新闻、娱乐、体育、游戏、科技、健康等全站热门排行榜，一站掌握最新趋势。'],
         image: '/og/og.png',
         category: '全部'
+    },
+    '/sudden': {
+        title: ['突发热点 - 最新突发热点捕捉 | 糖果梦热榜'],
+        description: ['实时查询全网突发热点，第一时间掌握全网最热热点，永远做最前沿的资讯掌握人'],
+        image: '/og/og.png',
+        category: '突发热点'
     },
     '/': {
         title: ['糖果梦热榜 - 实时聚合热榜 · AI 深度洞察与趋势预测'],

@@ -27,7 +27,7 @@
           title
         }}</h1>
       <span v-if="cardTimeShow"
-            class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  dark:text-blue-400 rounded-xl dark:text-dark-text"
+            class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  rounded-xl dark:text-dark-text"
             :style="cardTopTimeStyle">
         <el-button
             link
@@ -221,7 +221,7 @@ export default {
     clickHotPointTrend(title){
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataBoardUseTitle', title)
-      window.umami.track('📊热点历史追踪:' + title);
+      window.umami.track('📊热点历史追踪');
     },
     timeAgo(date) {
       const parsedDate = new Date(date);

@@ -154,7 +154,35 @@
             <div v-for="n in 50" :key="n" class="line-number">{{ n }}</div>
           </div>
           <div class="code-area text-left">
-            <pre><code v-html="highlightedCode"></code></pre>
+            <!-- 当选中“资源管理器”且有平台数据时，渲染热点列表 -->
+            <div v-if="activeActivityIndex === 0 && currentPlatform" class="hotpoint-code-list">
+              <!-- 加载中 -->
+              <div v-if="currentPlatform.loading" class="loading-in-editor">
+                ⏳ 正在加载数据…
+              </div>
+
+              <!-- 无数据 -->
+              <div v-else-if="!currentPlatform.data || currentPlatform.data.length === 0" class="empty-in-editor">
+                🚫 当前平台暂无热点数据
+              </div>
+
+              <!-- 有数据：使用 v-for 渲染每行 -->
+              <div
+                  v-else
+                  v-for="(item, index) in currentPlatform.data"
+                  :key="index"
+                  class="hotpoint-line"
+              >
+                <span class="line-num">{{ String(index + 1).padStart(2, '0') }}</span>
+                <a :href="item.url" target="_blank" class="hotpoint-link">
+                  <span class="trend-icon" @click.stop.prevent="clickHotPointTrend(item.keyword)">📈</span>
+                  {{ item.keyword }}
+                </a>
+              </div>
+            </div>
+
+            <!-- 其他情况（打开普通文件）保持原 v-html 高亮代码显示 -->
+            <pre v-else><code v-html="highlightedCode"></code></pre>
           </div>
         </div>
       </div>
@@ -192,6 +220,7 @@
 
 <script>
 import * as objectUtils from "@/utils/objectUtils";
+import store from "@/store";
 
 export default {
   data() {
@@ -227,6 +256,13 @@ export default {
     };
   },
   computed: {
+    currentPlatform() {
+      // 从 store 的 categroies 中找到当前选中的平台
+      if (this.activeCategory && this.activeCategory.subCategories) {
+        return this.activeCategory.subCategories.find(sub => sub.title === this.currentFile);
+      }
+      return null;
+    },
     fileLanguage() {
       const ext = this.currentFile.split('.').pop();
       const langMap = {
@@ -281,6 +317,11 @@ export default {
     document.body.style.overflow = '';
   },
   methods: {
+    clickHotPointTrend(title){
+      store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataBoardUseTitle', title)
+      window.umami.track('📊热点历史追踪');
+    },
     handleClose() {
       this.$router?.push({name: 'Home'}) || window.close();
     },
@@ -460,7 +501,7 @@ export default {
         } else {
           return platform.data.map((item, index) => {
             const num = String(index + 1).padStart(2, '0');
-            return `<div style="height:0.8rem;"><span style="display:inline-block;width:2ch;text-align:right;margin-right:0.5ch;">${num}</span>&nbsp;<a href="${item.url}" target="_blank">${item.keyword}</a></div>`;
+            return `<div style="height:0.8rem;"><span style="display:inline-block;width:2ch;text-align:right;margin-right:0.5ch;">${num}</span>&nbsp;<a href="${item.url}" target="_blank"><span class="mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(${item.keyword})">📈</span>${item.keyword}</a></div>`;
           }).join('\n');
         }
       }
@@ -1365,4 +1406,59 @@ import App from './App';
 :deep(.arrow) {
   color: #d4d4d4;
 }
+
+.hotpoint-code-list {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 8px 0;
+}
+
+.hotpoint-line {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.line-num {
+  display: inline-block;
+  width: 40px;
+  text-align: right;
+  margin-right: 16px;
+  color: #858585;
+  user-select: none;
+}
+
+.hotpoint-link {
+  color: #d4d4d4;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hotpoint-link:hover {
+  color: #ffffff;
+}
+
+.trend-icon {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.trend-icon:hover {
+  background: rgba(64, 158, 255, 0.3);
+  color: #409eff;
+}
+
+.loading-in-editor,
+.empty-in-editor {
+  padding: 20px;
+  text-align: center;
+  color: #858585;
+  font-style: italic;
+}
+
 </style>

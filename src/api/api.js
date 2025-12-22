@@ -2238,3 +2238,43 @@ export function searchHistoryTrending(data) {
         }
     })
 }
+
+export function searchHistorySuddenHeatPointHour(data) {
+    return request({
+        url: '/topsearch/history/suddenheatpoint/hour',
+        method: 'post',
+        data: data
+    })
+}
+
+export function searchHistorySuddenHeatPoint3Hour(data) {
+    return request({
+        url: '/topsearch/history/suddenheatpoint/3hour',
+        method: 'post',
+        data: data
+    })
+}
+
+export function searchHistorySuddenHeatPoint6Hour(data) {
+    return request({
+        url: '/topsearch/history/suddenheatpoint/6hour',
+        method: 'post',
+        data: data
+    })
+}
+
+export function searchHistorySuddenHeatPointDay(data) {
+    return request({
+        url: '/topsearch/history/suddenheatpoint/day',
+        method: 'post',
+        data: data
+    })
+}
+
+export function searchHistorySuddenHeatPoint10Day(data) {
+    return request({
+        url: '/topsearch/history/suddenheatpoint/10day',
+        method: 'post',
+        data: data
+    })
+}
