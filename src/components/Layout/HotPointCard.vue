@@ -128,10 +128,10 @@
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   👩‍👧‍👦{{ formatHotScore(item.commentCount) }}
                 </span>
-                <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
-                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
-                  {{ item.publishTime }}
-                </span>
+<!--                <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"-->
+<!--                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">-->
+<!--                  {{ item.publishTime }}-->
+<!--                </span>-->
               </template>
 
               <template v-else-if="title.includes('CCTV')">
@@ -166,7 +166,7 @@
 
 
               <template v-else>
-                <span :style="cardSecondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
+                <span v-if="item.hotScore" :style="cardSecondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
                   🔥{{ formatHotScore(item.hotScore) }}
                 </span>
               </template>
