@@ -45,7 +45,7 @@
             :class="{ active: activeTab === '10day' }"
             @click="clickSwitchTab('10day')"
         >
-          十日
+          10天
         </button>
       </div>
     </div>
