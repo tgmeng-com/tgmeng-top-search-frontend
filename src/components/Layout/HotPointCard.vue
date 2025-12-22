@@ -1,34 +1,38 @@
 <template>
   <div class="bg-gray-200 dark:bg-dark-card rounded-xl overflow-hidden card-hover">
     <!-- 顶部标题栏 -->
-    <div class="bg-gray-300 dark:bg-dark-card-title p-4 flex items-center drag-handle"
-         :style="cardTopStyle">
-      <img :src="logo" :alt="title" class=" rounded-full" :style="cardTopLogoStyle">
-      <el-icon
-          class="favorite-icon"
-          :color="isStar ? '#f7ba2a' : '#ccc'"
-          @click="toggleStar"
-          :style="cardTopStyle">
-        <component :is="isStar ? 'StarFilled' : 'Star'"/>
-      </el-icon>
-      <div>
-        <a :href="'https://tgmeng.com' + rss+ '/rss.xml'" target="_blank" @click="handleRssClick(title)">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 24 24"
-               :style="{ width: cardTopStyle.fontSize, height: cardTopStyle.fontSize }">
-            <rect width="24" height="24" rx="4" ry="4" fill="#FFA500"/>
-            <circle cx="6" cy="18" r="2" fill="white"/>
-            <path d="M4 4c9.941 0 18 8.059 18 18" stroke="white" stroke-width="2" fill="none"/>
-            <path d="M4 10c6.627 0 12 5.373 12 12" stroke="white" stroke-width="2" fill="none"/>
-          </svg>
-        </a>
+    <div >
+      <div class="bg-gray-300 dark:bg-dark-card-title px-4 pt-4 pb-2 flex items-center drag-handle text-center"
+           :style="cardTopStyle">
+        <img :src="logo" :alt="title" class=" rounded-full" :style="cardTopLogoStyle">
+        <h1 class="ml-2 font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">{{
+            title
+          }}</h1>
       </div>
-      <h1 class="ml-2 font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">{{
-          title
-        }}</h1>
-      <span v-if="cardTimeShow"
-            class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  rounded-xl dark:text-dark-text"
-            :style="cardTopTimeStyle">
+      <div class="bg-gray-300 dark:bg-dark-card-title px-4 pb-2 flex items-center drag-handle"
+           :style="cardTopStyle">
+        <el-icon
+            class="favorite-icon"
+            :color="isStar ? '#f7ba2a' : '#ccc'"
+            @click="toggleStar"
+            :style="cardTopStyle">
+          <component :is="isStar ? 'StarFilled' : 'Star'"/>
+        </el-icon>
+        <div>
+          <a :href="'https://tgmeng.com' + rss+ '/rss.xml'" target="_blank" @click="handleRssClick(title)">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 :style="{ width: cardTopStyle.fontSize, height: cardTopStyle.fontSize }">
+              <rect width="24" height="24" rx="4" ry="4" fill="#FFA500"/>
+              <circle cx="6" cy="18" r="2" fill="white"/>
+              <path d="M4 4c9.941 0 18 8.059 18 18" stroke="white" stroke-width="2" fill="none"/>
+              <path d="M4 10c6.627 0 12 5.373 12 12" stroke="white" stroke-width="2" fill="none"/>
+            </svg>
+          </a>
+        </div>
+        <span v-if="cardTimeShow"
+              class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  rounded-xl dark:text-dark-text"
+              :style="cardTopTimeStyle">
         <el-button
             link
             @click="onRefreshCardData"
@@ -39,9 +43,9 @@
             <Loading/>
           </el-icon>
         </el-button>
-
         {{ timeAgo(updateTime) }}
       </span>
+      </div>
     </div>
 
     <!-- 内容区域（限制高度、可滚动） -->
@@ -218,7 +222,7 @@ export default {
     isPast,
     isBetween,
     isFuture,
-    clickHotPointTrend(title){
+    clickHotPointTrend(title) {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataBoardUseTitle', title)
       window.umami.track('📊热点历史追踪');
