@@ -1387,12 +1387,13 @@ export function cacheSearchForCiYun(data) {
     })
 }
 
-export function cacheSearchForAllByWord(data) {
+export function cacheSearchForAllByWord(input,searchMode) {
     return request({
         url: '/cachesearch/allbyword',
         method: 'post',
         data: {
-            word: data
+            word: input,
+            searchMode: searchMode
         }
     })
 }
@@ -2229,12 +2230,14 @@ export function topSearchForNodeLocHot(data) {
     })
 }
 
-export function searchHistoryTrending(data) {
+export function searchHistoryTrending(data, startTime, endTime) {
     return request({
         url: '/topsearch/history/hotpoint',
         method: 'post',
         data: {
-            title: data
+            title: data,
+            startTime: startTime,
+            endTime: endTime
         }
     })
 }

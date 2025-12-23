@@ -79,20 +79,20 @@
               'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300']">
               {{ index + 1 }}
             </span>
-            <span class="-ml-2 mr-1 cursor-pointer" @click="clickHotPointTrend(item.keyword)">
+            <span class="-ml-2 mr-1 cursor-pointer" @click="clickHotPointTrend(item.title)">
                 📈
             </span>
             <!-- 标题 -->
             <a :href="item.url" target="_blank" rel="noopener noreferrer"
                class="dark:text-dark-text hot-title hover:underline"
                :class="{'hot-title-full':cardHotTitleFull}"
-               :title="item.keyword">
+               :title="item.title">
 
               <span v-if="title.includes('CCTV')" :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
                     class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   {{ item.showTime }}
                 </span>
-              {{ item.keyword }}
+              {{ item.title }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
                 <span :style="cardSecondTitleStyle">&nbsp;- {{ item.image }}</span>
@@ -115,7 +115,7 @@
                 <audio :id="'audio-' + index"
                        :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
                        ref="audios" :loop="isLoop"></audio>
-                <button @click="playAudio(index, item.keyword)">
+                <button @click="playAudio(index, item.title)">
                   {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
                 </button>
                 <button @click="toggleLoop(index)">

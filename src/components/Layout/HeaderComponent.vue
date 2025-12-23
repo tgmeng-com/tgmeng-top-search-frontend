@@ -15,18 +15,48 @@
           </span>
         </router-link>
 
-        <!-- 搜索框 -->
+        <!-- 搜索框 + 内嵌模式选择下拉 -->
         <div class="flex-1 relative flex justify-center z-50 mx-4">
-          <input
-              v-model="input"
-              type="text"
-              placeholder="实时热点、一搜即达"
-              @keyup.enter="handleEnter"
-              @focus="handleInputFocus"
-              @input="handleInputChange"
-              :disabled="inputSearchDisable"
-              class="search-input"
-          />
+          <div class="relative w-full max-w-lg">
+            <!-- 搜索框容器（flex 实现内容居中 + 右内侧下拉框） -->
+            <div class="relative flex items-center">
+              <input
+                  v-model="input"
+                  type="text"
+                  placeholder="一搜即达"
+                  @keyup.enter="handleEnter"
+                  @focus="handleInputFocus"
+                  @input="handleInputChange"
+                  :disabled="inputSearchDisable"
+                  class="search-input flex-1 text-center pr-44"
+              />
+
+              <!-- 模式选择下拉框（绝对定位右内侧，显示选中值） -->
+              <div class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-16">
+                <el-select
+                    v-model="searchMode"
+                    class="mode-select"
+                    popper-class="mode-select-popper"
+                >
+                  <el-option
+                      v-for="item in modeOptions"
+                      :key="item.value"
+                      :label="item.icon"
+                      :value="item.value"
+                  >
+                    <el-tooltip
+                        :content="item.tip"
+                        placement="top"
+                        effect="dark"
+                        :disabled="!isPc"
+                    >
+                      <span class="block truncate">{{ item.label }}</span>
+                    </el-tooltip>
+                  </el-option>
+                </el-select>
+              </div>
+            </div>
+          </div>
 
           <!-- 历史搜索记录 -->
           <div
@@ -39,7 +69,6 @@
             ]"
               :style="mobileResultStyle"
           >
-            <!-- 标题栏 -->
             <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300">历史搜索</span>
               <button
@@ -49,13 +78,11 @@
                 清空
               </button>
 
-              <!-- 关闭按钮 -->
               <div class="flex justify-end p-2">
                 <button @click="showHistory = false"
                         class="text-red-700 hover:text-red-500 dark:hover:text-red-500 text-3xl">&times;
                 </button>
               </div>
-
             </div>
 
             <ul class="divide-y divide-gray-200 dark:divide-gray-700 max-h-[60vh] overflow-y-auto">
@@ -74,7 +101,7 @@
                   <span class="text-gray-900 dark:text-gray-100 truncate">{{ item }}</span>
                 </div>
                 <button
-                    @click="deleteHistoryItem(item, $event)"
+                    @click.stop="deleteHistoryItem(item)"
                     class="ml-2 opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-all flex-shrink-0"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +123,6 @@
             ]"
               :style="mobileResultStyle"
           >
-            <!-- 关闭按钮 -->
             <div class="flex justify-end p-2">
               <button @click="showResults = false" :disabled="loading"
                       class="text-red-700 hover:text-red-500 dark:hover:text-red-500 text-3xl">&times;
@@ -116,7 +142,6 @@
                 <span class="mt-2 mb-4">全网实时热点获取中...</span>
               </div>
 
-              <!-- 搜索结果 -->
               <template v-else>
                 <li v-for="(item, index) in searchResults" :key="`${index}`"
                     class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -126,21 +151,20 @@
                       <span class="mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0">
                         {{ index + 1 }}.
                       </span>
-                      <span class="ml-1 mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(item.keyword)">
+                      <span class="ml-1 mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(item.title)">
                           📈
                       </span>
                       <span class="text-gray-900 dark:text-gray-100 break-words text-left">
-                        {{ item.keyword }}
+                        {{ item.title }}
                       </span>
                     </div>
                     <span class="ml-2 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                      {{ item.dataCardName }}
+                      {{ item.platformName }}
                     </span>
                   </a>
                 </li>
               </template>
 
-              <!-- 无结果提示 -->
               <li v-if="!loading && (!searchResults || searchResults.length === 0)"
                   class="px-4 py-2 text-gray-500 dark:text-gray-400 text-center">
                 暂无结果
@@ -250,7 +274,6 @@
            class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
         <div class="container mx-auto px-8 py-4" :style="widthPaddingStyle">
           <div class="flex flex-col space-y-4">
-            <!-- 微信群 -->
             <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer"
                @click="() => { trackUmami('移动端菜单-微信群'); toggleMobileMenu() }"
                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -258,7 +281,6 @@
               <span class="text-gray-900 dark:text-gray-100 font-medium">加入微信群</span>
             </a>
 
-            <!-- GitHub仓库 -->
             <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"
                @click="() => { trackUmami('移动端菜单-GitHub'); toggleMobileMenu() }"
                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -268,7 +290,6 @@
               <span class="text-gray-900 dark:text-gray-100 font-medium">GitHub仓库</span>
             </a>
 
-            <!-- 主题切换 -->
             <div
                 @click="() => { trackUmami('移动端菜单-主题切换');toggleTheme(); toggleMobileMenu()}"
                 class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -277,22 +298,19 @@
               <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
             </div>
 
-            <!-- 订阅设置 -->
             <div
-                @click="() => { trackUmami('移动端菜单-主题切换');clickSubscriptionSettingButton(); toggleMobileMenu()}"
+                @click="() => { trackUmami('移动端菜单-订阅');clickSubscriptionSettingButton(); toggleMobileMenu()}"
                 class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
               <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 订阅设置" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">订阅设置</span>
             </div>
 
-            <!-- 摸鱼模式 -->
             <a @click="() => { trackUmami('移动端菜单-摸鱼模式'); clickWorkMaskExcelButton(); toggleMobileMenu() }"
                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
               <img src="../../assets/image/fish.png" alt="摸鱼模式" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">摸鱼模式</span>
             </a>
 
-            <!-- 设置 -->
             <router-link to="/setting"
                          @click="() => { trackUmami('移动端菜单-设置'); toggleMobileMenu() }"
                          class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
@@ -324,18 +342,25 @@ export default {
       showHistory: false,
       searchHistory: [],
       maxHistoryItems: 20,
-      windowWidth: window.innerWidth
+      windowWidth: window.innerWidth,
+      searchMode: 'MO_HU_PI_PEI_FIVE_MINUTES',
+      isPc: window.innerWidth >= 768,
+      modeOptions: [
+        {value: 'MO_HU_PI_PEI_FIVE_MINUTES', icon: '🍭', label: '🍭模糊匹配(5分钟)', tip: '【数据范围:5分钟】【匹配模式:模糊匹配】(标题包含输入内容：建议短文本)'},
+        {value: 'MO_HU_PI_PEI_TODAY', icon: '🍬', label: '🍬模糊匹配(今日)', tip: '【数据范围:今日】【匹配模式:模糊匹配】(标题包含输入内容：建议短文本)'},
+        {value: 'MO_HU_PI_PEI_HISTORY', icon: '🍡', label: '🍡模糊匹配(历史)', tip: '【数据范围:历史】【匹配模式:模糊匹配】(标题包含输入内容：建议短文本)'},
+        {value: 'ZHI_WEN_PI_PEI_TODAY', icon: '🌈', label: '🌈指纹匹配(今日)', tip: '【数据范围:今日】【匹配模式:指纹匹配】(标题与输入内容相似：建议长文本)'},
+        {value: 'ZHI_WEN_PI_PEI_HISTORY', icon: '🍧', label: '🍧指纹匹配(历史)', tip: '【数据范围:历史】【匹配模式:指纹匹配】(标题与输入内容相似：建议长文本)'},
+      ]
     };
   },
 
   watch: {
-    // 监听来自词云的搜索触发
     '$store.state.searchTrigger'() {
       const keyword = this.$store.state.searchKeyword;
       if (keyword) {
         this.input = keyword;
         this.handleEnter();
-        // 滚动到页面顶部，让用户看到搜索结果
         window.scrollTo({top: 0, behavior: 'smooth'});
       }
     }
@@ -350,21 +375,27 @@ export default {
     }
     document.documentElement.classList.toggle('dark', this.isDark)
 
-    // 加载历史搜索记录
     this.loadSearchHistory();
 
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+      this.isPc = window.innerWidth >= 768;
+    });
   },
 
   beforeUnmount() {
+    window.removeEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+      this.isPc = window.innerWidth >= 768;
+    });
   },
 
   methods: {
-    clickHotPointTrend(title){
+    clickHotPointTrend(title) {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataBoardUseTitle', title)
       window.umami.track('📊热点历史追踪');
     },
-    // 加载历史搜索
     loadSearchHistory() {
       const history = getLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY);
       if (history) {
@@ -375,56 +406,39 @@ export default {
         }
       }
     },
-
-    // 保存历史搜索
     saveSearchHistory(keyword) {
       if (!keyword || !keyword.trim()) return;
 
-      // 移除已存在的相同关键词
       this.searchHistory = this.searchHistory.filter(item => item !== keyword);
-
-      // 添加到开头
       this.searchHistory.unshift(keyword);
 
-      // 限制数量
       if (this.searchHistory.length > this.maxHistoryItems) {
         this.searchHistory = this.searchHistory.slice(0, this.maxHistoryItems);
       }
 
-      // 保存到 localStorage
       setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
     },
-
-    // 删除单条历史记录
     deleteHistoryItem(keyword, event) {
       event.stopPropagation();
       this.searchHistory = this.searchHistory.filter(item => item !== keyword);
       setLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(this.searchHistory));
     },
-
-    // 清空历史记录
     clearHistory(event) {
       if (event) event.stopPropagation();
       this.searchHistory = [];
       clearLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY)
     },
-
-    // 选择历史记录 - 直接搜索
     selectHistory(keyword) {
       this.input = keyword;
       this.showHistory = false;
       this.handleEnter();
     },
-
-    // 输入框获得焦点
     handleInputFocus() {
       if (this.searchHistory.length > 0 && !this.input.trim()) {
         this.showHistory = true;
         this.showResults = false;
       }
     },
-
-    // 输入框内容变化
     handleInputChange() {
       if (this.input.trim()) {
         this.showHistory = false;
@@ -447,20 +461,10 @@ export default {
     clickSubscriptionSettingButton() {
       store.commit('setSubscriptionSettingShow', true)
     },
-    clickWorkMaskVsCodeButton() {
-      this.workMaskVsCodeShow = true;
-    },
-    getGlobalIndex(groupIndex, itemIndex) {
-      const beforeGroupsCount = this.searchResults
-          .slice(0, groupIndex)
-          .reduce((sum, g) => sum + g.dataInfo.length, 0);
-      return beforeGroupsCount + itemIndex + 1;
-    },
     handleEnter() {
-      window.umami.track('🔎热点检索:' + this.input)
+      window.umami.track('🔎热点检索:' + this.input + ' | 模式:' + this.searchMode)
       if (!this.input.trim()) return;
 
-      // 保存到历史记录
       this.saveSearchHistory(this.input.trim());
 
       this.inputSearchDisable = true;
@@ -469,7 +473,7 @@ export default {
       this.loading = true;
       this.searchResults = [];
 
-      cacheSearchForAllByWord(this.input)
+      cacheSearchForAllByWord(this.input.trim(), this.searchMode)
           .then(res => {
             this.searchResults = res?.data?.data || [];
           })
@@ -478,7 +482,6 @@ export default {
             this.loading = false;
           });
     },
-
     trackUmami(label) {
       if (window.umami) window.umami.track(label);
     }
@@ -486,7 +489,7 @@ export default {
 
   computed: {
     isMobile() {
-      return this.windowWidth < 768; // 手机屏幕宽度
+      return this.windowWidth < 768;
     },
     mobileResultStyle() {
       if (window.innerWidth < 640) {
@@ -498,7 +501,6 @@ export default {
       }
       return {};
     },
-
     workMaskExcelShow: {
       get() {
         return this.$store.state.workMaskExcelShow;
@@ -507,7 +509,6 @@ export default {
         this.$store.commit('setWorkMaskExcelShow', value);
       }
     },
-
     workMaskVsCodeShow: {
       get() {
         return this.$store.state.workMaskVsCodeShow;
@@ -516,7 +517,6 @@ export default {
         this.$store.commit('setWorkMaskVsCodeShow', value);
       }
     },
-
     fishModeChooseShow: {
       get() {
         return this.$store.state.fishModeChooseShow;
@@ -525,7 +525,6 @@ export default {
         this.$store.commit('setFishModeChooseShow', value);
       }
     },
-
     subscriptionSettingShow: {
       get() {
         return this.$store.state.subscriptionSettingShow;
@@ -540,12 +539,11 @@ export default {
       }
     },
     topMessageHeight() {
-      if(this.isMobile){
-        return {height: this.$store.state.topMessageHeight -1 + 'rem'}
+      if (this.isMobile) {
+        return {height: this.$store.state.topMessageHeight - 1 + 'rem'}
       }
       return {height: this.$store.state.topMessageHeight + 'rem'}
     },
-
     widthPadding: {
       get() {
         return this.$store.state.widthPadding;
@@ -559,16 +557,11 @@ export default {
 </script>
 
 <style scoped>
-/* Halo 风格搜索框 */
-.search-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 28rem;
-}
+/* 你原来的所有样式保持不变 */
 
+/* 搜索框内容居中 + 右内侧下拉框布局 */
 .search-input {
   width: 100%;
-  max-width: 500px;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   border: 2px solid transparent;
@@ -634,6 +627,53 @@ export default {
   animation: none;
 }
 
+/* 模式选择下拉框样式（嵌入式，显示选中值） */
+.mode-select :deep(.el-input__inner) {
+  height: 40px !important;
+  line-height: 40px !important;
+  padding: 0 32px 0 16px !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  color: #1f2937 !important;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark .mode-select :deep(.el-input__inner) {
+  background: rgba(55, 65, 81, 0.6) !important;
+  color: #f3f4f6 !important;
+}
+
+/* 下拉箭头 */
+.mode-select :deep(.el-input__suffix-inner) {
+  right: 10px;
+}
+
+/* 下拉面板 */
+.mode-select-popper {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(102, 126, 234, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  min-width: 160px !important;
+}
+
+.dark .mode-select-popper {
+  background: rgba(31, 41, 55, 0.98) !important;
+}
+
+/* 选项悬停 */
+.mode-select-popper .el-select-dropdown__item.hover,
+.mode-select-popper .el-select-dropdown__item:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+/* 其他原有样式保持不变 */
 .setting-btn {
   background: transparent;
   border: none;
@@ -641,7 +681,6 @@ export default {
   transition: transform 0.2s ease;
 }
 
-/* 移动端菜单过渡动画 */
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }
@@ -660,7 +699,6 @@ export default {
   opacity: 0;
 }
 
-/* 加载动画样式*/
 .atom-spinner, .atom-spinner * {
   box-sizing: border-box;
 }
@@ -736,5 +774,10 @@ export default {
 
 .headStyle {
   z-index: 1900 !important;
+}
+
+:deep(.el-select__wrapper) {
+  background-color: unset;
+  box-shadow: unset;
 }
 </style>

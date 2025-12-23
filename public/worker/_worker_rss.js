@@ -56,7 +56,7 @@ export default function generateRSS(key) {
 
     return fetchData(info).then(dataInfo => {
         function generateItemXml(item) {
-            const title = escapeXml(item.keyword || '无标题', true);
+            const title = escapeXml(item.title || '无标题', true);
             const link = escapeXml(item.url || '', false);
             const description = `点击标题查看详细内容`;
             const platform = escapeXml(item.platform || '', true);

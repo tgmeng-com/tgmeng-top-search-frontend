@@ -31,31 +31,31 @@
 
               <div class="chart-tabs">
                 <div class="tab-buttons">
-                  <button class="tab-btn" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'">
-                    最近10天趋势
+                  <button class="tab-btn" :class="{ active: activeTab === 'daily' }" @click="clickTab('daily')">
+                    今日走势
                   </button>
-                  <button class="tab-btn" :class="{ active: activeTab === 'hourly' }" @click="activeTab = 'hourly'">
-                    今日小时走势
+                  <button class="tab-btn" :class="{ active: activeTab === 'history' }" @click="clickTab('history')">
+                    历史走势
                   </button>
                 </div>
 
                 <div class="tab-content">
-                  <div v-show="activeTab === 'daily'" class="chart-container">
-                    <div class="chart-title">平台出现频率曲线（最近10天）</div>
+                  <div v-if="activeTab === 'history'" class="chart-container">
+                    <div class="chart-title">历史出现频率曲线</div>
                     <div class="chart-wrapper">
                       <!-- 纵轴 -->
                       <div class="chart-y-axis">
-                        <span v-for="(val, idx) in dailyYAxisLabels" :key="idx">{{ val }}</span>
+                        <span v-for="(val, idx) in historyYAxisLabels" :key="idx">{{ val }}</span>
                       </div>
                       <!-- 图表区域 -->
-                      <div class="chart-placeholder" @mousemove="onChartHover($event, 'daily')"
+                      <div class="chart-placeholder" @mousemove="onChartHover($event, 'history')"
                            @mouseleave="hideTooltip">
                         <div class="fake-line-chart">
                           <svg viewBox="0 0 800 180" preserveAspectRatio="none">
-                            <path :d="dailyChartPath" fill="none" stroke="url(#gradient-daily)" stroke-width="4"
+                            <path :d="historyChartPath" fill="none" stroke="url(#gradient-history)" stroke-width="4"
                                   opacity="0.8"/>
                             <defs>
-                              <linearGradient id="gradient-daily" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <linearGradient id="gradient-history" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#409eff"/>
                                 <stop offset="100%" stop-color="#67c23a"/>
                               </linearGradient>
@@ -64,10 +64,10 @@
                           <div class="chart-glow"></div>
                         </div>
                         <div class="chart-x-labels">
-                          <span v-for="n in 10" :key="n">{{ getDayLabel(n) }}</span>
+                          <span v-for="(label, index) in historyXLabels" :key="index">{{ label }}</span>
                         </div>
                         <transition name="tooltip-fade">
-                          <div v-if="tooltipShow && activeTab === 'daily'" class="chart-tooltip" :style="tooltipStyle">
+                          <div v-if="tooltipShow && activeTab === 'history'" class="chart-tooltip" :style="tooltipStyle">
                             <div class="tooltip-header">
                               <strong>{{ tooltipTitle }}</strong>
                               <span class="count">{{ tooltipData.length }} 条</span>
@@ -90,22 +90,22 @@
                     </div>
                   </div>
 
-                  <div v-show="activeTab === 'hourly'" class="chart-container">
+                  <div v-else-if="activeTab === 'daily'" class="chart-container">
                     <div class="chart-title">今日小时级热度走势（{{ currentDate }}）</div>
                     <div class="chart-wrapper">
                       <!-- 纵轴 -->
                       <div class="chart-y-axis">
-                        <span v-for="(val, idx) in hourlyYAxisLabels" :key="idx">{{ val }}</span>
+                        <span v-for="(val, idx) in dailyYAxisLabels" :key="idx">{{ val }}</span>
                       </div>
                       <!-- 图表区域 -->
-                      <div class="chart-placeholder" @mousemove="onChartHover($event, 'hourly')"
+                      <div class="chart-placeholder" @mousemove="onChartHover($event, 'daily')"
                            @mouseleave="hideTooltip">
                         <div class="fake-line-chart">
                           <svg viewBox="0 0 800 180" preserveAspectRatio="none">
-                            <path :d="hourlyChartPath" fill="none" stroke="url(#gradient-hourly)" stroke-width="4"
+                            <path :d="dailyChartPath" fill="none" stroke="url(#gradient-daily)" stroke-width="4"
                                   opacity="0.9"/>
                             <defs>
-                              <linearGradient id="gradient-hourly" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <linearGradient id="gradient-daily" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#ff7e5f"/>
                                 <stop offset="100%" stop-color="#feb47b"/>
                               </linearGradient>
@@ -113,11 +113,11 @@
                           </svg>
                           <div class="chart-glow"></div>
                         </div>
-                        <div class="chart-x-labels hourly-labels">
+                        <div class="chart-x-labels daily-labels">
                           <span v-for="h in getHourLabels()" :key="h">{{ h }}</span>
                         </div>
                         <transition name="tooltip-fade">
-                          <div v-if="tooltipShow && activeTab === 'hourly'" class="chart-tooltip" :style="tooltipStyle">
+                          <div v-if="tooltipShow && activeTab === 'daily'" class="chart-tooltip" :style="tooltipStyle">
                             <div class="tooltip-header">
                               <strong>{{ tooltipTitle }}</strong>
                               <span class="count">{{ tooltipData.length }} 条</span>
@@ -164,14 +164,15 @@
                   </div>
 
                   <div v-if="!loading">
-                    <a v-for="(item, index) in historyData" :key="index" class="list-item cursor-pointer" :href="item.url" target="_blank">
+                    <a v-for="(item, index) in historyData" :key="index" class="list-item cursor-pointer"
+                       :href="item.url" target="_blank">
                       <div class="time">{{ item.dataUpdateTime }}</div>
                       <div class="item-title">{{ item.title }}</div>
                       <div class="platform"><span class="platform-name">{{ item.platformName }}</span></div>
                       <div class="relevance">
                         <span class="relevance-value">{{ 100 - item.distance }}</span>
                         <div class="relevance-bar-wrapper">
-                          <div class="relevance-bar" :style="{ width: Math.min(100-item.distance, 100) + '%' }"></div>
+                          <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
                         </div>
                       </div>
                     </a>
@@ -193,8 +194,7 @@
 </template>
 
 <script>
-import store from "@/store";
-import {searchHistoryTrending} from "@/api/api";
+import { searchHistoryTrending } from "@/api/api";
 
 export default {
   name: 'HotPointHistoryComponent',
@@ -208,7 +208,7 @@ export default {
       tooltipTitle: '',
       tooltipData: [],
       loading: false,
-    }
+    };
   },
   computed: {
     historyDataBoardShow: {
@@ -220,88 +220,97 @@ export default {
       }
     },
     currentDate() {
-      return new Date().toLocaleDateString('zh-CN', {year: 'numeric', month: 'long', day: 'numeric'});
+      if (this.historyData.length > 0) {
+        const dateStr = this.historyData[0].dataUpdateTime.slice(0, 10);
+        const [y, m, d] = dateStr.split('-');
+        return `${y}年${parseInt(m)}月${parseInt(d)}日`;
+      }
+      return new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
     },
-    // 计算最近10天的数据分布
+    // 历史走势 X 轴标签：真实日期，最新在右边
+    historyXLabels() {
+      if (this.historyData.length === 0) {
+        return Array(10).fill('暂无');
+      }
+
+      const dateMap = new Map();
+      this.historyData.forEach(item => dateMap.set(item.dataUpdateTime.slice(0, 10), true));
+
+      let dates = Array.from(dateMap.keys()).sort((a, b) => b.localeCompare(a)).slice(0, 10);
+      while (dates.length < 10) dates.push('暂无');
+
+      return dates.reverse().map(date => date === '暂无' ? '暂无' : date.slice(5).replace('-', '/'));
+    },
+    // 历史走势计数（顺序和标签一致）
+    historyDataCounts() {
+      if (this.historyData.length === 0) return Array(10).fill(0);
+
+      const countMap = new Map();
+      this.historyData.forEach(item => {
+        const date = item.dataUpdateTime.slice(0, 10);
+        countMap.set(date, (countMap.get(date) || 0) + 1);
+      });
+
+      let dates = Array.from(countMap.keys()).sort((a, b) => b.localeCompare(a)).slice(0, 10);
+      while (dates.length < 10) dates.push('暂无');
+
+      return dates.reverse().map(date => countMap.get(date) || 0);
+    },
     dailyDataCounts() {
-      const counts = [];
-      for (let i = 0; i < 10; i++) {
-        const daysAgo = 9 - i;
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() - daysAgo);
-        const dateStr = targetDate.toISOString().slice(0, 10);
-        const count = this.historyData.filter(item => item.dataUpdateTime.startsWith(dateStr)).length;
-        counts.push(count);
-      }
+      const counts = Array(24).fill(0);
+      if (this.historyData.length === 0) return counts;
+
+      const today = this.historyData[0].dataUpdateTime.slice(0, 10);
+      this.historyData.forEach(item => {
+        if (item.dataUpdateTime.startsWith(today)) {
+          const hour = parseInt(item.dataUpdateTime.slice(11, 13), 10);
+          if (!isNaN(hour)) counts[hour]++;
+        }
+      });
       return counts;
     },
-    // 计算今日24小时的数据分布
-    hourlyDataCounts() {
-      const counts = [];
-      const todayStr = new Date().toISOString().slice(0, 10);
-      for (let h = 0; h < 24; h++) {
-        const count = this.historyData.filter(item =>
-            item.dataUpdateTime.startsWith(todayStr) &&
-            parseInt(item.dataUpdateTime.slice(11, 13)) === h
-        ).length;
-        counts.push(count);
-      }
-      return counts;
+    historyYAxisLabels() {
+      const max = Math.max(...this.historyDataCounts, 1);
+      return [max, Math.floor(max * 0.75), Math.floor(max * 0.5), Math.floor(max * 0.25), 0];
     },
-    // 日曲线Y轴标签
     dailyYAxisLabels() {
       const max = Math.max(...this.dailyDataCounts, 1);
       return [max, Math.floor(max * 0.75), Math.floor(max * 0.5), Math.floor(max * 0.25), 0];
     },
-    // 时曲线Y轴标签
-    hourlyYAxisLabels() {
-      const max = Math.max(...this.hourlyDataCounts, 1);
-      return [max, Math.floor(max * 0.75), Math.floor(max * 0.5), Math.floor(max * 0.25), 0];
-    },
-    // 日曲线路径（平滑曲线）
-    dailyChartPath() {
-      const max = Math.max(...this.dailyDataCounts, 1);
-      const points = this.dailyDataCounts.map((count, i) => {
-        const x = (i / 9) * 800;
-        const y = 180 - (count / max) * 160;
-        return {x, y};
-      });
+    historyChartPath() {
+      const max = Math.max(...this.historyDataCounts, 1);
+      const points = this.historyDataCounts.map((count, i) => ({
+        x: (i / 9) * 800,
+        y: 180 - (count / max) * 160
+      }));
 
-      // 使用贝塞尔曲线创建平滑路径
       if (points.length === 0) return 'M0,180';
       let path = `M${points[0].x},${points[0].y}`;
-
       for (let i = 0; i < points.length - 1; i++) {
-        const current = points[i];
-        const next = points[i + 1];
-        const controlX = (current.x + next.x) / 2;
-        path += ` Q${controlX},${current.y} ${controlX},${(current.y + next.y) / 2}`;
-        path += ` Q${controlX},${next.y} ${next.x},${next.y}`;
+        const cur = points[i];
+        const nxt = points[i + 1];
+        const cpX = (cur.x + nxt.x) / 2;
+        path += ` Q${cpX},${cur.y} ${cpX},${(cur.y + nxt.y) / 2}`;
+        path += ` Q${cpX},${nxt.y} ${nxt.x},${nxt.y}`;
       }
-
       return path;
     },
-    // 时曲线路径（平滑曲线）
-    hourlyChartPath() {
-      const max = Math.max(...this.hourlyDataCounts, 1);
-      const points = this.hourlyDataCounts.map((count, i) => {
-        const x = (i / 23) * 800;
-        const y = 180 - (count / max) * 160;
-        return {x, y};
-      });
+    dailyChartPath() {
+      const max = Math.max(...this.dailyDataCounts, 1);
+      const points = this.dailyDataCounts.map((count, i) => ({
+        x: (i / 23) * 800,
+        y: 180 - (count / max) * 160 + 10
+      }));
 
-      // 使用贝塞尔曲线创建平滑路径
       if (points.length === 0) return 'M0,180';
       let path = `M${points[0].x},${points[0].y}`;
-
       for (let i = 0; i < points.length - 1; i++) {
-        const current = points[i];
-        const next = points[i + 1];
-        const controlX = (current.x + next.x) / 2;
-        path += ` Q${controlX},${current.y} ${controlX},${(current.y + next.y) / 2}`;
-        path += ` Q${controlX},${next.y} ${next.x},${next.y}`;
+        const cur = points[i];
+        const nxt = points[i + 1];
+        const cpX = (cur.x + nxt.x) / 2;
+        path += ` Q ${cpX},${cur.y} ${cpX},${(cur.y + nxt.y) / 2}`;
+        path += ` Q ${cpX},${nxt.y} ${nxt.x},${nxt.y}`;
       }
-
       return path;
     }
   },
@@ -309,16 +318,9 @@ export default {
     historyDataBoardShow(val) {
       if (val) {
         this.activeTab = 'daily';
-        this.loading = true;
-        searchHistoryTrending(this.$store.state.historyDataBoardUseTitle)
-            .then(res => {
-              this.historyData = res?.data?.data || [];
-            })
-            .finally(() => {
-              this.loading = false;
-            });
+        this.clickTab('daily');
       }
-    },
+    }
   },
   mounted() {
     window.addEventListener('keydown', this.handleKey);
@@ -327,34 +329,54 @@ export default {
     window.removeEventListener('keydown', this.handleKey);
   },
   methods: {
-    getDayLabel(n) {
-      const isMobile = window.innerWidth <= 768;
-      return isMobile ? `${10 - n + 1}天` : `${10 - n + 1}天前`;
+    clickTab(tab) {
+      this.activeTab = tab;
+      this.loading = true;
+
+      let startTime = "";
+      let endTime = this.getCurrentTime();
+
+      if (tab === 'daily') {
+        startTime = this.getTodayStartTime();
+      } else if (tab === 'history') {
+        startTime = "1997-01-01 00:00:00";
+      }
+
+      searchHistoryTrending(this.$store.state.historyDataBoardUseTitle, startTime, endTime)
+          .then(res => {
+            this.historyData = res?.data?.data || [];
+          })
+          .catch(err => {
+            console.error('获取历史趋势失败:', err);
+            this.historyData = [];
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+    },
+    getTodayStartTime() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} 00:00:00`;
+    },
+    getCurrentTime() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
     },
     getHourLabels() {
       const isMobile = window.innerWidth <= 768;
-      if (isMobile) {
-        // 移动端只显示 6 个标签
-        return ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
-      } else {
-        // PC端显示 12 个标签
-        return ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
-      }
+      return isMobile
+          ? ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00']
+          : ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
     },
     handleKey(e) {
-      if (!this.historyDataBoardShow) return;
-      if (e.key === 'Escape') this.close();
+      if (e.key === 'Escape' && this.historyDataBoardShow) this.close();
     },
     close() {
-      this.historyShow = false;
-      store.commit('setHistoryDataBoardShow', false);
+      this.historyDataBoardShow = false;
     },
     hideTooltip() {
-      // 延迟隐藏，给用户时间将鼠标移入tooltip
       setTimeout(() => {
-        if (!this.tooltipHovered) {
-          this.tooltipShow = false;
-        }
+        if (!this.tooltipHovered) this.tooltipShow = false;
       }, 100);
     },
     onChartHover(e, type) {
@@ -365,21 +387,29 @@ export default {
       const height = rect.height;
 
       let index;
-      if (type === 'daily') {
+
+      if (type === 'history') {
         index = Math.floor((mouseX / width) * 10);
         index = Math.max(0, Math.min(9, index));
-        const daysAgo = 9 - index;
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() - daysAgo);
-        const dateStr = targetDate.toISOString().slice(0, 10);
-        this.tooltipTitle = daysAgo === 0 ? '今天' : `${daysAgo + 1}天前 (${dateStr})`;
-        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(dateStr));
+
+        const label = this.historyXLabels[index];
+        if (label === '暂无') {
+          this.tooltipTitle = '暂无数据';
+          this.tooltipData = [];
+        } else {
+          const [m, d] = label.split('/');
+          const year = this.historyData.length > 0 ? this.historyData[0].dataUpdateTime.slice(0, 4) : '2025';
+          const dateStr = `${year}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+          this.tooltipTitle = label;
+          this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(dateStr));
+        }
       } else {
         index = Math.floor((mouseX / width) * 24);
         index = Math.max(0, Math.min(23, index));
         const hourStr = String(index).padStart(2, '0');
         this.tooltipTitle = `今天 ${hourStr}:00 - ${String(index + 1).padStart(2, '0')}:00`;
-        const todayStr = new Date().toISOString().slice(0, 10);
+
+        const todayStr = this.historyData.length > 0 ? this.historyData[0].dataUpdateTime.slice(0, 10) : '';
         this.tooltipData = this.historyData.filter(item =>
             item.dataUpdateTime.startsWith(todayStr) &&
             parseInt(item.dataUpdateTime.slice(11, 13)) === index
@@ -390,22 +420,18 @@ export default {
       const tooltipHeight = this.tooltipData.length > 0 ? 100 + Math.min(5, this.tooltipData.length) * 24 : 80;
 
       let left = mouseX + 15;
-      if (left + tooltipWidth > width - 10) {
-        left = mouseX - tooltipWidth - 15;
-      }
+      if (left + tooltipWidth > width - 10) left = mouseX - tooltipWidth - 15;
       left = Math.max(10, Math.min(left, width - tooltipWidth - 10));
 
       let top = mouseY + 15;
-      if (top + tooltipHeight > height - 40) {
-        top = mouseY - tooltipHeight - 15;
-      }
+      if (top + tooltipHeight > height - 40) top = mouseY - tooltipHeight - 15;
       top = Math.max(10, Math.min(top, height - tooltipHeight - 10));
 
-      this.tooltipStyle = {left: left + 'px', top: top + 'px'};
+      this.tooltipStyle = { left: left + 'px', top: top + 'px' };
       this.tooltipShow = true;
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -675,7 +701,7 @@ export default {
   pointer-events: none;
 }
 
-.hourly-labels {
+.daily-labels {
   font-size: 9px;
 }
 
@@ -826,7 +852,7 @@ export default {
   text-align: center;
 }
 
-.platform{
+.platform {
   text-align: center;
 }
 
@@ -990,7 +1016,7 @@ export default {
     bottom: 3px;
   }
 
-  .hourly-labels {
+  .daily-labels {
     font-size: 8px;
   }
 

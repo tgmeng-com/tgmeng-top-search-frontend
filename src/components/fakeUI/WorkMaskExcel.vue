@@ -176,10 +176,10 @@
                 rel="noopener noreferrer"
                 style="cursor: pointer"
             >
-              <span class="cursor-pointer" @click.stop.prevent="clickHotPointTrend(subCat.data[rowIndex - 1].keyword)">
+              <span class="cursor-pointer" @click.stop.prevent="clickHotPointTrend(subCat.data[rowIndex - 1].title)">
                           📈
               </span>
-              {{ subCat.data[rowIndex - 1].keyword }}
+              {{ subCat.data[rowIndex - 1].title }}
             </a>
           </td>
         </tr>

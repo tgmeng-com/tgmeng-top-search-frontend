@@ -175,8 +175,8 @@
               >
                 <span class="line-num">{{ String(index + 1).padStart(2, '0') }}</span>
                 <a :href="item.url" target="_blank" class="hotpoint-link">
-                  <span class="trend-icon" @click.stop.prevent="clickHotPointTrend(item.keyword)">📈</span>
-                  {{ item.keyword }}
+                  <span class="trend-icon" @click.stop.prevent="clickHotPointTrend(item.title)">📈</span>
+                  {{ item.title }}
                 </a>
               </div>
             </div>
@@ -501,7 +501,7 @@ export default {
         } else {
           return platform.data.map((item, index) => {
             const num = String(index + 1).padStart(2, '0');
-            return `<div style="height:0.8rem;"><span style="display:inline-block;width:2ch;text-align:right;margin-right:0.5ch;">${num}</span>&nbsp;<a href="${item.url}" target="_blank"><span class="mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(${item.keyword})">📈</span>${item.keyword}</a></div>`;
+            return `<div style="height:0.8rem;"><span style="display:inline-block;width:2ch;text-align:right;margin-right:0.5ch;">${num}</span>&nbsp;<a href="${item.url}" target="_blank"><span class="mr-1 cursor-pointer" @click.stop.prevent="clickHotPointTrend(${item.title})">📈</span>${item.title}</a></div>`;
           }).join('\n');
         }
       }

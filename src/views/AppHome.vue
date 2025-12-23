@@ -772,7 +772,7 @@ export default {
                 Array.isArray(data.dataInfo) ? data.dataInfo : [],
                 this.includeWord,      // 必须包含
                 this.unincludeWord,      // 不包含
-                item => item.keyword   // 从 keyword 判断
+                item => item.title   // 从 title 判断
             );
           })
           .catch((err) => {
