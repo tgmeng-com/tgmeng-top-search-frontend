@@ -489,7 +489,7 @@ export default {
     handleEnter() {
       const currentMode = this.modeOptions.find(opt => opt.value === this.searchMode);
       const modeLabel = currentMode ? currentMode.label : '未知模式';
-      window.umami.track('🔎热点检索' + ' | 模式:' + modeLabel + ' | 关键词:' + this.input)
+      window.umami.track('🔎热点检索' + ' | ' + modeLabel + ' | ' + this.input)
       if (!this.input.trim()) return;
 
       this.saveSearchHistory(this.input.trim());
