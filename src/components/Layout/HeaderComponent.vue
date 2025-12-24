@@ -350,7 +350,7 @@ export default {
           value: 'MO_HU_PI_PEI_FIVE_MINUTES',
           icon: '🤖',
           label: '🤖模糊匹配(1分钟)',
-          tip: '【数据范围:5分钟】【匹配模式:模糊匹配】(热点标题包含输入内容：建议输入短文本)'
+          tip: '【数据范围:1分钟】【匹配模式:模糊匹配】(热点标题包含输入内容：建议输入短文本)'
         },
         {
           value: 'MO_HU_PI_PEI_TODAY',
