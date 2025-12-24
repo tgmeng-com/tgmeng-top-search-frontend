@@ -637,7 +637,6 @@ export default {
       this.windowWidth = window.innerWidth; // 更新 windowWidth
     },
     initializePlatforms() {
-      this.initUmami();
       //用缓存里的isShow、sort、isStar替换一下全部数据里的
       const cacheCategroies = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES)
       if (cacheCategroies) {
@@ -717,6 +716,7 @@ export default {
       this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[this.defaultCategoryId];
       // 首次进入页面，检查路由参数是否合法
       this.handleRouteCategory("init");
+      this.initUmami();
     },
 
     filterByWords(texts, includeWords = [], excludeWords = [], getter = null) {
