@@ -713,10 +713,10 @@ export default {
 
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
-      // 如果没有设置默认值，那就用第一个作为默认分类
-      this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[0];
+      // 如果没有设置默认值，那就用新闻作为默认分类
+      this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[this.defaultCategoryId];
       // 首次进入页面，检查路由参数是否合法
-      this.handleRouteCategory();
+      this.handleRouteCategory("init");
     },
 
     filterByWords(texts, includeWords = [], excludeWords = [], getter = null) {
@@ -784,13 +784,15 @@ export default {
     },
 
     // 处理路由 category 参数
-    handleRouteCategory() {
+    handleRouteCategory(from) {
       const categoryRouterName = this.$route.params.category;
       const matchedCat = this.categroies.find(c => c.routerName === categoryRouterName);
 
-      if (matchedCat && matchedCat.id !== this.activeCategory.id) {
-        // 路由存在且不是当前激活分类 → 点击分类
-        this.handleCategoryClick(matchedCat, {skipRoutePush: true});
+      if (matchedCat) {
+        // 路由存在且是初次加载而不是click路由监听
+        if (from === "init") {
+          this.handleCategoryClick(matchedCat, {skipRoutePush: true});
+        }
       } else if (!matchedCat) {
         // 路由不存在或非法 → 回到根路径，显示默认分类
         if (this.$route.path !== '/' && this.$route.path !== '/excel' && this.$route.path !== '/vscode') {
@@ -1447,7 +1449,7 @@ export default {
   watch: {
     /// 监听路由变化，切换分类
     '$route.params.category'() {
-      this.handleRouteCategory();
+      this.handleRouteCategory("watch");
     }
   },
 };
