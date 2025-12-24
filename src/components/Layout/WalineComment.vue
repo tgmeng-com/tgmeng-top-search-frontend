@@ -1,15 +1,15 @@
 <template>
   <div style="max-width: 50rem; display: inline-block; width: 100%;margin-top: 2.5rem">
     <div style="height: auto;padding-left: 1rem;padding-right: 1rem;">
-        <img src="../../assets/image/comment.gif" alt="糖果梦热榜 - 评论中心">
+      <img src="../../assets/image/comment.gif" alt="糖果梦热榜 - 评论中心">
     </div>
-<!--    <div style="margin-top: 20px;">阅读量: <span class="waline-pageview-count" data-path="/" /></div>-->
+    <!--    <div style="margin-top: 20px;">阅读量: <span class="waline-pageview-count" data-path="/" /></div>-->
     <div id="waline-comment"></div>
   </div>
 </template>
 
 <script>
-import { init } from '@waline/client';
+import {init} from '@waline/client';
 
 export default {
   props: {
@@ -34,7 +34,7 @@ export default {
         dark: true,
         meta: ['nick'], // 评论者属性
         requiredMeta: ['nick'],//必填项
-        wordLimit: [5,500], //评论字数限制
+        wordLimit: [5, 500], //评论字数限制
         pageSize: 20, // 每页评论数
         noCopyright: true, //隐藏页脚版权信息
         avatar: '/favicon.png',// 默认用户头像
@@ -49,5 +49,22 @@ export default {
 <style scoped>
 #waline-comment {
   margin-top: 1.25rem;
+  background: none !important;
+}
+
+:deep(.wl-card .wl-meta > span) {
+  background: none !important;
+}
+
+:deep(.wl-panel) {
+  background: none !important;
+}
+
+:deep(.wl-editor:focus) {
+  background: none !important;
+}
+
+:deep(.wl-input:focus) {
+  background: none !important;
 }
 </style>
