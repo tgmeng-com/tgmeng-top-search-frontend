@@ -594,11 +594,11 @@ export default {
     // }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
     //
     // 新增：定时刷新统计数据（每5秒刷新一次）
-    if (this.pageViewsShow) {
-      this.umamiStatsTimer = setInterval(() => {
-        this.initUmami();
-      }, 10 * 1000); // 每10秒刷新一次统计数据
-    }
+    // if (this.pageViewsShow) {
+    //   this.umamiStatsTimer = setInterval(() => {
+    //     this.initUmami();
+    //   }, 10 * 1000); // 每10秒刷新一次统计数据
+    // }
 
     window.addEventListener('resize', this.handleResize);
   },
