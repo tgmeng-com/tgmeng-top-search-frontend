@@ -20,6 +20,13 @@ import {Avatar, Setting, Money, InfoFilled, Odometer} from "@element-plus/icons-
 import {
     topSearchForYoutube,
     topSearchForBaiDu,
+
+    topSearchForBaiDuGuoJi,
+    topSearchForBaiDuTiYu,
+    topSearchForBaiDuWenYu,
+    topSearchForBaiDuDuanJu,
+
+
     topSearchForGitHubAllStars,
     topSearchForDouYin,
     topSearchForBilibili,
@@ -44,7 +51,6 @@ import {
     topSearchForDianShiJuBaiDu,
     topSearchForDianYingBaiDu,
     topSearchForXiaoShuoBaiDu,
-    topSearchForYouXiBaiDu,
     topSearchForQiCheBaiDu,
     topSearchForReGengBaiDu,
     topSearchForCaiJingBaiDu,
@@ -424,6 +430,9 @@ export default createStore({
                     new Platform('头条', topSearchForTouTiao, require('@/assets/logos/tgmeng-trend_toutiao.png'), 1, '/news/toutiao'),
                     new Platform('网易', topSearchForWangYi, require('@/assets/logos/tgmeng-trend_wangyi.png'), 2, '/news/wangyi'),
                     new Platform('百度', topSearchForBaiDu, require('@/assets/logos/tgmeng-trend_baidu.png'), 3, '/news/baidu'),
+
+                    new Platform('百度国际', topSearchForBaiDuGuoJi, require('@/assets/logos/tgmeng-trend_baidu.png'), 3.1, '/news/baiduguoji'),
+
                     new Platform('纽约时报', topSearchForNiuYueShiBao, require('@/assets/logos/tgmeng-trend_niuyueshibao.png'), 5, '/news/niuyueshibao'),
                     new Platform('BBC', topSearchForBBC, require('@/assets/logos/tgmeng-trend_bbc.png'), 6, '/news/bbc'),
                     new Platform('法广', topSearchForFaGuang, require('@/assets/logos/tgmeng-trend_faguang.png'), 7, '/news/faguang'),
@@ -463,18 +472,17 @@ export default createStore({
                     new Platform('微博', topSearchForWeiBo, require('@/assets/logos/tgmeng-trend_weibo.png'), 11, '/media/weibo'),
                     new Platform('AcFun', cacheSearchForacfun, require('@/assets/logos/tgmeng-trend_acfun.png'), 11.1, '/media/acfun'),
                     new Platform('Youtube', topSearchForYoutube, require('@/assets/logos/tgmeng-trend_youtube.png'), 13, '/media/youtube'),
+                    new Platform('百度文娱', topSearchForBaiDuWenYu, require('@/assets/logos/tgmeng-trend_baidu.png'), 13.01, '/media/baiduwenyu'),
                     new Platform('美漫百科', cacheSearchFormeimanbaike, require('@/assets/logos/tgmeng-trend_meimanbaike.png'), 13.1, '/media/meimanbaike'),
                     new Platform('时光网', cacheSearchForshiguangwang, require('@/assets/logos/tgmeng-trend_shiguangwang.png'), 13.2, '/media/shiguangwang'),
                     new Platform('煎蛋', cacheSearchForjiandan, require('@/assets/logos/tgmeng-trend_jiandan.png'), 13.3, '/media/jiandan'),
                     new Platform('少数派', topSearchForShaoShuPai, require('@/assets/logos/tgmeng-trend_shaoshupai.png'), 16, '/media/shaoshupai'),
                     new Platform('微信读书', cacheSearchForweixindushu, require('@/assets/logos/tgmeng-trend_weixindushu.png'), 16.1, '/media/weixindushu'),
                     new Platform('电视猫', cacheSearchFordianshimao, require('@/assets/logos/tgmeng-trend_dianshimao.png'), 16.2, '/media/dianshimao'),
-                    new Platform('热梗', topSearchForReGengBaiDu, require('@/assets/logos/tgmeng-trend_regeng.png'), 17, '/media/regengbaidu'),
-                    new Platform('财经', topSearchForCaiJingBaiDu, require('@/assets/logos/tgmeng-trend_caijing.png'), 18, '/media/caijingbaidu'),
-                    new Platform('民生', topSearchForMinShengBaiDu, require('@/assets/logos/tgmeng-trend_minsheng.png'), 19, '/media/minshengbaidu'),
-                    new Platform('汽车', topSearchForQiCheBaiDu, require('@/assets/logos/tgmeng-trend_youxi.png'), 20, '/media/qichebaidu'),
-                    new Platform('游戏', topSearchForYouXiBaiDu, require('@/assets/logos/tgmeng-trend_qiche.png'), 21, '/media/youxibaidu'),
-                    new Platform('小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png'), 22, '/media/xiaoshuobaidu'),
+                    new Platform('百度热梗', topSearchForReGengBaiDu, require('@/assets/logos/tgmeng-trend_regeng.png'), 17, '/media/regengbaidu'),
+                    new Platform('百度民生', topSearchForMinShengBaiDu, require('@/assets/logos/tgmeng-trend_minsheng.png'), 19, '/media/minshengbaidu'),
+                    new Platform('百度汽车', topSearchForQiCheBaiDu, require('@/assets/logos/tgmeng-trend_youxi.png'), 20, '/media/qichebaidu'),
+                    new Platform('百度小说', topSearchForXiaoShuoBaiDu, require('@/assets/logos/tgmeng-trend_xiaoshuo.png'), 22, '/media/xiaoshuobaidu'),
                 ]
             },
             {
@@ -585,6 +593,7 @@ export default createStore({
                     new Platform('华尔街见闻', topSearchForHuaErJieJianWen, require('@/assets/logos/tgmeng-trend_huaerjiejianwen.png'), 24, '/finance/huaerjiejianwen'),
                     new Platform('同花顺', topSearchForTongHuaShun, require('@/assets/logos/tgmeng-trend_tonghuashun.png'), 25, '/finance/tonghuashun'),
                     new Platform('金融界', topSearchForJingRongJie, require('@/assets/logos/tgmeng-trend_jinrongjie.png'), 26, '/finance/jinrongjie'),
+                    new Platform('百度财经', topSearchForCaiJingBaiDu, require('@/assets/logos/tgmeng-trend_caijing.png'), 26.1, '/finance/caijingbaidu'),
                     new Platform('第一财经', topSearchForDiYiCaiJing, require('@/assets/logos/tgmeng-trend_diyicaijing.png'), 27, '/finance/diyicaijing'),
                     new Platform('格隆汇', topSearchForGeLongHui, require('@/assets/logos/tgmeng-trend_gelonghui.png'), 28, '/finance/gelonghui'),
                     new Platform('法布', topSearchForFaBu, require('@/assets/logos/tgmeng-trend_fabu.png'), 29, '/finance/fabu'),
@@ -615,9 +624,10 @@ export default createStore({
                 sort: 7,
                 subCategories: [
                     new Platform('央视体育', topSearchForYangShiTiYu, require('@/assets/logos/tgmeng-trend_yangshitiyu.png'), 31, '/sports/yangshitiyu'),
-                    new Platform('虎扑', topSearchForHuPu, require('@/assets/logos/tgmeng-trend_huputiyu.png'), 32, '/sports/hupu'),
+                    new Platform('虎扑体育', topSearchForHuPu, require('@/assets/logos/tgmeng-trend_huputiyu.png'), 32, '/sports/hupu'),
                     new Platform('新浪体育', topSearchForXinLangTiYu, require('@/assets/logos/tgmeng-trend_xinlangtiyu.png'), 33, '/sports/xinlangtiyu'),
                     new Platform('网易体育', topSearchForWangYiTiYu, require('@/assets/logos/tgmeng-trend_wangyitiyu.png'), 34, '/sports/tiyuwangyi'),
+                    new Platform('百度体育', topSearchForBaiDuTiYu, require('@/assets/logos/tgmeng-trend_baidu.png'), 34.1, '/sports/baidutiyu'),
                     new Platform('搜狐体育', topSearchForSouHuTiYu, require('@/assets/logos/tgmeng-trend_souhutiyu.png'), 35, '/sports/souhutiyu'),
                     new Platform('PP体育', topSearchForPPTiYu, require('@/assets/logos/tgmeng-trend_pptiyu.png'), 36, '/sports/pptiyu'),
                     new Platform('懂球帝', topSearchForDongQiuDi, require('@/assets/logos/tgmeng-trend_dongqiudi.png'), 37, '/sports/dongqiudi'),
@@ -749,6 +759,7 @@ export default createStore({
 
                     new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png'), 84, '/audiovideo/dianshijubaidu'),
                     new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png'), 85, '/audiovideo/dianyingbaidu'),
+                    new Platform('百度 短剧', topSearchForBaiDuDuanJu, require('@/assets/logos/tgmeng-trend_baidu.png'), 85.1, '/audiovideo/baiduduanju'),
                 ]
             },
             {

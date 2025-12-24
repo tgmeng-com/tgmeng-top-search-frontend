@@ -8,6 +8,41 @@ export function topSearchForBaiDu(data) {
     })
 }
 
+export function topSearchForBaiDuGuoJi(data) {
+    return request({
+        url: '/topsearch/baiduguoji',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForBaiDuTiYu(data) {
+    return request({
+        url: '/topsearch/baidutiyu',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForBaiDuWenYu(data) {
+    return request({
+        url: '/topsearch/baiduwenyu',
+        method: 'get',
+        data: data
+    })
+}
+
+
+export function topSearchForBaiDuDuanJu(data) {
+    return request({
+        url: '/topsearch/baidu/duanju',
+        method: 'get',
+        data: data
+    })
+}
+
 export function topSearchForDouYin(data) {
     return request({
         url: '/topsearch/douyin',
@@ -234,7 +269,7 @@ export function topSearchForReGengBaiDu(data) {
 
 export function topSearchForCaiJingBaiDu(data) {
     return request({
-        url: '/topsearch/baidu/caijing',
+        url: '/topsearch/baiducaijing',
         method: 'get',
         data: data
     })
@@ -242,7 +277,7 @@ export function topSearchForCaiJingBaiDu(data) {
 
 export function topSearchForMinShengBaiDu(data) {
     return request({
-        url: '/topsearch/baidu/minsheng',
+        url: '/topsearch/baiduminsheng',
         method: 'get',
         data: data
     })
