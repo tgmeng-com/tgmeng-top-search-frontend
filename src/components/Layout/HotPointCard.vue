@@ -13,7 +13,7 @@
            :style="cardTopStyle">
         <el-icon
             class="favorite-icon"
-            :color="isStar ? '#f7ba2a' : '#ccc'"
+            :color="isStar ? '#f7ba2a' : '#bd9400'"
             @click="toggleStar"
             :style="cardTopStyle">
           <component :is="isStar ? 'StarFilled' : 'Star'"/>
