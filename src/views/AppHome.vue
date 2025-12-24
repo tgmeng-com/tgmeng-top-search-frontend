@@ -827,11 +827,18 @@ export default {
       if (cat.routerName === 'favorites') {
         // 先清空收藏分类下的卡片
         this.activeCategory.subCategories.splice(0)
-        this.categroies[0].subCategories.forEach(subCat => {
-          if (subCat.isStar) {
-            this.activeCategory.subCategories.push(subCat)
-          }
-        })
+
+        const allCategory = this.categroies.find(cat => cat.id === 0);
+        if (allCategory) {
+          // 清空 activeCategory 的 subCategories（避免重复添加）
+          this.activeCategory.subCategories = [];
+          // 把“全部”分类里标记为 isStar 的子分类添加进去
+          allCategory.subCategories.forEach(subCat => {
+            if (subCat.isStar) {
+              this.activeCategory.subCategories.push(subCat);
+            }
+          });
+        }
       }
 
       // 突发热点
