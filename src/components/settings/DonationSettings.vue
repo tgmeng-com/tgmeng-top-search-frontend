@@ -47,7 +47,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="donate in donations" :key="donate.id" class="border-b dark:border-gray-700 align-top">
+          <tr v-for="donate in sortDonations" :key="donate.id" class="border-b dark:border-gray-700 align-top">
             <td class="p-1 text-center flex justify-center">
               <img :src="donate.avatar" class="w-8 h-8 rounded-full"/>
             </td>
@@ -63,7 +63,7 @@
       <!-- 移动端卡片式打赏列表 -->
       <h2 class="sm:hidden  text-xl font-bold text-gray-900 dark:text-gray-100 pb-4">打赏详情</h2>
       <div class="sm:hidden flex gap-4 overflow-x-auto pb-2">
-        <div v-for="donate in donations" :key="donate.id" class="flex-shrink-0 w-64 p-4 rounded-xl bg-gradient-to-r from-indigo-600/10 to-pink-600/10 shadow">
+        <div v-for="donate in sortDonations" :key="donate.id" class="flex-shrink-0 w-64 p-4 rounded-xl bg-gradient-to-r from-indigo-600/10 to-pink-600/10 shadow">
           <div class="flex items-center gap-2 mb-2">
             <img :src="donate.avatar" class="w-10 h-10 rounded-full"/>
             <div class="flex flex-col">
@@ -93,12 +93,21 @@ export default {
         { id: 5, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 20, message: '功能实用，界面友好，希望未来加入更多数据源！', time: '2025-11-14 21:28' },
         { id: 6, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 50, message: '感谢团队的努力，项目稳定性和速度都很赞！', time: '2025-11-13 22:43' },
         { id: 7, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 15, message: '持续关注项目发展，期待更多创新功能上线！', time: '2025-11-12 18:32' },
+        { id: 7, name: '*', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-17 16:24' },
+        { id: 7, name: '*子', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-25 00:55' },
       ],
       // 收款码数据
       payQrcodes: [
         { id: 1, name: '支付宝', qrcode: require('@/assets/avatars/donation/zhifubao.png') },
         { id: 2, name: '微信', qrcode: require('@/assets/avatars/donation/weixin.png') }
       ]
+    }
+  },
+  computed: {
+    sortDonations() {
+      return [...this.donations].sort((a, b) => {
+        return new Date(b.time) - new Date(a.time);
+      });
     }
   }
 }
