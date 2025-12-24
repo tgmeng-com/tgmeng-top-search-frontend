@@ -969,8 +969,8 @@ export default {
             });
         umamiStatsToday()
             .then((res) => {
-              this.umamiTodayViews = res?.data?.pageviews?.value || '加载失败';
-              this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+              this.umamiTodayViews = res?.data?.pageviews || '加载失败';
+              this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime || '加载失败');
             })
             .catch((err) => {
               console.warn(`umami近24小时统计数据加载失败`, err);
@@ -979,8 +979,8 @@ export default {
             });
         umamiStatsAll()
             .then((res) => {
-              this.umamiAllViews = res?.data?.pageviews?.value || '加载失败';
-              this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime?.value || '加载失败');
+              this.umamiAllViews = res?.data?.pageviews || '加载失败';
+              this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime || '加载失败');
             })
             .catch((err) => {
               console.warn(`umami历史统计数据加载失败`, err);
