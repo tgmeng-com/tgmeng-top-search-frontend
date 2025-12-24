@@ -67,4 +67,9 @@ export default {
 :deep(.wl-input:focus) {
   background: none !important;
 }
+
+:deep(.wl-btn:disabled) {
+  background: #ff0000 !important;
+  border-color: unset !important;
+}
 </style>
