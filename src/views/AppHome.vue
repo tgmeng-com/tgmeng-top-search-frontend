@@ -132,6 +132,11 @@
                 :class="{'stats-updating': isUpdating}">
             GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.GOTIFY }}</span>
           </span>&nbsp;
+          <!-- 网易泡泡 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            网易泡泡: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.WANGYIPOPO }}</span>
+          </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div>
@@ -175,6 +180,11 @@
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                 :class="{'stats-updating': isUpdating}">
             GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.GOTIFY }}</span>
+          </span>&nbsp;
+          <!-- 网易泡泡 -->
+          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                :class="{'stats-updating': isUpdating}">
+            网易泡泡: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.WANGYIPOPO }}</span>
           </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
@@ -993,7 +1003,8 @@ export default {
           {event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信'},
           {event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram'},
           {event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY'},
-          {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'}
+          {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'},
+          {event: '订阅推送-网易POPO', key: 'WANGYIPOPO', name: '网易泡泡'}
         ];
 
         this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
