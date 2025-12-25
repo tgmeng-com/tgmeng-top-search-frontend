@@ -27,7 +27,7 @@ export default {
       init({
         el: '#waline-comment',
         serverURL: this.serverURL,
-        path: '/',
+        path: '/',     // 所有页面共用评论，如果要每个路由独享评论，那么移除这行就行
         lang: 'zh-CN', // 设置语言为中文
         // reaction: true, // 开启反应
         pageview: true, // 浏览量统计
