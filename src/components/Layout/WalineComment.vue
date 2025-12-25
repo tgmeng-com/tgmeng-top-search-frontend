@@ -27,6 +27,7 @@ export default {
       init({
         el: '#waline-comment',
         serverURL: this.serverURL,
+        path: '/',
         lang: 'zh-CN', // 设置语言为中文
         // reaction: true, // 开启反应
         pageview: true, // 浏览量统计
