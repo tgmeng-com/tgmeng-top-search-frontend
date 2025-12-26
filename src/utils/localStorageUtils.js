@@ -64,14 +64,14 @@ export const setLocalStorage = (key, value) => {
 export const getLocalStorage = (key) => {
     try {
         const value = localStorage.getItem(key);
-        if (value){
-            if (typeof value === 'string') {
-                return value
-            } else {
-                JSON.parse(value)
-            }
-        }else {
-            return null
+        if (value === null) {
+            return null;
+        }
+        try {
+            return JSON.parse(value);
+        } catch (parseError) {
+            // 如果不是有效的 JSON（比如存了纯字符串），就返回原字符串
+            return value;
         }
     } catch (e) {
         console.warn(`❌ Failed to get localStorage key: ${key}`, e);
