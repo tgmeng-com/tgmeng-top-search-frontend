@@ -32,7 +32,7 @@
                   <rect x="5" y="11" width="14" height="10" rx="2"/>
                 </svg>
                 <input
-                    v-model="form.accessKey"
+                    v-model="form.licenseCode"
                     type="text"
                     placeholder="输入访问密钥(必填，如果没有可以在微信交流群公告中获取)"
                     class="key-input"
@@ -405,7 +405,7 @@ export default {
       ],
 
       form: {
-        accessKey: '',
+        licenseCode: '',
         keywords: [],
         platforms: []
       },
@@ -426,15 +426,15 @@ export default {
   },
   mounted() {
     window.addEventListener('keydown', this.onKey)
-    this.webhookInit()
+    this.licenseInit()
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.onKey)
   },
   methods: {
-    webhookInit() {
-      this.form.accessKey = getLocalStorage(LOCAL_STORAGE_KEYS.WEBHOOK_ACCESS_KEY)
-      if (this.form.accessKey) {
+    licenseInit() {
+      this.form.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE)
+      if (this.form.licenseCode) {
         this.applyKey()
       }
     },
@@ -528,29 +528,29 @@ export default {
     applyKey() {
       const successMessage = '密钥有效';
       const errorMessage = '密钥无效，请检查';
-      if (!this.form.accessKey || !this.isValidKey(this.form.accessKey)) {
+      if (!this.form.licenseCode || !this.isValidKey(this.form.licenseCode)) {
         if (this.subscriptionSettingShow) {
           this.$message.error(errorMessage);
         }
       } else {
-        getSubscriptionConfig(this.form)
+        getSubscriptionConfig()
             .then(res => {
               const result = res?.data?.data || false;
-              if (result) {
-                this.form.keywords = result.keywords || []
+              if (result && res.data.code !== 999) {
+                this.form.keywords = result.subscriptionGlobalKeywords || []
 
                 this.form.platforms = []
                 this.platformIdCounter = 0
 
-                if (result.platforms && result.platforms.length > 0) {
-                  result.platforms.forEach(platformData => {
+                if (result.subscriptionPlatformConfigs && result.subscriptionPlatformConfigs.length > 0) {
+                  result.subscriptionPlatformConfigs.forEach(platformData => {
                     const template = this.platformTemplates.find(t => t.type === platformData.type)
                     if (template) {
                       this.form.platforms.push({
                         ...template,
                         id: `${template.type}_${this.platformIdCounter++}`,
                         remark: platformData.remark || '',
-                        platformKeywords: platformData.platformKeywords || [],
+                        platformKeywords: platformData.subscriptionPlatformKeywords || [],
                         webhook: platformData.webhook || '',
                         secret: platformData.secret || '',
                         selectOpen: false,
@@ -565,16 +565,16 @@ export default {
                   this.activePlatform = this.form.platforms[0].id
                 }
 
-                setLocalStorage(LOCAL_STORAGE_KEYS.WEBHOOK_ACCESS_KEY, this.form.accessKey);
-                window.umami.track('webhook密钥成功缓存');
+                setLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE, this.form.licenseCode);
+                window.umami.track('licenseCode密钥成功缓存');
                 if (this.subscriptionSettingShow) {
                   this.$message.success(successMessage);
                 }
               } else {
                 this.form.keywords = []
                 this.form.platforms = []
-                if (this.subscriptionSettingShow) {
-                  this.$message.error(errorMessage);
+                if (this.subscriptionSettingShow  && res.data.code === 999) {
+                  this.$message.error(res.data.message);
                 }
               }
             })
@@ -584,7 +584,6 @@ export default {
     },
 
     saveConfig() {
-      // if (!this.form.accessKey || !this.isValidKey(this.form.accessKey)) return this.$message.error("密钥无效，请检查");
       if (this.form.keywords.length === 0 && !this.form.platforms.some(p => p.platformKeywords?.length > 0)) {
         return this.$message.error("请至少添加 1 个全局关键词或平台独立关键词")
       }
@@ -592,12 +591,12 @@ export default {
       if (!hasWebhook) return this.$message.error("请至少填写 1 个 Webhook")
 
       const submitData = {
-        accessKey: this.form.accessKey,
-        keywords: this.form.keywords,
-        platforms: this.form.platforms.map(p => ({
+        licenseCode: this.form.licenseCode,
+        subscriptionGlobalKeywords: this.form.keywords,
+        subscriptionPlatformConfigs: this.form.platforms.map(p => ({
           type: p.type,
           remark: p.remark || '',
-          platformKeywords: p.platformKeywords || [],
+          subscriptionPlatformKeywords: p.subscriptionPlatformKeywords || [],
           webhook: p.webhook,
           secret: p.secret
         }))
@@ -606,10 +605,12 @@ export default {
       updateSubscriptionConfig(submitData)
           .then(res => {
             const result = res?.data?.data || false;
-            if (result) {
+            if (result && res.data.code !== 999) {
               this.$message.success("配置更新成功")
             } else {
-              this.$message.error("配置更新失败")
+              if (res.data.code === 999){
+                this.$message.error(res.data.message)
+              }
             }
           })
           .finally(() => {

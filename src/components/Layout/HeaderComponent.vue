@@ -230,6 +230,18 @@
           </div>
 
           <div>
+            <el-tooltip content="密钥" placement="bottom">
+              <a @click="() => { trackUmami('顶部右边密钥'); clickLicenseButton() }">
+                <div class="setting-btn" aria-label="密钥">
+                  <div style="width: 1.875rem">
+                    <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥">
+                  </div>
+                </div>
+              </a>
+            </el-tooltip>
+          </div>
+
+          <div>
             <el-tooltip content="摸鱼模式" placement="bottom">
               <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
                 <div class="setting-btn" aria-label="摸鱼模式">
@@ -483,6 +495,9 @@ export default {
     clickWorkMaskExcelButton() {
       store.commit('setFishModeChooseShow', true)
     },
+    clickLicenseButton() {
+      store.commit('setLicenseShow', true)
+    },
     clickSubscriptionSettingButton() {
       store.commit('setSubscriptionSettingShow', true)
     },
@@ -502,7 +517,15 @@ export default {
 
       cacheSearchForAllByWord(this.input.trim(), this.searchMode)
           .then(res => {
-            this.searchResults = res?.data?.data || [];
+            const result = res?.data?.data || false;
+            if (result && res.data.code !== 999) {
+              this.searchResults = result;
+            } else {
+              if (res.data.code === 999){
+                this.$message.error(res.data.message);
+              }
+              this.showResults = false;
+            }
           })
           .finally(() => {
             this.inputSearchDisable = false;

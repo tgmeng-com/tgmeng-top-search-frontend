@@ -3,7 +3,8 @@
     <HeaderComponent/>
     <NotificationComponent/>
     <AIFloatReport/>
-    <SubscriptionConfigModal/>
+    <LicenseComponent v-if="licenseShow"/>
+    <SubscriptionConfigModal v-if="subscriptionSettingShow"/>
     <ClientInstall/>
     <!-- 友链 -->
     <!-- 这里放页面主体内容，比如 AppHome 组件 -->
@@ -22,10 +23,12 @@ import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 import SubscriptionConfigModal from "@/components/Layout/SubscriptionConfigModal.vue";
 import ClientInstall from "@/components/UI/ClientInstall.vue";
+import LicenseComponent from "@/components/Layout/LicenseComponent.vue";
 
 export default {
   name: 'App',
   components: {
+    LicenseComponent,
     AIFloatReport,
     NotificationComponent,
     HeaderComponent: HeaderComponent,
@@ -38,6 +41,22 @@ export default {
     }
   },
   computed: {
+    licenseShow: {
+      get() {
+        return this.$store.state.licenseShow; // 请确保你的 Vuex store 中有 licenseShow 状态
+      },
+      set(value) {
+        this.$store.commit('setLicenseShow', value);
+      }
+    },
+    subscriptionSettingShow: {
+      get() {
+        return this.$store.state.subscriptionSettingShow;
+      },
+      set(value) {
+        this.$store.commit('setSubscriptionSettingShow', value);
+      }
+    },
     widthPaddingStyle() {
       return {
         width: this.widthPadding + '% !important',

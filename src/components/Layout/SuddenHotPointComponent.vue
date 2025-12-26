@@ -40,7 +40,8 @@
           10天
         </button>
       </div>
-      <div class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div
+          class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <!-- 历史订阅推送 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
@@ -167,7 +168,6 @@ export default {
     return {
       activeTab: '1h',
       loading: false,
-      lastUpdateTime: '',
       hotspots1h: [],
       hotspots3h: [],
       hotspots6h: [],
@@ -268,35 +268,33 @@ export default {
 
       requestPromise
           .then(res => {
-            const data = res?.data?.data || []
-            switch (tab) {
-              case '1h':
-                this.hotspots1h = data
-                break
-              case '3h':
-                this.hotspots3h = data
-                break
-              case '6h':
-                this.hotspots6h = data
-                break
-              case 'day':
-                this.hotspotsday = data
-                break
-              case '10day':
-                this.hotspots10day = data
-                break
+            const data = res?.data?.data || false
+            if (data && res.data.code !== 999) {
+              switch (tab) {
+                case '1h':
+                  this.hotspots1h = data
+                  break
+                case '3h':
+                  this.hotspots3h = data
+                  break
+                case '6h':
+                  this.hotspots6h = data
+                  break
+                case 'day':
+                  this.hotspotsday = data
+                  break
+                case '10day':
+                  this.hotspots10day = data
+                  break
+              }
+            }else {
+              if (res.data.code === 999){
+                this.$message.error(res.data.message);
+              }
             }
           })
           .finally(() => {
             this.loading = false
-            this.lastUpdateTime = new Date().toLocaleString('zh-CN', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit'
-            }).replace(/\//g, '-')
           })
     },
     formatFullTime(timeStr) {

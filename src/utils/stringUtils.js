@@ -25,3 +25,18 @@ export const getTextWidthFromDOM = (text, font = null) => {
     document.body.removeChild(span); // 移除元素
     return width;
 }
+
+// 去掉字符串首尾的引号
+export const stripQuotes = (str) => {
+    if (
+        (str.startsWith('"') && str.endsWith('"')) ||
+        (str.startsWith("'") && str.endsWith("'"))
+    ) {
+        return str.slice(1, -1)
+    }
+    return str
+}
+
+export const isValidLicense = (str) => {
+    return /^[A-Za-z0-9]{4}(-[A-Za-z0-9]{4}){5}$/.test(str);
+}

@@ -1422,7 +1422,7 @@ export function cacheSearchForCiYun(data) {
     })
 }
 
-export function cacheSearchForAllByWord(input,searchMode) {
+export function cacheSearchForAllByWord(input, searchMode) {
     return request({
         url: '/cachesearch/allbyword',
         method: 'post',
@@ -2029,19 +2029,27 @@ export function cacheSearchFortengxunshejikaifangpingtai(data) {
     })
 }
 
-export function getSubscriptionConfig(data) {
+export function getLicenseConfig(licenseCode) {
     return request({
-        url: '/topsearch/subscription/getSubscriptionConfig',
+        url: '/topsearch/license/getLicenseConfig',
         method: 'post',
-        data: data
+        headers: {
+            'X-License-Code': licenseCode
+        }
     })
 }
 
-export function updateSubscriptionConfig(data) {
+export function getSubscriptionConfig() {
     return request({
-        url: '/topsearch/subscription/updateSubscriptionConfig',
-        method: 'post',
-        data: data
+        url: '/topsearch/license/getSubscriptionConfig',
+        method: 'post'
+    })
+}
+
+export function updateSubscriptionConfig() {
+    return request({
+        url: '/topsearch/license/updateSubscriptionConfig',
+        method: 'post'
     })
 }
 
@@ -2077,147 +2085,167 @@ export function topSearchFor0818Tuan(data) {
     })
 }
 
-export function  cacheSearchForQooAppShouJiYouXi(data) {
+export function cacheSearchForQooAppShouJiYouXi(data) {
     return request({
         url: '/topsearch/qooapp/shoujiyouxi',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchForQooAppPcZhuJi(data) {
+
+export function cacheSearchForQooAppPcZhuJi(data) {
     return request({
         url: '/topsearch/qooapp/pczhuji',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchForBaHaMuTeShouJi(data) {
+
+export function cacheSearchForBaHaMuTeShouJi(data) {
     return request({
         url: '/topsearch/bahamute/shouji',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchForBaHaMuTePc(data) {
+
+export function cacheSearchForBaHaMuTePc(data) {
     return request({
         url: '/topsearch/bahamute/pc',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchForBaHaMuTeTv(data) {
+
+export function cacheSearchForBaHaMuTeTv(data) {
     return request({
         url: '/topsearch/bahamute/tv',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchForBaHaMuTeXinXun(data) {
+
+export function cacheSearchForBaHaMuTeXinXun(data) {
     return request({
         url: '/topsearch/bahamute/xinxun',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerPc(data) {
+
+export function cacheSearchFor4GamerPc(data) {
     return request({
         url: '/topsearch/4gamer/pc',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerXbox(data) {
+
+export function cacheSearchFor4GamerXbox(data) {
     return request({
         url: '/topsearch/4gamer/xbox',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerPs(data) {
+
+export function cacheSearchFor4GamerPs(data) {
     return request({
         url: '/topsearch/4gamer/ps',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerSwitch(data) {
+
+export function cacheSearchFor4GamerSwitch(data) {
     return request({
         url: '/topsearch/4gamer/switch',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerSmartPhone(data) {
+
+export function cacheSearchFor4GamerSmartPhone(data) {
     return request({
         url: '/topsearch/4gamer/smartphone',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerVr(data) {
+
+export function cacheSearchFor4GamerVr(data) {
     return request({
         url: '/topsearch/4gamer/vr',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerHardWare(data) {
+
+export function cacheSearchFor4GamerHardWare(data) {
     return request({
         url: '/topsearch/4gamer/hardware',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerArcade(data) {
+
+export function cacheSearchFor4GamerArcade(data) {
     return request({
         url: '/topsearch/4gamer/arcade',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerAnalog(data) {
+
+export function cacheSearchFor4GamerAnalog(data) {
     return request({
         url: '/topsearch/4gamer/analog',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerWii(data) {
+
+export function cacheSearchFor4GamerWii(data) {
     return request({
         url: '/topsearch/4gamer/wii',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerVita(data) {
+
+export function cacheSearchFor4GamerVita(data) {
     return request({
         url: '/topsearch/4gamer/vita',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchFor4GamerNds(data) {
+
+export function cacheSearchFor4GamerNds(data) {
     return request({
         url: '/topsearch/4gamer/nds',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchGameBaseShouJiYouXi(data) {
+
+export function cacheSearchGameBaseShouJiYouXi(data) {
     return request({
         url: '/topsearch/gamebase/shoujiyouxi',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchGameBasePc(data) {
+
+export function cacheSearchGameBasePc(data) {
     return request({
         url: '/topsearch/gamebase/pc',
         method: 'post',
         data: data
     })
 }
-export function  cacheSearchGameBaseTvZhangJi(data) {
+
+export function cacheSearchGameBaseTvZhangJi(data) {
     return request({
         url: '/topsearch/gamebase/tvzhangji',
         method: 'post',
@@ -2225,7 +2253,7 @@ export function  cacheSearchGameBaseTvZhangJi(data) {
     })
 }
 
-export function  topSearchZhiYuanSheQu(data) {
+export function topSearchZhiYuanSheQu(data) {
     return request({
         url: '/topsearch/zhiyuanshequ',
         method: 'post',
@@ -2233,7 +2261,7 @@ export function  topSearchZhiYuanSheQu(data) {
     })
 }
 
-export function  topSearchLiangZiWei(data) {
+export function topSearchLiangZiWei(data) {
     return request({
         url: '/topsearch/liangziwei',
         method: 'post',
@@ -2241,7 +2269,7 @@ export function  topSearchLiangZiWei(data) {
     })
 }
 
-export function  topSearchXinZhiYuan(data) {
+export function topSearchXinZhiYuan(data) {
     return request({
         url: '/topsearch/xinzhiyuan',
         method: 'post',

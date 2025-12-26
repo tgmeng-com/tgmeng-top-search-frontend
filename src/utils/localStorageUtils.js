@@ -43,14 +43,18 @@ export const LOCAL_STORAGE_KEYS = {
     INCLUDE_WORD: 'includeWord',
     // 过滤中排除的挂念子
     UNINCLUDE_WORD: 'unincludeWord',
-    // webhook订阅用的密钥
-    WEBHOOK_ACCESS_KEY: '',
+    // 密钥
+    LICENSE_DODE: 'licenseCode',
 };
 
 // 设置本地存储
 export const setLocalStorage = (key, value) => {
     try {
-        localStorage.setItem(key, JSON.stringify(value));
+        if (typeof value === 'string') {
+            localStorage.setItem(key, value)
+        } else {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
     } catch (e) {
         console.warn(`❌ Failed to set localStorage key: ${key}`, e);
     }
@@ -60,7 +64,15 @@ export const setLocalStorage = (key, value) => {
 export const getLocalStorage = (key) => {
     try {
         const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : null;
+        if (value){
+            if (typeof value === 'string') {
+                return value
+            } else {
+                JSON.parse(value)
+            }
+        }else {
+            return null
+        }
     } catch (e) {
         console.warn(`❌ Failed to get localStorage key: ${key}`, e);
         return null;

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getMachineId } from "@/utils/machineId"
 
 export function request(config) {
     const instance = axios.create({
@@ -10,7 +11,16 @@ export function request(config) {
 
     // 请求拦截器
     instance.interceptors.request.use(
-        config => config,
+        async config => {
+            const machineId = await getMachineId()
+            config.headers['X-Machine-Id'] = machineId
+            const licenseCode = localStorage.getItem('licenseCode')
+            if (licenseCode) {
+                config.headers['X-License-Code'] = licenseCode
+            }
+
+            return config
+        },
         error => Promise.reject(error)
     );
 

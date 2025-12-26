@@ -377,6 +377,7 @@ export default createStore({
         // 历史组件里面使用的标题
         historyDataBoardUseTitle: '',
         subscriptionSettingShow: false,
+        licenseShow: false,
         // 卡片横向滚动
         cardHorizontalScrolling: 'vertical',
         // 广告是否开启
@@ -1063,6 +1064,9 @@ export default createStore({
         },
         setSubscriptionSettingShow(state, newSubscription) {
             state.subscriptionSettingShow = newSubscription;
+        },
+        setLicenseShow(state, newLicenseShow) {
+          state.licenseShow = newLicenseShow;
         },
         setCardHorizontalScrolling(state, newCardHorizontalScrolling) {
             state.cardHorizontalScrolling = newCardHorizontalScrolling;
