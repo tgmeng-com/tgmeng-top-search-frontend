@@ -24,27 +24,6 @@
               </div>
             </header>
 
-            <!-- Key 输入框 -->
-            <div class="key-input-row">
-              <div class="key-input-wrapper">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17 11V7a5 5 0 0 0-10 0v4"/>
-                  <rect x="5" y="11" width="14" height="10" rx="2"/>
-                </svg>
-                <input
-                    v-model="form.licenseCode"
-                    type="text"
-                    placeholder="输入访问密钥(必填，如果没有可以在微信交流群公告中获取)"
-                    class="key-input"
-                />
-              </div>
-              <button class="key-btn" @click="applyKey">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </button>
-            </div>
-
             <!-- 订阅设置 -->
             <main class="scrollable-content">
               <section class="keyword-section">
@@ -306,7 +285,7 @@
 
 <script>
 import {getSubscriptionConfig, updateSubscriptionConfig} from "@/api/api";
-import {getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+import {getLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
 
 export default {
   name: 'SubscriptionConfigModal',
@@ -403,9 +382,8 @@ export default {
           secretTip:'网易泡泡机器人设置中的加签',
         }
       ],
-
+      licenseCode: '',
       form: {
-        licenseCode: '',
         keywords: [],
         platforms: []
       },
@@ -433,8 +411,8 @@ export default {
   },
   methods: {
     licenseInit() {
-      this.form.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE)
-      if (this.form.licenseCode) {
+      this.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE)
+      if (this.licenseCode) {
         this.applyKey()
       }
     },
@@ -528,7 +506,7 @@ export default {
     applyKey() {
       const successMessage = '密钥有效';
       const errorMessage = '密钥无效，请检查';
-      if (!this.form.licenseCode || !this.isValidKey(this.form.licenseCode)) {
+      if (!this.licenseCode || !this.isValidKey(this.licenseCode)) {
         if (this.subscriptionSettingShow) {
           this.$message.error(errorMessage);
         }
@@ -565,8 +543,6 @@ export default {
                   this.activePlatform = this.form.platforms[0].id
                 }
 
-                setLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE, this.form.licenseCode);
-                window.umami.track('licenseCode密钥成功缓存');
                 if (this.subscriptionSettingShow) {
                   this.$message.success(successMessage);
                 }
@@ -591,7 +567,6 @@ export default {
       if (!hasWebhook) return this.$message.error("请至少填写 1 个 Webhook")
 
       const submitData = {
-        licenseCode: this.form.licenseCode,
         subscriptionGlobalKeywords: this.form.keywords,
         subscriptionPlatformConfigs: this.form.platforms.map(p => ({
           type: p.type,
