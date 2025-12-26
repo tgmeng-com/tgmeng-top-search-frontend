@@ -230,11 +230,11 @@
           </div>
 
           <div>
-            <el-tooltip content="密钥" placement="bottom">
-              <a @click="() => { trackUmami('顶部右边密钥'); clickLicenseButton() }">
-                <div class="setting-btn" aria-label="密钥">
+            <el-tooltip content="摸鱼模式" placement="bottom">
+              <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
+                <div class="setting-btn" aria-label="摸鱼模式">
                   <div style="width: 1.875rem">
-                    <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥">
+                    <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
                   </div>
                 </div>
               </a>
@@ -242,11 +242,11 @@
           </div>
 
           <div>
-            <el-tooltip content="摸鱼模式" placement="bottom">
-              <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
-                <div class="setting-btn" aria-label="摸鱼模式">
+            <el-tooltip content="密钥" placement="bottom">
+              <a @click="() => { trackUmami('顶部右边密钥'); clickLicenseButton() }">
+                <div class="setting-btn" aria-label="密钥">
                   <div style="width: 1.875rem">
-                    <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
+                    <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥">
                   </div>
                 </div>
               </a>
@@ -322,6 +322,15 @@
               <img src="../../assets/image/fish.png" alt="摸鱼模式" class="w-8 h-8">
               <span class="text-gray-900 dark:text-gray-100 font-medium">摸鱼模式</span>
             </a>
+
+            <div
+                @click="() => { trackUmami('移动端菜单-密钥设置');clickLicenseButton(); toggleMobileMenu()}"
+                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥设置" class="w-8 h-8">
+              <span class="text-gray-900 dark:text-gray-100 font-medium">密钥设置</span>
+            </div>
+
+
 
             <router-link to="/setting"
                          @click="() => { trackUmami('移动端菜单-设置'); toggleMobileMenu() }"
