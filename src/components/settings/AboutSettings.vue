@@ -647,7 +647,7 @@ export default {
     dataFeatures() {
       return [
         {name: '已接入平台', desc: this.platformsData.length / 2},
-        {name: '日均抓取热点', desc: this.platformsData.length * 50 * 60 * 24 + '+'},
+        {name: '日均抓取热点', desc: this.platformsData.length * 20 * 60 * 24 + '+'},
         {name: '更新频率', desc: '分钟级'},
       ];
     },
