@@ -57,141 +57,7 @@
         </div>
       </div>
 
-      <div v-if="pageViewsShow"
-           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <!-- 左侧：统计数据（移动端换行显示） -->
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-          <!-- 总访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            总访问量: <span class="font-medium">{{ umamiAllViews }}</span>
-          </span>&nbsp;
-          <!-- 总访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            总时长: <span class="font-medium">{{ umamiAllTime }}</span>
-          </span>&nbsp;
-          <!-- 今日访问量 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            今日访问量: <span class="font-medium">{{ umamiTodayViews }}</span>
-          </span>&nbsp;
-          <!-- 今日访问时长 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            今日时长: <span class="font-medium">{{ umamiTodayTime }}</span>
-          </span>&nbsp;
-          <!-- 实时在线人数 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-green-200 dark:bg-green-900 text-green-900 dark:text-green-300"
-                :class="{'stats-updating': isUpdating}">
-    在线: <span class="font-medium">{{ umamiActive }}</span>
-  </span>
-        </div>
-        <!-- 右侧：更新时间（移动端换行显示） -->
-        <div
-            class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
-          数据每分钟更新一次（GitHub20-40分钟，网易云音乐10-15分钟，豆瓣2-10分钟，词云1分钟）
-        </div>
-      </div>
-
-      <div v-if="pageViewsShow"
-           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <!-- 历史订阅推送 -->
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            历史订阅推送
-          </span>&nbsp;
-          <!-- 飞书 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            飞书: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.FEISHU }}</span>
-          </span>&nbsp;
-          <!-- 钉钉 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            钉钉: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.DINGDING }}</span>
-          </span>&nbsp;
-          <!-- 企业微信 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            企业微信: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.QIYEWEIXIN }}</span>
-          </span>&nbsp;
-          <!-- Telegram -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            Telegram: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.TELEGRAM }}</span>
-          </span>&nbsp;
-          <!-- NTFY -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            NTFY: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.NTFY }}</span>
-          </span>&nbsp;
-          <!-- GOTIFY -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.GOTIFY }}</span>
-          </span>&nbsp;
-          <!-- 网易泡泡 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            网易泡泡: <span class="font-medium">{{ this.umamiSubscriptionData.AllSubscriptionData.WANGYIPOPO }}</span>
-          </span>&nbsp;
-        </div>
-        <!-- 右侧：更新时间（移动端换行显示） -->
-        <div>
-        </div>
-      </div>
-
-      <div v-if="pageViewsShow"
-           class="overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <!-- 今日订阅推送 -->
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            今日订阅推送
-          </span>&nbsp;
-          <!-- 飞书 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            飞书: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.FEISHU }}</span>
-          </span>&nbsp;
-          <!-- 钉钉 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            钉钉: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.DINGDING }}</span>
-          </span>&nbsp;
-          <!-- 企业微信 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            企业微信: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.QIYEWEIXIN }}</span>
-          </span>&nbsp;
-          <!-- Telegram -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            Telegram: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.TELEGRAM }}</span>
-          </span>&nbsp;
-          <!-- NTFY -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            NTFY: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.NTFY }}</span>
-          </span>&nbsp;
-          <!-- GOTIFY -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            GOTIFY: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.GOTIFY }}</span>
-          </span>&nbsp;
-          <!-- 网易泡泡 -->
-          <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
-                :class="{'stats-updating': isUpdating}">
-            网易泡泡: <span class="font-medium">{{ this.umamiSubscriptionData.TodaySubscriptionData.WANGYIPOPO }}</span>
-          </span>&nbsp;
-        </div>
-        <!-- 右侧：更新时间（移动端换行显示） -->
-        <div>
-        </div>
-      </div>
-
+      <PageViewShow :show="pageViewsShow" />
 
       <el-collapse expand-icon-position="left">
         <el-collapse-item>
@@ -549,8 +415,6 @@
 <script>
 import HotPointCard from '@/components/Layout/HotPointCard.vue';
 import {clearLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage,} from "@/utils/localStorageUtils";
-import {umamiActive, umamiEventValues, umamiStatsAll, umamiStatsToday} from "@/api/apiForUmami";
-import {formatSecondsToHMS, getAllTimeStartTimestamp, getTodayStartTimestamp} from "@/utils/timeUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
 import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
@@ -561,6 +425,7 @@ import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
 import HotPointHistoryComponent from "@/components/Layout/HotPointHistoryComponent.vue";
 import SuddenHotPointComponent from "@/components/Layout/SuddenHotPointComponent.vue";
+import PageViewShow from "@/components/Layout/PageViewShow.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
@@ -577,20 +442,14 @@ export default {
     draggable,
     WordCloud,
     FishModeChoose,
+    PageViewShow
   },
   data() {
     return {
-      umamiActive: this.$store.state.umamiActive,
-      umamiTodayViews: this.$store.state.umamiTodayViews,
-      umamiTodayTime: this.$store.state.umamiTodayTime,
-      umamiAllViews: this.$store.state.umamiAllViews,
-      umamiAllTime: this.$store.state.umamiAllTime,
-      umamiSubscriptionData: this.$store.state.umamiSubscriptionData,
 
       preDragSortList: [], // 拖动前的 sort 列表
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
-      umamiStatsTimer: null, // 新增：统计数据定时器
       windowWidth: window.innerWidth, // 屏幕大小
       homeHeaderAdsCard: this.$store.state.homeHeaderAdsCard,
       categoryScrollPositions: {}, // 存储每个分类横向的滚动位置
@@ -598,18 +457,6 @@ export default {
   },
   async mounted() {
     this.initializePlatforms();
-    // // 定时刷新数据
-    // this.refreshTimer = setInterval(() => {
-    //   this.refreshData();
-    // }, 120 * 1000); // 每2分钟刷新一次，然后里面函数里判断数据是否是1分钟之前的
-    //
-    // 新增：定时刷新统计数据（每5秒刷新一次）
-    // if (this.pageViewsShow) {
-    //   this.umamiStatsTimer = setInterval(() => {
-    //     this.initUmami();
-    //   }, 10 * 1000); // 每10秒刷新一次统计数据
-    // }
-
     window.addEventListener('resize', this.handleResize);
   },
   // 离开页面或者切换路由的时候，关闭定时器，避免造成内存泄露
@@ -617,12 +464,6 @@ export default {
     if (this.refreshTimer) {
       clearInterval(this.refreshTimer);
       this.refreshTimer = null;
-    }
-
-    // 新增：清理统计数据定时器
-    if (this.umamiStatsTimer) {
-      clearInterval(this.umamiStatsTimer);
-      this.umamiStatsTimer = null;
     }
 
     window.removeEventListener('resize', this.handleResize);
@@ -726,7 +567,6 @@ export default {
       this.activeCategory = this.categroies.find(cat => cat.id === this.defaultCategoryId) || this.categroies[this.defaultCategoryId];
       // 首次进入页面，检查路由参数是否合法
       this.handleRouteCategory("init");
-      this.initUmami();
     },
 
     filterByWords(texts, includeWords = [], excludeWords = [], getter = null) {
@@ -963,77 +803,6 @@ export default {
     ,
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
-    }
-    ,
-
-    initUmami() {
-      if (this.pageViewsShow) {
-        umamiActive()
-            .then((res) => {
-              this.umamiActive = res?.data?.visitors || 1;
-            })
-            .catch((err) => {
-              console.warn(`umami实时在线人数加载失败`, err);
-            })
-            .finally(() => {
-            });
-        umamiStatsToday()
-            .then((res) => {
-              this.umamiTodayViews = res?.data?.pageviews || '加载失败';
-              this.umamiTodayTime = formatSecondsToHMS(res?.data?.totaltime || '加载失败');
-            })
-            .catch((err) => {
-              console.warn(`umami近24小时统计数据加载失败`, err);
-            })
-            .finally(() => {
-            });
-        umamiStatsAll()
-            .then((res) => {
-              this.umamiAllViews = res?.data?.pageviews || '加载失败';
-              this.umamiAllTime = formatSecondsToHMS(res?.data?.totaltime || '加载失败');
-            })
-            .catch((err) => {
-              console.warn(`umami历史统计数据加载失败`, err);
-            })
-            .finally(() => {
-            });
-        const platforms = [
-          {event: '订阅推送-钉钉', key: 'DINGDING', name: '钉钉'},
-          {event: '订阅推送-飞书', key: 'FEISHU', name: '飞书'},
-          {event: '订阅推送-企业微信', key: 'QIYEWEIXIN', name: '企业微信'},
-          {event: '订阅推送-TG', key: 'TELEGRAM', name: 'Telegram'},
-          {event: '订阅推送-NTFY', key: 'NTFY', name: 'NTFY'},
-          {event: '订阅推送-GOTIFY', key: 'GOTIFY', name: 'GOTIFY'},
-          {event: '订阅推送-网易POPO', key: 'WANGYIPOPO', name: '网易泡泡'}
-        ];
-
-        this.loadPlatformsData(platforms, getAllTimeStartTimestamp(), 'AllSubscriptionData');
-        this.loadPlatformsData(platforms, getTodayStartTimestamp(), 'TodaySubscriptionData');
-      }
-    },
-    loadPlatformsData(platforms, startTimestamp, storeKey) {
-      Promise.all(
-          platforms.map(platform =>
-              umamiEventValues(platform.event, startTimestamp)
-                  .then((res) => {
-                    const result = res?.data;
-                    return {
-                      key: platform.key,
-                      value: Array.isArray(result)
-                          ? result.reduce((acc, item) => acc + (Number(item.value) * item.total), 0)
-                          : '加载失败'
-                    };
-                  })
-                  .catch((err) => {
-                    console.warn(`${platform.name}订阅数统计失败:`, err);
-                    return {key: platform.key, value: '加载失败'};
-                  })
-          )
-      ).then((results) => {
-        results.forEach(({key, value}) => {
-          this.$store.state.umamiSubscriptionData[storeKey][key] = value;
-        });
-      });
     },
     // 自定义调整卡片列数
     changeCardCols() {
