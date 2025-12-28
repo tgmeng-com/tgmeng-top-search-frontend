@@ -532,6 +532,7 @@ export default {
             } else {
               if (res.data.code === 999){
                 this.$message.error(res.data.message);
+                this.clickLicenseButton()
               }
               this.showResults = false;
             }

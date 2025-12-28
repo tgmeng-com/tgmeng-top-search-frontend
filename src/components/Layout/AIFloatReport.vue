@@ -225,6 +225,7 @@
 import {cacheSearchForAISummaryData} from "@/api/api";
 import AiFloatButton from "@/components/UI/AIFloatButton.vue";
 import EmptyData from "@/components/UI/EmptyData.vue";
+import store from "@/store";
 
 export default {
   components: {
@@ -466,6 +467,7 @@ export default {
               this.aiData = null
               if (res.data.code === 999) {
                 this.$message.error(res.data.message);
+                store.commit('setLicenseShow', true)
               }
             }
           }).finally(() => {

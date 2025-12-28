@@ -95,6 +95,7 @@ export default {
         { id: 7, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 15, message: '持续关注项目发展，期待更多创新功能上线！', time: '2025-11-12 18:32' },
         { id: 7, name: '*', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-17 16:24' },
         { id: 7, name: '*子', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-25 00:55' },
+        { id: 7, name: '兰一二', avatar: require('@/assets/avatars/project/lanyier.png'), amount: 20, message: '理想不该被辜负', time: '2025-12-28 13:47' },
       ],
       // 收款码数据
       payQrcodes: [

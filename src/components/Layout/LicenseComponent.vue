@@ -1,7 +1,7 @@
 <!-- LicenseComponent.vue - 密钥管理界面（完整版 + 模拟数据） -->
 <template>
   <div>
-    <teleport to="body">
+    <teleport to="body" >
       <transition name="modal">
         <div v-if="licenseShow" class="config-backdrop" @click="close">
           <div class="config-panel" @click.stop>
@@ -424,7 +424,7 @@ export default {
 }
 
 /* 其余原有样式（config-backdrop、config-panel、panel-header、panel-footer、动画等）全部保留，与 SubscriptionConfigModal 完全一致 */
-.config-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .85); backdrop-filter: blur(20px) saturate(120%); display: flex; align-items: center; justify-content: center; z-index: 1999; padding: 12px; animation: fadeIn .3s ease; }
+.config-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .85); backdrop-filter: blur(20px) saturate(120%); display: flex; align-items: center; justify-content: center; z-index: 2300; padding: 12px; animation: fadeIn .3s ease; }
 .config-panel { width: 80%; height: 90vh; max-height: 900px; background: linear-gradient(145deg, rgba(30, 33, 42, .95), rgba(20, 23, 32, .95)); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .08); display: flex; flex-direction: column; animation: slideUp .45s cubic-bezier(.16, 1, .3, 1); }
 .scrollable-content { flex: 1; overflow-y: auto; padding: 0 28px 28px; -webkit-overflow-scrolling: touch; }
 .panel-header { padding: 28px 28px 20px; flex-shrink: 0; position: relative; z-index: 2; }
