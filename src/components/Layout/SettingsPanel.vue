@@ -201,6 +201,14 @@ export default {
               storageKey: LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE,
               storeKey: 'categroiesDraggable',
               umamiEvent: '自定义分类是否可以拖动'
+            },
+            {
+              key: 'categroiesRssIconShow',
+              type: 'switch',
+              label: '分类RSS',
+              storageKey: LOCAL_STORAGE_KEYS.CATEGORIES_RSS_ICON_SHOW,
+              storeKey: 'categroiesRssIconShow',
+              umamiEvent: '自定义分类是否可以拖动'
             }
           ]
         },

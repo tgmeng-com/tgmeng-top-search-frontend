@@ -10,6 +10,7 @@ export const LOCAL_STORAGE_KEYS = {
     CARD_TOP_FONT_SIZE: 'cardTopFontSize',
     CARD_DRAGGABLE: 'cardDraggable',
     CATEGORIES_DRAGGABLE: 'categroiesDraggable',
+    CATEGORIES_RSS_ICON_SHOW: 'categroiesRssIconShow',
     CARD_HOT_SCORE_SHOW: 'cardHotScoreShow',
     CARD_TIME_SHOW: 'cardTimeShow',
     CARD_HORIZONTAL_SCROLLING: 'cardHorizontalScrolling',

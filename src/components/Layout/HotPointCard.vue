@@ -9,7 +9,7 @@
             title
           }}</h1>
       </div>
-      <div class="bg-gray-300 dark:bg-dark-card-title px-4 pb-2 flex items-center drag-handle"
+      <div v-if="cardTimeShow" class="bg-gray-300 dark:bg-dark-card-title px-4 pb-2 flex items-center drag-handle"
            :style="cardTopStyle">
         <el-icon
             class="favorite-icon"
@@ -30,8 +30,7 @@
             </svg>
           </a>
         </div>
-        <span v-if="cardTimeShow"
-              class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  rounded-xl dark:text-dark-text"
+        <span class="ml-auto px-1 bg-blue-100/30 dark:bg-blue-300/10  rounded-xl dark:text-dark-text"
               :style="cardTopTimeStyle">
         <el-button
             link

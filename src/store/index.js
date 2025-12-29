@@ -331,6 +331,8 @@ export default createStore({
         cardDraggable: false,
         // 分类是否可以拖动
         categroiesDraggable: false,
+        // 分类上的RSS的图标是否展示
+        categroiesRssIconShow: true,
         // 卡片热度值是否显示
         cardHotScoreShow: true,
         // 卡片时间是否显示
@@ -1002,6 +1004,10 @@ export default createStore({
         },
         setCategroiesDraggable(state, newDraggable) {
             state.categroiesDraggable = newDraggable;
+        },
+        // 分类上的RSS的图标是否展示
+        setCategroiesRssIconShow(state, newShow) {
+            state.categroiesRssIconShow = newShow;
         },
         setCardHotScoreShow(state, newShow) {
             state.cardHotScoreShow = newShow;

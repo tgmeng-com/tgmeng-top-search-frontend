@@ -44,7 +44,7 @@
                      viewBox="0 0 24 24"
                      class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-50"
                      @click.stop="handleRssClick(cat)"
-                     v-if="cat.id !== 13 && cat.id !== -1"
+                     v-if="cat.id !== 13 && cat.id !== -1 && categroiesRssIconShow"
                 >
                   <rect width="24" height="24" rx="3" ry="3" fill="#FFA500"/>
                   <circle cx="6" cy="18" r="2" fill="white"/>
@@ -153,7 +153,7 @@
 
 <script>
 import HotPointCard from '@/components/Layout/HotPointCard.vue';
-import {clearLocalStorage, getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage,} from "@/utils/localStorageUtils";
+import { getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage,} from "@/utils/localStorageUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
 import WorkMaskExcel from "@/components/fakeUI/WorkMaskExcel.vue";
@@ -251,57 +251,6 @@ export default {
           this.updateCategroiesCache()
         });
       }
-      // 用缓存里的自定义样式替换一下全部数据里的自定义样式
-      const cacheCardCols = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS)
-      const cacheCardHeight = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT)
-      const cardListLimit = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_LIST_LIMIT)
-      const cacheCardWidthForPhone = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE)
-      const cacheCcardTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE)
-      const cacheCategroiesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE)
-      const cacheCardTopFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE)
-      const cacheCardDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE)
-      const cacheCategroiesDraggable = getLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE)
-
-      const cacheCardHotScoreShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW)
-      const cacheCardTimeShow = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW)
-      const cacheCardHorizontalScrolling = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HORIZONTAL_SCROLLING)
-      const cacheCardHotTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL)
-      const cacheCardTitleFull = getLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL)
-      const cacheDefaultCategoryId = getLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID)
-      const cacheTopCarouselFontShow = getLocalStorage(LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW)
-      const cacheWordCloudShow = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW)
-      const cachePageViewsShow = getLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW)
-      const cacheWidthPadding = getLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING)
-      const cacheWordCloudNum = getLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM)
-      const cacheGoogleAdsEnable = getLocalStorage(LOCAL_STORAGE_KEYS.ADS_ENABLED)
-      const cacheIncludeWord = getLocalStorage(LOCAL_STORAGE_KEYS.INCLUDE_WORD)
-      const cacheunincludeWord = getLocalStorage(LOCAL_STORAGE_KEYS.UNINCLUDE_WORD)
-
-      this.cardCols = cacheCardCols ?? this.cardCols;
-      this.cardHeight = cacheCardHeight ?? this.cardHeight;
-      this.cardListLimit = cardListLimit ?? this.cardListLimit;
-      this.cardWidthForPhone = cacheCardWidthForPhone ?? this.cardWidthForPhone;
-      this.cardTitleFontSize = cacheCcardTitleFontSize ?? this.cardTitleFontSize;
-      this.categroiesTitleFontSize = cacheCategroiesTitleFontSize ?? this.categroiesTitleFontSize;
-      this.cardTopFontSize = cacheCardTopFontSize ?? this.cardTopFontSize;
-      this.cardDraggable = cacheCardDraggable ?? this.cardDraggable;
-      this.categroiesDraggable = cacheCategroiesDraggable ?? this.categroiesDraggable;
-      this.cardHotScoreShow = cacheCardHotScoreShow ?? this.cardHotScoreShow;
-      this.cardTimeShow = cacheCardTimeShow ?? this.cardTimeShow;
-      this.cardHorizontalScrolling = cacheCardHorizontalScrolling ?? this.cardHorizontalScrolling;
-      this.cardHotTitleFull = cacheCardHotTitleFull ?? this.cardHotTitleFull;
-      this.cardTitleFull = cacheCardTitleFull ?? this.cardTitleFull;
-      this.defaultCategoryId = cacheDefaultCategoryId ?? this.defaultCategoryId;
-      this.topCarouselFontShow = cacheTopCarouselFontShow ?? this.topCarouselFontShow;
-      this.wordCloudShow = cacheWordCloudShow ?? this.wordCloudShow;
-      this.pageViewsShow = cachePageViewsShow ?? this.pageViewsShow;
-      this.widthPadding = cacheWidthPadding ?? this.widthPadding;
-      this.wordCloudNum = cacheWordCloudNum ?? this.wordCloudNum;
-      this.adsEnabled = cacheGoogleAdsEnable ?? this.adsEnabled;
-      this.includeWord = cacheIncludeWord ?? this.includeWord;
-      this.unincludeWord = cacheunincludeWord ?? this.unincludeWord;
-
-
       // 把其他分类下的数据放到全部分类下
       this.initAllCategroies();
       // 如果没有设置默认值，那就用新闻作为默认分类
@@ -545,171 +494,6 @@ export default {
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
     },
-    // 自定义调整卡片列数
-    changeCardCols() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS, this.cardCols);
-      window.umami.track('自定义卡片列数')
-    }
-    ,
-    // 自定义调整卡片高度
-    changeCardHeight() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT, this.cardHeight);
-      window.umami.track('自定义卡片高度')
-    }
-    ,
-    // 自定义调整卡片列表数
-    changeCardListLimit() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_LIST_LIMIT, this.cardListLimit);
-      window.umami.track('自定义卡片列表数')
-    }
-    ,
-    changeCardWidthForPhone() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_WIDTH_FOR_PHONE, this.cardWidthForPhone);
-      window.umami.track('自定义卡片宽度')
-    }
-    ,
-    // 自定义标题字体大小
-    changeCardTitleFontSize() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE, this.cardTitleFontSize);
-      window.umami.track('自定义热点标题字体大小')
-    }
-    ,
-    // 自定义调整分类名称字体大小
-    changeCategroiesTitleFontSize() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE, this.categroiesTitleFontSize);
-      window.umami.track('自定义分类名称字体大小')
-    }
-    ,
-    // 自定义调整卡片顶部字体大小
-    changeCardTopFontSize() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE, this.cardTopFontSize);
-      window.umami.track('自定义卡片标题字体大小')
-    }
-    ,
-    // 自定义调整卡片是否可以拖动
-    changeCardDraggable() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE, this.cardDraggable);
-      window.umami.track('自定义卡片是否可以拖动')
-    }
-    ,
-    // 自定义调整分类是否可以拖动
-    changeCategroiesDraggable() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE, this.categroiesDraggable);
-      window.umami.track('自定义分类是否可以拖动')
-    }
-    ,
-    // 自定义调整卡片标题是否完整显示
-    changeCardHotTitleFull() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL, this.cardHotTitleFull);
-      window.umami.track('自定义热点标题是否完整显示')
-    }
-    ,
-    // 自定义调整卡片标题是否完整显示
-    changeCardTitleFull() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL, this.cardTitleFull);
-      window.umami.track('自定义卡片标题是否完整显示')
-    }
-    ,
-    // 自定义调整热点热度值是否显示
-    changeCardHotScoreShow() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW, this.cardHotScoreShow);
-      window.umami.track('自定义热点热度值是否显示')
-    }
-    ,
-    // 自定义调整卡片时间是否显示
-    changeCardTimeShow() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW, this.cardTimeShow);
-      window.umami.track('自定义卡片时间是否显示')
-    }
-    ,
-    changeCardHorizontalScrolling() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.CARD_HORIZONTAL_SCROLLING, this.cardHorizontalScrolling);
-      window.umami.track('自定义卡片移动端横向滚动')
-    }
-    ,
-    // 自定义调整默认选中的分类id
-    changeDefaultActiveCategroyId() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID, this.defaultCategoryId);
-      window.umami.track('自定义默认选中的分类id')
-    }
-    ,
-
-    changeTopCarouselFontShow() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW, this.topCarouselFontShow);
-      window.umami.track('自定义词云是否展示')
-    }
-    ,
-    // 自定义调整词云是否展示
-    changeWordCloudShow() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW, this.wordCloudShow);
-      window.umami.track('自定义词云是否展示')
-    }
-    ,
-    // 自定义调整访问量展示
-    changePageViewsShow() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW, this.pageViewsShow);
-      window.umami.track('自定义访问量是否展示')
-    }
-    ,
-    // 自定义调整边距缩放，就是屏幕两边的，主要是为了移动端i
-    changeWidthPadding() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING, this.widthPadding);
-      window.umami.track('自定义边距缩放')
-    }
-    ,
-    // 自定义调整词云数量
-    changeWordCloudNum() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, this.wordCloudNum);
-      window.umami.track('自定义词云数量')
-    }
-    ,
-    changeIncludeWord() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.INCLUDE_WORD, this.includeWord);
-      window.umami.track('🔓添加过滤关键字包含：' + this.includeWord)
-      this.handleCategoryClick(this.activeCategory, {skipRoutePush: true})
-    }
-    ,
-    changeUnincludeWord() {
-      setLocalStorage(LOCAL_STORAGE_KEYS.UNINCLUDE_WORD, this.unincludeWord);
-      window.umami.track('🔒添加过滤关键字排除：' + this.unincludeWord)
-      this.handleCategoryClick(this.activeCategory, {skipRoutePush: true})
-    }
-    ,
-    cleanExcelLocalStorage() {
-      this.$confirm('此操作将清除上述所有设置（不包括卡片拖动和分类拖动的顺序以及收藏内容）', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_COLS);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HEIGHT);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FONT_SIZE);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_TITLE_FONT_SIZE);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TOP_FONT_SIZE);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_DRAGGABLE);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES_DRAGGABLE);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_SCORE_SHOW);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TIME_SHOW);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_HOT_TITLE_FULL);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.CARD_TITLE_FULL);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.DEFAULT_CATEGORY_ID);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.WIDTH_PADDING);
-        clearLocalStorage(LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM);
-
-        this.$message({
-          type: 'success',
-          message: '已重置，请刷新页面重新加载!'
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
-        });
-      });
-    }
-    ,
   },
   computed: {
     topMessageHeight() {
@@ -798,6 +582,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setCategroiesDraggable', value);
+      }
+    },
+    categroiesRssIconShow: {
+      get() {
+        return this.$store.state.categroiesRssIconShow;
+      },
+      set(value) {
+        this.$store.commit('setCategroiesRssIconShow', value);
       }
     },
     cardHotScoreShow: {
