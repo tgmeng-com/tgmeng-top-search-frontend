@@ -493,7 +493,7 @@ export default {
 }
 
 .card-details-wrapper.expanded {
-  max-height: 2000px;
+  /*max-height: 2000px;*/
 }
 
 .card-details {
