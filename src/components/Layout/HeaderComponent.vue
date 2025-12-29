@@ -364,11 +364,11 @@ export default {
       searchHistory: [],
       maxHistoryItems: 20,
       windowWidth: window.innerWidth,
-      searchMode: 'MO_HU_PI_PEI_FIVE_MINUTES',
+      searchMode: 'MO_HU_PI_PEI_ONE_MINUTES',
       isPc: window.innerWidth >= 768,
       modeOptions: [
         {
-          value: 'MO_HU_PI_PEI_FIVE_MINUTES',
+          value: 'MO_HU_PI_PEI_ONE_MINUTES',
           icon: '🤖',
           label: '🤖模糊匹配(1分钟)',
           tip: '【数据范围:1分钟】【匹配模式:模糊匹配】(热点标题包含输入内容：建议输入短文本)'

@@ -194,7 +194,8 @@
 </template>
 
 <script>
-import { searchHistoryTrending } from "@/api/api";
+import {cacheSearchForAllByWord} from "@/api/api";
+import store from "@/store";
 
 export default {
   name: 'HotPointHistoryComponent',
@@ -333,22 +334,26 @@ export default {
       this.activeTab = tab;
       this.loading = true;
 
-      let startTime = "";
-      let endTime = this.getCurrentTime();
+      let searchMode = "";
 
       if (tab === 'daily') {
-        startTime = this.getTodayStartTime();
+        searchMode = 'ZHI_WEN_PI_PEI_TODAY';
       } else if (tab === 'history') {
-        startTime = "1997-01-01 00:00:00";
+        searchMode = 'ZHI_WEN_PI_PEI_HISTORY';
       }
-
-      searchHistoryTrending(this.$store.state.historyDataBoardUseTitle, startTime, endTime)
+      cacheSearchForAllByWord(this.$store.state.historyDataBoardUseTitle, searchMode)
           .then(res => {
-            this.historyData = res?.data?.data || [];
-          })
-          .catch(err => {
-            console.error('获取历史趋势失败:', err);
-            this.historyData = [];
+            const result = res?.data?.data || false;
+            if (result && res.data.code !== 999) {
+              this.historyData = result;
+            } else {
+              if (res.data.code === 999){
+                this.$message.error(res.data.message);
+                store.commit('setLicenseShow', true)
+              }
+              this.showResults = false;
+              this.historyData = [];
+            }
           })
           .finally(() => {
             this.loading = false;
@@ -449,7 +454,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999999;
+  z-index: 1999;
   padding: 20px;
   animation: fadeIn 0.3s ease;
 }
