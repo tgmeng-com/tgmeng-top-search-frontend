@@ -6,22 +6,22 @@
       <div class="tab-buttons dark:text-dark-text">
         <button
             class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '1h' }"
-            @click="clickSwitchTab('1h')"
+            :class="{ active: activeTab === 'hour' }"
+            @click="clickSwitchTab('hour')"
         >
           1小时
         </button>
         <button
             class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '3h' }"
-            @click="clickSwitchTab('3h')"
+            :class="{ active: activeTab === '3hour' }"
+            @click="clickSwitchTab('3hour')"
         >
           3小时
         </button>
         <button
             class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '6h' }"
-            @click="clickSwitchTab('6h')"
+            :class="{ active: activeTab === '6hour' }"
+            @click="clickSwitchTab('6hour')"
         >
           6小时
         </button>
@@ -39,6 +39,20 @@
         >
           10天
         </button>
+        <button
+            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
+            :class="{ active: activeTab === 'month' }"
+            @click="clickSwitchTab('month')"
+        >
+          1月
+        </button>
+        <button
+            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
+            :class="{ active: activeTab === 'history' }"
+            @click="clickSwitchTab('history')"
+        >
+          历史
+        </button>
       </div>
       <div
           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -51,7 +65,7 @@
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div>
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            🤖 本页面所有数据每分钟更新一次
+            🤖 本页面所有数据每五分钟更新一次
           </span>&nbsp;
         </div>
       </div>
@@ -154,10 +168,6 @@
 
 <script>
 import {
-  searchHistorySuddenHeatPoint10Day,
-  searchHistorySuddenHeatPoint3Hour,
-  searchHistorySuddenHeatPoint6Hour,
-  searchHistorySuddenHeatPointDay,
   searchHistorySuddenHeatPointHour,
 } from "@/api/api";
 import store from "@/store";
@@ -166,25 +176,14 @@ export default {
   name: 'SuddenHotPointComponent',
   data() {
     return {
-      activeTab: '1h',
+      activeTab: 'hour',
       loading: false,
-      hotspots1h: [],
-      hotspots3h: [],
-      hotspots6h: [],
-      hotspotsday: [],
-      hotspots10day: []
+      hotspotData: [],
     }
   },
   computed: {
     currentHotspots() {
-      const map = {
-        '1h': this.hotspots1h,
-        '3h': this.hotspots3h,
-        '6h': this.hotspots6h,
-        'day': this.hotspotsday,
-        '10day': this.hotspots10day
-      }
-      const list = map[this.activeTab] || []
+      const list = this.hotspotData
       return [...list].sort((a, b) => b.platform_count - a.platform_count)
     },
     maxPlatformCount() {
@@ -244,51 +243,14 @@ export default {
       this.activeTab = tab
       this.loading = true
 
-      let requestPromise
-      switch (tab) {
-        case '1h':
-          requestPromise = searchHistorySuddenHeatPointHour()
-          break
-        case '3h':
-          requestPromise = searchHistorySuddenHeatPoint3Hour()
-          break
-        case '6h':
-          requestPromise = searchHistorySuddenHeatPoint6Hour()
-          break
-        case 'day':
-          requestPromise = searchHistorySuddenHeatPointDay()
-          break
-        case '10day':
-          requestPromise = searchHistorySuddenHeatPoint10Day()
-          break
-        default:
-          this.loading = false
-          return
-      }
-
+      let requestPromise = searchHistorySuddenHeatPointHour(tab)
       requestPromise
           .then(res => {
             const data = res?.data?.data || false
             if (data && res.data.code !== 999) {
-              switch (tab) {
-                case '1h':
-                  this.hotspots1h = data
-                  break
-                case '3h':
-                  this.hotspots3h = data
-                  break
-                case '6h':
-                  this.hotspots6h = data
-                  break
-                case 'day':
-                  this.hotspotsday = data
-                  break
-                case '10day':
-                  this.hotspots10day = data
-                  break
-              }
-            }else {
-              if (res.data.code === 999){
+              this.hotspotData = data
+            } else {
+              if (res.data.code === 999) {
                 this.$message.error(res.data.message);
                 store.commit('setLicenseShow', true)
               }
@@ -318,7 +280,7 @@ export default {
     }
   },
   mounted() {
-    this.clickSwitchTab('1h')
+    this.clickSwitchTab('hour')
   }
 }
 </script>
