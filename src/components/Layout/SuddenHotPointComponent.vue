@@ -65,7 +65,7 @@
         <!-- 右侧：更新时间（移动端换行显示） -->
         <div>
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            🤖 本页面所有数据每五分钟更新一次
+            🤖 本页面所有数据每5分钟更新一次
           </span>&nbsp;
         </div>
       </div>
