@@ -1,4 +1,3 @@
-<!-- SubscriptionConfigModal.vue - 支持平台独立关键词和备注 -->
 <template>
   <div>
     <teleport to="body">
@@ -26,7 +25,8 @@
 
             <!-- 订阅设置 -->
             <main class="scrollable-content">
-              <section class="keyword-section">
+              <!-- 全局订阅关键词模块（带边框） -->
+              <section class="section-box">
                 <h3>
                   全局订阅关键词
                   <span class="counter">{{ form.keywords.length }}/{{ publicKeyWordCountLimit }}</span>
@@ -37,6 +37,7 @@
                     </svg>
                   </div>
                 </h3>
+
                 <div class="keyword-tags">
                   <div v-for="(tag, i) in form.keywords" :key="i" class="keyword-tag">
                     {{ tag }}
@@ -63,12 +64,66 @@
                       :class="{ disabled: form.keywords.length >= publicKeyWordCountLimit }"
                       @click="form.keywords.length < publicKeyWordCountLimit && startAddKeyword()"
                   >
-<!--                    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">-->
-<!--                      <path d="M7 2v10M2 7h10"/>-->
-<!--                    </svg>-->
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" stroke="none">
                       <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 全局平台分类模块（带边框） -->
+              <section class="section-box">
+                <h3>
+                  全局平台分类
+                  <span class="counter">{{ globalSelectedPlatforms.length }}/{{ totalPlatformsCount }}</span>
+                  <div class="global-tip-icon" data-tip="全局平台分类会应用到所有推送平台。&#10;&#10;如果某个平台设置了独立分类，则该平台只会推送选中的分类内容（独立分类优先）。&#10;&#10;不选则推送所有来源。">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <circle cx="8" cy="8" r="6"/>
+                      <path d="M8 7v4M8 5h.01"/>
+                    </svg>
+                  </div>
+                </h3>
+
+                <div class="category-cascader-wrapper">
+                  <div class="cascader-trigger modern-input" @click="toggleGlobalCascader">
+                    <span class="trigger-text">{{ globalSelectedPlatforms.length > 0 ? `已选 ${globalSelectedPlatforms.length} 个平台` : '选择平台分类（支持多选）' }}</span>
+                    <svg class="arrow" :class="{ rotate: globalCascaderOpen }" width="12" height="12" viewBox="0 0 12 12">
+                      <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                  </div>
+
+                  <div class="cascader-dropdown cascader-tabs" v-show="globalCascaderOpen">
+                    <div class="cascader-tabs-header">
+                      <div
+                          v-for="root in platformCategories"
+                          :key="root.platformCategoryRoot"
+                          class="tab-item"
+                          :class="{ active: globalActiveTab === root.platformCategoryRoot }"
+                          @click="globalActiveTab = root.platformCategoryRoot"
+                      >
+                        {{ root.platformCategoryRoot }}
+                      </div>
+                    </div>
+                    <div class="cascader-tabs-content">
+                      <div v-for="root in platformCategories" :key="root.platformCategoryRoot" v-show="globalActiveTab === root.platformCategoryRoot">
+                        <div class="cascader-root-header" :class="{ allSelected: isRootAllSelected(root) }">
+                          <label class="checkbox-label">
+                            <input type="checkbox" :checked="isRootAllSelected(root)" @change="toggleRootAll(root, $event.target.checked)" />
+                            <span>全选 {{ root.platformCategoryRoot }}</span>
+                          </label>
+                        </div>
+                        <div class="cascader-items dense">
+                          <label v-for="item in root.platforms" :key="item.platformName" class="checkbox-label item">
+                            <div class="item-bg">
+                              <input type="checkbox"
+                                     :value="item.platformName"
+                                     v-model="globalSelectedPlatforms" />
+                              <span>{{ item.platformName }}</span>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -106,7 +161,7 @@
                     <!-- Webhook 输入框 -->
                     <div class="input-with-tip">
                       <input v-model="plat.webhook" :placeholder="plat.webhookPlaceholder"
-                             class="modern-input secret"/>
+                             class="modern-input secret full-width"/>
                       <div class="tip-icon" :data-tip="plat.webhookTip">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                           <circle cx="8" cy="8" r="6"/>
@@ -118,7 +173,7 @@
                     <!-- Secret 输入框（其他平台） -->
                     <div v-if="plat.type!=='QIYEWEIXIN'" class="input-with-tip">
                       <input v-model="plat.secret" :placeholder="plat.secretPlaceholder"
-                             class="modern-input secret"/>
+                             class="modern-input secret full-width"/>
                       <div class="tip-icon" :data-tip="plat.secretTip">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                           <circle cx="8" cy="8" r="6"/>
@@ -130,7 +185,7 @@
                     <!-- 下拉选择框（企业微信） -->
                     <div v-else class="input-with-tip">
                       <div class="custom-select" :class="{ active: plat.selectOpen }">
-                        <div class="select-trigger modern-input secret" @click.stop="plat.selectOpen = !plat.selectOpen">
+                        <div class="select-trigger modern-input secret full-width" @click.stop="plat.selectOpen = !plat.selectOpen">
                           <span>{{ plat.secret || '请选择推送格式' }}</span>
                           <svg class="arrow" :class="{ rotate: plat.selectOpen }" width="12" height="12"
                                viewBox="0 0 12 12">
@@ -158,12 +213,13 @@
                       </div>
                     </div>
 
-                    <!-- 平台独立关键词 - 调整布局 -->
+                    <!-- 平台独立关键词 -->
                     <div class="input-with-tip">
                       <div class="platform-keywords">
                         <div class="platform-keywords-header">
                           <span class="keywords-label">独立关键词(可选) ({{ plat.platformKeywords?.length || 0 }}/{{ privateKeyWordCountLimit }})</span>
                         </div>
+
                         <div class="platform-keyword-tags">
                           <div v-for="(tag, i) in plat.platformKeywords" :key="i" class="platform-keyword-tag">
                             {{ tag }}
@@ -198,7 +254,6 @@
                         </div>
                       </div>
 
-                      <!-- 提示图标移到这里 -->
                       <div class="tip-icon" data-tip="此平台的独立关键词，仅在此平台推送。&#10;&#10;如果设置了独立关键词，则此平台关键词为：独立关键词列表+全局关键词列表。&#10;&#10;如果不设置独立关键词，则此平台关键词为：全局关键词列表。">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                           <circle cx="8" cy="8" r="6"/>
@@ -207,13 +262,71 @@
                       </div>
                     </div>
 
+                    <!-- 平台独立分类 -->
+                    <div class="input-with-tip">
+                      <div class="platform-keywords">
+                        <div class="platform-keywords-header">
+                          <span class="keywords-label">独立平台分类(可选) ({{ (plat.selectedPlatforms?.length || 0) }}/{{ totalPlatformsCount }})</span>
+                        </div>
+
+                        <div class="category-cascader-wrapper platform-cascader">
+                          <div class="cascader-trigger modern-input" @click.stop="togglePlatformCascader(plat)">
+                            <span class="trigger-text">{{ (plat.selectedPlatforms?.length || 0) > 0 ? `已选 ${plat.selectedPlatforms.length} 个平台` : '选择平台分类（支持多选）' }}</span>
+                            <svg class="arrow" :class="{ rotate: plat.cascaderOpen }" width="12" height="12" viewBox="0 0 12 12">
+                              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                          </div>
+
+                          <div class="cascader-dropdown cascader-tabs high-zindex" v-show="plat.cascaderOpen">
+                            <div class="cascader-tabs-header">
+                              <div
+                                  v-for="root in platformCategories"
+                                  :key="root.platformCategoryRoot"
+                                  class="tab-item small"
+                                  :class="{ active: plat.activeTab === root.platformCategoryRoot }"
+                                  @click.stop="plat.activeTab = root.platformCategoryRoot"
+                              >
+                                {{ root.platformCategoryRoot }}
+                              </div>
+                            </div>
+                            <div class="cascader-tabs-content">
+                              <div v-for="root in platformCategories" :key="root.platformCategoryRoot" v-show="plat.activeTab === root.platformCategoryRoot">
+                                <div class="cascader-root-header" :class="{ allSelected: isPlatformRootAllSelected(plat, root) }">
+                                  <label class="checkbox-label">
+                                    <input type="checkbox" :checked="isPlatformRootAllSelected(plat, root)" @change="togglePlatformRootAll(plat, root, $event.target.checked)" />
+                                    <span>全选 {{ root.platformCategoryRoot }}</span>
+                                  </label>
+                                </div>
+                                <div class="cascader-items dense small">
+                                  <label v-for="item in root.platforms" :key="item.platformName" class="checkbox-label item">
+                                    <div class="item-bg">
+                                      <input type="checkbox"
+                                             :value="item.platformName"
+                                             v-model="plat.selectedPlatforms" />
+                                      <span>{{ item.platformName }}</span>
+                                    </div>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="tip-icon" data-tip="选择此推送平台的来源分类。&#10;&#10;选中后，该平台只会推送来自这些分类的文章。&#10;&#10;不选则推送所有来源（受全局分类影响）。">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <circle cx="8" cy="8" r="6"/>
+                          <path d="M8 7v4M8 5h.01"/>
+                        </svg>
+                      </div>
+                    </div>
 
                     <!-- 备注输入框 -->
                     <div class="input-with-tip">
                       <input
                           v-model="plat.remark"
                           placeholder="备注（可选，用于区分多个同类平台）"
-                          class="modern-input remark-input"
+                          class="modern-input remark-input full-width"
                       />
                       <div class="tip-icon" data-tip="给这个平台添加备注，方便区分多个同类平台。&#10;例如：公司群、客户群、测试群等">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -284,7 +397,7 @@
 </template>
 
 <script>
-import {getSubscriptionConfig, updateSubscriptionConfig} from "@/api/api";
+import {getPlatformCategories, getSubscriptionConfig, updateSubscriptionConfig} from "@/api/api";
 import {getLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
 
 export default {
@@ -296,6 +409,9 @@ export default {
       newKeyword: '',
       showAddPlatformModal: false,
       platformIdCounter: 0,
+      globalCascaderOpen: false,
+      globalActiveTab: '新闻',
+      globalSelectedPlatforms: [],
 
       platformTemplates: [
         {
@@ -390,6 +506,226 @@ export default {
       platformCountLimit: 10,
       publicKeyWordCountLimit: 10,
       privateKeyWordCountLimit: 10,
+
+      platformCategories: [
+        {
+          "platformCategoryRoot": "新闻",
+          "platforms": [
+            {"platformCategory": "新闻", "platformName": "星岛环球"},
+            {"platformCategory": "新闻", "platformName": "ZAKER"},
+            {"platformCategory": "新闻", "platformName": "腾讯新闻"},
+            {"platformCategory": "新闻", "platformName": "网易新闻"},
+            {"platformCategory": "新闻", "platformName": "中国新闻网"},
+            {"platformCategory": "新闻", "platformName": "BBC"},
+            {"platformCategory": "新闻", "platformName": "新京报"},
+            {"platformCategory": "新闻", "platformName": "百度国际"},
+            {"platformCategory": "新闻", "platformName": "澎湃新闻"},
+            {"platformCategory": "新闻", "platformName": "法广"},
+            {"platformCategory": "新闻", "platformName": "百度新闻"},
+            {"platformCategory": "新闻", "platformName": "华尔街日报"},
+            {"platformCategory": "新闻", "platformName": "纽约时报"},
+            {"platformCategory": "新闻", "platformName": "头条新闻"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "设计",
+          "platforms": [
+            {"platformCategory": "设计", "platformName": "Awwwards"},
+            {"platformCategory": "设计", "platformName": "Abduzeedo"},
+            {"platformCategory": "设计", "platformName": "Dribbble"},
+            {"platformCategory": "涂鸦王国", "platformName": "涂鸦王国"},
+            {"platformCategory": "设计", "platformName": "腾讯设计开放平台"},
+            {"platformCategory": "设计", "platformName": "ArchDaily"},
+            {"platformCategory": "站酷", "platformName": "站酷"},
+            {"platformCategory": "设计", "platformName": "TOPYS"},
+            {"platformCategory": "设计", "platformName": "Core77"},
+            {"platformCategory": "设计", "platformName": "优设网"},
+            {"platformCategory": "设计", "platformName": "人人都是产品经理"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "财经",
+          "platforms": [
+            {"platformCategory": "财经", "platformName": "金色财经"},
+            {"platformCategory": "财经", "platformName": "每经网"},
+            {"platformCategory": "财经", "platformName": "时代在线"},
+            {"platformCategory": "财经", "platformName": "格隆汇"},
+            {"platformCategory": "财经", "platformName": "科创板日报"},
+            {"platformCategory": "财经", "platformName": "第一财经"},
+            {"platformCategory": "财经", "platformName": "同花顺"},
+            {"platformCategory": "财经", "platformName": "法布"},
+            {"platformCategory": "财经", "platformName": "百度财经"},
+            {"platformCategory": "财经", "platformName": "金融界"},
+            {"platformCategory": "财经", "platformName": "新浪财经"},
+            {"platformCategory": "财经", "platformName": "金十"},
+            {"platformCategory": "财经", "platformName": "汇通财经"},
+            {"platformCategory": "财经", "platformName": "老虎财经"},
+            {"platformCategory": "财经", "platformName": "选股通"},
+            {"platformCategory": "财经", "platformName": "经济观察网"},
+            {"platformCategory": "财经", "platformName": "东方财富网"},
+            {"platformCategory": "财经", "platformName": "21经济网"},
+            {"platformCategory": "财经", "platformName": "BlockBeats"},
+            {"platformCategory": "财经", "platformName": "智通财经"},
+            {"platformCategory": "财经", "platformName": "财联社"},
+            {"platformCategory": "财经", "platformName": "会计头条"},
+            {"platformCategory": "财经", "platformName": "华尔街见闻"},
+            {"platformCategory": "财经", "platformName": "MBA智库"},
+            {"platformCategory": "财经", "platformName": "Chain Catcher"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "科技",
+          "platforms": [
+            {"platformCategory": "科技", "platformName": "MIT"},
+            {"platformCategory": "科技", "platformName": "腾讯云社区"},
+            {"platformCategory": "科技", "platformName": "ReadHub"},
+            {"platformCategory": "科技", "platformName": "创业邦"},
+            {"platformCategory": "科技", "platformName": "IT之家"},
+            {"platformCategory": "科技", "platformName": "钛媒体"},
+            {"platformCategory": "HuggingFaces", "platformName": "HuggingFaces"},
+            {"platformCategory": "科技", "platformName": "站长之家"},
+            {"platformCategory": "科技", "platformName": "新智元"},
+            {"platformCategory": "科技", "platformName": "智源社区"},
+            {"platformCategory": "科技", "platformName": "量子位"},
+            {"platformCategory": "科技", "platformName": "雷锋网"},
+            {"platformCategory": "科技", "platformName": "美团社区"},
+            {"platformCategory": "科技", "platformName": "快科技"},
+            {"platformCategory": "科技", "platformName": "i黑马"},
+            {"platformCategory": "科技", "platformName": "机器之心"},
+            {"platformCategory": "科技", "platformName": "猎云网"},
+            {"platformCategory": "科技", "platformName": "多知"},
+            {"platformCategory": "科技", "platformName": "36氪"},
+            {"platformCategory": "科技", "platformName": "阿里云社区"},
+            {"platformCategory": "科技", "platformName": "中关村在线"},
+            {"platformCategory": "科技", "platformName": "全天候科技"},
+            {"platformCategory": "科技", "platformName": "芥末堆"},
+            {"platformCategory": "GitHub", "platformName": "GitHub"},
+            {"platformCategory": "科技", "platformName": "蓝点网"},
+            {"platformCategory": "国际科技创新中心", "platformName": "人工智能国际科技创新中心"},
+            {"platformCategory": "科技", "platformName": "理想生活实验室"},
+            {"platformCategory": "科技", "platformName": "艾媒网"},
+            {"platformCategory": "科技", "platformName": "EurekAlert"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "体育",
+          "platforms": [
+            {"platformCategory": "体育", "platformName": "PP体育"},
+            {"platformCategory": "体育", "platformName": "百度体育"},
+            {"platformCategory": "体育", "platformName": "央视体育"},
+            {"platformCategory": "体育", "platformName": "懂球帝"},
+            {"platformCategory": "体育", "platformName": "直播吧"},
+            {"platformCategory": "体育", "platformName": "网易体育"},
+            {"platformCategory": "体育", "platformName": "新浪体育"},
+            {"platformCategory": "体育", "platformName": "虎扑体育"},
+            {"platformCategory": "体育", "platformName": "搜狐体育"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "媒体",
+          "platforms": [
+            {"platformCategory": "媒体", "platformName": "美漫百科"},
+            {"platformCategory": "媒体", "platformName": "B站"},
+            {"platformCategory": "媒体", "platformName": "电视猫"},
+            {"platformCategory": "媒体", "platformName": "百度文娱"},
+            {"platformCategory": "媒体", "platformName": "Youtube"},
+            {"platformCategory": "媒体", "platformName": "acfun"},
+            {"platformCategory": "媒体", "platformName": "煎蛋"},
+            {"platformCategory": "媒体", "platformName": "百度民生"},
+            {"platformCategory": "媒体", "platformName": "微博"},
+            {"platformCategory": "百度", "platformName": "百度"},
+            {"platformCategory": "媒体", "platformName": "抖音"},
+            {"platformCategory": "媒体", "platformName": "微信读书"},
+            {"platformCategory": "媒体", "platformName": "时光网"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "游戏",
+          "platforms": [
+            {"platformCategory": "巴哈姆特", "platformName": "巴哈姆特"},
+            {"platformCategory": "游戏", "platformName": "游研社"},
+            {"platformCategory": "游戏", "platformName": "电玩帮"},
+            {"platformCategory": "游戏", "platformName": "A9VG"},
+            {"platformCategory": "游戏", "platformName": "GCORES"},
+            {"platformCategory": "游戏", "platformName": "游戏陀螺"},
+            {"platformCategory": "QooApp", "platformName": "QooApp"},
+            {"platformCategory": "4Gamer", "platformName": "4Gamer"},
+            {"platformCategory": "游戏", "platformName": "IGN"},
+            {"platformCategory": "游戏", "platformName": "17173"},
+            {"platformCategory": "游戏", "platformName": "3DMGAME"},
+            {"platformCategory": "GameBase", "platformName": "gamebase"},
+            {"platformCategory": "游戏", "platformName": "游侠网"},
+            {"platformCategory": "游戏", "platformName": "游民星空"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "影音",
+          "platforms": [
+            {"platformCategory": "爱奇艺视频", "platformName": "爱奇艺视频"},
+            {"platformCategory": "腾讯视频", "platformName": "腾讯视频"},
+            {"platformCategory": "优酷视频", "platformName": "优酷视频"},
+            {"platformCategory": "芒果视频", "platformName": "芒果视频"},
+            {"platformCategory": "猫眼", "platformName": "猫眼"},
+            {"platformCategory": "网易云音乐", "platformName": "网易云音乐"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "社区",
+          "platforms": [
+            {"platformCategory": "社区", "platformName": "水木社区"},
+            {"platformCategory": "社区", "platformName": "KDS上海头条"},
+            {"platformCategory": "社区", "platformName": "通信人家园"},
+            {"platformCategory": "Nodeloc", "platformName": "nodeloc"},
+            {"platformCategory": "社区", "platformName": "NGA"},
+            {"platformCategory": "社区", "platformName": "掘金文章"},
+            {"platformCategory": "社区", "platformName": "HACKER_NEWS"},
+            {"platformCategory": "社区", "platformName": "知无不言跨境电商社区"},
+            {"platformCategory": "社区", "platformName": "Emacs China"},
+            {"platformCategory": "社区", "platformName": "虫部落"},
+            {"platformCategory": "社区", "platformName": "知乎"},
+            {"platformCategory": "社区", "platformName": "开源资讯"},
+            {"platformCategory": "社区", "platformName": "Ruby China"},
+            {"platformCategory": "社区", "platformName": "先知社区"},
+            {"platformCategory": "社区", "platformName": "豆瓣"},
+            {"platformCategory": "社区", "platformName": "步行街虎扑"},
+            {"platformCategory": "社区", "platformName": "V2EX"},
+            {"platformCategory": "社区", "platformName": "凯迪网"},
+            {"platformCategory": "社区", "platformName": "百度贴吧"},
+            {"platformCategory": "社区", "platformName": "少数派"},
+            {"platformCategory": "社区", "platformName": "经管之家"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "生活",
+          "platforms": [
+            {"platformCategory": "小组豆瓣", "platformName": "小组豆瓣"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "健康",
+          "platforms": [
+            {"platformCategory": "健康", "platformName": "丁香医生"},
+            {"platformCategory": "健康", "platformName": "健康时报网"},
+            {"platformCategory": "健康", "platformName": "医药魔方"},
+            {"platformCategory": "健康", "platformName": "家医大健康"},
+            {"platformCategory": "健康", "platformName": "生命时报"},
+            {"platformCategory": "健康", "platformName": "果壳"},
+            {"platformCategory": "健康", "platformName": "生物谷"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "电视",
+          "platforms": [
+            {"platformCategory": "CCTV", "platformName": "央视电视台"}
+          ]
+        },
+        {
+          "platformCategoryRoot": "羊毛",
+          "platforms": [
+            {"platformCategory": "羊毛", "platformName": "0818团"}
+          ]
+        }
+      ]
     }
   },
   computed: {
@@ -401,6 +737,9 @@ export default {
         this.$store.commit('setSubscriptionSettingShow', value);
       }
     },
+    totalPlatformsCount() {
+      return this.platformCategories.reduce((sum, root) => sum + root.platforms.length, 0)
+    }
   },
   mounted() {
     window.addEventListener('keydown', this.onKey)
@@ -417,7 +756,22 @@ export default {
       }
     },
     close() {
+      this.globalCascaderOpen = false
+      this.form.platforms.forEach(p => {
+        p.cascaderOpen = false
+        p.activeTab = '新闻'
+      })
       this.subscriptionSettingShow = false
+    },
+    toggleGlobalCascader() {
+      this.globalCascaderOpen = !this.globalCascaderOpen
+      this.form.platforms.forEach(p => p.cascaderOpen = false)
+    },
+    togglePlatformCascader(currentPlat) {
+      const wasOpen = currentPlat.cascaderOpen
+      this.globalCascaderOpen = false
+      this.form.platforms.forEach(p => p.cascaderOpen = false)
+      currentPlat.cascaderOpen = !wasOpen
     },
     startAddKeyword() {
       this.addingKeyword = true
@@ -425,51 +779,85 @@ export default {
     },
     addKeyword() {
       const v = this.newKeyword.trim()
-      if (v && this.form.keywords.length < 10 && !this.form.keywords.includes(v)) {
+      if (v && this.form.keywords.length < this.publicKeyWordCountLimit && !this.form.keywords.includes(v)) {
         this.form.keywords.push(v)
       }
       this.newKeyword = ''
       this.addingKeyword = false
     },
 
-    // 平台独立关键词相关方法
     startAddPlatformKeyword(plat) {
-      if (!plat.platformKeywords) {
-        plat.platformKeywords = []
-      }
-      if ((plat.platformKeywords?.length || 0) >= 10) return
+      if (!plat.platformKeywords) plat.platformKeywords = []
+      if ((plat.platformKeywords.length || 0) >= this.privateKeyWordCountLimit) return
       plat.addingKeyword = true
       plat.newKeyword = ''
       this.$nextTick(() => {
         const input = this.$refs[`platformKeywordInput_${plat.id}`]
-        if (input && input[0]) {
-          input[0].focus()
-        }
+        if (input && input[0]) input[0].focus()
       })
     },
 
     addPlatformKeyword(plat) {
       const v = (plat.newKeyword || '').trim()
-      if (v) {
-        if (!plat.platformKeywords) {
-          plat.platformKeywords = []
-        }
-        if ((plat.platformKeywords.length || 0) < 10 && !plat.platformKeywords.includes(v)) {
-          plat.platformKeywords.push(v)
-        }
+      if (v && !plat.platformKeywords.includes(v)) {
+        plat.platformKeywords.push(v)
       }
       plat.addingKeyword = false
       plat.newKeyword = ''
     },
 
     removePlatformKeyword(plat, index) {
-      if (plat.platformKeywords && plat.platformKeywords.length > index) {
-        plat.platformKeywords.splice(index, 1)
-      }
+      plat.platformKeywords.splice(index, 1)
+    },
+
+    isRootAllSelected(root) {
+      return root.platforms.every(item => this.globalSelectedPlatforms.includes(item.platformName))
+    },
+    toggleRootAll(root, checked) {
+      root.platforms.forEach(item => {
+        const name = item.platformName
+        if (checked && !this.globalSelectedPlatforms.includes(name)) {
+          this.globalSelectedPlatforms.push(name)
+        } else if (!checked) {
+          const idx = this.globalSelectedPlatforms.indexOf(name)
+          if (idx > -1) this.globalSelectedPlatforms.splice(idx, 1)
+        }
+      })
+    },
+
+    isPlatformRootAllSelected(plat, root) {
+      if (!plat.selectedPlatforms) return false
+      return root.platforms.every(item => plat.selectedPlatforms.includes(item.platformName))
+    },
+    togglePlatformRootAll(plat, root, checked) {
+      if (!plat.selectedPlatforms) this.$set(plat, 'selectedPlatforms', [])
+      root.platforms.forEach(item => {
+        const name = item.platformName
+        if (checked && !plat.selectedPlatforms.includes(name)) {
+          plat.selectedPlatforms.push(name)
+        } else if (!checked) {
+          const idx = plat.selectedPlatforms.indexOf(name)
+          if (idx > -1) plat.selectedPlatforms.splice(idx, 1)
+        }
+      })
+    },
+
+    selectAllDefault() {
+      const allNames = []
+      this.platformCategories.forEach(root => {
+        root.platforms.forEach(item => {
+          if (!allNames.includes(item.platformName)) allNames.push(item.platformName)
+        })
+      })
+      this.globalSelectedPlatforms = [...allNames]
+      this.form.platforms.forEach(plat => {
+        if (!plat.selectedPlatforms) this.$set(plat, 'selectedPlatforms', [])
+        plat.selectedPlatforms = [...allNames]
+      })
     },
 
     addPlatform(template) {
-      if (this.form.platforms.length >= 10) {
+      if (this.form.platforms.length >= this.platformCountLimit) {
         this.$message.warning('最多只能添加10个平台')
         return
       }
@@ -483,7 +871,10 @@ export default {
         secret: '',
         selectOpen: false,
         addingKeyword: false,
-        newKeyword: ''
+        newKeyword: '',
+        cascaderOpen: false,
+        activeTab: '新闻',
+        selectedPlatforms: []
       }
 
       this.form.platforms.push(newPlatform)
@@ -511,11 +902,20 @@ export default {
           this.$message.error(errorMessage);
         }
       } else {
+        getPlatformCategories()
+            .then(res => {
+              const result = res?.data?.data || false;
+              if (result && res.data.code !== 999) {
+                this.platformCategories = result || []
+              }
+            });
+
         getSubscriptionConfig()
             .then(res => {
               const result = res?.data?.data || false;
               if (result && res.data.code !== 999) {
                 this.form.keywords = result.subscriptionGlobalKeywords || []
+                this.globalSelectedPlatforms = result.subscriptionGlobalCategories || []
 
                 this.form.platforms = []
                 this.platformIdCounter = 0
@@ -529,11 +929,14 @@ export default {
                         id: `${template.type}_${this.platformIdCounter++}`,
                         remark: platformData.remark || '',
                         platformKeywords: platformData.subscriptionPlatformKeywords || [],
+                        selectedPlatforms: platformData.subscriptionPlatformCategories || [],
                         webhook: platformData.webhook || '',
                         secret: platformData.secret || '',
                         selectOpen: false,
                         addingKeyword: false,
-                        newKeyword: ''
+                        newKeyword: '',
+                        cascaderOpen: false,
+                        activeTab: '新闻'
                       })
                     }
                   })
@@ -546,15 +949,23 @@ export default {
                 if (this.subscriptionSettingShow) {
                   this.$message.success(successMessage);
                 }
+
+                if (this.globalSelectedPlatforms.length === 0) {
+                  this.selectAllDefault()
+                }
               } else {
                 this.form.keywords = []
+                this.globalSelectedPlatforms = []
                 this.form.platforms = []
-                if (this.subscriptionSettingShow  && res.data.code === 999) {
+                if (this.subscriptionSettingShow && res.data.code === 999) {
                   this.$message.error(res.data.message);
                 }
               }
             })
             .finally(() => {
+              if (this.globalSelectedPlatforms.length === 0) {
+                this.selectAllDefault()
+              }
             });
       }
     },
@@ -568,10 +979,12 @@ export default {
 
       const submitData = {
         subscriptionGlobalKeywords: this.form.keywords,
+        subscriptionGlobalCategories: this.globalSelectedPlatforms,
         subscriptionPlatformConfigs: this.form.platforms.map(p => ({
           type: p.type,
           remark: p.remark || '',
-          subscriptionPlatformKeywords: p.subscriptionPlatformKeywords || [],
+          subscriptionPlatformKeywords: p.platformKeywords || [],
+          subscriptionPlatformCategories: p.selectedPlatforms || [],
           webhook: p.webhook,
           secret: p.secret
         }))
@@ -588,8 +1001,7 @@ export default {
               }
             }
           })
-          .finally(() => {
-          });
+          .finally(() => {});
     },
 
     onKey(e) {
@@ -598,11 +1010,12 @@ export default {
         if (this.showAddPlatformModal) {
           this.showAddPlatformModal = false
         } else {
+          this.globalCascaderOpen = false
+          this.form.platforms.forEach(p => p.cascaderOpen = false)
           this.close()
         }
       }
 
-      // 检查是否有任何输入框正在活动
       const isAddingPlatformKeyword = this.form.platforms.some(p => p.addingKeyword)
 
       if (e.key === 'Enter' && !this.addingKeyword && !this.showAddPlatformModal && !isAddingPlatformKeyword) this.saveConfig()
@@ -611,6 +1024,11 @@ export default {
     isValidKey(str) {
       return /^[A-Za-z0-9]{4}(-[A-Za-z0-9]{4}){5}$/.test(str);
     }
+  },
+  created() {
+    this.$nextTick(() => {
+      this.selectAllDefault()
+    })
   }
 }
 </script>
@@ -640,64 +1058,6 @@ export default {
 .scrollable-content {
   scrollbar-width: thin;
   scrollbar-color: rgba(100, 181, 255, 0.3) rgba(255, 255, 255, 0.02);
-}
-
-/* Key 输入框样式 */
-.key-input-row {
-  margin: 0 28px 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.key-input-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(40, 44, 56, .6);
-  padding: 12px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, .12);
-  backdrop-filter: blur(8px);
-}
-
-.key-input-wrapper svg {
-  color: #64b5ff;
-  flex-shrink: 0;
-}
-
-.key-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e6edf3;
-  font-size: 14.5px;
-}
-
-.key-input::placeholder {
-  color: #6b7280;
-}
-
-.key-btn {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #409eff, #3a8fee);
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(64, 158, 255, .3);
-  transition: all .25s;
-}
-
-.key-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(64, 158, 255, .4);
 }
 
 /* 全局提示图标 */
@@ -1181,16 +1541,6 @@ export default {
   transform: scale(1.05)
 }
 
-.keyword-section h3 {
-  font-size: 17px;
-  color: #e6edf3;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600
-}
-
 .counter {
   font-size: 13px;
   color: #64b5ff
@@ -1282,7 +1632,7 @@ export default {
 
 .platform-card {
   position: relative;
-  background: rgba(40, 44, 56, .5);
+  background: rgba(40, 44, 56, .75);
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 16px;
   padding: 18px;
@@ -1298,7 +1648,7 @@ export default {
 
 .platform-card.active {
   border-color: rgba(64, 158, 255, .5);
-  background: rgba(50, 55, 70, .7);
+  background: rgba(50, 55, 70, .9);
   box-shadow: 0 0 0 3px rgba(64, 158, 255, .15)
 }
 
@@ -1497,178 +1847,166 @@ export default {
   }
 }
 
-.custom-select {
-  position: relative;
-  width: 100%;
-}
+/* 修复后的样式 */
 
-.select-trigger {
+/* 输入框和触发器文字过长截断 + 箭头对齐 */
+.cascader-trigger {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 12px;
   cursor: pointer;
   user-select: none;
-  transition: all 0.3s ease;
+  font-size: 13.5px;
+  color: #a8b3cf;
 }
 
-.select-trigger:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.trigger-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 8px;
 }
 
-.select-trigger .arrow {
+.arrow {
+  flex-shrink: 0;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.5;
-  margin-left: 8px;
+  opacity: 0.6;
 }
 
-.select-trigger .arrow.rotate {
+.arrow.rotate {
   transform: rotate(180deg);
-  opacity: 0.8;
 }
 
-.select-dropdown {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background: #262834;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
-  z-index: 100;
-  overflow: hidden;
-  animation: slideUpDropdown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* 输入框满宽 */
+.full-width {
+  flex: 1;
 }
 
-@keyframes slideUpDropdown {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.select-option {
-  padding: 14px 18px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.select-option::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
-  transition: width 0.3s ease;
-}
-
-.select-option:hover::before {
-  width: 100%;
-}
-
-.select-option:hover {
-  background: rgba(99, 102, 241, 0.05);
-  padding-left: 22px;
-}
-
-.select-option.selected {
-  background: linear-gradient( #30313C, #272A36);
-  color: #2db302;
-  font-weight: 500;
-}
-
-.select-option.selected::after {
-  content: '✓';
-  position: absolute;
-  right: 18px;
-  opacity: 0.8;
-}
-
+/* tip 图标位置固定在右侧，不影响输入框长度 */
 .input-with-tip {
-  position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
 }
 
 .input-with-tip .modern-input,
-.input-with-tip .custom-select {
+.input-with-tip .custom-select .select-trigger {
   flex: 1;
 }
 
 .tip-icon {
   flex-shrink: 0;
   width: 28px;
-  height: 28px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgba(255, 255, 255, 0.4);
   cursor: help;
   transition: all 0.3s ease;
-  position: relative;
 }
 
-.tip-icon:hover {
-  color: #64b5ff;
+/* 全选时整个父分类标题变绿 */
+.cascader-root-header.allSelected {
+  color: #2db302;
 }
 
-.tip-icon::after {
-  content: attr(data-tip);
-  position: absolute;
-  bottom: calc(100% + 8px);
-  right: 0;
-  min-width: 250px;
-  max-width: 250px;
-  padding: 10px 14px;
-  background: rgba(20, 23, 32, 0.98);
-  color: #e6edf3;
-  font-size: 12px;
-  line-height: 1.5;
+/* 子平台紧凑横向排列 */
+.cascader-items.dense {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cascader-items.dense.small {
+  gap: 6px;
+}
+
+.checkbox-label.item {
+  margin: 0;
+}
+
+.item-bg {
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(4px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  z-index: 1000;
-  white-space: pre-line;
-  word-wrap: break-word;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  transition: background 0.2s;
 }
 
-.tip-icon::before {
-  content: '';
-  position: absolute;
-  bottom: calc(100% + 2px);
-  right: 8px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid rgba(20, 23, 32, 0.98);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1001;
+.cascader-items.dense.small .item-bg {
+  padding: 5px 9px;
+  font-size: 12.5px;
 }
 
-.tip-icon:hover::after,
-.tip-icon:hover::before {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.item-bg:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.cascader-dropdown.cascader-tabs {
+  z-index: 9999;
+}
+
+.cascader-dropdown.high-zindex {
+  z-index: 10000 !important;
+}
+
+.tab-item.active {
+  background: #409eff;
+  color: #fff;
+}
+
+.cascader-root-header {
+  margin-bottom: 10px;
+}
+
+/* 模块外框 */
+.section-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 24px;
+}
+
+.cascader-tabs-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px 8px;
+  background: rgba(64, 158, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tab-item {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  color: #8892b0;
+  transition: all 0.2s;
+}
+
+.tab-item.small {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.tab-item:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e6edf3;
+}
+
+.cascader-tabs-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
 }
 </style>

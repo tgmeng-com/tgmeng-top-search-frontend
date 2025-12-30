@@ -2046,6 +2046,13 @@ export function getSubscriptionConfig() {
     })
 }
 
+export function getPlatformCategories() {
+    return request({
+        url: '/topsearch/categories',
+        method: 'post'
+    })
+}
+
 export function updateSubscriptionConfig() {
     return request({
         url: '/topsearch/license/updateSubscriptionConfig',

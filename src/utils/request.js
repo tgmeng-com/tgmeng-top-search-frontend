@@ -14,11 +14,13 @@ export function request(config) {
         async config => {
             const machineId = await getMachineId()
             config.headers['X-Machine-Id'] = machineId
-            const licenseCode = localStorage.getItem('licenseCode')
-            if (licenseCode) {
-                config.headers['X-License-Code'] = licenseCode
+            // 优先使用函数里提交的code，没有的话再拿缓存里的
+            if (!config.headers['X-License-Code']) {
+                const licenseCode = localStorage.getItem('licenseCode')
+                if (licenseCode) {
+                    config.headers['X-License-Code'] = licenseCode
+                }
             }
-
             return config
         },
         error => Promise.reject(error)
