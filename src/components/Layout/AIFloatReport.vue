@@ -270,7 +270,7 @@ export default {
         "model": "🚀",
         "from": "🚀",
         "totalTokens": "🚀",
-        "result": {
+        "data": {
           "summary": [],
           "analyze": [],
           "future": []
