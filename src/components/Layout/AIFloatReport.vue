@@ -128,54 +128,57 @@
                 <!-- 三列网格布局 -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   <div
-                      v-for="(itemCat, index) in aiData.result"
-                      :key="index"
+                      v-for="(cat) in categoryList"
+                      :key="cat.key"
                       class="group relative"
                   >
                     <!-- 分类卡片 -->
                     <div
                         :class="[
-                          'relative overflow-hidden rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] h-full',
-                          'bg-gradient-to-br backdrop-blur-sm border',
-                          getCategoryGradient(index)
-                        ]"
+                            'relative overflow-hidden rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] h-full',
+                            'bg-gradient-to-br backdrop-blur-sm border',
+                            getCategoryGradient(cat.colorIndex)
+                          ]"
                     >
                       <!-- 装饰性背景 -->
                       <div class="absolute top-0 right-0 w-64 h-64 opacity-20 rounded-full blur-3xl"
-                           :class="getBgClass(index)"></div>
+                           :class="getBgClass(cat.colorIndex)"></div>
 
                       <!-- 分类标题 -->
                       <div class="relative mb-6">
-                        <div class="flex items-center gap-3 ">
-                          <div :class="['w-1.5 h-8 rounded-full', getBgClass(index)]"></div>
+                        <div class="flex items-center gap-3">
+                          <div :class="['w-1.5 h-8 rounded-full', getBgClass(cat.colorIndex)]"></div>
                           <h3
-                              :class="[
-                                'text-2xl font-black ',
-                                getTextClass(index)
-                              ]"
+                              :class="['text-2xl font-black', getTextClass(cat.colorIndex)]"
                               :style="categroiesTitleStyle"
                           >
-                            {{ itemCat.categroy }}
+                            {{ cat.title }}
                           </h3>
                         </div>
                       </div>
 
                       <!-- 内容列表 -->
                       <div class="space-y-4 relative">
+                        <!-- 判断是否有数据 -->
+                        <div v-if="aiData?.result?.[cat.key]?.length === 0" class="text-center py-8 text-gray-500 dark:text-gray-400">
+                          暂无内容
+                        </div>
+
                         <div
-                            v-for="(itemData, dataIndex) in itemCat.data"
+                            v-for="(itemData, dataIndex) in aiData?.result?.[cat.key]"
                             :key="dataIndex"
                             class="group/item relative overflow-hidden rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-5 border border-white/40 dark:border-gray-700/40 transition-all duration-300 hover:shadow-xl hover:scale-[1.01] hover:bg-white/80 dark:hover:bg-gray-800/80"
                         >
                           <!-- 序号标签 -->
                           <div
                               class="absolute top-4 left-3 w-8 h-8 rounded-full bg-gradient-to-br flex items-center justify-center text-white text-xs font-bold shadow-lg"
-                              :class="getNumberBadgeClass(index)">
+                              :class="getNumberBadgeClass(cat.colorIndex)"
+                          >
                             {{ dataIndex + 1 }}
                           </div>
 
                           <!-- 标题 -->
-                          <h4 class="text-left pl-10 font-bold text-gray-900 dark:text-white mb-3 leading-relaxed "
+                          <h4 class="text-left pl-10 font-bold text-gray-900 dark:text-white mb-3 leading-relaxed"
                               :style="cardTopStyle">
                             {{ itemData.title }}
                           </h4>
@@ -188,7 +191,8 @@
                           <!-- 底部装饰线 -->
                           <div
                               class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"
-                              :class="getGradientClass(index)"></div>
+                              :class="getGradientClass(cat.colorIndex)"
+                          ></div>
                         </div>
                       </div>
                     </div>
@@ -266,18 +270,11 @@ export default {
         "model": "🚀",
         "from": "🚀",
         "totalTokens": "🚀",
-        "result": [{
-          "categroy": "内容概括",
-          "data": []
-        },
-          {
-            "categroy": "技术趋势",
-            "data": []
-          },
-          {
-            "categroy": "市场动态",
-            "data": []
-          }],
+        "result": {
+          "summary": [],
+          "analyze": [],
+          "future": []
+        }
       }
     }
   },
@@ -294,6 +291,13 @@ export default {
     window.removeEventListener('touchend', this.handleTouchEnd);
   },
   computed: {
+    categoryList() {
+      return [
+        { key: 'summary', title: '内容概括', colorIndex: 0 },
+        { key: 'analyze', title: '趋势分析', colorIndex: 1 },
+        { key: 'future',  title: '未来预测', colorIndex: 2 }
+      ];
+    },
     buttonSize() {
       return window.innerWidth < 768 ? 50 : 60;
     },
