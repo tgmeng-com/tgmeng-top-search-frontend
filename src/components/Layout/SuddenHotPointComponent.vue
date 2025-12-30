@@ -494,6 +494,7 @@ export default {
 
 .card-details-wrapper.expanded {
   /*max-height: 2000px;*/
+  max-height: max-content;
 }
 
 .card-details {
