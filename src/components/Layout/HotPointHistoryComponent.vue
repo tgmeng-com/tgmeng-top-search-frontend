@@ -348,7 +348,7 @@ export default {
               this.historyData = result;
             } else {
               if (res.data.code === 999){
-                this.$message.error(res.data.message);
+                // this.$message.error(res.data.message);
                 store.commit('setLicenseShow', true)
               }
               this.showResults = false;

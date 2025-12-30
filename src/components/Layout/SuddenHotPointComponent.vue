@@ -251,7 +251,7 @@ export default {
               this.hotspotData = data
             } else {
               if (res.data.code === 999) {
-                this.$message.error(res.data.message);
+                // this.$message.error(res.data.message);
                 store.commit('setLicenseShow', true)
               }
             }

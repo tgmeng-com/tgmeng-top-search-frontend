@@ -68,3 +68,7 @@ body {
     background-color: #dbdbdb !important;
     border-radius: 0 0 3.125rem 3.125rem !important;
 }
+
+.el-message {
+    z-index: 999999 !important;
+}
