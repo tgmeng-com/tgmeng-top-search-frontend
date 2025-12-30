@@ -246,6 +246,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/30 15:00',
+              events: [{
+                id: 1, title: '新增功能', desc: ['推送订阅支持分类选择'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/22 15:00',
               events: [{
                 id: 1, title: '新增功能', desc: ['新增历史热点追踪和突发热点查询'], tag: 'Feat'
