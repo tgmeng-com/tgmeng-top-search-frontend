@@ -250,6 +250,8 @@ export default {
       this.form.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE) || '';
       if (this.form.licenseCode) {
         this.applyKey();
+      }else {
+        this.$message.error('密钥无效，请检查');
       }
     },
     close() {

@@ -38,7 +38,7 @@
                   </div>
                 </h3>
 
-                <div class="keyword-tags">
+                <div class="keyword-tags mt-2">
                   <div v-for="(tag, i) in form.keywords" :key="i" class="keyword-tag">
                     {{ tag }}
                     <div @click="form.keywords.splice(i, 1)">
@@ -76,7 +76,7 @@
                 <h3>
                   全局平台分类
                   <span class="counter">{{ globalSelectedPlatforms.length }}/{{ totalPlatformsCount }}</span>
-                  <div class="global-tip-icon" data-tip="全局平台分类会应用到所有推送平台。&#10;&#10;如果某个平台设置了独立分类，则该平台只会推送选中的分类内容（独立分类优先）。&#10;&#10;不选则推送所有来源。">
+                  <div class="global-tip-icon" data-tip="全局平台分类会应用到所有推送平台。&#10;&#10;如果某个平台设置了独立分类，则该平台只会推送选中的分类内容（独立分类优先）。&#10;&#10;不选则推送所有来源（后续新增加的平台也会推送）&#10;勾选里面的所有来源（后续新增的平台不会推送）">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                       <circle cx="8" cy="8" r="6"/>
                       <path d="M8 7v4M8 5h.01"/>
@@ -84,7 +84,7 @@
                   </div>
                 </h3>
 
-                <div class="category-cascader-wrapper">
+                <div class="category-cascader-wrapper mt-2">
                   <div class="cascader-trigger modern-input" @click="toggleGlobalCascader">
                     <span class="trigger-text">{{ globalSelectedPlatforms.length > 0 ? `已选 ${globalSelectedPlatforms.length} 个平台` : '选择平台分类（支持多选）' }}</span>
                     <svg class="arrow" :class="{ rotate: globalCascaderOpen }" width="12" height="12" viewBox="0 0 12 12">
@@ -98,7 +98,11 @@
                           v-for="root in platformCategories"
                           :key="root.platformCategoryRoot"
                           class="tab-item"
-                          :class="{ active: globalActiveTab === root.platformCategoryRoot }"
+                          :class="{
+                            active: globalActiveTab === root.platformCategoryRoot,
+                            'tab-all': isRootAllSelected(root),
+                            'tab-part': !isRootAllSelected(root) && root.platforms.some(p => globalSelectedPlatforms.includes(p.platformName))
+                          }"
                           @click="globalActiveTab = root.platformCategoryRoot"
                       >
                         {{ root.platformCategoryRoot }}
@@ -283,7 +287,11 @@
                                   v-for="root in platformCategories"
                                   :key="root.platformCategoryRoot"
                                   class="tab-item small"
-                                  :class="{ active: plat.activeTab === root.platformCategoryRoot }"
+                                  :class="{
+                                    active: plat.activeTab === root.platformCategoryRoot,
+                                      'tab-all': isPlatformRootAllSelected(plat, root),
+                                      'tab-part': !isPlatformRootAllSelected(plat, root) && root.platforms.some(p => plat.selectedPlatforms?.includes(p.platformName))
+                                    }"
                                   @click.stop="plat.activeTab = root.platformCategoryRoot"
                               >
                                 {{ root.platformCategoryRoot }}
@@ -313,7 +321,7 @@
                         </div>
                       </div>
 
-                      <div class="tip-icon" data-tip="选择此推送平台的来源分类。&#10;&#10;选中后，该平台只会推送来自这些分类的文章。&#10;&#10;不选则推送所有来源（受全局分类影响）。">
+                      <div class="tip-icon" data-tip="选择此推送平台的来源分类。&#10;&#10;选中后，该平台只会推送来自这些分类的热点。&#10;&#10;不选则推送所有来源（受全局分类影响）。&#10;勾选里面的所有来源（后续新增的平台不会推送）">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                           <circle cx="8" cy="8" r="6"/>
                           <path d="M8 7v4M8 5h.01"/>
@@ -328,7 +336,7 @@
                           placeholder="备注（可选，用于区分多个同类平台）"
                           class="modern-input remark-input full-width"
                       />
-                      <div class="tip-icon" data-tip="给这个平台添加备注，方便区分多个同类平台。&#10;例如：公司群、客户群、测试群等">
+                      <div class="tip-icon" data-tip="给这个平台添加备注，方便区分多个同类平台。&#10;&#10;例如：公司群、客户群、测试群等">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
                           <circle cx="8" cy="8" r="6"/>
                           <path d="M8 7v4M8 5h.01"/>
@@ -399,6 +407,7 @@
 <script>
 import {getPlatformCategories, getSubscriptionConfig, updateSubscriptionConfig} from "@/api/api";
 import {getLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
+import store from "@/store";
 
 export default {
   name: 'SubscriptionConfigModal',
@@ -507,225 +516,7 @@ export default {
       publicKeyWordCountLimit: 10,
       privateKeyWordCountLimit: 10,
 
-      platformCategories: [
-        {
-          "platformCategoryRoot": "新闻",
-          "platforms": [
-            {"platformCategory": "新闻", "platformName": "星岛环球"},
-            {"platformCategory": "新闻", "platformName": "ZAKER"},
-            {"platformCategory": "新闻", "platformName": "腾讯新闻"},
-            {"platformCategory": "新闻", "platformName": "网易新闻"},
-            {"platformCategory": "新闻", "platformName": "中国新闻网"},
-            {"platformCategory": "新闻", "platformName": "BBC"},
-            {"platformCategory": "新闻", "platformName": "新京报"},
-            {"platformCategory": "新闻", "platformName": "百度国际"},
-            {"platformCategory": "新闻", "platformName": "澎湃新闻"},
-            {"platformCategory": "新闻", "platformName": "法广"},
-            {"platformCategory": "新闻", "platformName": "百度新闻"},
-            {"platformCategory": "新闻", "platformName": "华尔街日报"},
-            {"platformCategory": "新闻", "platformName": "纽约时报"},
-            {"platformCategory": "新闻", "platformName": "头条新闻"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "设计",
-          "platforms": [
-            {"platformCategory": "设计", "platformName": "Awwwards"},
-            {"platformCategory": "设计", "platformName": "Abduzeedo"},
-            {"platformCategory": "设计", "platformName": "Dribbble"},
-            {"platformCategory": "涂鸦王国", "platformName": "涂鸦王国"},
-            {"platformCategory": "设计", "platformName": "腾讯设计开放平台"},
-            {"platformCategory": "设计", "platformName": "ArchDaily"},
-            {"platformCategory": "站酷", "platformName": "站酷"},
-            {"platformCategory": "设计", "platformName": "TOPYS"},
-            {"platformCategory": "设计", "platformName": "Core77"},
-            {"platformCategory": "设计", "platformName": "优设网"},
-            {"platformCategory": "设计", "platformName": "人人都是产品经理"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "财经",
-          "platforms": [
-            {"platformCategory": "财经", "platformName": "金色财经"},
-            {"platformCategory": "财经", "platformName": "每经网"},
-            {"platformCategory": "财经", "platformName": "时代在线"},
-            {"platformCategory": "财经", "platformName": "格隆汇"},
-            {"platformCategory": "财经", "platformName": "科创板日报"},
-            {"platformCategory": "财经", "platformName": "第一财经"},
-            {"platformCategory": "财经", "platformName": "同花顺"},
-            {"platformCategory": "财经", "platformName": "法布"},
-            {"platformCategory": "财经", "platformName": "百度财经"},
-            {"platformCategory": "财经", "platformName": "金融界"},
-            {"platformCategory": "财经", "platformName": "新浪财经"},
-            {"platformCategory": "财经", "platformName": "金十"},
-            {"platformCategory": "财经", "platformName": "汇通财经"},
-            {"platformCategory": "财经", "platformName": "老虎财经"},
-            {"platformCategory": "财经", "platformName": "选股通"},
-            {"platformCategory": "财经", "platformName": "经济观察网"},
-            {"platformCategory": "财经", "platformName": "东方财富网"},
-            {"platformCategory": "财经", "platformName": "21经济网"},
-            {"platformCategory": "财经", "platformName": "BlockBeats"},
-            {"platformCategory": "财经", "platformName": "智通财经"},
-            {"platformCategory": "财经", "platformName": "财联社"},
-            {"platformCategory": "财经", "platformName": "会计头条"},
-            {"platformCategory": "财经", "platformName": "华尔街见闻"},
-            {"platformCategory": "财经", "platformName": "MBA智库"},
-            {"platformCategory": "财经", "platformName": "Chain Catcher"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "科技",
-          "platforms": [
-            {"platformCategory": "科技", "platformName": "MIT"},
-            {"platformCategory": "科技", "platformName": "腾讯云社区"},
-            {"platformCategory": "科技", "platformName": "ReadHub"},
-            {"platformCategory": "科技", "platformName": "创业邦"},
-            {"platformCategory": "科技", "platformName": "IT之家"},
-            {"platformCategory": "科技", "platformName": "钛媒体"},
-            {"platformCategory": "HuggingFaces", "platformName": "HuggingFaces"},
-            {"platformCategory": "科技", "platformName": "站长之家"},
-            {"platformCategory": "科技", "platformName": "新智元"},
-            {"platformCategory": "科技", "platformName": "智源社区"},
-            {"platformCategory": "科技", "platformName": "量子位"},
-            {"platformCategory": "科技", "platformName": "雷锋网"},
-            {"platformCategory": "科技", "platformName": "美团社区"},
-            {"platformCategory": "科技", "platformName": "快科技"},
-            {"platformCategory": "科技", "platformName": "i黑马"},
-            {"platformCategory": "科技", "platformName": "机器之心"},
-            {"platformCategory": "科技", "platformName": "猎云网"},
-            {"platformCategory": "科技", "platformName": "多知"},
-            {"platformCategory": "科技", "platformName": "36氪"},
-            {"platformCategory": "科技", "platformName": "阿里云社区"},
-            {"platformCategory": "科技", "platformName": "中关村在线"},
-            {"platformCategory": "科技", "platformName": "全天候科技"},
-            {"platformCategory": "科技", "platformName": "芥末堆"},
-            {"platformCategory": "GitHub", "platformName": "GitHub"},
-            {"platformCategory": "科技", "platformName": "蓝点网"},
-            {"platformCategory": "国际科技创新中心", "platformName": "人工智能国际科技创新中心"},
-            {"platformCategory": "科技", "platformName": "理想生活实验室"},
-            {"platformCategory": "科技", "platformName": "艾媒网"},
-            {"platformCategory": "科技", "platformName": "EurekAlert"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "体育",
-          "platforms": [
-            {"platformCategory": "体育", "platformName": "PP体育"},
-            {"platformCategory": "体育", "platformName": "百度体育"},
-            {"platformCategory": "体育", "platformName": "央视体育"},
-            {"platformCategory": "体育", "platformName": "懂球帝"},
-            {"platformCategory": "体育", "platformName": "直播吧"},
-            {"platformCategory": "体育", "platformName": "网易体育"},
-            {"platformCategory": "体育", "platformName": "新浪体育"},
-            {"platformCategory": "体育", "platformName": "虎扑体育"},
-            {"platformCategory": "体育", "platformName": "搜狐体育"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "媒体",
-          "platforms": [
-            {"platformCategory": "媒体", "platformName": "美漫百科"},
-            {"platformCategory": "媒体", "platformName": "B站"},
-            {"platformCategory": "媒体", "platformName": "电视猫"},
-            {"platformCategory": "媒体", "platformName": "百度文娱"},
-            {"platformCategory": "媒体", "platformName": "Youtube"},
-            {"platformCategory": "媒体", "platformName": "acfun"},
-            {"platformCategory": "媒体", "platformName": "煎蛋"},
-            {"platformCategory": "媒体", "platformName": "百度民生"},
-            {"platformCategory": "媒体", "platformName": "微博"},
-            {"platformCategory": "百度", "platformName": "百度"},
-            {"platformCategory": "媒体", "platformName": "抖音"},
-            {"platformCategory": "媒体", "platformName": "微信读书"},
-            {"platformCategory": "媒体", "platformName": "时光网"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "游戏",
-          "platforms": [
-            {"platformCategory": "巴哈姆特", "platformName": "巴哈姆特"},
-            {"platformCategory": "游戏", "platformName": "游研社"},
-            {"platformCategory": "游戏", "platformName": "电玩帮"},
-            {"platformCategory": "游戏", "platformName": "A9VG"},
-            {"platformCategory": "游戏", "platformName": "GCORES"},
-            {"platformCategory": "游戏", "platformName": "游戏陀螺"},
-            {"platformCategory": "QooApp", "platformName": "QooApp"},
-            {"platformCategory": "4Gamer", "platformName": "4Gamer"},
-            {"platformCategory": "游戏", "platformName": "IGN"},
-            {"platformCategory": "游戏", "platformName": "17173"},
-            {"platformCategory": "游戏", "platformName": "3DMGAME"},
-            {"platformCategory": "GameBase", "platformName": "gamebase"},
-            {"platformCategory": "游戏", "platformName": "游侠网"},
-            {"platformCategory": "游戏", "platformName": "游民星空"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "影音",
-          "platforms": [
-            {"platformCategory": "爱奇艺视频", "platformName": "爱奇艺视频"},
-            {"platformCategory": "腾讯视频", "platformName": "腾讯视频"},
-            {"platformCategory": "优酷视频", "platformName": "优酷视频"},
-            {"platformCategory": "芒果视频", "platformName": "芒果视频"},
-            {"platformCategory": "猫眼", "platformName": "猫眼"},
-            {"platformCategory": "网易云音乐", "platformName": "网易云音乐"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "社区",
-          "platforms": [
-            {"platformCategory": "社区", "platformName": "水木社区"},
-            {"platformCategory": "社区", "platformName": "KDS上海头条"},
-            {"platformCategory": "社区", "platformName": "通信人家园"},
-            {"platformCategory": "Nodeloc", "platformName": "nodeloc"},
-            {"platformCategory": "社区", "platformName": "NGA"},
-            {"platformCategory": "社区", "platformName": "掘金文章"},
-            {"platformCategory": "社区", "platformName": "HACKER_NEWS"},
-            {"platformCategory": "社区", "platformName": "知无不言跨境电商社区"},
-            {"platformCategory": "社区", "platformName": "Emacs China"},
-            {"platformCategory": "社区", "platformName": "虫部落"},
-            {"platformCategory": "社区", "platformName": "知乎"},
-            {"platformCategory": "社区", "platformName": "开源资讯"},
-            {"platformCategory": "社区", "platformName": "Ruby China"},
-            {"platformCategory": "社区", "platformName": "先知社区"},
-            {"platformCategory": "社区", "platformName": "豆瓣"},
-            {"platformCategory": "社区", "platformName": "步行街虎扑"},
-            {"platformCategory": "社区", "platformName": "V2EX"},
-            {"platformCategory": "社区", "platformName": "凯迪网"},
-            {"platformCategory": "社区", "platformName": "百度贴吧"},
-            {"platformCategory": "社区", "platformName": "少数派"},
-            {"platformCategory": "社区", "platformName": "经管之家"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "生活",
-          "platforms": [
-            {"platformCategory": "小组豆瓣", "platformName": "小组豆瓣"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "健康",
-          "platforms": [
-            {"platformCategory": "健康", "platformName": "丁香医生"},
-            {"platformCategory": "健康", "platformName": "健康时报网"},
-            {"platformCategory": "健康", "platformName": "医药魔方"},
-            {"platformCategory": "健康", "platformName": "家医大健康"},
-            {"platformCategory": "健康", "platformName": "生命时报"},
-            {"platformCategory": "健康", "platformName": "果壳"},
-            {"platformCategory": "健康", "platformName": "生物谷"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "电视",
-          "platforms": [
-            {"platformCategory": "CCTV", "platformName": "央视电视台"}
-          ]
-        },
-        {
-          "platformCategoryRoot": "羊毛",
-          "platforms": [
-            {"platformCategory": "羊毛", "platformName": "0818团"}
-          ]
-        }
-      ]
+      platformCategories: []
     }
   },
   computed: {
@@ -753,6 +544,9 @@ export default {
       this.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE)
       if (this.licenseCode) {
         this.applyKey()
+      }else {
+        store.commit('setSubscriptionSettingShow', false)
+        store.commit('setLicenseShow', true)
       }
     },
     close() {
@@ -951,7 +745,8 @@ export default {
                 }
 
                 if (this.globalSelectedPlatforms.length === 0) {
-                  this.selectAllDefault()
+                  // 这个是在用户没有选择任何平台的情况下，这里不做默认选中全部，后台要的逻辑是，如果用户没选任何平台，那么就不做平台过滤
+                  // this.selectAllDefault()
                 }
               } else {
                 this.form.keywords = []
@@ -964,7 +759,7 @@ export default {
             })
             .finally(() => {
               if (this.globalSelectedPlatforms.length === 0) {
-                this.selectAllDefault()
+                // this.selectAllDefault()
               }
             });
       }
@@ -1640,10 +1435,12 @@ export default {
   overflow: visible;
   transition: all .35s cubic-bezier(.16, 1, .3, 1);
   isolation: isolate;
+  min-width: 0;
 }
 
 .platform-card:hover {
-  transform: translateY(-4px)
+  z-index: 100 !important;
+  position: relative;
 }
 
 .platform-card.active {
@@ -2009,4 +1806,142 @@ export default {
   overflow-y: auto;
   padding: 12px 16px;
 }
+
+.input-with-tip .tip-icon {
+  position: relative; /* 增加相对定位，使伪元素能正确定位 */
+}
+
+.input-with-tip .tip-icon::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 8px);
+  /* ✅ 关键：右对齐，而不是居中 */
+  right: 0;
+  left: auto;
+  transform: translateY(-4px);
+
+  /* ✅ 防止超出屏幕 */
+  max-width: min(340px, calc(100vw - 32px));
+  min-width: 260px;
+  padding: 10px 14px;
+  background: rgba(20, 23, 32, 0.98);
+  color: #e6edf3;
+  font-size: 12px;
+  line-height: 1.6;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1000;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.input-with-tip .tip-icon::before {
+  content: '';
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 10px;          /* 箭头对齐右侧 */
+  left: auto;
+  transform: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgba(20, 23, 32, 0.98);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1001;
+}
+
+.input-with-tip .tip-icon:hover::after,
+.input-with-tip .tip-icon:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.input-with-tip .tip-icon:hover {
+  color: #64b5ff;
+}
+
+.tab-item.tab-all {
+  background: rgba(45, 179, 2, 0.85);
+  color: #fff;
+}
+
+/* 半选：淡绿色 */
+.tab-item.tab-part {
+  background: rgba(45, 179, 2, 0.18);
+  color: #9be07c;
+}
+
+/* active 状态仍然优先 */
+.tab-item.active {
+  background: #409eff;
+  color: #fff;
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select .select-trigger {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-select .select-trigger span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-select .select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: rgba(30, 35, 48, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.custom-select .select-option {
+  padding: 10px 14px;
+  color: #e6edf3;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.custom-select .select-option:hover {
+  background: rgba(64, 158, 255, 0.2);
+}
+
+.custom-select .select-option.selected {
+  background: rgba(64, 158, 255, 0.3);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* 可选：打开时给触发器加个高亮边框 */
+.custom-select.active .select-trigger {
+  border-color: #409eff;
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.2);
+}
+
 </style>

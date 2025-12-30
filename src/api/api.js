@@ -2053,10 +2053,11 @@ export function getPlatformCategories() {
     })
 }
 
-export function updateSubscriptionConfig() {
+export function updateSubscriptionConfig(data) {
     return request({
         url: '/topsearch/license/updateSubscriptionConfig',
-        method: 'post'
+        method: 'post',
+        data: data
     })
 }
 
