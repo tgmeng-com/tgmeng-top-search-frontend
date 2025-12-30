@@ -160,12 +160,12 @@
                       <!-- 内容列表 -->
                       <div class="space-y-4 relative">
                         <!-- 判断是否有数据 -->
-                        <div v-if="aiData?.result?.[cat.key]?.length === 0" class="text-center py-8 text-gray-500 dark:text-gray-400">
+                        <div v-if="aiData?.data?.[cat.key]?.length === 0" class="text-center py-8 text-gray-500 dark:text-gray-400">
                           暂无内容
                         </div>
 
                         <div
-                            v-for="(itemData, dataIndex) in aiData?.result?.[cat.key]"
+                            v-for="(itemData, dataIndex) in aiData?.data?.[cat.key]"
                             :key="dataIndex"
                             class="group/item relative overflow-hidden rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-md p-5 border border-white/40 dark:border-gray-700/40 transition-all duration-300 hover:shadow-xl hover:scale-[1.01] hover:bg-white/80 dark:hover:bg-gray-800/80"
                         >
