@@ -1735,6 +1735,7 @@ export default {
   gap: 8px;
   font-size: 13px;
   transition: background 0.2s;
+  color: #D1D7E0;
 }
 
 .cascader-items.dense.small .item-bg {
@@ -1761,6 +1762,7 @@ export default {
 
 .cascader-root-header {
   margin-bottom: 10px;
+  color: #D1D7E0;
 }
 
 /* 模块外框 */
@@ -1770,6 +1772,7 @@ export default {
   border-radius: 12px;
   padding: 18px;
   margin-bottom: 24px;
+  color: #CBD1DE;
 }
 
 .cascader-tabs-header {
