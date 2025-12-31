@@ -68,79 +68,8 @@
         <HotPointComponentSudden/>
       </div>
       <div v-else>
-        <div class="mb-10 mt-4">
-          <!-- 手机端：可切换横向/竖向滚动 -->
-          <div
-              ref="mobileScrollContainer"
-              class="md:hidden"
-              :class="cardHorizontalScrolling === 'horizontal' ? 'overflow-x-auto hide-scrollbar' : ''"
-              @scroll="onMobileScroll"
-          >
-            <draggable
-                v-model="activeCategory.subCategories"
-                tag="div"
-                item-key="title"
-                :class="cardHorizontalScrolling === 'horizontal' ? 'flex gap-4 pb-4' : 'grid grid-cols-1 gap-4'"
-                :animation="300"
-                :handle="'.drag-handle'"
-                @start="onDragStart"
-                @end="onDragEnd"
-                :disabled="!cardDraggable"
-            >
-              <template #item="{ element: p }">
-                <div
-                    v-show="p.isShow"
-                    :class="cardHorizontalScrolling === 'horizontal' ? 'flex-shrink-0' : ''"
-                    :style="cardHorizontalScrolling === 'horizontal' ? cardWidthForPhoneStyle : ''"
-                >
-                  <CommunityCard
-                      :key="p.title"
-                      :title="p.title"
-                      :logo="p.logo"
-                      :updateTime="p.updateTime"
-                      :list="p.data"
-                      :loading="p.loading"
-                      :rss="p.rss"
-                      v-model:isStar="p.isStar"
-                      @updateCategroiesCache="updateCategroiesCache"
-                      @fetchData="()=>fetchData(p)"
-                  />
-                </div>
-              </template>
-            </draggable>
-          </div>
-
-          <!-- PC端：网格布局 -->
-          <draggable
-              v-model="activeCategory.subCategories"
-              tag="div"
-              item-key="title"
-              class="hidden md:grid gap-6 grid-cols-1 md:grid-cols-2"
-              :style="gridStyle"
-              :animation="300"
-              :handle="'.drag-handle'"
-              @start="onDragStart"
-              @end="onDragEnd"
-              :disabled="!cardDraggable"
-          >
-            <template #item="{ element: p }">
-              <div v-show="p.isShow">
-                <CommunityCard
-                    :key="p.title"
-                    :title="p.title"
-                    :logo="p.logo"
-                    :updateTime="p.updateTime"
-                    :list="p.data"
-                    :loading="p.loading"
-                    :rss="p.rss"
-                    v-model:isStar="p.isStar"
-                    @updateCategroiesCache="updateCategroiesCache"
-                    @fetchData="()=>fetchData(p)"
-                />
-              </div>
-            </template>
-          </draggable>
-        </div>
+        <HotPointComponentNormal :categoryScrollPositions="categoryScrollPositions" @updateScrollPosition="updateScrollPosition"
+        />
       </div>
       <!--     主内容和评论区之间 展示广告 -->
       <GoogleAdsense v-if="$store.state.adsEnabled" ad-client="ca-pub-3286880109560525" ad-slot="9081541454"
@@ -152,7 +81,6 @@
 </template>
 
 <script>
-import HotPointCard from '@/components/Layout/HotPointCard.vue';
 import { getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage,} from "@/utils/localStorageUtils";
 import draggable from 'vuedraggable'
 import WordCloud from '@/components/Layout/WordCloud.vue'
@@ -164,6 +92,7 @@ import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
 import HotPointHistoryComponent from "@/components/Layout/HotPointHistoryComponent.vue";
 import HotPointComponentSudden from "@/components/Layout/HotPointComponentSudden.vue";
+import HotPointComponentNormal from "@/components/Layout/HotPointComponentNormal.vue";
 import PageViewShow from "@/components/Layout/PageViewShow.vue";
 import SettingsPanel from "@/components/Layout/SettingsPanel.vue"
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
@@ -171,6 +100,7 @@ import SettingsPanel from "@/components/Layout/SettingsPanel.vue"
 export default {
   components: {
     HotPointComponentSudden,
+    HotPointComponentNormal,
     HotPointHistoryComponent,
     WorkMaskVsCode,
     // AdRentCards,
@@ -178,17 +108,14 @@ export default {
     WalineComment,
     TopMessage,
     WorkMaskExcel,
-    CommunityCard: HotPointCard,
     draggable,
     WordCloud,
     FishModeChoose,
     PageViewShow,
-    SettingsPanel
+    SettingsPanel,
   },
   data() {
     return {
-
-      preDragSortList: [], // 拖动前的 sort 列表
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
       refreshTimer: null, // 定时器 ID
       windowWidth: window.innerWidth, // 屏幕大小
@@ -210,21 +137,11 @@ export default {
     window.removeEventListener('resize', this.handleResize);
   },
   methods: {
-    // 🆕 新增方法1：监听滚动，保存位置
-    onMobileScroll() {
-      if (this.$refs.mobileScrollContainer && this.cardHorizontalScrolling === 'horizontal') {
-        this.categoryScrollPositions[this.activeCategory.id] = this.$refs.mobileScrollContainer.scrollLeft;
-      }
+    // 更新滚动位置（从子组件接收）
+    updateScrollPosition(categoryId, scrollLeft) {
+      this.categoryScrollPositions[categoryId] = scrollLeft;
     },
 
-    // 🆕 新增方法2：恢复滚动位置
-    restoreCategoryScrollPosition() {
-      this.$nextTick(() => {
-        if (this.$refs.mobileScrollContainer && this.cardHorizontalScrolling === 'horizontal') {
-          this.$refs.mobileScrollContainer.scrollLeft = this.categoryScrollPositions[this.activeCategory.id] || 0;
-        }
-      });
-    },
     handleResize() {
       this.windowWidth = window.innerWidth; // 更新 windowWidth
     },
@@ -259,70 +176,6 @@ export default {
       this.handleRouteCategory("init");
     },
 
-    filterByWords(texts, includeWords = [], excludeWords = [], getter = null) {
-      if (!Array.isArray(texts)) return [];
-
-      // getter 处理
-      const getText = typeof getter === "function"
-          ? getter
-          : (item => item);
-
-      // 处理 include / exclude：trim + 非空 + 小写
-      const includes = (includeWords || [])
-          .map(w => w.trim().toLowerCase())
-          .filter(Boolean);
-
-      const excludes = (excludeWords || [])
-          .map(w => w.trim().toLowerCase())
-          .filter(Boolean);
-
-      return texts.filter(item => {
-        let text = getText(item);
-
-        if (text == null) return false;
-        if (typeof text !== "string") text = String(text);
-
-        const t = text.trim().toLowerCase(); // ⭐ 文本转小写
-        if (!t) return false;
-
-        // include
-        const includeOK =
-            includes.length === 0 || includes.some(w => t.includes(w));
-
-        // exclude
-        const excludeOK =
-            excludes.length === 0 || !excludes.some(w => t.includes(w));
-
-        return includeOK && excludeOK;
-      });
-    },
-
-    // 访问接口拿数据
-    fetchData(subCategory) {
-      const fetchFunc = subCategory.api;
-      if (!fetchFunc) return;
-      subCategory.loading = true;
-      fetchFunc()
-          .then((res) => {
-            const data = res?.data?.data || {};
-            subCategory.updateTime = data.dataUpdateTime || '';
-            subCategory.data = Array.isArray(data.dataInfo) ? data.dataInfo : [];
-            // 过滤掉
-            subCategory.data = this.filterByWords(
-                Array.isArray(data.dataInfo) ? data.dataInfo : [],
-                this.includeWord,      // 必须包含
-                this.unincludeWord,      // 不包含
-                item => item.title   // 从 title 判断
-            );
-          })
-          .catch((err) => {
-            console.warn(`加载失败：${subCategory.name}`, err);
-          })
-          .finally(() => {
-            subCategory.loading = false;
-          });
-    },
-
     // 处理路由 category 参数
     handleRouteCategory(from) {
       const categoryRouterName = this.$route.params.category;
@@ -341,8 +194,8 @@ export default {
         }
         this.handleCategoryClick(this.activeCategory, {skipRoutePush: true});
       }
-    }
-    ,
+    },
+
     handleRssClick(cat) {
       if (cat.id === 0) {
         window.open('https://tgmeng.com/rss.xml', '_blank');
@@ -350,8 +203,7 @@ export default {
         window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
       }
       window.umami.track('点击RSS:' + cat.name);
-    }
-    ,
+    },
 
     // 分类按钮点击事件
     handleCategoryClick(cat, options = {}) {
@@ -363,8 +215,7 @@ export default {
         }
       }
       this.activeCategory = cat;
-      // 🆕 新增：恢复该分类的滚动位置
-      this.restoreCategoryScrollPosition();
+
       // 把全部数据下收藏的卡片方法收藏分类下
       if (cat.routerName === 'favorites') {
         // 先清空收藏分类下的卡片
@@ -374,7 +225,7 @@ export default {
         if (allCategory) {
           // 清空 activeCategory 的 subCategories（避免重复添加）
           this.activeCategory.subCategories = [];
-          // 把“全部”分类里标记为 isStar 的子分类添加进去
+          // 把"全部"分类里标记为 isStar 的子分类添加进去
           allCategory.subCategories.forEach(subCat => {
             if (subCat.isStar) {
               this.activeCategory.subCategories.push(subCat);
@@ -390,44 +241,7 @@ export default {
 
       // 对数据进行排序，因为从缓存中拿到的用户的sort数据，我们需要根据这个sort展示
       this.sortedSubCategories();
-      cat.subCategories.forEach(subCat => {
-        //只加载show的数据
-        if (subCat.isShow) {
-          this.fetchData(subCat);
-        }
-      });
-    }
-    ,
-
-    // 刷新当前分类下的数据
-    refreshData() {
-      this.activeCategory.subCategories.forEach(subCat => {
-        // TODO 因为有人反馈，看着看着自动刷新了，所以这里先不写这个逻辑
-        // 不同平台的时间不同，例如后台github数据是每20-40分钟刷新，那么前端就是判断github数据时间和当前时间相差40分钟的时候，再去主动更新
-        let singleUpdateTime = 60 * 1000;
-        switch (true) {
-          case subCat.title.includes('Star总榜') || subCat.title.includes('新仓库Star'):
-            singleUpdateTime = 40 * 60 * 1000; // 40分钟
-            break;
-          case subCat.title.includes('网易云'):
-            singleUpdateTime = 15 * 60 * 1000; // 15分钟
-            break;
-          default:
-            singleUpdateTime = 60 * 1000; // 默认1分钟
-        }
-        // 检查是否超过60秒没有更新
-        const updateTimestamp = new Date(subCat.updateTime.replace(/-/g, '/')).getTime();
-        if (subCat.isShow && new Date() - new Date(updateTimestamp) > singleUpdateTime) {
-          this.fetchData(subCat);
-        }
-
-        // 如果当前某个平台下数据为空，也主动刷新一下,这个也先不加了，防止被一些平台进行了ip限制的话，频繁请求导致一直被限制
-        if (subCat.isShow && subCat.data.length === 0) {
-          this.fetchData(subCat);
-        }
-      })
-    }
-    ,
+    },
 
     // 初始化全部分类，就是把其他分类下的东西放到全部分类下，方便展示
     initAllCategroies() {
@@ -441,30 +255,13 @@ export default {
           this.activeCategory.subCategories.push(subCat)
         });
       })
-    }
-    ,
-    // 拖动开始时，保存当前 sort 列表
-    onDragStart() {
-      this.preDragSortList = this.activeCategory.subCategories.map(item => item.sort);
-    }
-    ,
-    // 拖动大分类开始时，保存当前 sort 列表
+    },
+
+    //保存大分类拖动卡片后的顺序
     onDragFatherCatStart() {
       this.preDragFatherCatSortList = this.categroies.map(item => item.sort);
-    }
-    ,
-    //保存拖动卡片后的顺序
-    onDragEnd() {
-      // 拖动完成后，更新每个卡片的 sort 属性
-      const arr = this.activeCategory.subCategories;
-      arr.forEach((item, index) => {
-        item.sort = this.preDragSortList[index];
-      });
-      this.updateCategroiesCache();
-      window.umami.track('拖拽排序')
-    }
-    ,
-    //保存大分类拖动卡片后的顺序
+    },
+
     onDragFatherCatEnd() {
       // 拖动完成后，更新每个卡片的 sort 属性
       const arr = this.categroies;
@@ -473,8 +270,8 @@ export default {
       });
       this.updateCategroiesCache();
       window.umami.track('拖拽排序')
-    }
-    ,
+    },
+
     updateCategroiesCache() {
       // 放到缓存里
       const clonedForStorage = JSON.parse(JSON.stringify(this.categroies));
@@ -489,8 +286,8 @@ export default {
         })
       });
       setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES, clonedForStorage);
-    }
-    ,
+    },
+
     sortedSubCategories() {
       this.activeCategory.subCategories.sort((a, b) => a.sort - b.sort);
     },
@@ -511,69 +308,12 @@ export default {
     isMobile() {
       return this.windowWidth < 768; // 手机屏幕宽度
     },
-    isMediumScreen() {
-      return this.windowWidth >= 768 && this.windowWidth < 1024; // 中等屏幕宽度
-    },
-    gridStyle() {
-      return {
-        gridTemplateColumns: `repeat(${this.isMobile ? 1 : this.isMediumScreen ? 2 : this.cardCols}, minmax(0, 1fr))`
-      };
-    },
-    cardHeight: {
-      get() {
-        return this.$store.state.cardHeight;
-      },
-      set(value) {
-        this.$store.commit('setCardHeight', value);
-      }
-    },
-    // 自定义调整卡片列表数
-    cardListLimit: {
-      get() {
-        return this.$store.state.cardListLimit;
-      },
-      set(value) {
-        this.$store.commit('setCardListLimit', value);
-      }
-    },
-    cardCols: {
-      get() {
-        return this.$store.state.cardCols;
-      },
-      set(value) {
-        this.$store.commit('setCardCols', value);
-      }
-    },
-    cardTitleFontSize: {
-      get() {
-        return this.$store.state.cardTitleFontSize;
-      },
-      set(value) {
-        this.$store.commit('setCardTitleFontSize', value);
-      }
-    },
     categroiesTitleFontSize: {
       get() {
         return this.$store.state.categroiesTitleFontSize;
       },
       set(value) {
         this.$store.commit('setCategroiesTitleFontSize', value);
-      }
-    },
-    cardTopFontSize: {
-      get() {
-        return this.$store.state.cardTopFontSize;
-      },
-      set(value) {
-        this.$store.commit('setCardTopFontSize', value);
-      }
-    },
-    cardDraggable: {
-      get() {
-        return this.$store.state.cardDraggable;
-      },
-      set(value) {
-        this.$store.commit('setCardDraggable', value);
       }
     },
     categroiesDraggable: {
@@ -590,46 +330,6 @@ export default {
       },
       set(value) {
         this.$store.commit('setCategroiesRssIconShow', value);
-      }
-    },
-    cardHotScoreShow: {
-      get() {
-        return this.$store.state.cardHotScoreShow;
-      },
-      set(value) {
-        this.$store.commit('setCardHotScoreShow', value);
-      }
-    },
-    cardTimeShow: {
-      get() {
-        return this.$store.state.cardTimeShow;
-      },
-      set(value) {
-        this.$store.commit('setCardTimeShow', value);
-      }
-    },
-    cardHorizontalScrolling: {
-      get() {
-        return this.$store.state.cardHorizontalScrolling;
-      },
-      set(value) {
-        this.$store.commit('setCardHorizontalScrolling', value);
-      }
-    },
-    cardHotTitleFull: {
-      get() {
-        return this.$store.state.cardHotTitleFull;
-      },
-      set(value) {
-        this.$store.commit('setCardHotTitleFull', value);
-      }
-    },
-    cardTitleFull: {
-      get() {
-        return this.$store.state.cardTitleFull;
-      },
-      set(value) {
-        this.$store.commit('setCardTitleFull', value);
       }
     },
     defaultCategoryId: {
@@ -701,61 +401,6 @@ export default {
       },
       set(value) {
         this.$store.commit('setPageViewsShow', value);
-      }
-    },
-    // 边距缩放，就是屏幕两边的，主要是为了移动端i
-    widthPadding: {
-      get() {
-        return this.$store.state.widthPadding;
-      },
-      set(value) {
-        this.$store.commit('setWidthPadding', value);
-      }
-    },
-    // 词云数量
-    wordCloudNum: {
-      get() {
-        return this.$store.state.wordCloudNum;
-      },
-      set(value) {
-        this.$store.commit('setWordCloudNum', value);
-      }
-    },
-    adsEnabled: {
-      get() {
-        return this.$store.state.adsEnabled;
-      },
-      set(value) {
-        this.$store.commit('setAdsEnabled', value);
-      }
-    },
-    includeWord: {
-      get() {
-        return this.$store.state.includeWord;
-      },
-      set(value) {
-        this.$store.commit('setIncludeWord', value);
-      }
-    },
-    unincludeWord: {
-      get() {
-        return this.$store.state.unincludeWord;
-      },
-      set(value) {
-        this.$store.commit('setUnincludeWord', value);
-      }
-    },
-    cardWidthForPhone: {
-      get() {
-        return this.$store.state.cardWidthForPhone;
-      },
-      set(value) {
-        this.$store.commit('setCardWidthForPhone', value);
-      }
-    },
-    cardWidthForPhoneStyle() {
-      return {
-        width: this.cardWidthForPhone + '% !important',
       }
     },
   },
@@ -884,37 +529,6 @@ export default {
 
 .stats-updating {
   animation: pulse 0.5s ease-in-out;
-}
-
-/* 隐藏滚动条但保持滚动功能 */
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* 可选：添加滚动指示器 */
-.overflow-x-auto {
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-}
-
-.flex-shrink-0 {
-  scroll-snap-align: start;
-}
-
-/* 手机端卡片容器 - 让卡片内部可以滚动 */
-.card-wrapper-mobile {
-  height: 70vh; /* 固定高度，让卡片内部可以滚动 */
-  overflow: visible; /* 允许卡片内部自行处理滚动 */
-}
-
-.card-wrapper-mobile > * {
-  height: 100%;
-  overflow-y: auto; /* 确保卡片内部可以纵向滚动 */
 }
 
 .category-nav-sticky {
