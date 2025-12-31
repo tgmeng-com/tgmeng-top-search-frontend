@@ -1435,7 +1435,7 @@ export function cacheSearchForAllByWord(input, searchMode) {
 
 export function cacheSearchForAISummaryData(data) {
     return request({
-        url: '/cachesearch/realtimesummary',
+        url: '/cachesearch/realtimesummary/all',
         method: 'get',
         data: {
             word: data
