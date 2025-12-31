@@ -7,8 +7,9 @@
         :style="buttonStyle"
         @mousedown="handleMouseDown"
         @touchstart="handleTouchStart"
+        @click="handleClick"
     >
-      <div class="ai-float-button" @click="handleButtonClick">
+      <div class="ai-float-button">
         <div class="button-glow"></div>
         <div class="button-glow-2"></div>
         <div class="button-glow-3"></div>
@@ -197,6 +198,7 @@ export default {
       messageTitle: '',
       messageDesc: '',
       messageIsAI: false,
+      hasMoved: false,
     };
   },
   computed: {
@@ -291,6 +293,7 @@ export default {
     },
     startDrag(clientX, clientY) {
       this.isDragging = true;
+      this.hasMoved = false;
       this.dragStartX = clientX;
       this.dragStartY = clientY;
       this.dragStartPosX = this.position.x;
@@ -300,6 +303,12 @@ export default {
       if (!this.isDragging) return;
       const deltaX = clientX - this.dragStartX;
       const deltaY = clientY - this.dragStartY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // 标记是否真正移动了
+      if (distance > this.dragThreshold) {
+        this.hasMoved = true;
+      }
       let newX = this.dragStartPosX + deltaX;
       let newY = this.dragStartPosY + deltaY;
       const maxX = window.innerWidth - this.buttonSize;
@@ -311,22 +320,37 @@ export default {
     },
     endDrag(clientX, clientY) {
       if (!this.isDragging) return;
+      const touchDuration = Date.now() - this.touchStartTime;
       const deltaX = clientX - this.dragStartX;
       const deltaY = clientY - this.dragStartY;
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       this.isDragging = false;
-      if (distance < this.dragThreshold) {
-        this.toggleMode();
-      } else {
+      if (distance < this.dragThreshold && touchDuration < 300) {
+        // 延迟一点点执行，确保所有事件处理完毕
+        setTimeout(() => {
+          this.toggleMode();
+        }, 10);
+      } else if (this.hasMoved) {
+        // 真正的拖动，保存位置
         this.savePosition();
       }
     },
-    handleButtonClick() {},
     handleResize() {
       const maxX = window.innerWidth - this.buttonSize;
       const maxY = window.innerHeight - this.buttonSize;
       this.position.x = Math.max(0, Math.min(this.position.x, maxX));
       this.position.y = Math.max(0, Math.min(this.position.y, maxY));
+    },
+    handleClick(e) {
+      // 如果刚刚发生了拖动，阻止切换
+      if (this.hasMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      // 只有在没有拖动时才切换模式
+      this.toggleMode();
     },
     toggleMode() {
       const willBeAIMode = !this.isAIMode;

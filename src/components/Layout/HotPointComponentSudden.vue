@@ -59,7 +59,7 @@
         <!-- 历史订阅推送 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-            🤖 实时捕捉多平台同时爆发的相似话题（前1-2项部分时间存在指纹干扰，仅供参考）
+            🤖 实时捕捉多平台同时爆发的相似话题，采用糖果模型进行分析，结果仅供参考（前1-2项部分时间存在指纹干扰，仅供参考）
           </span>&nbsp;
         </div>
         <!-- 右侧：更新时间（移动端换行显示） -->
