@@ -153,7 +153,9 @@ export default {
   data() {
     return {
       loading: false,
-      aiData: {}
+      aiData: {
+        "data":[]
+      }
     };
   },
   computed: {
@@ -250,9 +252,8 @@ export default {
 
               this.aiData.data = result;
             } else {
-              store.commit('setIsAIMode', false)
               if (res.data.code === 999) {
-                // this.$message.error(res.data.message);
+                store.commit('setIsAIMode', false)
                 store.commit('setLicenseShow', true)
               }
             }
