@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-24" :style="widthPaddingStyle">
-    //全局通知
+<!--    全局通知-->
     <GlobalAnnouncement
         title="🎁 新年新气象"
         expiryDate="2026-01-02 00:00:00"
