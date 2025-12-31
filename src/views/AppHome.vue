@@ -10,23 +10,40 @@
     <main class="flex-grow">
       <!-- 分类导航 -->
       <CategoryNavigation @categoryClick="handleCategoryClick"/>
+
       <!-- 统计数据 -->
       <PageViewShow :show="pageViewsShow" />
       <!-- 设置面板 -->
       <SettingsPanel :categories="categroies"/>
-      <!-- 词云 -->
+
       <WordCloud v-if="wordCloudShow"/>
-      <!-- 突发热点 -->
-      <div v-if="activeCategory.routerName==='sudden'">
-        <HotPointComponentSudden/>
+
+      <!-- AI模式 -->
+      <div v-if="isAIMode">
+        <HotPointComponentAI/>
       </div>
-      <!-- 普通热点 -->
+      <!-- 普通模式 -->
       <div v-else>
-        <HotPointComponentNormal :categoryScrollPositions="categoryScrollPositions" @updateScrollPosition="updateScrollPosition"/>
+        <div v-if="activeCategory.routerName==='sudden'">
+          <HotPointComponentSudden/>
+        </div>
+        <div v-else>
+          <HotPointComponentNormal
+              :categoryScrollPositions="categoryScrollPositions"
+              @updateScrollPosition="updateScrollPosition"
+          />
+        </div>
       </div>
-      <!-- 主内容和评论区之间 展示广告 -->
-      <GoogleAdsense v-if="$store.state.adsEnabled" ad-client="ca-pub-3286880109560525" ad-slot="9081541454" ad-format="auto" :full-width-responsive="true"/>
-      <!-- 评论区 -->
+
+      <!-- 模式切换按钮 -->
+      <ModeSwitcher/>
+
+      <!--     主内容和评论区之间 展示广告 -->
+      <GoogleAdsense v-if="$store.state.adsEnabled"
+                     ad-client="ca-pub-3286880109560525"
+                     ad-slot="9081541454"
+                     ad-format="auto"
+                     :full-width-responsive="true"/>
       <WalineComment/>
     </main>
   </div>
@@ -47,10 +64,14 @@ import HotPointComponentNormal from "@/components/Layout/HotPointComponentNormal
 import PageViewShow from "@/components/Layout/PageViewShow.vue";
 import SettingsPanel from "@/components/Layout/SettingsPanel.vue";
 import CategoryNavigation from "@/components/Layout/CategoryNavigation.vue";
+import HotPointComponentAI from "@/components/Layout/HotPointComponentAI.vue";
+import ModeSwitcher from "@/components/Layout/ModeSwitcher.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    ModeSwitcher,
+    HotPointComponentAI,
     CategoryNavigation,
     HotPointComponentSudden,
     HotPointComponentNormal,
@@ -290,6 +311,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setPageViewsShow', value);
+      }
+    },
+    isAIMode: {
+      get() {
+        return this.$store.state.isAIMode;
+      },
+      set(value) {
+        this.$store.commit('setIsAIMode', value);
       }
     },
   },

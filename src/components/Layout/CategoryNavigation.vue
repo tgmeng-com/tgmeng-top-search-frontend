@@ -17,7 +17,7 @@
         <template #item="{ element: cat }">
           <div class="mr-2 last:mr-0 relative">
             <button
-                v-show="cat.isShow"
+                v-show="cat.isShow && !(isAIMode && isHiddenCategory(cat))"
                 :data-umami-event="cat.name"
                 :data-umami-event-name="cat.name"
                 :key="cat.name"
@@ -35,7 +35,7 @@
                  viewBox="0 0 24 24"
                  class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-50"
                  @click.stop="handleRssClick(cat)"
-                 v-if="cat.id !== 13 && cat.id !== -1 && categroiesRssIconShow"
+                 v-if="cat.id !== 13 && cat.id !== -1 && categroiesRssIconShow && !(isAIMode && isHiddenCategory(cat))"
             >
               <rect width="24" height="24" rx="3" ry="3" fill="#FFA500"/>
               <circle cx="6" cy="18" r="2" fill="white"/>
@@ -51,7 +51,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { setLocalStorage, LOCAL_STORAGE_KEYS } from "@/utils/localStorageUtils";
+import {setLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
 
 export default {
   name: 'CategoryNavigation',
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       preDragFatherCatSortList: [], // 大分类拖动前的 sort 列表
-      windowWidth: window.innerWidth,
+      windowWidth: window.innerWidth
     };
   },
   mounted() {
@@ -121,6 +121,15 @@ export default {
     },
   },
   computed: {
+    isAIMode() {
+      return this.$store.state.isAIMode;
+    },
+    // 判断是否是需要隐藏的分类（收藏 或 突发）
+    isHiddenCategory() {
+      return (cat) => {
+        return cat.routerName === 'sudden' || cat.routerName === 'favorites';
+      };
+    },
     isMobile() {
       return this.windowWidth < 768;
     },

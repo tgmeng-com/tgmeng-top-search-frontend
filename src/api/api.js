@@ -1433,13 +1433,10 @@ export function cacheSearchForAllByWord(input, searchMode) {
     })
 }
 
-export function cacheSearchForAISummaryData(data) {
+export function cacheSearchForAISummaryData(type) {
     return request({
-        url: '/cachesearch/realtimesummary/all',
-        method: 'get',
-        data: {
-            word: data
-        }
+        url: '/cachesearch/realtimesummary/' + type,
+        method: 'get'
     })
 }
 

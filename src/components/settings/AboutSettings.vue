@@ -246,6 +246,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/12/31 22:00',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增按照每个分类单独进行ai总结已经全局ai总结'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/12/30 15:00',
               events: [{
                 id: 1, title: '新增功能', desc: ['推送订阅支持分类选择'], tag: 'Feat'

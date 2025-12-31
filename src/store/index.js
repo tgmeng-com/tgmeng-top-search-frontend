@@ -397,6 +397,7 @@ export default createStore({
         topMessageHeight: 6, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
         // 自定义调整卡片列表数
         cardListLimit: 200,
+        isAIMode: false, // AI模式开关，默认为false（普通模式）
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -1094,6 +1095,10 @@ export default createStore({
         },
         setCardListLimit(state, newLimit) {
             state.cardListLimit = newLimit;
-        }
+        },
+        setIsAIMode(state, value) {
+            state.isAIMode = value;
+            // localStorage.setItem('isAIMode', JSON.stringify(value));
+        },
     }
 });

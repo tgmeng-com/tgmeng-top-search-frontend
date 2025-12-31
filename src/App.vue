@@ -2,7 +2,6 @@
   <div class="container mx-auto py-24" :style="widthPaddingStyle">
     <HeaderComponent/>
     <NotificationComponent/>
-    <AIFloatReport/>
     <LicenseComponent v-if="licenseShow"/>
     <SubscriptionConfigModal v-if="subscriptionSettingShow"/>
     <ClientInstall/>
@@ -20,7 +19,6 @@
 import HeaderComponent from "@/components/Layout/HeaderComponent.vue";
 import NotificationComponent from "@/components/Layout/NotificationComponent.vue";
 import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
-import AIFloatReport from "@/components/Layout/AIFloatReport.vue";
 import SubscriptionConfigModal from "@/components/Layout/SubscriptionConfigModal.vue";
 import ClientInstall from "@/components/UI/ClientInstall.vue";
 import LicenseComponent from "@/components/Layout/LicenseComponent.vue";
@@ -29,7 +27,6 @@ export default {
   name: 'App',
   components: {
     LicenseComponent,
-    AIFloatReport,
     NotificationComponent,
     HeaderComponent: HeaderComponent,
     GoogleAdsense: GoogleGoogleAdsense,
