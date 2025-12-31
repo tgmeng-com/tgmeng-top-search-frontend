@@ -80,39 +80,20 @@ export default {
 
 /* 样式逻辑 - 优先定义变量 */
 .glass-card {
-  /* 亮色模式默认值 */
-  --n-bg: rgba(255, 255, 255, 0.95);
-  --n-border: rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
   --n-title: #1a202c;
   --n-text: #4a5568;
   --n-btn-bg: #1a202c;
   --n-btn-text: #ffffff;
-  --n-shadow: rgba(0, 0, 0, 0.1);
 
   position: relative;
-  background: var(--n-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--n-border);
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 20px 40px -10px var(--n-shadow);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
-}
-
-/* 强制覆盖暗色模式样式 */
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    --n-bg: rgba(13, 17, 23, 0.9); /* 更深的底色 */
-    --n-border: rgba(255, 255, 255, 0.15); /* 亮色细边框 */
-    --n-title: #f8fafc !important; /* 强制浅色标题 */
-    --n-text: #94a3b8 !important; /* 灰蓝色正文 */
-    --n-btn-bg: #38bdf8; /* 暗色模式下改用亮蓝色按钮 */
-    --n-btn-text: #082f49;
-    --n-shadow: rgba(0, 0, 0, 0.4);
-
-    background-color: var(--n-bg) !important;
-  }
 }
 
 .header {
