@@ -65,7 +65,7 @@
       <WordCloud v-if="wordCloudShow"/>
 
       <div v-if="activeCategory.routerName==='sudden'">
-        <SuddenHotPointComponent/>
+        <HotPointComponentSudden/>
       </div>
       <div v-else>
         <div class="mb-10 mt-4">
@@ -163,14 +163,14 @@ import GoogleAdsense from "@/components/Adsense/GoogleAdsense.vue";
 import WorkMaskVsCode from "@/components/fakeUI/WorkMaskVsCode.vue";
 import FishModeChoose from "@/components/fakeUI/FishModeChoose.vue";
 import HotPointHistoryComponent from "@/components/Layout/HotPointHistoryComponent.vue";
-import SuddenHotPointComponent from "@/components/Layout/SuddenHotPointComponent.vue";
+import HotPointComponentSudden from "@/components/Layout/HotPointComponentSudden.vue";
 import PageViewShow from "@/components/Layout/PageViewShow.vue";
 import SettingsPanel from "@/components/Layout/SettingsPanel.vue"
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
-    SuddenHotPointComponent,
+    HotPointComponentSudden,
     HotPointHistoryComponent,
     WorkMaskVsCode,
     // AdRentCards,

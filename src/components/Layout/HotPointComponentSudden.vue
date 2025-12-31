@@ -1,4 +1,4 @@
-<!-- SuddenHotPointComponent.vue -->
+<!-- HotPointComponentSudden.vue -->
 <template>
   <div class="sudden-hotspots-page mt-4 mb-10">
     <div class="page-header mb-4">
@@ -173,7 +173,7 @@ import {
 import store from "@/store";
 
 export default {
-  name: 'SuddenHotPointComponent',
+  name: 'HotPointComponentSudden',
   data() {
     return {
       activeTab: 'hour',
