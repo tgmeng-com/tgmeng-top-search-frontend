@@ -1,5 +1,15 @@
 <template>
   <div class="container mx-auto py-24" :style="widthPaddingStyle">
+    //全局通知
+    <GlobalAnnouncement
+        title="🎁 新年新气象"
+        expiryDate="2026-01-02 00:00:00"
+        :list="[
+          '新增全分类AI总结、分析、预测，点击悬浮按钮皆可切换【AI模式】【糖果模式】',
+          '听说其他群主都在发福利？那咱就用每天数亿Token也豪气一波',
+          '科技不该冰冷，人性不该傲慢'
+  ]"
+    />
     <HeaderComponent/>
     <NotificationComponent/>
     <LicenseComponent v-if="licenseShow"/>
@@ -22,6 +32,7 @@ import GoogleGoogleAdsense from "./components/Adsense/GoogleAdsense.vue";
 import SubscriptionConfigModal from "@/components/Layout/SubscriptionConfigModal.vue";
 import ClientInstall from "@/components/UI/ClientInstall.vue";
 import LicenseComponent from "@/components/Layout/LicenseComponent.vue";
+import GlobalAnnouncement from "@/components/Layout/GlobalAnnouncement.vue"
 
 export default {
   name: 'App',
@@ -32,6 +43,7 @@ export default {
     GoogleAdsense: GoogleGoogleAdsense,
     ClientInstall: ClientInstall,
     SubscriptionConfigModal,
+    GlobalAnnouncement
   },
   data() {
     return {
