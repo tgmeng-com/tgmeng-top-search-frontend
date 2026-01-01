@@ -46,6 +46,8 @@ export const LOCAL_STORAGE_KEYS = {
     UNINCLUDE_WORD: 'unincludeWord',
     // 密钥
     LICENSE_DODE: 'licenseCode',
+    // 是否AI模式
+    IS_AI_MODE: 'isAIMode',
 };
 
 // 设置本地存储

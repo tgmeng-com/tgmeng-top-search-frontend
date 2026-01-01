@@ -76,6 +76,8 @@
 
 <script>
 // 这里完全保持你最原始的代码逻辑，不作改动
+import {LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+
 export default {
   name: 'ModeSwitcher',
   data() {
@@ -220,6 +222,7 @@ export default {
         }
       }
       this.isAIMode = willBeAIMode;
+      setLocalStorage(LOCAL_STORAGE_KEYS.IS_AI_MODE, this.isAIMode);
       this.showModeMessage(willBeAIMode);
       if (window.umami) window.umami.track(willBeAIMode ? '切换到AI模式' : '切换到糖果模式');
     },
