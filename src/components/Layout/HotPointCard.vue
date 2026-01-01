@@ -94,7 +94,7 @@
               {{ item.title }}
               <!-- 网易云二级标题 -->
               <template v-if="title.includes('网易云')">
-                <span :style="cardSecondTitleStyle">&nbsp;- {{ item.image }}</span>
+                <span :style="cardSecondTitleStyle">&nbsp;- {{ item.author }}</span>
               </template>
               <!-- 猫眼二级标题 -->
               <template v-else-if="title.includes('猫眼')">
@@ -110,19 +110,19 @@
 
             <!-- 评分/播放/信息 -->
             <div v-if="cardHotScoreShow">
-              <template v-if="title.includes('网易云')">
-                <audio :id="'audio-' + index"
-                       :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"
-                       ref="audios" :loop="isLoop"></audio>
-                <button @click="playAudio(index, item.title)">
-                  {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}
-                </button>
-                <button @click="toggleLoop(index)">
-                  {{ isLoop ? '🔁' : '🔂' }}
-                </button>
-              </template>
+<!--              <template v-if="title.includes('网易云')">-->
+<!--                <audio :id="'audio-' + index"-->
+<!--                       :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"-->
+<!--                       ref="audios" :loop="isLoop"></audio>-->
+<!--                <button @click="playAudio(index, item.title)">-->
+<!--                  {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}-->
+<!--                </button>-->
+<!--                <button @click="toggleLoop(index)">-->
+<!--                  {{ isLoop ? '🔁' : '🔂' }}-->
+<!--                </button>-->
+<!--              </template>-->
 
-              <template v-else-if="title.includes('豆瓣组')">
+              <template v-if="title.includes('豆瓣组')">
                 <span :style="cardSecondTitleStyle"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   👩‍👧‍👦{{ formatHotScore(item.commentCount) }}

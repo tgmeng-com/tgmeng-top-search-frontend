@@ -735,11 +735,6 @@ export default createStore({
                     new Platform('猫眼 购票评分榜', topSearchForGouPiaoPingFenBangMaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 62, '/audiovideo/goupiaopingfenbangmaoyan'),
                     new Platform('猫眼 历史总榜', topSearchForTop100MaoYan, require('@/assets/logos/tgmeng-trend_maoyan.png'), 63, '/audiovideo/top100maoyan'),
 
-                    new Platform('网易云 飙升榜', topSearchForWangYiYunBiaoSheng, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 86, '/audiovideo/biaoshengwangyiyun'),
-                    new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 87, '/audiovideo/xingegwangyiyun'),
-                    new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 88, '/audiovideo/yuanchuangwangyiyun'),
-                    new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 89, '/audiovideo/regewangyiyun'),
-
                     new Platform('腾讯视频 综艺', topSearchForZongYiTengXun, require('@/assets/logos/tgmeng-trend_tengxunshipin.png'), 64, '/audiovideo/zongyitengxun'),
                     new Platform('爱奇艺 综艺', topSearchForZongYiAiQiYi, require('@/assets/logos/tgmeng-trend_aiqiyi.png'), 65, '/audiovideo/zongyiaiqiyi'),
                     new Platform('芒果 综艺', topSearchForZongYiMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png'), 66, '/audiovideo/zongyimangguo'),
@@ -765,9 +760,14 @@ export default createStore({
                     new Platform('芒果 总榜', topSearchForZongBangMangGuo, require('@/assets/logos/tgmeng-trend_mangguo.png'), 82, '/audiovideo/zongbangmangguo'),
                     new Platform('优酷 总榜', topSearchForZongBangYouKu, require('@/assets/logos/tgmeng-trend_youku.png'), 83, '/audiovideo/zongbangyouku'),
 
-                    new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png'), 84, '/audiovideo/dianshijubaidu'),
-                    new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png'), 85, '/audiovideo/dianyingbaidu'),
-                    new Platform('百度 短剧', topSearchForBaiDuDuanJu, require('@/assets/logos/tgmeng-trend_baidu.png'), 85.1, '/audiovideo/baiduduanju'),
+                    new Platform('网易云 飙升榜', topSearchForWangYiYunBiaoSheng, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 86, '/audiovideo/biaoshengwangyiyun'),
+                    new Platform('网易云 新歌榜', topSearchForWangYiYunXinGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 87, '/audiovideo/xingegwangyiyun'),
+                    new Platform('网易云 原创榜', topSearchForWangYiYunYuanChuang, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 88, '/audiovideo/yuanchuangwangyiyun'),
+                    new Platform('网易云 热歌榜', topSearchForWangYiYunReGe, require('@/assets/logos/tgmeng-trend_wangyiyun.png'), 89, '/audiovideo/regewangyiyun'),
+
+                    new Platform('百度 电视剧', topSearchForDianShiJuBaiDu, require('@/assets/logos/tgmeng-trend_dianshiju.png'), 89.1, '/audiovideo/dianshijubaidu'),
+                    new Platform('百度 电影', topSearchForDianYingBaiDu, require('@/assets/logos/tgmeng-trend_dianying.png'), 89.2, '/audiovideo/dianyingbaidu'),
+                    new Platform('百度 短剧', topSearchForBaiDuDuanJu, require('@/assets/logos/tgmeng-trend_baidu.png'), 85.3, '/audiovideo/baiduduanju'),
                 ]
             },
             {
