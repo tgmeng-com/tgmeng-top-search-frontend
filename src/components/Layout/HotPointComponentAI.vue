@@ -71,11 +71,11 @@
         <div
             v-for="(item, index) in aiData.data"
             :key="'hotpoint-' + index"
-            class="hotpoint-item"
+            class="hotpoint-item rounded-xl px-4 bg-gray-300 dark:bg-dark-card-title"
         >
           <div
               @click="toggleItem(index)"
-              class="px-2 py-2 flex items-center drag-handle text-center rounded-xl mb-2 bg-orange-200 dark:bg-teal-800 cursor-pointer hover:brightness-95 transition-all select-none"
+              class="px-2 py-2 pt-4 flex items-center drag-handle text-center mb-2 cursor-pointer hover:brightness-95 transition-all select-none"
               :style="cardTopStyle">
             <span :class="[
               'sequence-number rounded-xl flex items-center justify-center font-bold mr-3',
@@ -476,14 +476,13 @@ export default {
 
 /* 维度卡片 - 统一样式 */
 .dimension-card {
-  background: white;
+  background: #dddddd;
   border-radius: 16px;
   padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 
-  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(99, 102, 241, 0.08);
   box-shadow: 0 8px 30px rgba(0,0,0,0.05);
 }
