@@ -283,6 +283,7 @@ export default {
 
               this.aiData.data = result;
             } else {
+              this.aiData = {"data":[]}
               if (res.data.code === 999) {
                 store.commit('setIsAIMode', false)
                 store.commit('setLicenseShow', true)
