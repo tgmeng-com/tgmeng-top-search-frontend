@@ -225,10 +225,10 @@ export default {
     },
     showModeMessage(isAI) {
       this.messageIsAI = isAI;
-      this.messageTitle = isAI ? '🤖 AI智能模式已启动' : '🍭 糖果模式已切换';
-      this.messageDesc = isAI ? '为您提供深度分析和未来趋势预测' : '回到传统热点列表浏览模式';
-      this.showMessage = true;
-      setTimeout(() => { this.showMessage = false; }, 3000);
+      // this.messageTitle = isAI ? '🤖 AI智能模式已启动' : '🍭 糖果模式已切换';
+      // this.messageDesc = isAI ? '为您提供深度分析和未来趋势预测' : '回到传统热点列表浏览模式';
+      // this.showMessage = true;
+      // setTimeout(() => { this.showMessage = false; }, 3000);
     }
   }
 };
