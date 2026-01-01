@@ -1,6 +1,5 @@
 <template>
   <div class="ai-hotpoint-container mt-2">
-    <!-- 加载状态 -->
     <div v-if="loading" class="loading-container">
       <div class="atom-spinner">
         <div class="spinner-inner">
@@ -17,9 +16,7 @@
       <EmptyState :show-action="true" action-text="去月球找找"/>
     </div>
 
-    <!-- AI分析内容 -->
     <div v-else class="">
-      <!-- 顶部说明 -->
       <div
           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
@@ -50,26 +47,35 @@
 
       <div
           class="mt-2 mb-8 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
         <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
             每条热点包含三个维度数据，从左到右依次是【概括总结】【深度分析】【趋势预测】
           </span>&nbsp;
         </div>
-        <div
-            class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
-          每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
+        <div class="flex gap-2 items-center">
+          <!-- 一键折叠/展开按钮 -->
+          <button
+              @click="toggleAll"
+              class="text-xs px-3 py-1 rounded-md bg-primary text-gray-200 whitespace-nowrap transition-colors duration-200 cursor-pointer"
+          >
+            {{ isAllCollapsed ? '全部展开' : '全部折叠' }}
+          </button>
+          <div
+              class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
+            每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
+          </div>
         </div>
       </div>
 
-      <!-- 内容区域：每个热点包含三个维度 -->
-      <div class="hotpoint-list space-y-8 ">
+      <div class="hotpoint-list space-y-8">
         <div
             v-for="(item, index) in aiData.data"
             :key="'hotpoint-' + index"
-            class="hotpoint-item "
+            class="hotpoint-item"
         >
           <div
-              class="px-2 py-2 flex items-center drag-handle text-center rounded-xl mb-2 bg-orange-200 dark:bg-teal-800 "
+              @click="toggleItem(index)"
+              class="px-2 py-2 flex items-center drag-handle text-center rounded-xl mb-2 bg-orange-200 dark:bg-teal-800 cursor-pointer hover:brightness-95 transition-all select-none"
               :style="cardTopStyle">
             <span :class="[
               'sequence-number rounded-xl flex items-center justify-center font-bold mr-3',
@@ -82,57 +88,62 @@
             <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">
               {{ item.summary.title }}
             </h1>
+            <div class="ml-2 transition-transform duration-300 text-gray-500" :class="{ 'rotate-180': collapsedItems.includes(index) }">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+              </svg>
+            </div>
           </div>
 
-          <!-- 三个维度卡片 -->
-          <div class="dimensions-container">
-            <!-- 1. 概要总结 -->
-            <div class="dimension-card summary-card">
-              <div class="">
-                <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
-                    :style="[cardTop2Style]">
-                  📘 {{ item.summary.title }}
-                </h1>
-                <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
-                      :class="{'hot-title-full':cardHotTitleFull}"
-                      :title="item.summary.content"
-                      :style="[cardTitleStyle]"
-                >
-                  {{ item.summary.content }}
-                </span>
-              </div>
-            </div>
+          <div class="collapse-transition-wrapper" :class="{ 'is-collapsed': collapsedItems.includes(index) }">
+            <div class="collapse-content-inner">
+              <div class="dimensions-container pt-1 pb-4">
+                <div class="dimension-card summary-card">
+                  <div class="">
+                    <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
+                        :style="[cardTop2Style]">
+                      📘 {{ item.summary.title }}
+                    </h1>
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                          :class="{'hot-title-full':cardHotTitleFull}"
+                          :title="item.summary.content"
+                          :style="[cardTitleStyle]"
+                    >
+                      {{ item.summary.content }}
+                    </span>
+                  </div>
+                </div>
 
-            <!-- 2. 趋势分析 -->
-            <div class="dimension-card analyze-card">
-              <div class="">
-                <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
-                    :style="[cardTop2Style]">
-                  🤔 {{ item.analyze.title }}
-                </h1>
-                <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
-                      :class="{'hot-title-full':cardHotTitleFull}"
-                      :title="item.analyze.content"
-                      :style="[cardTitleStyle]"
-                >
-                  {{ item.analyze.content }}
-                </span>
-              </div>
-            </div>
-            <!-- 3. 未来预测 -->
-            <div class="dimension-card future-card">
-              <div class="">
-                <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
-                    :style="[cardTop2Style]">
-                  🚀 {{ item.future.title }}
-                </h1>
-                <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
-                      :class="{'hot-title-full':cardHotTitleFull}"
-                      :title="item.future.content"
-                      :style="[cardTitleStyle]"
-                >
-                  {{ item.future.content }}
-                </span>
+                <div class="dimension-card analyze-card">
+                  <div class="">
+                    <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
+                        :style="[cardTop2Style]">
+                      🤔 {{ item.analyze.title }}
+                    </h1>
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                          :class="{'hot-title-full':cardHotTitleFull}"
+                          :title="item.analyze.content"
+                          :style="[cardTitleStyle]"
+                    >
+                      {{ item.analyze.content }}
+                    </span>
+                  </div>
+                </div>
+                <div class="dimension-card future-card">
+                  <div class="">
+                    <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}"
+                        :style="[cardTop2Style]">
+                      🚀 {{ item.future.title }}
+                    </h1>
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                          :class="{'hot-title-full':cardHotTitleFull}"
+                          :title="item.future.content"
+                          :style="[cardTitleStyle]"
+                    >
+                      {{ item.future.content }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -155,10 +166,14 @@ export default {
       loading: false,
       aiData: {
         "data":[]
-      }
+      },
+      collapsedItems: [] // 记录折叠的索引
     };
   },
   computed: {
+    isAllCollapsed() {
+      return this.aiData.data.length > 0 && this.collapsedItems.length === this.aiData.data.length;
+    },
     activeCategory: {
       get() {
         return this.$store.state.activeCategory;
@@ -226,8 +241,24 @@ export default {
     }
   },
   methods: {
+    toggleItem(index) {
+      const idx = this.collapsedItems.indexOf(index);
+      if (idx > -1) {
+        this.collapsedItems.splice(idx, 1);
+      } else {
+        this.collapsedItems.push(index);
+      }
+    },
+    toggleAll() {
+      if (this.isAllCollapsed) {
+        this.collapsedItems = [];
+      } else {
+        this.collapsedItems = this.aiData.data.map((_, i) => i);
+      }
+    },
     fetchData(newVal) {
       this.loading = true;
+      this.collapsedItems = []; // 重置折叠状态
 
       cacheSearchForAISummaryData(newVal.routerName)
           .then(res => {
@@ -266,6 +297,25 @@ export default {
 </script>
 
 <style scoped>
+/* 新增：动画控制样式 */
+.collapse-transition-wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.collapse-transition-wrapper.is-collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.collapse-content-inner {
+  min-height: 0;
+}
+
+/* 保持原有样式不动 */
 .ai-hotpoint-container {
 }
 
@@ -655,7 +705,7 @@ export default {
 }
 
 .sequence-number.bg-yellow-700 {
-  background: linear-gradient(135deg, #facc15, #eab308);
+  background: linear-gradient(135deg, #b89610, #ca9c0e);
 }
 
 .hot-title {
