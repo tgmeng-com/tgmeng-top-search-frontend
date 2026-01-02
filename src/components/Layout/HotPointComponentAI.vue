@@ -282,6 +282,8 @@ export default {
               }));
 
               this.aiData.data = result;
+              // 👇 添加这行：初始化时全部折叠
+              this.collapsedItems = this.aiData.data.map((_, i) => i);
             } else {
               this.aiData = {"data":[]}
               if (res.data.code === 999) {
