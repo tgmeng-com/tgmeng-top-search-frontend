@@ -2298,6 +2298,15 @@ export function topSearchForNodeLocHot(data) {
     })
 }
 
+export function topSearchForAppinn(data) {
+    return request({
+        url: '/topsearch/xiaozhongruanjian',
+        method: 'post',
+        data: data
+    })
+}
+
+
 export function searchHistorySuddenHeatPointHour(data) {
     return request({
         url: '/topsearch/history/suddenheatpoint/' + data,
