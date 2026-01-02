@@ -20,6 +20,7 @@
 import * as echarts from 'echarts';
 import 'echarts-wordcloud';
 import {cacheSearchForCiYun} from "@/api/api";
+import store from "@/store";
 
 export default {
   name: 'WordCloud',
@@ -191,6 +192,7 @@ export default {
       this.chartInstance.on('click', (params) => {
         if (params.name) {
           // 通过 Vuex 触发搜索
+          store.commit('setSearchShow', true)
           this.$store.commit('triggerSearch', params.name);
           if (window.umami) {
             window.umami.track('☁️🔍词云点击搜索:' + params.name);

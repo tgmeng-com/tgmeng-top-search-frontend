@@ -454,7 +454,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1999;
+  z-index: 2000;
   padding: 20px;
   animation: fadeIn 0.3s ease;
 }

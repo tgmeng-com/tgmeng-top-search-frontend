@@ -400,6 +400,8 @@ export default createStore({
         cardListLimit: 200,
         // AI模式开关，默认为false（普通模式）
         isAIMode: getLocalStorage(LOCAL_STORAGE_KEYS.IS_AI_MODE) ?? false,
+        // 搜索框是否显示
+        searchShow: false,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -1102,5 +1104,8 @@ export default createStore({
             state.isAIMode = value;
             // localStorage.setItem('isAIMode', JSON.stringify(value));
         },
+        setSearchShow(state, value) {
+            state.searchShow = value
+        }
     }
 });
