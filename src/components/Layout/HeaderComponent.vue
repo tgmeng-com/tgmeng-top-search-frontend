@@ -26,107 +26,45 @@
 
         <!-- 右侧设置按钮 - 桌面端显示全部 -->
         <div class="hidden md:flex items-center space-x-6">
-
-          <div>
-            <el-tooltip content="搜索" placement="bottom">
-              <div @click="() => { trackUmami('顶部右边搜索'); openSearchModal()}">
-                <div class="setting-btn" aria-label="搜索">
+          <div v-for="btn in headerButtons" :key="btn.key">
+            <el-tooltip :content="btn.tooltip" placement="bottom">
+              <!-- 外部链接 -->
+              <a
+                  v-if="btn.href"
+                  :href="btn.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  @click="() => { trackUmami(btn.umamiLabel) }"
+              >
+                <div class="setting-btn" :aria-label="btn.ariaLabel">
                   <div style="width: 1.875rem">
-                    <img src="../../assets/image/search.png" alt="糖果梦热榜 - 搜索">
-                  </div>
-                </div>
-              </div>
-            </el-tooltip>
-          </div>
-
-
-          <div>
-            <el-tooltip content="加入微信群" placement="bottom">
-              <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer"
-                 @click="() => { trackUmami('顶部右边微信群')}">
-                <div class="setting-btn" aria-label="微信群">
-                  <div style="width: 1.875rem">
-                    <img src="../../assets/image/wechat-logo.png" alt="糖果梦热榜 - 微信群">
+                    <img :src="getButtonImage(btn)" :alt="btn.alt">
                   </div>
                 </div>
               </a>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="GitHub源码" placement="bottom">
-              <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank"
-                 rel="noopener noreferrer"
-                 @click="() => { trackUmami('顶部右边github')}">
-                <div class="setting-btn" aria-label="GitHub仓库">
+              <!-- 路由链接 -->
+              <router-link
+                  v-else-if="btn.to"
+                  :to="btn.to"
+                  @click="trackUmami(btn.umamiLabel)"
+              >
+                <div class="setting-btn" :aria-label="btn.ariaLabel">
                   <div style="width: 1.875rem">
-                    <img
-                        :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
-                        alt="糖果梦热榜 - GitHub仓库">
-                  </div>
-                </div>
-              </a>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="主题切换" placement="bottom">
-              <div @click="() => { trackUmami('顶部右边主题切换'); toggleTheme()}">
-                <div class="setting-btn" aria-label="主题切换">
-                  <div style="width: 1.875rem">
-                    <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
-                         alt="糖果梦热榜 - 主题切换">
-                  </div>
-                </div>
-              </div>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="摸鱼模式" placement="bottom">
-              <a @click="() => { trackUmami('顶部右边小鱼'); clickWorkMaskExcelButton() }">
-                <div class="setting-btn" aria-label="摸鱼模式">
-                  <div style="width: 1.875rem">
-                    <img src="../../assets/image/fish.png" alt="糖果梦热榜 - 摸鱼模式选择">
-                  </div>
-                </div>
-              </a>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="推送订阅" placement="bottom">
-              <div @click="() => { trackUmami('顶部右边订阅'); clickSubscriptionSettingButton()}">
-                <div class="setting-btn" aria-label="推送订阅">
-                  <div style="width: 1.875rem">
-                    <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 推送订阅">
-                  </div>
-                </div>
-              </div>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="密钥" placement="bottom">
-              <a @click="() => { trackUmami('顶部右边密钥'); clickLicenseButton() }">
-                <div class="setting-btn" aria-label="密钥">
-                  <div style="width: 1.875rem">
-                    <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥">
-                  </div>
-                </div>
-              </a>
-            </el-tooltip>
-          </div>
-
-          <div>
-            <el-tooltip content="设置" placement="bottom">
-              <router-link to="/setting" @click="trackUmami('顶部右边设置')">
-                <div class="setting-btn" aria-label="设置">
-                  <div style="width: 1.875rem">
-                    <img src="../../assets/image/setting.png" alt="糖果梦热榜 - 设置中心">
+                    <img :src="getButtonImage(btn)" :alt="btn.alt">
                   </div>
                 </div>
               </router-link>
+              <!-- 点击事件 -->
+              <div
+                  v-else
+                  @click="() => { trackUmami(btn.umamiLabel); handleButtonClick(btn) }"
+              >
+                <div class="setting-btn" :aria-label="btn.ariaLabel">
+                  <div style="width: 1.875rem">
+                    <img :src="getButtonImage(btn)" :alt="btn.alt">
+                  </div>
+                </div>
+              </div>
             </el-tooltip>
           </div>
         </div>
@@ -145,93 +83,157 @@
       </div>
     </div>
 
-    <!-- 移动端下拉菜单（保持不变） -->
+    <!-- 移动端下拉菜单 -->
     <transition name="slide-fade">
       <div v-if="showMobileMenu"
            class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
         <div class="container mx-auto px-8 py-4" :style="widthPaddingStyle">
           <div class="flex flex-col space-y-4">
+            <template v-for="btn in headerButtons" :key="btn.key">
+              <!-- 外部链接 -->
+              <a
+                  v-if="btn.href"
+                  :href="btn.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  @click="() => { trackUmami(btn.mobileUmamiLabel); toggleMobileMenu() }"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
+                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
+              </a>
 
-            <div
-                @click="() => { trackUmami('移动端菜单-搜索'); openSearchModal(); toggleMobileMenu()}"
-                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img src="../../assets/image/search.png" alt="糖果梦热榜 - 搜索" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">搜索</span>
-            </div>
+              <!-- 路由链接 -->
+              <router-link
+                  v-else-if="btn.to"
+                  :to="btn.to"
+                  @click="() => { trackUmami(btn.mobileUmamiLabel); toggleMobileMenu() }"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
+                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
+              </router-link>
 
-            <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener noreferrer"
-               @click="() => { trackUmami('移动端菜单-微信群'); toggleMobileMenu() }"
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img src="../../assets/image/wechat-logo.png" alt="微信群" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">加入微信群</span>
-            </a>
-
-            <a href="https://github.com/tgmeng-com/tgmeng-top-search-frontend" target="_blank" rel="noopener noreferrer"
-               @click="() => { trackUmami('移动端菜单-GitHub'); toggleMobileMenu() }"
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img
-                  :src="isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')"
-                  alt="糖果梦热榜 - GitHub仓库" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">GitHub仓库</span>
-            </a>
-
-            <div
-                @click="() => { trackUmami('移动端菜单-主题切换'); toggleTheme(); toggleMobileMenu()}"
-                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img :src="isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')"
-                   alt="糖果梦热榜 - 主题切换" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">主题切换</span>
-            </div>
-
-            <a @click="() => { trackUmami('移动端菜单-摸鱼模式'); clickWorkMaskExcelButton(); toggleMobileMenu() }"
-               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer">
-              <img src="../../assets/image/fish.png" alt="摸鱼模式" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">摸鱼模式</span>
-            </a>
-
-            <div
-                @click="() => { trackUmami('移动端菜单-订阅'); clickSubscriptionSettingButton(); toggleMobileMenu()}"
-                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img src="../../assets/image/subcription.png" alt="糖果梦热榜 - 订阅设置" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">订阅设置</span>
-            </div>
-
-            <div
-                @click="() => { trackUmami('移动端菜单-密钥设置'); clickLicenseButton(); toggleMobileMenu()}"
-                class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img src="../../assets/image/license.png" alt="糖果梦热榜 - 密钥设置" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">密钥设置</span>
-            </div>
-
-            <router-link to="/setting"
-                         @click="() => { trackUmami('移动端菜单-设置'); toggleMobileMenu() }"
-                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <img src="../../assets/image/setting.png" alt="设置" class="w-8 h-8">
-              <span class="text-gray-900 dark:text-gray-100 font-medium">设置中心</span>
-            </router-link>
+              <!-- 点击事件 -->
+              <div
+                  v-else
+                  @click="() => { trackUmami(btn.mobileUmamiLabel); handleButtonClick(btn); toggleMobileMenu() }"
+                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+              >
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
+                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
+              </div>
+            </template>
           </div>
         </div>
       </div>
     </transition>
 
-    <!-- 引入独立的搜索模态框组件 -->
-    <SearchModal ref="searchModal" />
   </header>
 </template>
 
 <script>
-import SearchModal from '@/components/Layout/SearchModal.vue' // 请确保路径正确
 import store from "@/store"
 
 export default {
   components: {
-    SearchModal
   },
   data() {
     return {
       isDark: true,
       showMobileMenu: false,
       windowWidth: window.innerWidth,
+      // 按钮配置数据
+      headerButtons: [
+        {
+          key: 'search',
+          tooltip: '搜索',
+          label: '搜索',
+          ariaLabel: '搜索',
+          alt: '糖果梦热榜 - 搜索',
+          icon: 'search.png',
+          umamiLabel: '顶部右边搜索',
+          mobileUmamiLabel: '移动端菜单-搜索',
+          action: 'openSearchModal'
+        },
+        {
+          key: 'wechat',
+          tooltip: '加入微信群',
+          label: '加入微信群',
+          ariaLabel: '微信群',
+          alt: '糖果梦热榜 - 微信群',
+          icon: 'wechat-logo.png',
+          href: 'https://wechat.tgmeng.com',
+          umamiLabel: '顶部右边微信群',
+          mobileUmamiLabel: '移动端菜单-微信群'
+        },
+        {
+          key: 'github',
+          tooltip: 'GitHub源码',
+          label: 'GitHub仓库',
+          ariaLabel: 'GitHub仓库',
+          alt: '糖果梦热榜 - GitHub仓库',
+          icon: 'github-logo', // 特殊处理,需要根据主题切换
+          href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend',
+          umamiLabel: '顶部右边github',
+          mobileUmamiLabel: '移动端菜单-GitHub'
+        },
+        {
+          key: 'theme',
+          tooltip: '主题切换',
+          label: '主题切换',
+          ariaLabel: '主题切换',
+          alt: '糖果梦热榜 - 主题切换',
+          icon: 'theme', // 特殊处理,需要根据主题切换
+          umamiLabel: '顶部右边主题切换',
+          mobileUmamiLabel: '移动端菜单-主题切换',
+          action: 'toggleTheme'
+        },
+        {
+          key: 'fish',
+          tooltip: '摸鱼模式',
+          label: '摸鱼模式',
+          ariaLabel: '摸鱼模式',
+          alt: '糖果梦热榜 - 摸鱼模式选择',
+          icon: 'fish.png',
+          umamiLabel: '顶部右边小鱼',
+          mobileUmamiLabel: '移动端菜单-摸鱼模式',
+          action: 'clickWorkMaskExcelButton'
+        },
+        {
+          key: 'subscription',
+          tooltip: '推送订阅',
+          label: '订阅设置',
+          ariaLabel: '推送订阅',
+          alt: '糖果梦热榜 - 推送订阅',
+          icon: 'subcription.png',
+          umamiLabel: '顶部右边订阅',
+          mobileUmamiLabel: '移动端菜单-订阅',
+          action: 'clickSubscriptionSettingButton'
+        },
+        {
+          key: 'license',
+          tooltip: '密钥',
+          label: '密钥设置',
+          ariaLabel: '密钥',
+          alt: '糖果梦热榜 - 密钥',
+          icon: 'license.png',
+          umamiLabel: '顶部右边密钥',
+          mobileUmamiLabel: '移动端菜单-密钥设置',
+          action: 'clickLicenseButton'
+        },
+        {
+          key: 'setting',
+          tooltip: '设置',
+          label: '设置中心',
+          ariaLabel: '设置',
+          alt: '糖果梦热榜 - 设置中心',
+          icon: 'setting.png',
+          to: '/setting',
+          umamiLabel: '顶部右边设置',
+          mobileUmamiLabel: '移动端菜单-设置'
+        }
+      ]
     }
   },
   computed: {
@@ -277,6 +279,22 @@ export default {
     })
   },
   methods: {
+    // 根据按钮配置获取图片路径
+    getButtonImage(btn) {
+      if (btn.icon === 'theme') {
+        return this.isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')
+      }
+      if (btn.icon === 'github-logo') {
+        return this.isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')
+      }
+      return require(`@/assets/image/${btn.icon}`)
+    },
+    // 处理按钮点击事件
+    handleButtonClick(btn) {
+      if (btn.action && this[btn.action]) {
+        this[btn.action]()
+      }
+    },
     openSearchModal() {
       store.commit('setSearchShow', true)
     },
@@ -309,42 +327,6 @@ export default {
   z-index: 1900 !important;
 }
 
-/* 搜索触发按钮样式 */
-.search-trigger-btn {
-  display: flex;
-  align-items: center;
-  padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-  linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  color: #4b5563;
-  font-size: 0.9375rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
-}
-
-.dark .search-trigger-btn {
-  background: linear-gradient(#1f2937, #1f2937),
-  linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  color: #f3f4f6;
-}
-
-.search-trigger-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-.search-trigger-btn svg {
-  color: #667eea;
-  flex-shrink: 0;
-}
-
-/* 原有的设置按钮样式保持不变 */
 .setting-btn {
   background: transparent;
   border: none;

@@ -2,6 +2,7 @@
   <div class="flex flex-col" :style="topSettingHeight">
     <TopMessage v-if="topCarouselFontShow"/>
     <FishModeChoose/>
+    <SearchModal/>
     <HotPointHistoryComponent/>
     <!--    <AdRentCards :ads="homeHeaderAdsCard"/>-->
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
@@ -66,10 +67,12 @@ import SettingsPanel from "@/components/Layout/SettingsPanel.vue";
 import CategoryNavigation from "@/components/Layout/CategoryNavigation.vue";
 import HotPointComponentAI from "@/components/Layout/HotPointComponentAI.vue";
 import ModeSwitcher from "@/components/Layout/ModeSwitcher.vue";
+import SearchModal from "@/components/Layout/SearchModal.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    SearchModal,
     ModeSwitcher,
     HotPointComponentAI,
     CategoryNavigation,
