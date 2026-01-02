@@ -85,6 +85,11 @@
               'text-gray-600 dark:text-gray-300']">
               {{ index + 1 }}
             </span>
+
+            <span class="-ml-2 mr-1 cursor-pointer" @click="clickHotPointTrend(item.summary.title)">
+               &nbsp; 📈&nbsp;
+            </span>
+
             <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">
               {{ item.summary.title }}
             </h1>
@@ -241,6 +246,11 @@ export default {
     }
   },
   methods: {
+    clickHotPointTrend(title) {
+      store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataBoardUseTitle', title)
+      window.umami.track('📊热点历史追踪');
+    },
     toggleItem(index) {
       const idx = this.collapsedItems.indexOf(index);
       if (idx > -1) {
