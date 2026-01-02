@@ -2,7 +2,7 @@
   <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
   <div class="overflow-x-auto scrollbar-hide sticky z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100"
        :style="topMessageHeight">
-    <div class="inline-flex space-x-2 py-0.5 pb-4 justify-center mx-auto whitespace-nowrap">
+    <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
       <draggable
           v-model="categroies"
           tag="div"

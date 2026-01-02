@@ -13,7 +13,7 @@
           :key="index"
           class="mb-2 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
       >
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide"
+        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide" style="line-height: 0.1rem"
              :class="group.class">
           <template v-for="setting in group.items" :key="setting.key">
             <!-- 数字输入 -->
@@ -63,7 +63,7 @@
             </span>
 
             <!-- 标签输入 -->
-            <span v-else-if="setting.type === 'tags'" class="text-xs px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex "
+            <span v-else-if="setting.type === 'tags'" class="text-xs px-2 py-0.5 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex"
                   :class="setting.class">
               {{ setting.label }}：
               <el-input-tag
