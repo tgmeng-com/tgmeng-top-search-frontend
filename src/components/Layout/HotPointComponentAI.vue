@@ -48,9 +48,12 @@
       <div
           class="mt-2 mb-8 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
-        <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
+           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
             每条热点包含三个维度数据，从左到右依次是【概括总结】【深度分析】【趋势预测】
-          </span>&nbsp;
+           </span>&nbsp;
+          <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
+            每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
+           </span>&nbsp;
         </div>
         <div class="flex gap-2 items-center">
           <!-- 一键折叠/展开按钮 -->
@@ -60,10 +63,6 @@
           >
             {{ isAllCollapsed ? '全部展开' : '全部折叠' }}
           </button>
-          <div
-              class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
-            每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
-          </div>
         </div>
       </div>
 
