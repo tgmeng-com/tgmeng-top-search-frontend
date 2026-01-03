@@ -80,15 +80,25 @@
                           <svg viewBox="0 0 800 180" preserveAspectRatio="none">
                             <line x1="0" y1="170" x2="800" y2="170" stroke="#444" stroke-width="1" stroke-dasharray="4,4"/>
                             <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle v-for="(point, i) in chartPoints" :key="'point-'+i"
-                                    :cx="point.x" :cy="point.y" r="4"
-                                    :fill="dataCounts[i] > 0 ? '#409eff' : '#8892b0'"
-                                    :opacity="dataCounts[i] > 0 ? '1' : '0.5'"
-                                    stroke="#fff" stroke-width="2"/>
+
+                            <!-- 修改后的圆点：更小、更精致、正圆、灰色更暗 -->
+                            <circle
+                                v-for="(point, i) in chartPoints"
+                                :key="'point-'+i"
+                                :cx="point.x"
+                                :cy="point.y"
+                                r="3"
+                                :fill="dataCounts[i] > 0 ? '#409eff' : '#4a5568'"
+                                :opacity="dataCounts[i] > 0 ? '1' : '0.7'"
+                                stroke="#fff"
+                                stroke-width="1.5"
+                                vector-effect="non-scaling-stroke"
+                            />
+
                             <defs>
                               <linearGradient id="gradient-unified" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#409eff"/>
-                                <stop offset="100%" stop-color="#67c23a"/>
+                                <stop offset="100%" stop-color="#79d8a0"/>
                               </linearGradient>
                             </defs>
                           </svg>
@@ -124,8 +134,9 @@
                 <div class="list-summary">
                   <span class="summary-text">共 {{ historyData.length }} 条记录</span>
                 </div>
+                <!-- 修改3：新增“分类”列 -->
                 <div class="list-header">
-                  <span>出现时间</span><span>热点标题</span><span>平台名称</span><span>相关度</span>
+                  <span>出现时间</span><span>热点标题</span><span>分类</span><span>平台名称</span><span>相关度</span>
                 </div>
                 <div class="list-items">
                   <div v-if="loading" style="display:flex; flex-direction:column; align-items:center; padding:40px;">
@@ -141,6 +152,8 @@
                     <a v-for="(item, index) in historyData" :key="index" class="list-item cursor-pointer" :href="item.url" target="_blank">
                       <div class="time">{{ item.dataUpdateTime }}</div>
                       <div class="item-title">{{ item.title }}</div>
+                      <!-- 新增分类 -->
+                      <div class="platform"><span class="platform-name">{{ item.category || '未知' }}</span></div>
                       <div class="platform"><span class="platform-name">{{ item.platformName }}</span></div>
                       <div class="relevance">
                         <span class="relevance-value">{{ 100 - item.distance }}</span>
@@ -177,7 +190,7 @@ export default {
       searchQuery: '',
       historyData: [],
       currentSearchMode: 'MO_HU_PI_PEI_TODAY',
-      loading: false, // 2：状态锁
+      loading: false,
       tooltipShow: false,
       tooltipStyle: {},
       tooltipTitle: '',
@@ -268,7 +281,7 @@ export default {
     },
     fetchData() {
       if (!this.searchQuery.trim() || this.loading) return;
-      this.loading = true; // 2：开始请求，锁定
+      this.loading = true;
       this.tooltipShow = false;
 
       cacheSearchForAllByWord(this.searchQuery, this.currentSearchMode)
@@ -277,11 +290,11 @@ export default {
             else { store.commit('setLicenseShow', true); this.historyData = []; }
           })
           .finally(() => {
-            this.loading = false; // 2：请求结束，解锁
+            this.loading = false;
           });
     },
     onChartHover(e) {
-      if (this.loading) return; // Loading 期间不触发 Tooltip
+      if (this.loading) return;
       const rect = e.currentTarget.getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const width = rect.width;
@@ -324,7 +337,6 @@ export default {
 </script>
 
 <style scoped>
-/* 样式保留你的原版，仅增加了禁用状态的视觉反馈 */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .history-backdrop {
   position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(25px) saturate(150%);
@@ -384,8 +396,24 @@ export default {
 .tooltip-item .title { color: #ccd6f6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
 .history-list { background: rgba(40, 44, 56, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; overflow: hidden; }
 .list-summary { padding: 12px 24px; background: rgba(64, 158, 255, 0.08); border-bottom: 1px solid rgba(64, 158, 255, 0.2); font-size: 14px; color: #409eff; font-weight: 600; }
-.list-header { display: grid; grid-template-columns: 170px 1fr 120px 120px; padding: 16px 24px; font-size: 13px; font-weight: 600; color: #8892b0; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-.list-item { display: grid; grid-template-columns: 170px 1fr 120px 120px; padding: 16px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); transition: background 0.2s; align-items: center; text-decoration: none; }
+.list-header {
+  display: grid;
+  grid-template-columns: 170px 1fr 100px 120px 120px; /* 新增分类列 */
+  padding: 16px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8892b0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.list-item {
+  display: grid;
+  grid-template-columns: 170px 1fr 100px 120px 120px; /* 与 header 对齐 */
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.2s;
+  align-items: center;
+  text-decoration: none;
+}
 .time { background: rgba(64, 158, 255, 0.15); padding: 4px 10px; border-radius: 6px; font-size: 14px; color: #ccd6f6; text-align: center; }
 .platform-name { background: rgba(64, 158, 255, 0.15); color: #409eff; padding: 4px 10px; border-radius: 6px; font-size: 14px; }
 .item-title { font-size: 14px; color: #e6edf3; padding: 0 12px; }
@@ -412,5 +440,18 @@ export default {
   .history-panel { width: 95%; height: 95vh; }
   .list-header { display: none; }
   .list-item { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  /* 移动端显示标签提示 */
+  .list-item > div:nth-child(3)::before {
+    content: "分类：";
+    color: #8892b0;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+  .list-item > div:nth-child(4)::before {
+    content: "平台：";
+    color: #8892b0;
+    font-size: 12px;
+    margin-right: 4px;
+  }
 }
 </style>
