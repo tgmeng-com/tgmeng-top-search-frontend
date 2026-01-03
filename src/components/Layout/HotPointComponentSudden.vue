@@ -4,58 +4,27 @@
     <div class="page-header mb-4">
       <!-- Tab 切换 -->
       <div class="tab-buttons dark:text-dark-text">
+
         <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === 'hour' }"
-            @click="clickSwitchTab('hour')"
+            v-for="tab in tabs"
+            :data-umami-event="tab.label"
+            :data-umami-event-name="tab.label"
+            :key="tab.value"
+            :class="[
+                  'px-4 py-1.5 rounded-xl drag-handle',
+                  tab.value === activeTab
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-200 dark:bg-gray-700 hover:shadow-md transition-shadow'
+                ]"
+            @click="clickSwitchTab(tab.value)"
         >
-          1小时
+          <h1><span class="dark:text-dark-text" :style="categroiesTitleStyle">{{ tab.label }}</span></h1>
         </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '3hour' }"
-            @click="clickSwitchTab('3hour')"
-        >
-          3小时
-        </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '6hour' }"
-            @click="clickSwitchTab('6hour')"
-        >
-          6小时
-        </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === 'day' }"
-            @click="clickSwitchTab('day')"
-        >
-          1天
-        </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === '10day' }"
-            @click="clickSwitchTab('10day')"
-        >
-          10天
-        </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === 'month' }"
-            @click="clickSwitchTab('month')"
-        >
-          1月
-        </button>
-        <button
-            class="tab-btn bg-gray-300 dark:bg-dark-card-title"
-            :class="{ active: activeTab === 'history' }"
-            @click="clickSwitchTab('history')"
-        >
-          历史
-        </button>
+
       </div>
+
       <div v-if="suddenDescShow"
-          class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             🤖 实时捕捉多平台同时爆发的相似话题，采用糖果模型进行分析，结果仅供参考（前1-2项部分时间存在指纹干扰，仅供参考）
@@ -177,9 +146,39 @@ export default {
       activeTab: 'hour',
       loading: false,
       hotspotData: [],
+      // Tab配置
+      tabs: [
+        { label: '1小时', value: 'hour' },
+        { label: '3小时', value: '3hour' },
+        { label: '6小时', value: '6hour' },
+        { label: '1天', value: 'day' },
+        { label: '10天', value: '10day' },
+        { label: '1月', value: 'month' },
+        { label: '历史', value: 'history' },
+      ]
     }
   },
   computed: {
+    categroiesTitleFontSize: {
+      get() {
+        return this.$store.state.categroiesTitleFontSize;
+      },
+      set(value) {
+        this.$store.commit('setCategroiesTitleFontSize', value);
+      }
+    },
+    categroiesTitleStyle() {
+      if (this.isMobile) {
+        return {
+          fontSize: this.categroiesTitleFontSize - 0.125 + 'rem',
+          fontWeight: 'bold',
+        };
+      }
+      return {
+        fontSize: this.categroiesTitleFontSize + 'rem',
+        fontWeight: 'bold',
+      };
+    },
     suddenDescShow: {
       get() {
         return this.$store.state.suddenDescShow;
@@ -301,7 +300,7 @@ export default {
   text-align: center;
 }
 
-/* 新增：顶部提示条 - 简洁优雅 */
+/* 新增:顶部提示条 - 简洁优雅 */
 .header-tip {
   display: inline-flex;
   align-items: center;
