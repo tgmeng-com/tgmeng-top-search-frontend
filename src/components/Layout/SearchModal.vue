@@ -425,6 +425,7 @@ export default {
   background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px; padding: 8px 14px; display: flex; align-items: center; gap: 8px;
   cursor: pointer; transition: all .2s; max-width: 200px;
+  color: #d5d5d5;
 }
 .history-item:hover { background: rgba(64,158,255,0.15); border-color: rgba(64,158,255,0.3); }
 .delete-btn { color: #8892b0; border: none; background: transparent; padding: 0; display: flex; cursor: pointer; }
@@ -506,5 +507,8 @@ export default {
 :deep(.el-select__wrapper) {
   background-color: unset !important;
   border-radius: 2rem;
+}
+:deep(.el-select__placeholder) {
+  color: #d5d5d5 !important;
 }
 </style>
