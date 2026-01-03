@@ -16,7 +16,7 @@ class Platform {
 }
 
 import {createStore} from 'vuex';
-import {Avatar, Setting, Money, InfoFilled, Odometer} from "@element-plus/icons-vue";
+import {Avatar, Money, InfoFilled, Odometer} from "@element-plus/icons-vue";
 import {getLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
 import {
     topSearchForYoutube,
@@ -415,7 +415,7 @@ export default createStore({
         settingMenu: [
             {key: "about", label: "关于我们", to: "/setting/about", icon: InfoFilled},
             {key: "function", label: "功能介绍", to: "/setting/function", icon: Odometer},
-            {key: "basic", label: "基础设置", to: "/setting/basic", icon: Setting},
+            // {key: "basic", label: "基础设置", to: "/setting/basic", icon: Setting},
             {key: "donation", label: "打赏列表", to: "/setting/donation", icon: Money},
             {key: "community", label: "加群交流", to: "/setting/community", icon: Avatar},
         ],
