@@ -17,52 +17,54 @@
     </div>
 
     <div v-else class="">
-      <div
+      <div v-if="aiModeBigModalDesc"
           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
         <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            热点数: <span class="font-medium">{{ aiData.data.length }}</span>
+            🤖 热点数: <span class="font-medium">{{ aiData.data.length }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            更新时间: <span class="font-medium">{{ aiData.time }}</span>
+            🤖 更新时间: <span class="font-medium">{{ aiData.time }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            算力平台: <span class="font-medium">{{ aiData.platform }}</span>
+            🤖 算力平台: <span class="font-medium">{{ aiData.platform }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            AI模型: <span class="font-medium">{{ aiData.model }}</span>
+            🤖 AI模型: <span class="font-medium">{{ aiData.model }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            消耗Token: <span class="font-medium">{{ aiData.totalTokens }}</span>
+            🤖 消耗Token: <span class="font-medium">{{ aiData.totalTokens }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            提供方: <span class="font-medium">{{ aiData.from }}</span>
+            🤖 提供方: <span class="font-medium">{{ aiData.from }}</span>
           </span>&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            更新频率: <span class="font-medium">每5分钟</span>
+            🤖 更新频率: <span class="font-medium">每5分钟</span>
           </span>&nbsp;
         </div>
-<!--        <div-->
-<!--            class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">-->
-<!--          本页面数据每5分钟更新一次-->
-<!--        </div>-->
+        <!--        <div-->
+        <!--            class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">-->
+        <!--          本页面数据每5分钟更新一次-->
+        <!--        </div>-->
       </div>
 
-      <div
+      <div v-if="aiModeDesc"
           class="mt-2 mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
+        <div
+            class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            每条热点包含三个维度数据，从左到右依次是【概括总结】【深度分析】【趋势预测】
+            ❤️ 每条热点包含三个维度数据，从左到右依次是【概括总结】【深度分析】【趋势预测】
            </span>&nbsp;&nbsp;
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
-            每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
+            ❤️ 每天消耗数亿Token，只为给各位带去最极致的新闻体验，科技不该冰冷，人性不该傲慢
            </span>&nbsp;
         </div>
       </div>
 
       <div
           class="mt-2 mb-8 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
+        <div
+            class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
           <button
               @click="toggleAll"
               class="text-xs px-3 py-1 rounded-md bg-primary text-gray-200 whitespace-nowrap transition-colors duration-200 cursor-pointer"
@@ -98,9 +100,11 @@
             <h1 class="font-semibold dark:text-dark-text hot-title" :class="{'card-title-full':cardTitleFull}">
               {{ item.summary.title }}
             </h1>
-            <div class="ml-2 transition-transform duration-300 text-gray-500" :class="{ 'rotate-180': collapsedItems.includes(index) }">
+            <div class="ml-2 transition-transform duration-300 text-gray-500"
+                 :class="{ 'rotate-180': collapsedItems.includes(index) }">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                <path fill-rule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
               </svg>
             </div>
           </div>
@@ -114,7 +118,8 @@
                         :style="[cardTop2Style]">
                       📘 {{ item.summary.title }}
                     </h1>
-                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2"
+                          style="line-height: 1.7;opacity: 0.8"
                           :class="{'hot-title-full':cardHotTitleFull}"
                           :title="item.summary.content"
                           :style="[cardTitleStyle]"
@@ -130,7 +135,8 @@
                         :style="[cardTop2Style]">
                       🤔 {{ item.analyze.title }}
                     </h1>
-                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2"
+                          style="line-height: 1.7;opacity: 0.8"
                           :class="{'hot-title-full':cardHotTitleFull}"
                           :title="item.analyze.content"
                           :style="[cardTitleStyle]"
@@ -145,7 +151,8 @@
                         :style="[cardTop2Style]">
                       🚀 {{ item.future.title }}
                     </h1>
-                    <span class="dark:text-dark-text hot-title hover:underline mt-2" style="line-height: 1.7;opacity: 0.8"
+                    <span class="dark:text-dark-text hot-title hover:underline mt-2"
+                          style="line-height: 1.7;opacity: 0.8"
                           :class="{'hot-title-full':cardHotTitleFull}"
                           :title="item.future.content"
                           :style="[cardTitleStyle]"
@@ -175,12 +182,28 @@ export default {
     return {
       loading: false,
       aiData: {
-        "data":[]
+        "data": []
       },
       collapsedItems: [] // 记录折叠的索引
     };
   },
   computed: {
+    aiModeDesc: {
+      get() {
+        return this.$store.state.aiModeDesc;
+      },
+      set(value) {
+        this.$store.commit('setAiModeDesc', value);
+      }
+    },
+    aiModeBigModalDesc: {
+      get() {
+        return this.$store.state.aiModeBigModalDesc;
+      },
+      set(value) {
+        this.$store.commit('setAiModeBigModalDesc', value);
+      }
+    },
     isAllCollapsed() {
       return this.aiData.data.length > 0 && this.collapsedItems.length === this.aiData.data.length;
     },
@@ -300,7 +323,7 @@ export default {
               // 👇 添加这行：初始化时全部折叠
               this.collapsedItems = this.aiData.data.map((_, i) => i);
             } else {
-              this.aiData = {"data":[]}
+              this.aiData = {"data": []}
               if (res.data.code === 999) {
                 store.commit('setIsAIMode', false)
                 store.commit('setLicenseShow', true)
@@ -502,7 +525,7 @@ export default {
   overflow: hidden;
 
   border: 1px solid rgba(99, 102, 241, 0.08);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .dimension-card::before {
@@ -517,7 +540,7 @@ export default {
 
 .dimension-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(99,102,241,0.18);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.18);
 }
 
 .dark .dimension-card {

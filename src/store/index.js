@@ -403,6 +403,12 @@ export default createStore({
         isAIMode: getLocalStorage(LOCAL_STORAGE_KEYS.IS_AI_MODE) ?? false,
         // 搜索框是否显示
         searchShow: false,
+        // 突发热点顶部说明
+        suddenDescShow: true,
+        // AI模式顶部说明
+        aiModeDesc: true,
+        // AI模式顶部大模型说明
+        aiModeBigModalDesc: true,
 
 
         // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
@@ -1108,6 +1114,15 @@ export default createStore({
         },
         setSearchShow(state, value) {
             state.searchShow = value
-        }
+        },
+        setSuddenDescShow(state, value){
+            state.suddenDescShow = value
+        },
+        setAiModeDesc(state, value){
+            state.aiModeDesc = value
+        },
+        setAiModeBigModalDesc(state, value){
+            state.aiModeBigModalDesc = value
+        },
     }
 });

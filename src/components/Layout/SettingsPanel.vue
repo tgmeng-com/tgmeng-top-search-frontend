@@ -342,6 +342,34 @@ export default {
         {
           items: [
             {
+              key: 'suddenDescShow',
+              type: 'switch',
+              label: '突发热点顶部说明',
+              storageKey: LOCAL_STORAGE_KEYS.SUDDEN_DESC_SHOW,
+              storeKey: 'suddenDescShow',
+              umamiEvent: '自定义突发热点顶部说明是否显示'
+            },
+            {
+              key: 'aiModeDesc',
+              type: 'switch',
+              label: 'AI模式顶部说明',
+              storageKey: LOCAL_STORAGE_KEYS.AI_MODE_DESC,
+              storeKey: 'aiModeDesc',
+              umamiEvent: '自定义AI模式顶部说明是否显示'
+            },
+            {
+              key: 'aiModeBigModalDesc',
+              type: 'switch',
+              label: 'AI模式顶部大模型说明',
+              storageKey: LOCAL_STORAGE_KEYS.AI_MODE_BIG_MODAL_DESC,
+              storeKey: 'aiModeBigModalDesc',
+              umamiEvent: '自定义AI模式大模型说明是否显示'
+            }
+          ]
+        },
+        {
+          items: [
+            {
               key: 'includeWord',
               type: 'tags',
               label: '包含关键词',

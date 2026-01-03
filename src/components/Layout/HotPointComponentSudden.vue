@@ -54,15 +54,13 @@
           历史
         </button>
       </div>
-      <div
+      <div v-if="suddenDescShow"
           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <!-- 历史订阅推送 -->
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             🤖 实时捕捉多平台同时爆发的相似话题，采用糖果模型进行分析，结果仅供参考（前1-2项部分时间存在指纹干扰，仅供参考）
           </span>&nbsp;
         </div>
-        <!-- 右侧：更新时间（移动端换行显示） -->
         <div>
           <span class="text-xs px-2 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
             🤖 本页面所有数据每5分钟更新一次
@@ -182,6 +180,14 @@ export default {
     }
   },
   computed: {
+    suddenDescShow: {
+      get() {
+        return this.$store.state.suddenDescShow;
+      },
+      set(value) {
+        this.$store.commit('setSuddenDescShow', value);
+      }
+    },
     currentHotspots() {
       const list = this.hotspotData
       return [...list].sort((a, b) => b.platform_count - a.platform_count)

@@ -48,6 +48,12 @@ export const LOCAL_STORAGE_KEYS = {
     LICENSE_DODE: 'licenseCode',
     // 是否AI模式
     IS_AI_MODE: 'isAIMode',
+    // 突发热点顶部说明
+    SUDDEN_DESC_SHOW: 'suddenDescShow',
+    // AI模式顶部说明
+    AI_MODE_DESC: 'aiModeDesc',
+    // AI模式顶部大模型说明
+    AI_MODE_BIG_MODAL_DESC: 'aiModeBigModalDesc',
 };
 
 // 设置本地存储
