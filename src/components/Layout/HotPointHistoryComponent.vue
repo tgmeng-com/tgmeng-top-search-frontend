@@ -70,7 +70,7 @@
                 </div>
                 <div class="tab-content">
                   <div class="chart-container">
-                    <div class="chart-title">{{ isHistoryMode ? '历史出现频率（最近 30 天）' : '小时级热度走势' }}</div>
+                    <div class="chart-title">{{ isHistoryMode ? '历史出现频率（最近 30 天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势') }}</div>
                     <div class="chart-wrapper">
                       <div class="chart-y-axis">
                         <span v-for="(val, idx) in yAxisLabels" :key="idx">{{ val }}</span>
@@ -95,7 +95,6 @@
                             <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2"
                                   stroke-linecap="round" stroke-linejoin="round"/>
 
-                            <!-- 修改后的圆点：更小、更精致、正圆、灰色更暗 -->
                             <circle
                                 v-for="(point, i) in chartPoints"
                                 :key="'point-'+i"
@@ -151,10 +150,38 @@
                 <div class="list-summary">
                   <span class="summary-text">共 {{ historyData.length }} 条记录</span>
                 </div>
-                <!-- 修改3：新增“分类”列 -->
+                <!-- 表头排序（箭头只在当前排序列显示） -->
                 <div class="list-header" :class="isMoHu ? 'four-columns' : 'five-columns'">
-                  <span>出现时间</span><span>热点标题</span><span>分类</span><span>平台名称</span><span v-if=" !isMoHu
-               ">相关度</span>
+                  <span class="sortable-header" @click="handleSort('dataUpdateTime')">
+                    出现时间
+                    <span v-if="sortKey === 'dataUpdateTime'" class="sort-arrow">
+                      {{ sortDir === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </span>
+                  <span class="sortable-header" @click="handleSort('title')">
+                    热点标题
+                    <span v-if="sortKey === 'title'" class="sort-arrow">
+                      {{ sortDir === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </span>
+                  <span class="sortable-header" @click="handleSort('platformCategoryRoot')">
+                    分类
+                    <span v-if="sortKey === 'platformCategoryRoot'" class="sort-arrow">
+                      {{ sortDir === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </span>
+                  <span class="sortable-header" @click="handleSort('platformName')">
+                    平台名称
+                    <span v-if="sortKey === 'platformName'" class="sort-arrow">
+                      {{ sortDir === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </span>
+                  <span v-if="!isMoHu" class="sortable-header" @click="handleSort('distance')">
+                    相关度
+                    <span v-if="sortKey === 'distance'" class="sort-arrow">
+                      {{ sortDir === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </span>
                 </div>
                 <div class="list-items">
                   <div v-if="loading" style="display:flex; flex-direction:column; align-items:center; padding:40px;">
@@ -169,7 +196,7 @@
                     <span style="margin-top:16px; color:#8892b0; font-weight:500;">历史数据追踪中...</span>
                   </div>
                   <div v-else>
-                    <a v-for="(item, index) in historyData"
+                    <a v-for="(item, index) in sortedHistoryData"
                        :key="index"
                        class="list-item cursor-pointer"
                        :class="isMoHu ? 'four-columns' : 'five-columns'"
@@ -182,7 +209,7 @@
                       <div class="platform">
                         <span class="platform-name">{{ item.platformName }}</span>
                       </div>
-                      <div class="relevance" v-if="!isMoHu" >
+                      <div class="relevance" v-if="!isMoHu">
                         <span class="relevance-value">{{ 100 - item.distance }}</span>
                         <div class="relevance-bar-wrapper">
                           <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
@@ -228,10 +255,13 @@ export default {
       tooltipData: [],
       showHistoryGrid: false,
       searchHistory: [],
+      // 排序状态：默认时间降序
+      sortKey: 'dataUpdateTime',
+      sortDir: 'desc',
       tabConfigs: [
-        {label: '1分钟走势(模糊)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true},
-        {label: '今日走势(模糊)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true},
-        {label: '历史走势(模糊)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true},
+        {label: '1分钟走势(精确)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true},
+        {label: '今日走势(精确)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true},
+        {label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true},
         {label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false},
         {label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false}
       ]
@@ -258,10 +288,15 @@ export default {
       }
       return dates;
     },
+    // 1分钟走势：30个刻度 0,2,4,...,58
     xAxisLabels() {
       if (this.isHistoryMode) return this.historyFixedDates.map(d => `${parseInt(d.split('-')[1])}/${parseInt(d.split('-')[2])}`);
+      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
+        return Array.from({length: 30}, (_, i) => `${i * 2}`);
+      }
       return Array.from({length: 13}, (_, i) => `${String(i * 2).padStart(2, '0')}:00`);
     },
+    // 1分钟走势：按秒统计
     dataCounts() {
       if (this.isHistoryMode) {
         const map = new Map();
@@ -270,18 +305,29 @@ export default {
           map.set(d, (map.get(d) || 0) + 1);
         });
         return this.historyFixedDates.map(d => map.get(d) || 0);
-      } else {
-        const counts = Array(24).fill(0);
+      }
+      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
+        const counts = Array(60).fill(0);
         if (this.historyData.length === 0) return counts;
-        const targetDate = this.historyData[0].dataUpdateTime.slice(0, 10);
+        const baseTime = this.historyData[0].dataUpdateTime.slice(0, 16);
         this.historyData.forEach(item => {
-          if (item.dataUpdateTime.startsWith(targetDate)) {
-            const h = parseInt(item.dataUpdateTime.slice(11, 13));
-            if (!isNaN(h)) counts[h]++;
+          if (item.dataUpdateTime.startsWith(baseTime)) {
+            const sec = parseInt(item.dataUpdateTime.slice(17, 19));
+            if (!isNaN(sec)) counts[sec]++;
           }
         });
         return counts;
       }
+      const counts = Array(24).fill(0);
+      if (this.historyData.length === 0) return counts;
+      const targetDate = this.historyData[0].dataUpdateTime.slice(0, 10);
+      this.historyData.forEach(item => {
+        if (item.dataUpdateTime.startsWith(targetDate)) {
+          const h = parseInt(item.dataUpdateTime.slice(11, 13));
+          if (!isNaN(h)) counts[h]++;
+        }
+      });
+      return counts;
     },
     yAxisLabels() {
       const max = Math.max(...this.dataCounts, 1);
@@ -296,6 +342,24 @@ export default {
     chartPath() {
       const p = this.chartPoints;
       return p.length ? `M${p[0].x},${p[0].y} ` + p.slice(1).map(i => `L${i.x},${i.y}`).join(' ') : '';
+    },
+    sortedHistoryData() {
+      if (!this.sortKey) return this.historyData;
+      return [...this.historyData].sort((a, b) => {
+        let va = a[this.sortKey] ?? '';
+        let vb = b[this.sortKey] ?? '';
+        if (this.sortKey === 'dataUpdateTime') {
+          va = new Date(va).getTime();
+          vb = new Date(vb).getTime();
+        }
+        if (this.sortKey === 'distance') {
+          va = a.distance ?? Infinity;
+          vb = b.distance ?? Infinity;
+        }
+        if (va < vb) return this.sortDir === 'asc' ? -1 : 1;
+        if (va > vb) return this.sortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
     }
   },
   watch: {
@@ -331,6 +395,9 @@ export default {
       if (!this.searchQuery.trim() || this.loading) return;
       this.loading = true;
       this.tooltipShow = false;
+      // 每次搜索恢复默认时间降序
+      this.sortKey = 'dataUpdateTime';
+      this.sortDir = 'desc';
 
       cacheSearchForAllByWord(this.searchQuery, this.currentSearchMode)
           .then(res => {
@@ -357,6 +424,10 @@ export default {
         const [, m, d] = fullDate.split('-');
         this.tooltipTitle = `${parseInt(m)}月${parseInt(d)}日`;
         this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(fullDate));
+      } else if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
+        this.tooltipTitle = `${index}秒`;
+        const base = this.historyData[0]?.dataUpdateTime.slice(0,16) || '';
+        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(base) && parseInt(item.dataUpdateTime.slice(17,19)) === index);
       } else {
         const hourStr = String(index).padStart(2, '0');
         this.tooltipTitle = `${hourStr}:00 - ${String(index + 1).padStart(2, '0')}:00`;
@@ -393,6 +464,22 @@ export default {
     },
     handleKey(e) {
       if (e.key === 'Escape' && this.historyDataBoardShow && !this.loading) this.close();
+    },
+    // 排序逻辑：点击其他列会取消之前的排序，箭头只显示在当前排序列
+    handleSort(key) {
+      if (this.loading) return;
+      if (this.sortKey === key) {
+        // 同列点击：asc → desc → 取消
+        if (this.sortDir === 'asc') {
+          this.sortDir = 'desc';
+        } else {
+          this.sortKey = null;
+        }
+      } else {
+        // 切换到新列：默认升序
+        this.sortKey = key;
+        this.sortDir = 'asc';
+      }
     }
   }
 };
@@ -727,7 +814,7 @@ export default {
 
 .list-header {
   display: grid;
-  grid-template-columns: 170px 1fr 100px 120px 120px; /* 新增分类列 */
+  grid-template-columns: 170px 1fr 100px 120px 120px;
   padding: 16px 24px;
   font-size: 13px;
   font-weight: 600;
@@ -746,12 +833,25 @@ export default {
 
 .list-header.four-columns,
 .list-item.four-columns {
-  grid-template-columns: 170px 1fr 100px 120px; /* 时间 / 标题 / 分类/ 平台 */
+  grid-template-columns: 170px 1fr 100px 120px;
 }
 
 .list-header.five-columns,
 .list-item.five-columns {
-  grid-template-columns: 170px 1fr 100px 120px 120px; /* 时间 / 标题 / 分类 / 平台 / 相关度 */
+  grid-template-columns: 170px 1fr 100px 120px 120px;
+}
+
+/* 排序样式 */
+.sortable-header {
+  cursor: pointer;
+  position: relative;
+  padding-right: 16px;
+}
+
+.sort-arrow {
+  font-size: 12px;
+  color: #409eff;
+  font-weight: bold;
 }
 
 .time {
@@ -914,7 +1014,6 @@ export default {
     gap: 8px;
   }
 
-  /* 移动端显示标签提示 */
   .list-item > div:nth-child(3)::before {
     content: "分类：";
     color: #8892b0;
