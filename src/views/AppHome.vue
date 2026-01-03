@@ -8,9 +8,12 @@
     <WorkMaskExcel v-if="workMaskExcelShow" @handleCategoryClick="handleCategoryClick"/>
     <WorkMaskVsCode v-if="workMaskVsCodeShow" @handleCategoryClick="handleCategoryClick"/>
 
-    <main class="flex-grow">
+    <main class="flex-grow main-content">
       <!-- 分类导航 -->
-      <CategoryNavigation @categoryClick="handleCategoryClick"/>
+      <CategoryNavigation
+          @categoryClick="handleCategoryClick"
+          :class="{ 'mobile-bottom-nav': isMobile }"
+      />
 
       <!-- 统计数据 -->
       <PageViewShow :show="pageViewsShow" />
@@ -46,6 +49,7 @@
                      ad-format="auto"
                      :full-width-responsive="true"/>
       <WalineComment/>
+
     </main>
   </div>
 </template>
@@ -335,6 +339,21 @@ export default {
 </script>
 
 <style scoped>
+/* 移动端导航固定在底部 */
+.mobile-bottom-nav {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0;
+  right: 0;
+  top: auto !important;
+  z-index: 999;
+}
+
+/* 主内容区域在移动端时添加底部内边距 */
+.main-content.mobile-with-nav {
+  padding-bottom: 0;
+}
+
 /* 自定义样式的数字加减输入框 */
 :deep(.el-input__wrapper) {
   background-color: transparent !important;

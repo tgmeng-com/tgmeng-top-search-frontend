@@ -396,7 +396,7 @@ export default createStore({
         // 过滤中排除的关键字
         unincludeWord: [],
 
-        topMessageHeight: 6, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
+        topMessageHeight: 4, // 头部的高度，后面的导航栏等的元素高度也都是基于这个计算
         // 自定义调整卡片列表数
         cardListLimit: 200,
         // AI模式开关，默认为false（普通模式）

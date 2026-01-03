@@ -1,8 +1,9 @@
 <template>
   <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
-  <div class="overflow-x-auto scrollbar-hide sticky z-50 pb-4 bg-light-bg/100 dark:bg-dark-bg/100"
+  <div class="overflow-x-auto scrollbar-hide sticky z-50 px-2 bg-light-bg/100 dark:bg-dark-bg/100"
+       :class="isMobile ? 'py-2' : 'py-4'"
        :style="topMessageHeight">
-    <div class="inline-flex space-x-2 py-0.5 justify-center mx-auto whitespace-nowrap">
+    <div class="inline-flex space-x-2 justify-center mx-auto whitespace-nowrap">
       <draggable
           v-model="categroies"
           tag="div"
@@ -15,9 +16,8 @@
           :disabled="!categroiesDraggable"
       >
         <template #item="{ element: cat }">
-          <div class="mr-2 last:mr-0 relative">
+          <div class="mr-2 last:mr-0 relative" v-show="cat.isShow && !(isAIMode && isHiddenCategory(cat))">
             <button
-                v-show="cat.isShow && !(isAIMode && isHiddenCategory(cat))"
                 :data-umami-event="cat.name"
                 :data-umami-event-name="cat.name"
                 :key="cat.name"
@@ -137,17 +137,21 @@ export default {
     topMessageHeight() {
       if (this.isMobile) {
         return {
-          top: this.$store.state.topMessageHeight - 1 + 'rem',
-          paddingBottom: 0.6 + 'rem'
+          top: this.$store.state.topMessageHeight - 1 + 'rem'
         };
       }
       return {
         top: this.$store.state.topMessageHeight + 'rem',
-        paddingBottom: 1 + 'rem'
       };
     },
 
     categroiesTitleStyle() {
+      if (this.isMobile) {
+        return {
+          fontSize: this.categroiesTitleFontSize - 0.125 + 'rem',
+          fontWeight: 'bold',
+        };
+      }
       return {
         fontSize: this.categroiesTitleFontSize + 'rem',
         fontWeight: 'bold',

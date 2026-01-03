@@ -14,10 +14,9 @@
           <img
               src="../../assets/image/logo.png"
               alt="糖果梦热榜 - 聚合全网热门排行榜"
-              class="logo w-10 h-10 sm:w-12 sm:h-12"
+              class="logo w-7 h-7 sm:w-9 sm:h-9"
           >
           <span
-              v-if="!isMobile"
               class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide"
           >
             糖果梦热榜
