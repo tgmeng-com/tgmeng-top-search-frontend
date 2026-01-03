@@ -1,26 +1,26 @@
 <!-- HotPointComponentSudden.vue -->
 <template>
   <div class="sudden-hotspots-page mt-4 mb-10">
-    <div class="page-header mb-4">
-      <!-- Tab 切换 -->
-      <div class="tab-buttons dark:text-dark-text">
-
-        <button
-            v-for="tab in tabs"
-            :data-umami-event="tab.label"
-            :data-umami-event-name="tab.label"
-            :key="tab.value"
-            :class="[
+    <div class="page-header ">
+      <!-- Tab 切换 - 横向滚动 -->
+      <div class="overflow-x-auto scrollbar-hide">
+        <div class="tab-buttons dark:text-dark-text">
+          <button
+              v-for="tab in tabs"
+              :data-umami-event="tab.label"
+              :data-umami-event-name="tab.label"
+              :key="tab.value"
+              :class="[
                   'px-4 py-1.5 rounded-xl drag-handle',
                   tab.value === activeTab
                     ? 'bg-primary text-white'
                     : 'bg-gray-200 dark:bg-gray-700 hover:shadow-md transition-shadow'
                 ]"
-            @click="clickSwitchTab(tab.value)"
-        >
-          <h1><span class="dark:text-dark-text" :style="categroiesTitleStyle">{{ tab.label }}</span></h1>
-        </button>
-
+              @click="clickSwitchTab(tab.value)"
+          >
+            <h1><span class="dark:text-dark-text" :style="categroiesTitleStyle">{{ tab.label }}</span></h1>
+          </button>
+        </div>
       </div>
 
       <div v-if="suddenDescShow"
@@ -326,12 +326,12 @@ export default {
 
 /* Tab 按钮保持原有样式 */
 .tab-buttons {
-  display: flex;
+  display: inline-flex;
   border-radius: 14px;
   padding: 6px;
   margin: 0 auto 24px;
-  width: fit-content;
   gap: 4px;
+  white-space: nowrap;
 }
 
 .tab-btn {
