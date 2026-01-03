@@ -295,7 +295,9 @@ export default {
       }
     },
     openSearchModal() {
-      store.commit('setSearchShow', true)
+      // store.commit('setSearchShow', true)
+      store.commit('setHistoryDataBoardUseTitle', '')
+      store.commit('setHistoryDataBoardShow', true)
     },
     toggleTheme() {
       this.isDark = !this.isDark

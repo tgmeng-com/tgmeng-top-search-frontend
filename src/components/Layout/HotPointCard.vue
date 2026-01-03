@@ -222,8 +222,8 @@ export default {
     isBetween,
     isFuture,
     clickHotPointTrend(title) {
-      store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataBoardUseTitle', title)
+      store.commit('setHistoryDataBoardShow', true)
       window.umami.track('📊热点历史追踪');
     },
     timeAgo(date) {
