@@ -1,7 +1,7 @@
 <template>
   <!-- 分类导航 - 同一行，按钮居中，更新时间右对齐 -->
   <div class="overflow-x-auto scrollbar-hide sticky z-50 px-2 bg-light-bg/100 dark:bg-dark-bg/100"
-       :class="isMobile ? 'py-2' : 'py-4'"
+       :class="isMobile ? 'py-3' : 'py-4'"
        :style="topMessageHeight">
     <div class="inline-flex space-x-2 justify-center mx-auto whitespace-nowrap">
       <draggable
