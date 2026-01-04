@@ -13,7 +13,7 @@
     <!-- 头部 -->
     <div
         class="sticky top-0 z-50 backdrop-blur-xl">
-      <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="mx-auto">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
             <div class="flex items-center space-x-1">
@@ -36,7 +36,7 @@
     </div>
 
     <!-- 内容区域 -->
-    <div class="max-w-6xl mx-auto px-6 py-8">
+    <div class="mx-auto py-8">
 
       <!-- 核心功能 -->
       <div v-if="activeTab === 'advanced'" class="space-y-8">

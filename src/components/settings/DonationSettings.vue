@@ -1,7 +1,7 @@
 <!-- 打赏设置 -->
 <template>
   <div class="min-h-screen pb-16 bg-transparent">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto">
       <!-- Header -->
       <header class="relative text-center mb-10">
         <h1 class="main-title">

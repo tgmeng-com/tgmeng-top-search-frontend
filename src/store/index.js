@@ -16,7 +16,6 @@ class Platform {
 }
 
 import {createStore} from 'vuex';
-import {Avatar, Money, InfoFilled, Odometer} from "@element-plus/icons-vue";
 import {getLocalStorage, LOCAL_STORAGE_KEYS} from "@/utils/localStorageUtils";
 import {
     topSearchForYoutube,
@@ -409,16 +408,9 @@ export default createStore({
         aiModeDesc: true,
         // AI模式顶部大模型说明
         aiModeBigModalDesc: true,
+        // 控制设置面板展开状态
+        settingsPanelExpanded: false,
 
-
-        // 设置菜单，之所以提取出来，是因为web端和移动端是两块，要共享这个数据
-        settingMenu: [
-            {key: "about", label: "关于我们", to: "/setting/about", icon: InfoFilled},
-            {key: "function", label: "功能介绍", to: "/setting/function", icon: Odometer},
-            // {key: "basic", label: "基础设置", to: "/setting/basic", icon: Setting},
-            {key: "donation", label: "打赏列表", to: "/setting/donation", icon: Money},
-            {key: "community", label: "加群交流", to: "/setting/community", icon: Avatar},
-        ],
         categroies: [
             {
                 name: '🔥突发',
@@ -1123,6 +1115,9 @@ export default createStore({
         },
         setAiModeBigModalDesc(state, value){
             state.aiModeBigModalDesc = value
+        },
+        setSettingsPanelExpanded(state, value) {
+            state.settingsPanelExpanded = value
         },
     }
 });

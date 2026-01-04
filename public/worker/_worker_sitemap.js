@@ -41,12 +41,9 @@ export default function generateSitemap() {
         {path: "/game", changefreq: "minute", priority: 1.0},   // 游戏
         {path: "/health", changefreq: "minute", priority: 1.0},   // 健康
         {path: "/favorites", changefreq: "minute", priority: 0.5},   // 收藏
-        {path: "/setting/about", changefreq: "monthly", priority: 0.5},   // 关于我们
-        {path: "/setting/basic", changefreq: "monthly", priority: 0.5},   // 基本设置
-        {path: "/setting/donation", changefreq: "monthly", priority: 0.5},   // 捐赠
-        {path: "/setting/community", changefreq: "monthly", priority: 0.5},   // 加入社区
-        {path: "/setting/function", changefreq: "monthly", priority: 0.5},   // 功能介绍
-        {path: "/setting", changefreq: "monthly", priority: 0.5},   // 设置
+        {path: "/about", changefreq: "monthly", priority: 0.5},   // 关于我们
+        {path: "/donation", changefreq: "monthly", priority: 0.5},   // 捐赠
+        {path: "/function", changefreq: "monthly", priority: 0.5},   // 功能介绍
         {path: "/excel", changefreq: "minute", priority: 1.0},   // 设置
         {path: "/vscode", changefreq: "minute", priority: 1.0},   // 设置
         {path: "/sudden", changefreq: "minute", priority: 1.0},   // 突发热点

@@ -65,12 +65,12 @@
       <section id="contact" class="mt-16">
         <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">联系与支持</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-          <router-link to="/setting/community" @click="scrollToTop">
+          <a href="https://wechat.tgmeng.com" target="_blank" rel="noopener">
             <div class="card-bg">
               <h4 class="card-title">加入交流社区</h4>
               <p class="card-desc">欢迎加入我们的交流社区，与其他用户分享、讨论和交流。</p>
             </div>
-          </router-link>
+          </a>
           <a href="https://github.com/CandyDream6/tgmeng-top-search-frontend" target="_blank" rel="noopener">
             <div class="card-bg">
               <h4 class="card-title">技术支持</h4>

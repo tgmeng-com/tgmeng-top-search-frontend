@@ -5,7 +5,6 @@
     <div class="container mx-auto" :style="[widthPaddingStyle, topMessageHeight]">
       <div class="flex items-center justify-between h-full relative">
 
-        <!-- 左侧 Logo 和网站名称 - 整体可点击 -->
         <router-link
             to="/"
             @click="trackUmami('顶部左边LOGO')"
@@ -23,231 +22,241 @@
           </span>
         </router-link>
 
-        <!-- 右侧设置按钮 - 桌面端显示全部 -->
-        <div class="hidden md:flex items-center space-x-6">
-          <div v-for="btn in headerButtons" :key="btn.key">
-            <el-tooltip :content="btn.tooltip" placement="bottom">
-              <!-- 外部链接 -->
+        <button
+            @click="toggleSidebar"
+            class="menu-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+            aria-label="打开菜单"
+        >
+          <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <transition name="fade">
+    <div
+        v-if="showSidebar"
+        class="fixed inset-0 bg-black bg-opacity-50 z-2000"
+        @click="closeSidebar"
+    ></div>
+  </transition>
+
+  <transition name="slide">
+    <div
+        v-if="showSidebar"
+        class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-800 shadow-2xl z-2001 flex flex-col"
+    >
+      <div class="flex-shrink-0 flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">菜单</h2>
+        <button
+            @click="closeSidebar"
+            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="关闭菜单"
+        >
+          <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sidebar-content flex-1 overflow-y-auto">
+        <template v-for="(group, groupIndex) in groupedButtons" :key="group.key">
+          <div class="button-group">
+            <template v-for="btn in group.buttons" :key="btn.key">
               <a
                   v-if="btn.href"
                   :href="btn.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  @click="() => { trackUmami(btn.umamiLabel) }"
+                  @click="() => { trackUmami(btn.umamiLabel); closeSidebar() }"
+                  class="sidebar-item"
               >
-                <div class="setting-btn" :aria-label="btn.ariaLabel">
-                  <div style="width: 1.875rem">
-                    <img :src="getButtonImage(btn)" :alt="btn.alt">
-                  </div>
-                </div>
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="sidebar-icon">
+                <span class="sidebar-text">{{ btn.label }}</span>
               </a>
-              <!-- 路由链接 -->
+
               <router-link
                   v-else-if="btn.to"
                   :to="btn.to"
-                  @click="trackUmami(btn.umamiLabel)"
+                  @click="() => { trackUmami(btn.umamiLabel); closeSidebar() }"
+                  class="sidebar-item"
               >
-                <div class="setting-btn" :aria-label="btn.ariaLabel">
-                  <div style="width: 1.875rem">
-                    <img :src="getButtonImage(btn)" :alt="btn.alt">
-                  </div>
-                </div>
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="sidebar-icon">
+                <span class="sidebar-text">{{ btn.label }}</span>
               </router-link>
-              <!-- 点击事件 -->
+
               <div
                   v-else
                   @click="() => { trackUmami(btn.umamiLabel); handleButtonClick(btn) }"
+                  class="sidebar-item"
               >
-                <div class="setting-btn" :aria-label="btn.ariaLabel">
-                  <div style="width: 1.875rem">
-                    <img :src="getButtonImage(btn)" :alt="btn.alt">
-                  </div>
-                </div>
-              </div>
-            </el-tooltip>
-          </div>
-        </div>
-
-        <!-- 移动端汉堡菜单按钮 -->
-        <div class="md:hidden flex items-center">
-          <button @click="toggleMobileMenu" class="p-2 text-gray-600 dark:text-gray-300" aria-label="菜单">
-            <svg v-if="!showMobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 移动端下拉菜单 -->
-    <transition name="slide-fade">
-      <div v-if="showMobileMenu"
-           class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg">
-        <div class="container mx-auto px-8 py-4" :style="widthPaddingStyle">
-          <div class="flex flex-col space-y-4">
-            <template v-for="btn in headerButtons" :key="btn.key">
-              <!-- 外部链接 -->
-              <a
-                  v-if="btn.href"
-                  :href="btn.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  @click="() => { trackUmami(btn.mobileUmamiLabel); toggleMobileMenu() }"
-                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
-                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
-              </a>
-
-              <!-- 路由链接 -->
-              <router-link
-                  v-else-if="btn.to"
-                  :to="btn.to"
-                  @click="() => { trackUmami(btn.mobileUmamiLabel); toggleMobileMenu() }"
-                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              >
-                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
-                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
-              </router-link>
-
-              <!-- 点击事件 -->
-              <div
-                  v-else
-                  @click="() => { trackUmami(btn.mobileUmamiLabel); handleButtonClick(btn); toggleMobileMenu() }"
-                  class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-              >
-                <img :src="getButtonImage(btn)" :alt="btn.alt" class="w-8 h-8">
-                <span class="text-gray-900 dark:text-gray-100 font-medium">{{ btn.label }}</span>
+                <img :src="getButtonImage(btn)" :alt="btn.alt" class="sidebar-icon">
+                <span class="sidebar-text">{{ btn.label }}</span>
               </div>
             </template>
           </div>
-        </div>
-      </div>
-    </transition>
 
-  </header>
+          <div v-if="groupIndex < groupedButtons.length - 1" class="group-divider"></div>
+        </template>
+      </div>
+
+      <div class="flex-shrink-0 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+        <p class="text-sm text-center text-gray-500 dark:text-gray-400">
+          糖果梦热榜 © {{ currentYear }}
+        </p>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
 import store from "@/store"
 
 export default {
-  components: {
-  },
   data() {
     return {
       isDark: true,
-      showMobileMenu: false,
+      showSidebar: false,
       windowWidth: window.innerWidth,
-      // 按钮配置数据
       headerButtons: [
         {
           key: 'search',
-          tooltip: '搜索',
+          tooltip: '快速搜索热榜内容',
           label: '搜索',
           ariaLabel: '搜索',
           alt: '糖果梦热榜 - 搜索',
           icon: 'search.png',
-          umamiLabel: '顶部右边搜索',
-          mobileUmamiLabel: '移动端菜单-搜索',
-          action: 'openSearchModal'
+          umamiLabel: '侧边栏-搜索',
+          action: 'openSearchModal',
+          group: 'function'
         },
         {
-          key: 'wechat',
-          tooltip: '加入微信群',
-          label: '加入微信群',
-          ariaLabel: '微信群',
-          alt: '糖果梦热榜 - 微信群',
-          icon: 'wechat-logo.png',
-          href: 'https://wechat.tgmeng.com',
-          umamiLabel: '顶部右边微信群',
-          mobileUmamiLabel: '移动端菜单-微信群'
-        },
-        {
-          key: 'github',
-          tooltip: 'GitHub源码',
-          label: 'GitHub仓库',
-          ariaLabel: 'GitHub仓库',
-          alt: '糖果梦热榜 - GitHub仓库',
-          icon: 'github-logo', // 特殊处理,需要根据主题切换
-          href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend',
-          umamiLabel: '顶部右边github',
-          mobileUmamiLabel: '移动端菜单-GitHub'
+          key: 'settingsPanel',
+          tooltip: '打开个性化设置面板',
+          label: '个性化',
+          ariaLabel: '个性化',
+          alt: '糖果梦热榜 - 个性化',
+          icon: 'setting.png',
+          umamiLabel: '侧边栏-个性化',
+          action: 'toggleSettingsPanel',
+          group: 'function'
         },
         {
           key: 'theme',
-          tooltip: '主题切换',
+          tooltip: '切换明暗主题',
           label: '主题切换',
           ariaLabel: '主题切换',
           alt: '糖果梦热榜 - 主题切换',
-          icon: 'theme', // 特殊处理,需要根据主题切换
-          umamiLabel: '顶部右边主题切换',
-          mobileUmamiLabel: '移动端菜单-主题切换',
-          action: 'toggleTheme'
+          icon: 'theme',
+          umamiLabel: '侧边栏-主题切换',
+          action: 'toggleTheme',
+          group: 'function'
         },
         {
           key: 'fish',
-          tooltip: '摸鱼模式',
+          tooltip: '一键切换摸鱼界面',
           label: '摸鱼模式',
           ariaLabel: '摸鱼模式',
           alt: '糖果梦热榜 - 摸鱼模式选择',
           icon: 'fish.png',
-          umamiLabel: '顶部右边小鱼',
-          mobileUmamiLabel: '移动端菜单-摸鱼模式',
-          action: 'clickWorkMaskExcelButton'
+          umamiLabel: '侧边栏-摸鱼模式',
+          action: 'clickWorkMaskExcelButton',
+          group: 'function'
         },
         {
           key: 'subscription',
-          tooltip: '推送订阅',
+          tooltip: '设置热榜推送订阅',
           label: '订阅设置',
           ariaLabel: '推送订阅',
           alt: '糖果梦热榜 - 推送订阅',
           icon: 'subcription.png',
-          umamiLabel: '顶部右边订阅',
-          mobileUmamiLabel: '移动端菜单-订阅',
-          action: 'clickSubscriptionSettingButton'
+          umamiLabel: '侧边栏-订阅',
+          action: 'clickSubscriptionSettingButton',
+          group: 'function'
         },
         {
           key: 'license',
-          tooltip: '密钥',
+          tooltip: '管理您的密钥信息',
           label: '密钥设置',
           ariaLabel: '密钥',
           alt: '糖果梦热榜 - 密钥',
           icon: 'license.png',
-          umamiLabel: '顶部右边密钥',
-          mobileUmamiLabel: '移动端菜单-密钥设置',
-          action: 'clickLicenseButton'
+          umamiLabel: '侧边栏-密钥设置',
+          action: 'clickLicenseButton',
+          group: 'function'
         },
         {
-          key: 'setting',
-          tooltip: '设置',
-          label: '设置中心',
-          ariaLabel: '设置',
-          alt: '糖果梦热榜 - 设置中心',
-          icon: 'setting.png',
-          to: '/setting',
-          umamiLabel: '顶部右边设置',
-          mobileUmamiLabel: '移动端菜单-设置'
+          key: 'wechat',
+          tooltip: '加入我们的微信交流群',
+          label: '微信交流群',
+          ariaLabel: '微信群',
+          alt: '糖果梦热榜 - 微信群',
+          icon: 'wechat-logo.png',
+          href: 'https://wechat.tgmeng.com',
+          umamiLabel: '侧边栏-微信群',
+          group: 'community'
+        },
+        {
+          key: 'github',
+          tooltip: '查看开源代码仓库',
+          label: 'GitHub 仓库',
+          ariaLabel: 'GitHub仓库',
+          alt: '糖果梦热榜 - GitHub仓库',
+          icon: 'github-logo',
+          href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend',
+          umamiLabel: '侧边栏-GitHub',
+          group: 'community'
+        },
+        {
+          key: 'about',
+          tooltip: '了解糖果梦热榜',
+          label: '关于我们',
+          ariaLabel: '关于我们',
+          alt: '糖果梦热榜 - 关于我们',
+          icon: 'about.png',
+          to: '/about',
+          umamiLabel: '侧边栏-关于我们',
+          group: 'info'
+        },
+        {
+          key: 'function',
+          tooltip: '功能介绍',
+          label: '功能介绍',
+          ariaLabel: '功能介绍',
+          alt: '糖果梦热榜 - 功能介绍',
+          icon: 'function.png',
+          to: '/function',
+          umamiLabel: '侧边栏-功能介绍',
+          group: 'info'
+        },
+        {
+          key: 'donation',
+          tooltip: '打赏列表',
+          label: '打赏列表',
+          ariaLabel: '打赏列表',
+          alt: '糖果梦热榜 - 打赏列表',
+          icon: 'coffee.png',
+          to: '/donation',
+          umamiLabel: '侧边栏-打赏列表',
+          group: 'info'
         }
-      ]
+      ],
+      buttonGroups: {
+        function: { title: '功能设置', order: 1 },
+        community: { title: '社区与开源', order: 2 },
+        info: { title: '信息中心', order: 3 }
+      }
     }
   },
   computed: {
-    isMobile() {
-      return this.windowWidth < 768
-    },
     widthPaddingStyle() {
       return {
         width: this.widthPadding + '% !important',
       }
     },
     topMessageHeight() {
-      if (this.isMobile) {
-        return { height: this.$store.state.topMessageHeight - 1 + 'rem' }
-      }
       return { height: this.$store.state.topMessageHeight + 'rem' }
     },
     widthPadding: {
@@ -257,6 +266,29 @@ export default {
       set(newPadding) {
         this.$store.commit('setWidthPadding', newPadding)
       }
+    },
+    currentYear() {
+      return new Date().getFullYear()
+    },
+    groupedButtons() {
+      const grouped = {}
+      this.headerButtons.forEach(btn => {
+        const groupKey = btn.group || 'other'
+        if (!grouped[groupKey]) {
+          grouped[groupKey] = []
+        }
+        grouped[groupKey].push(btn)
+      })
+      const sortedGroups = Object.keys(grouped).sort((a, b) => {
+        const orderA = this.buttonGroups[a]?.order || 999
+        const orderB = this.buttonGroups[b]?.order || 999
+        return orderA - orderB
+      })
+      return sortedGroups.map(groupKey => ({
+        key: groupKey,
+        title: this.buttonGroups[groupKey]?.title || groupKey,
+        buttons: grouped[groupKey]
+      }))
     }
   },
   mounted() {
@@ -267,18 +299,12 @@ export default {
       this.isDark = true
     }
     document.documentElement.classList.toggle('dark', this.isDark)
-
-    window.addEventListener('resize', () => {
-      this.windowWidth = window.innerWidth
-    })
+    document.addEventListener('keydown', this.handleEscKey)
   },
   beforeUnmount() {
-    window.removeEventListener('resize', () => {
-      this.windowWidth = window.innerWidth
-    })
+    document.removeEventListener('keydown', this.handleEscKey)
   },
   methods: {
-    // 根据按钮配置获取图片路径
     getButtonImage(btn) {
       if (btn.icon === 'theme') {
         return this.isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')
@@ -288,14 +314,35 @@ export default {
       }
       return require(`@/assets/image/${btn.icon}`)
     },
-    // 处理按钮点击事件
     handleButtonClick(btn) {
       if (btn.action && this[btn.action]) {
         this[btn.action]()
+        if (['openSearchModal', 'clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) {
+          this.closeSidebar()
+        }
       }
     },
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar
+      if (this.showSidebar) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    },
+    closeSidebar() {
+      this.showSidebar = false
+      document.body.style.overflow = ''
+    },
+    handleEscKey(e) {
+      if (e.key === 'Escape' && this.showSidebar) {
+        this.closeSidebar()
+      }
+    },
+    toggleSettingsPanel() {
+      store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded)
+    },
     openSearchModal() {
-      // store.commit('setSearchShow', true)
       store.commit('setHistoryDataBoardUseTitle', '')
       store.commit('setHistoryDataBoardShow', true)
     },
@@ -303,9 +350,6 @@ export default {
       this.isDark = !this.isDark
       document.documentElement.classList.toggle('dark', this.isDark)
       localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
-    },
-    toggleMobileMenu() {
-      this.showMobileMenu = !this.showMobileMenu
     },
     clickWorkMaskExcelButton() {
       store.commit('setFishModeChooseShow', true)
@@ -328,32 +372,172 @@ export default {
   z-index: 1900 !important;
 }
 
-.setting-btn {
-  background: transparent;
-  border: none;
+.z-2000 {
+  z-index: 2000;
+}
+
+.z-2001 {
+  z-index: 2001;
+}
+
+.menu-btn {
+  position: relative;
+}
+
+.menu-btn:hover {
+  transform: scale(1.05);
+}
+
+.sidebar-content {
+  padding: 0.75rem 0;
+  overflow-x: hidden;
+}
+
+.button-group {
+  padding: 0.5rem 0;
+}
+
+.group-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+  transparent 0%,
+  rgba(229, 231, 235, 0.8) 10%,
+  rgba(229, 231, 235, 0.8) 90%,
+  transparent 100%
+  );
+  margin: 0.75rem 1.25rem;
+}
+
+.dark .group-divider {
+  background: linear-gradient(90deg,
+  transparent 0%,
+  rgba(55, 65, 81, 0.8) 10%,
+  rgba(55, 65, 81, 0.8) 90%,
+  transparent 100%
+  );
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.5rem;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #374151;
+  position: relative;
+}
+
+.dark .sidebar-item {
+  color: #e5e7eb;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-item:hover {
+  background-color: rgba(249, 250, 251, 0.8);
+  transform: translateX(4px);
+  color: #111827;
+}
+
+.dark .sidebar-item:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+  color: #f9fafb;
+}
+
+.sidebar-item:hover::before {
+  height: 60%;
+}
+
+.sidebar-item:active {
+  transform: translateX(2px);
+}
+
+.sidebar-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.setting-btn:hover {
+.sidebar-item:hover .sidebar-icon {
   transform: scale(1.1);
 }
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+.sidebar-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+/* 遮罩层动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
 }
 
-.slide-fade-enter-from {
-  transform: translateY(-10px);
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
-.slide-fade-leave-to {
-  transform: translateY(-10px);
-  opacity: 0;
+/* 侧边栏滑动动画 */
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+/* 响应式优化 */
+@media (max-width: 640px) {
+  .sidebar-content {
+    padding: 0.5rem 0;
+  }
+
+  .button-group {
+    padding: 0.25rem 0;
+  }
+
+  .group-divider {
+    margin: 0.5rem 1rem;
+  }
+
+  .sidebar-item {
+    padding: 0.75rem 1.25rem;
+    gap: 0.875rem;
+  }
+
+  .sidebar-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .sidebar-text {
+    font-size: 0.875rem;
+  }
+
+  .sidebar-item:hover {
+    transform: translateX(2px);
+  }
+
+  .fixed.right-0.w-80 {
+    width: 85vw;
+    max-width: 280px;
+  }
 }
 </style>

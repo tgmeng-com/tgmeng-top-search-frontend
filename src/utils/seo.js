@@ -4,35 +4,23 @@
 
 // 路由 SEO 模板
 export const pathMetaTemplates = {
-    '/setting/about': {
+    '/about': {
         title: ['关于糖果梦热榜 - 热点资讯与最新新闻趋势 | 糖果梦热榜'],
         description: ['了解糖果梦热榜的背景和使命，关注全球热点资讯，洞察新闻趋势，掌握最新热门话题，AI深度洞察与趋势预测，让每个热点都更有价值'],
         image: '/og/og.png',
         category: '关于'
     },
-    '/setting/function': {
+    '/function': {
         title: ['功能介绍 - 了解站内各种功能和设置 | 糖果梦热榜'],
         description: ['了解糖果梦热榜的各种使用功能和设置，还能找到小彩蛋哈，打造属于你独有的个性化热榜网站'],
         image: '/og/og.png',
         category: '关于'
     },
-    '/setting/basic': {
-        title: ['基础设置 - 个性化新闻热榜定制 | 糖果梦热榜'],
-        description: ['在这里定制您的新闻热榜偏好，选择关注的新闻分类，优化您的资讯体验。'],
-        image: '/og/og.png',
-        category: '基础设置'
-    },
-    '/setting/donation': {
+    '/donation': {
         title: ['支持糖果梦热榜 - 捐赠与赞助 | 糖果梦热榜'],
         description: ['支持糖果梦热榜，帮助我们提供更精准的新闻聚合服务。了解捐赠选项，成为我们新闻热榜的支持'],
         image: '/og/og.png',
         category: '捐赠'
-    },
-    '/setting/community': {
-        title: ['加入糖果梦热榜社区 - 参与讨论与分享 | 糖果梦热榜'],
-        description: ['加入糖果梦热榜社区，参与热门新闻话题的讨论，分享您的见解，和志同道合的人一起探索最新趋势'],
-        image: '/og/og.png',
-        category: '社区'
     },
     '/news': {
         title: ['新闻热榜 - 今日热门资讯汇总 | 糖果梦热榜'],

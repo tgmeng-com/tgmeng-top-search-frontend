@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getSeoByPath  } from '@/utils/seo.js'
-import settingRoutes from './setting';
 import Home from '../views/AppHome.vue'
 import store from "@/store";
+import AboutSettings from "@/components/settings/AboutSettings.vue";
+import FunctionSettings from "@/components/settings/FunctionSettings.vue";
+import DonationSettings from "@/components/settings/DonationSettings.vue";
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
     { path: '/excel', name: 'Excel', component: Home },
     { path: '/vscode', name: 'VsCode', component: Home },
-    ...settingRoutes,
+    { path: '/about', name: 'AboutSettings', component: AboutSettings },
+    { path: '/function', name: 'FunctionSettings', component: FunctionSettings },
+    { path: '/donation', name: 'DonationSettings', component: DonationSettings },
     { path: '/:category', name: 'Category', component: Home },
 ]
 
