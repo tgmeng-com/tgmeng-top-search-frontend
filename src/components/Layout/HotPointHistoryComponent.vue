@@ -64,7 +64,7 @@
                 </div>
                 <div class="tab-content">
                   <div class="chart-container">
-                    <div class="chart-title">{{ isHistoryMode ? '历史出现频率（最近 30 天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势') }}</div>
+                    <div class="chart-title">{{ isHistoryMode ? '历史出现频率（折线图只展示最近30天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势') }}</div>
                     <div class="chart-wrapper">
                       <div class="chart-y-axis">
                         <span v-for="(val, idx) in yAxisLabels" :key="idx">{{ val }}</span>
@@ -904,7 +904,7 @@ export default {
 
 .platform-category {
   background: rgba(64, 255, 249, 0.15);
-  color: rgba(64, 255, 210, 0.9);
+  color: rgb(64 255 210 / 68%);
   padding: 3px 8px;
   border-radius: 6px;
   font-size: 13px;
@@ -920,11 +920,9 @@ export default {
 
 .item-title {
   font-size: 14px;
-  color: #e6edf3;
   padding: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .relevance {
@@ -969,7 +967,6 @@ export default {
 .mobile-item .item-title {
   font-size: 16px;
   font-weight: 600;
-  color: #e6edf3;
   line-height: 1.5;
   padding: 0;
   overflow: hidden;
