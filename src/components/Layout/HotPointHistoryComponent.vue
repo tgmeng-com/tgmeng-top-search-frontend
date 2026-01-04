@@ -79,6 +79,7 @@
                               <div class="spinner-circle">&#9679;</div>
                             </div>
                           </div>
+                          <span>历史数据追踪中...</span>
                         </div>
                         <div class="fake-line-chart" :style="{ opacity: loading ? 0.1 : 1 }">
                           <svg viewBox="0 0 800 160" preserveAspectRatio="none">
