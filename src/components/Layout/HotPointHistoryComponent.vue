@@ -1179,4 +1179,19 @@ export default {
     width: 100%;
   }
 }
+/* 统一处理所有禁用按钮的鼠标样式 */
+button:disabled,
+.close-btn:disabled,
+.close-btn-footer:disabled,
+.search-btn:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+/* 可选：加强视觉反馈 */
+button:disabled:hover,
+.close-btn:disabled:hover,
+.close-btn-footer:disabled:hover {
+  transform: none !important;
+}
 </style>
