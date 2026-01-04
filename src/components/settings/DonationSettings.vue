@@ -96,6 +96,7 @@ export default {
         { id: 7, name: '*', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-17 16:24' },
         { id: 7, name: '*子', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-25 00:55' },
         { id: 7, name: '兰一二', avatar: require('@/assets/avatars/project/lanyier.png'), amount: 20, message: '理想不该被辜负', time: '2025-12-28 13:47' },
+        { id: 7, name: '卡拉克', avatar: require('@/assets/avatars/project/kalake.png'), amount: 20, message: '无', time: '2026-01-04 14:44' },
       ],
       // 收款码数据
       payQrcodes: [
