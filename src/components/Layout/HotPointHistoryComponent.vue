@@ -42,7 +42,8 @@
                       {{ loading ? '分析中...' : '分析' }}
                     </button>
                   </div>
-                  <div v-if="showHistoryGrid && searchQuery.length === 0 && searchHistory.length > 0" class="history-grid">
+                  <div v-if="showHistoryGrid && searchQuery.length === 0 && searchHistory.length > 0"
+                       class="history-grid">
                     <div v-for="(item, index) in searchHistory" :key="index" @click="selectHistory(item)">
                       {{ item }}
                     </div>
@@ -64,7 +65,10 @@
                 </div>
                 <div class="tab-content">
                   <div class="chart-container">
-                    <div class="chart-title">{{ isHistoryMode ? '历史出现频率（折线图只展示最近30天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势') }}</div>
+                    <div class="chart-title">{{
+                        isHistoryMode ? '历史出现频率（折线图只展示最近30天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势')
+                      }}
+                    </div>
                     <div class="chart-wrapper">
                       <div class="chart-y-axis">
                         <span v-for="(val, idx) in yAxisLabels" :key="idx">{{ val }}</span>
@@ -83,8 +87,10 @@
                         </div>
                         <div class="fake-line-chart" :style="{ opacity: loading ? 0.1 : 1 }">
                           <svg viewBox="0 0 800 160" preserveAspectRatio="none">
-                            <line x1="0" y1="150" x2="800" y2="150" stroke="#444" stroke-width="1" stroke-dasharray="4,4"/>
-                            <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="0" y1="150" x2="800" y2="150" stroke="#444" stroke-width="1"
+                                  stroke-dasharray="4,4"/>
+                            <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
                             <circle
                                 v-for="(point, i) in chartPoints"
                                 :key="'point-'+i"
@@ -115,12 +121,15 @@
                               <span class="count">{{ tooltipData.length }} 条</span>
                             </div>
                             <div class="tooltip-list" v-if="tooltipData.length > 0">
-                              <div v-for="item in tooltipData.slice(0, 5)" :key="item.dataUpdateTime + item.platformName" class="tooltip-item">
+                              <div v-for="item in tooltipData.slice(0, 5)"
+                                   :key="item.dataUpdateTime + item.platformName" class="tooltip-item">
                                 <span class="time">{{ item.dataUpdateTime.slice(11, 16) }}</span>
                                 <span class="platform">{{ item.platformName }}</span>
                                 <span class="title">{{ item.title }}</span>
                               </div>
-                              <div v-if="tooltipData.length > 5" class="tooltip-more">+{{ tooltipData.length - 5 }} 条更多记录</div>
+                              <div v-if="tooltipData.length > 5" class="tooltip-more">+{{ tooltipData.length - 5 }}
+                                条更多记录
+                              </div>
                             </div>
                             <div v-else class="tooltip-empty">暂无数据</div>
                           </div>
@@ -138,7 +147,9 @@
                 <div class="list-header" :class="isMoHu ? 'four-columns' : 'five-columns'">
                   <span class="sortable-header" @click="handleSort('dataUpdateTime')">
                     出现时间
-                    <span v-if="sortKey === 'dataUpdateTime'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                    <span v-if="sortKey === 'dataUpdateTime'" class="sort-arrow">{{
+                        sortDir === 'asc' ? '↑' : '↓'
+                      }}</span>
                   </span>
                   <span class="sortable-header" @click="handleSort('title')">
                     热点标题
@@ -146,11 +157,15 @@
                   </span>
                   <span class="sortable-header" @click="handleSort('platformCategoryRoot')">
                     分类
-                    <span v-if="sortKey === 'platformCategoryRoot'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                    <span v-if="sortKey === 'platformCategoryRoot'" class="sort-arrow">{{
+                        sortDir === 'asc' ? '↑' : '↓'
+                      }}</span>
                   </span>
                   <span class="sortable-header" @click="handleSort('platformName')">
                     平台名称
-                    <span v-if="sortKey === 'platformName'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
+                    <span v-if="sortKey === 'platformName'" class="sort-arrow">{{
+                        sortDir === 'asc' ? '↑' : '↓'
+                      }}</span>
                   </span>
                   <span v-if="!isMoHu" class="sortable-header" @click="handleSort('distance')">
                     相关度
@@ -188,7 +203,8 @@
                         <div class="relevance" v-if="!isMoHu">
                           <span class="relevance-value">{{ 100 - item.distance }}</span>
                           <div class="relevance-bar-wrapper">
-                            <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
+                            <div class="relevance-bar"
+                                 :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
                           </div>
                         </div>
                       </a>
@@ -209,7 +225,8 @@
                         <div class="relevance" v-if="!isMoHu">
                           <span class="relevance-value">{{ 100 - item.distance }}</span>
                           <div class="relevance-bar-wrapper">
-                            <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
+                            <div class="relevance-bar"
+                                 :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
                           </div>
                         </div>
                       </a>
@@ -234,9 +251,9 @@
 </template>
 
 <script>
-import { cacheSearchForAllByWord } from "@/api/api";
+import {cacheSearchForAllByWord} from "@/api/api";
 import store from "@/store";
-import { getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage } from "@/utils/localStorageUtils";
+import {getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
 
 export default {
   name: 'HotPointHistoryComponent',
@@ -256,15 +273,18 @@ export default {
       sortDir: 'desc',
       windowWidth: 0,
       tabConfigs: [
-        { label: '1分钟走势(精确)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true },
-        { label: '今日走势(精确)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true },
-        { label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true },
-        { label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false },
-        { label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false }
+        {label: '1分钟走势(精确)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true},
+        {label: '今日走势(精确)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true},
+        {label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true},
+        {label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false},
+        {label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false}
       ]
     };
   },
   computed: {
+    getCurrentSearchModeLabel() {
+      return this.tabConfigs.find(item => item.mode === this.currentSearchMode)?.label;
+    },
     historyDataBoardShow() {
       return this.$store.state.historyDataBoardShow;
     },
@@ -421,6 +441,7 @@ export default {
             }
           })
           .finally(() => {
+            window.umami.track('📈历史追踪 | ' + this.getCurrentSearchModeLabel + " | " + this.searchQuery);
             this.loading = false;
           });
     },
@@ -438,8 +459,8 @@ export default {
         this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(fullDate));
       } else if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
         this.tooltipTitle = `${index}秒`;
-        const base = this.historyData[0]?.dataUpdateTime.slice(0,16) || '';
-        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(base) && parseInt(item.dataUpdateTime.slice(17,19)) === index);
+        const base = this.historyData[0]?.dataUpdateTime.slice(0, 16) || '';
+        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(base) && parseInt(item.dataUpdateTime.slice(17, 19)) === index);
       } else {
         const hourStr = String(index).padStart(2, '0');
         this.tooltipTitle = `${hourStr}:00 - ${String(index + 1).padStart(2, '0')}:00`;
@@ -528,8 +549,14 @@ export default {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px) scale(0.97); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .bg-gradient {
@@ -544,8 +571,12 @@ export default {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .bg-mesh {
@@ -665,11 +696,11 @@ export default {
   flex-wrap: wrap;
   gap: 8px;
   padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .history-grid > div {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 12px;
@@ -756,7 +787,7 @@ export default {
   align-items: center;
   justify-content: center;
   z-index: 10;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .fake-line-chart {
@@ -832,9 +863,23 @@ export default {
   font-size: 12px;
 }
 
-.tooltip-item .time { color: #8892b0; min-width: 40px; }
-.tooltip-item .platform { color: #409eff; min-width: 70px; }
-.tooltip-item .title { color: #ccd6f6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.tooltip-item .time {
+  color: #8892b0;
+  min-width: 40px;
+}
+
+.tooltip-item .platform {
+  color: #409eff;
+  min-width: 70px;
+}
+
+.tooltip-item .title {
+  color: #ccd6f6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
 
 .history-list {
   background: rgba(40, 44, 56, 0.4);
@@ -862,8 +907,13 @@ export default {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.list-header.four-columns { grid-template-columns: 150px 1fr 90px 110px; }
-.list-header.five-columns { grid-template-columns: 150px 1fr 90px 110px 110px; }
+.list-header.four-columns {
+  grid-template-columns: 150px 1fr 90px 110px;
+}
+
+.list-header.five-columns {
+  grid-template-columns: 150px 1fr 90px 110px 110px;
+}
 
 .sortable-header {
   cursor: pointer;
@@ -887,8 +937,13 @@ export default {
   text-decoration: none;
 }
 
-.pc-item.four-columns { grid-template-columns: 150px 1fr 90px 110px; }
-.pc-item.five-columns { grid-template-columns: 150px 1fr 90px 110px 110px; }
+.pc-item.four-columns {
+  grid-template-columns: 150px 1fr 90px 110px;
+}
+
+.pc-item.five-columns {
+  grid-template-columns: 150px 1fr 90px 110px 110px;
+}
 
 .pc-item:hover {
   background: rgba(255, 255, 255, 0.03);
@@ -1070,13 +1125,38 @@ export default {
   border-top: 2px solid transparent;
 }
 
-.atom-spinner .spinner-line:nth-child(1) { animation: atom-spinner-animation-1 1s linear infinite; transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg); }
-.atom-spinner .spinner-line:nth-child(2) { animation: atom-spinner-animation-2 1s linear infinite; transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg); }
-.atom-spinner .spinner-line:nth-child(3) { animation: atom-spinner-animation-3 1s linear infinite; transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg); }
+.atom-spinner .spinner-line:nth-child(1) {
+  animation: atom-spinner-animation-1 1s linear infinite;
+  transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
+}
 
-@keyframes atom-spinner-animation-1 { 100% { transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg); } }
-@keyframes atom-spinner-animation-2 { 100% { transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg); } }
-@keyframes atom-spinner-animation-3 { 100% { transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg); } }
+.atom-spinner .spinner-line:nth-child(2) {
+  animation: atom-spinner-animation-2 1s linear infinite;
+  transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
+}
+
+.atom-spinner .spinner-line:nth-child(3) {
+  animation: atom-spinner-animation-3 1s linear infinite;
+  transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
+}
+
+@keyframes atom-spinner-animation-1 {
+  100% {
+    transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
+  }
+}
+
+@keyframes atom-spinner-animation-2 {
+  100% {
+    transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
+  }
+}
+
+@keyframes atom-spinner-animation-3 {
+  100% {
+    transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
+  }
+}
 
 @media (max-width: 768px) {
   .history-panel {
@@ -1180,6 +1260,7 @@ export default {
     width: 100%;
   }
 }
+
 /* 统一处理所有禁用按钮的鼠标样式 */
 button:disabled,
 .close-btn:disabled,
