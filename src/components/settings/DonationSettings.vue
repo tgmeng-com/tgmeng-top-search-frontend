@@ -40,7 +40,7 @@
           <thead class="text-gray-700 dark:text-gray-200">
           <tr>
             <th class="p-2 w-16 text-center">头像</th>
-            <th class="p-2 w-20 text-center">用户名</th>
+            <th class="p-2 w-32 text-center">用户名</th>
             <th class="p-2 w-20 text-center">金额</th>
             <th class="p-2 text-center">留言</th>
             <th class="p-2 w-48 text-center">时间</th>
