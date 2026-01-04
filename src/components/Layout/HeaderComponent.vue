@@ -8,15 +8,15 @@
         <router-link
             to="/"
             @click="trackUmami('顶部左边LOGO')"
-            class="flex-shrink-0 flex items-center space-x-2 sm:space-x-3 cursor-pointer"
+            class="flex-shrink-0 flex items-center space-x-2 sm:space-x-2.5 cursor-pointer group"
         >
           <img
               src="../../assets/image/logo.png"
               alt="糖果梦热榜 - 聚合全网热门排行榜"
-              class="logo w-7 h-7 sm:w-9 sm:h-9"
+              class="logo w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-105"
           >
           <span
-              class="text-xl sm:text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-wide"
+              class="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400 bg-clip-text text-transparent whitespace-nowrap tracking-tight transition-all duration-300"
           >
             糖果梦热榜
           </span>
@@ -121,127 +121,17 @@ export default {
       showSidebar: false,
       windowWidth: window.innerWidth,
       headerButtons: [
-        {
-          key: 'search',
-          tooltip: '快速搜索热榜内容',
-          label: '搜索',
-          ariaLabel: '搜索',
-          alt: '糖果梦热榜 - 搜索',
-          icon: 'search.png',
-          umamiLabel: '侧边栏-搜索',
-          action: 'openSearchModal',
-          group: 'function'
-        },
-        {
-          key: 'settingsPanel',
-          tooltip: '打开个性化设置面板',
-          label: '个性化',
-          ariaLabel: '个性化',
-          alt: '糖果梦热榜 - 个性化',
-          icon: 'setting.png',
-          umamiLabel: '侧边栏-个性化',
-          action: 'toggleSettingsPanel',
-          group: 'function'
-        },
-        {
-          key: 'theme',
-          tooltip: '切换明暗主题',
-          label: '主题切换',
-          ariaLabel: '主题切换',
-          alt: '糖果梦热榜 - 主题切换',
-          icon: 'theme',
-          umamiLabel: '侧边栏-主题切换',
-          action: 'toggleTheme',
-          group: 'function'
-        },
-        {
-          key: 'fish',
-          tooltip: '一键切换摸鱼界面',
-          label: '摸鱼模式',
-          ariaLabel: '摸鱼模式',
-          alt: '糖果梦热榜 - 摸鱼模式选择',
-          icon: 'fish.png',
-          umamiLabel: '侧边栏-摸鱼模式',
-          action: 'clickWorkMaskExcelButton',
-          group: 'function'
-        },
-        {
-          key: 'subscription',
-          tooltip: '设置热榜推送订阅',
-          label: '订阅设置',
-          ariaLabel: '推送订阅',
-          alt: '糖果梦热榜 - 推送订阅',
-          icon: 'subcription.png',
-          umamiLabel: '侧边栏-订阅',
-          action: 'clickSubscriptionSettingButton',
-          group: 'function'
-        },
-        {
-          key: 'license',
-          tooltip: '管理您的密钥信息',
-          label: '密钥设置',
-          ariaLabel: '密钥',
-          alt: '糖果梦热榜 - 密钥',
-          icon: 'license.png',
-          umamiLabel: '侧边栏-密钥设置',
-          action: 'clickLicenseButton',
-          group: 'function'
-        },
-        {
-          key: 'wechat',
-          tooltip: '加入我们的微信交流群',
-          label: '微信交流群',
-          ariaLabel: '微信群',
-          alt: '糖果梦热榜 - 微信群',
-          icon: 'wechat-logo.png',
-          href: 'https://wechat.tgmeng.com',
-          umamiLabel: '侧边栏-微信群',
-          group: 'community'
-        },
-        {
-          key: 'github',
-          tooltip: '查看开源代码仓库',
-          label: 'GitHub 仓库',
-          ariaLabel: 'GitHub仓库',
-          alt: '糖果梦热榜 - GitHub仓库',
-          icon: 'github-logo',
-          href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend',
-          umamiLabel: '侧边栏-GitHub',
-          group: 'community'
-        },
-        {
-          key: 'about',
-          tooltip: '了解糖果梦热榜',
-          label: '关于我们',
-          ariaLabel: '关于我们',
-          alt: '糖果梦热榜 - 关于我们',
-          icon: 'about.png',
-          to: '/about',
-          umamiLabel: '侧边栏-关于我们',
-          group: 'info'
-        },
-        {
-          key: 'function',
-          tooltip: '功能介绍',
-          label: '功能介绍',
-          ariaLabel: '功能介绍',
-          alt: '糖果梦热榜 - 功能介绍',
-          icon: 'function.png',
-          to: '/function',
-          umamiLabel: '侧边栏-功能介绍',
-          group: 'info'
-        },
-        {
-          key: 'donation',
-          tooltip: '打赏列表',
-          label: '打赏列表',
-          ariaLabel: '打赏列表',
-          alt: '糖果梦热榜 - 打赏列表',
-          icon: 'coffee.png',
-          to: '/donation',
-          umamiLabel: '侧边栏-打赏列表',
-          group: 'info'
-        }
+        { key: 'search', label: '搜索', alt: '糖果梦热榜 - 搜索', icon: 'search.png', umamiLabel: '侧边栏-搜索', action: 'openSearchModal', group: 'function' },
+        { key: 'settingsPanel', label: '个性化', alt: '糖果梦热榜 - 个性化', icon: 'setting.png', umamiLabel: '侧边栏-个性化', action: 'toggleSettingsPanel', group: 'function' },
+        { key: 'theme', label: '主题切换', alt: '糖果梦热榜 - 主题切换', icon: 'theme', umamiLabel: '侧边栏-主题切换', action: 'toggleTheme', group: 'function' },
+        { key: 'fish', label: '摸鱼模式', alt: '糖果梦热榜 - 摸鱼模式选择', icon: 'fish.png', umamiLabel: '侧边栏-摸鱼模式', action: 'clickWorkMaskExcelButton', group: 'function' },
+        { key: 'subscription', label: '订阅设置', alt: '糖果梦热榜 - 推送订阅', icon: 'subcription.png', umamiLabel: '侧边栏-订阅', action: 'clickSubscriptionSettingButton', group: 'function' },
+        { key: 'license', label: '密钥设置', alt: '糖果梦热榜 - 密钥', icon: 'license.png', umamiLabel: '侧边栏-密钥设置', action: 'clickLicenseButton', group: 'function' },
+        { key: 'wechat', label: '微信交流群', alt: '糖果梦热榜 - 微信群', icon: 'wechat-logo.png', href: 'https://wechat.tgmeng.com', umamiLabel: '侧边栏-微信群', group: 'community' },
+        { key: 'github', label: 'GitHub 仓库', alt: '糖果梦热榜 - GitHub仓库', icon: 'github-logo', href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend', umamiLabel: '侧边栏-GitHub', group: 'community' },
+        { key: 'about', label: '关于我们', alt: '糖果梦热榜 - 关于我们', icon: 'about.png', to: '/about', umamiLabel: '侧边栏-关于我们', group: 'info' },
+        { key: 'function', label: '功能介绍', alt: '糖果梦热榜 - 功能介绍', icon: 'function.png', to: '/function', umamiLabel: '侧边栏-功能介绍', group: 'info' },
+        { key: 'donation', label: '打赏列表', alt: '糖果梦热榜 - 打赏列表', icon: 'coffee.png', to: '/donation', umamiLabel: '侧边栏-打赏列表', group: 'info' }
       ],
       buttonGroups: {
         function: { title: '功能设置', order: 1 },
@@ -251,97 +141,52 @@ export default {
     }
   },
   computed: {
-    widthPaddingStyle() {
-      return {
-        width: this.widthPadding + '% !important',
-      }
-    },
-    topMessageHeight() {
-      return { height: this.$store.state.topMessageHeight + 'rem' }
-    },
+    widthPaddingStyle() { return { width: this.widthPadding + '% !important' } },
+    topMessageHeight() { return { height: this.$store.state.topMessageHeight + 'rem' } },
     widthPadding: {
-      get() {
-        return this.$store.state.widthPadding
-      },
-      set(newPadding) {
-        this.$store.commit('setWidthPadding', newPadding)
-      }
+      get() { return this.$store.state.widthPadding },
+      set(v) { this.$store.commit('setWidthPadding', v) }
     },
-    currentYear() {
-      return new Date().getFullYear()
-    },
+    currentYear() { return new Date().getFullYear() },
     groupedButtons() {
       const grouped = {}
       this.headerButtons.forEach(btn => {
-        const groupKey = btn.group || 'other'
-        if (!grouped[groupKey]) {
-          grouped[groupKey] = []
-        }
-        grouped[groupKey].push(btn)
+        const key = btn.group || 'other'
+        if (!grouped[key]) grouped[key] = []
+        grouped[key].push(btn)
       })
-      const sortedGroups = Object.keys(grouped).sort((a, b) => {
-        const orderA = this.buttonGroups[a]?.order || 999
-        const orderB = this.buttonGroups[b]?.order || 999
-        return orderA - orderB
-      })
-      return sortedGroups.map(groupKey => ({
-        key: groupKey,
-        title: this.buttonGroups[groupKey]?.title || groupKey,
-        buttons: grouped[groupKey]
-      }))
+      return Object.keys(grouped).sort((a, b) => (this.buttonGroups[a]?.order || 999) - (this.buttonGroups[b]?.order || 999))
+          .map(key => ({ key, title: this.buttonGroups[key]?.title || key, buttons: grouped[key] }))
     }
   },
   mounted() {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      this.isDark = savedTheme === 'dark'
-    } else {
-      this.isDark = true
-    }
+    this.isDark = localStorage.getItem('theme') !== 'light'
     document.documentElement.classList.toggle('dark', this.isDark)
     document.addEventListener('keydown', this.handleEscKey)
   },
-  beforeUnmount() {
-    document.removeEventListener('keydown', this.handleEscKey)
-  },
+  beforeUnmount() { document.removeEventListener('keydown', this.handleEscKey) },
   methods: {
     getButtonImage(btn) {
-      if (btn.icon === 'theme') {
-        return this.isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')
-      }
-      if (btn.icon === 'github-logo') {
-        return this.isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')
-      }
+      if (btn.icon === 'theme') return this.isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')
+      if (btn.icon === 'github-logo') return this.isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')
       return require(`@/assets/image/${btn.icon}`)
     },
     handleButtonClick(btn) {
       if (btn.action && this[btn.action]) {
         this[btn.action]()
-        if (['openSearchModal', 'clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) {
-          this.closeSidebar()
-        }
+        if (['openSearchModal', 'clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) this.closeSidebar()
       }
     },
     toggleSidebar() {
       this.showSidebar = !this.showSidebar
-      if (this.showSidebar) {
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
+      document.body.style.overflow = this.showSidebar ? 'hidden' : ''
     },
     closeSidebar() {
       this.showSidebar = false
       document.body.style.overflow = ''
     },
-    handleEscKey(e) {
-      if (e.key === 'Escape' && this.showSidebar) {
-        this.closeSidebar()
-      }
-    },
-    toggleSettingsPanel() {
-      store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded)
-    },
+    handleEscKey(e) { if (e.key === 'Escape' && this.showSidebar) this.closeSidebar() },
+    toggleSettingsPanel() { store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded) },
     openSearchModal() {
       store.commit('setHistoryDataBoardUseTitle', '')
       store.commit('setHistoryDataBoardShow', true)
@@ -351,70 +196,36 @@ export default {
       document.documentElement.classList.toggle('dark', this.isDark)
       localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
     },
-    clickWorkMaskExcelButton() {
-      store.commit('setFishModeChooseShow', true)
-    },
-    clickLicenseButton() {
-      store.commit('setLicenseShow', true)
-    },
-    clickSubscriptionSettingButton() {
-      store.commit('setSubscriptionSettingShow', true)
-    },
-    trackUmami(label) {
-      if (window.umami) window.umami.track(label)
-    }
+    clickWorkMaskExcelButton() { store.commit('setFishModeChooseShow', true) },
+    clickLicenseButton() { store.commit('setLicenseShow', true) },
+    clickSubscriptionSettingButton() { store.commit('setSubscriptionSettingShow', true) },
+    trackUmami(label) { if (window.umami) window.umami.track(label) }
   }
 }
 </script>
 
 <style scoped>
-.headStyle {
-  z-index: 1900 !important;
-}
+.headStyle { z-index: 1900 !important; }
+.z-2000 { z-index: 2000; }
+.z-2001 { z-index: 2001; }
 
-.z-2000 {
-  z-index: 2000;
-}
-
-.z-2001 {
-  z-index: 2001;
-}
-
-.menu-btn {
-  position: relative;
-}
-
-.menu-btn:hover {
-  transform: scale(1.05);
-}
+.menu-btn:hover { transform: scale(1.05); }
 
 .sidebar-content {
   padding: 0.75rem 0;
   overflow-x: hidden;
 }
 
-.button-group {
-  padding: 0.5rem 0;
-}
+.button-group { padding: 0.5rem 0; }
 
 .group-divider {
   height: 1px;
-  background: linear-gradient(90deg,
-  transparent 0%,
-  rgba(229, 231, 235, 0.8) 10%,
-  rgba(229, 231, 235, 0.8) 90%,
-  transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(229, 231, 235, 0.8) 10%, rgba(229, 231, 235, 0.8) 90%, transparent 100%);
   margin: 0.75rem 1.25rem;
 }
 
 .dark .group-divider {
-  background: linear-gradient(90deg,
-  transparent 0%,
-  rgba(55, 65, 81, 0.8) 10%,
-  rgba(55, 65, 81, 0.8) 90%,
-  transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(55, 65, 81, 0.8) 10%, rgba(55, 65, 81, 0.8) 90%, transparent 100%);
 }
 
 .sidebar-item {
@@ -428,9 +239,7 @@ export default {
   position: relative;
 }
 
-.dark .sidebar-item {
-  color: #e5e7eb;
-}
+.dark .sidebar-item { color: #e5e7eb; }
 
 .sidebar-item::before {
   content: '';
@@ -456,13 +265,8 @@ export default {
   color: #f9fafb;
 }
 
-.sidebar-item:hover::before {
-  height: 60%;
-}
-
-.sidebar-item:active {
-  transform: translateX(2px);
-}
+.sidebar-item:hover::before { height: 60%; }
+.sidebar-item:active { transform: translateX(2px); }
 
 .sidebar-icon {
   width: 1.25rem;
@@ -471,73 +275,19 @@ export default {
   transition: transform 0.2s ease;
 }
 
-.sidebar-item:hover .sidebar-icon {
-  transform: scale(1.1);
-}
+.sidebar-item:hover .sidebar-icon { transform: scale(1.1); }
+.sidebar-text { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.01em; }
 
-.sidebar-text {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-}
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
-/* 遮罩层动画 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
+.slide-enter-active, .slide-leave-active { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.slide-enter-from, .slide-leave-to { transform: translateX(100%); }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-/* 侧边栏滑动动画 */
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  transform: translateX(100%);
-}
-
-/* 响应式优化 */
 @media (max-width: 640px) {
-  .sidebar-content {
-    padding: 0.5rem 0;
-  }
-
-  .button-group {
-    padding: 0.25rem 0;
-  }
-
-  .group-divider {
-    margin: 0.5rem 1rem;
-  }
-
-  .sidebar-item {
-    padding: 0.75rem 1.25rem;
-    gap: 0.875rem;
-  }
-
-  .sidebar-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
-
-  .sidebar-text {
-    font-size: 0.875rem;
-  }
-
-  .sidebar-item:hover {
-    transform: translateX(2px);
-  }
-
-  .fixed.right-0.w-80 {
-    width: 85vw;
-    max-width: 280px;
-  }
+  .sidebar-item { padding: 0.75rem 1.25rem; gap: 0.875rem; }
+  .sidebar-icon { width: 1.125rem; height: 1.125rem; }
+  .sidebar-text { font-size: 0.875rem; }
+  .fixed.right-0.w-80 { width: 85vw; max-width: 280px; }
 }
 </style>
