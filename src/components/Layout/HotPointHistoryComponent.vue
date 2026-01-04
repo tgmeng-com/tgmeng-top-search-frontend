@@ -20,10 +20,10 @@
               </div>
             </header>
             <main class="panel-body">
-              <div class="hot-title-card" style="display: block;">
-                <div class="title-info" style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-                  <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
-                    <h2 style="display: flex; align-items: center; flex: 1; margin: 0;">
+              <div class="hot-title-card">
+                <div class="title-info">
+                  <div class="search-row">
+                    <h2>
                       🚩
                       <input
                           v-model="searchQuery"
@@ -31,24 +31,19 @@
                           @focus="showHistoryGrid = true"
                           :disabled="loading"
                           placeholder="输入关键词并按回车..."
-                          style="background: transparent; border: none; color: #e6edf3; font-size: 22px; font-weight: 700; outline: none; margin-left: 8px; width: 100%;"
-                          :style="{ opacity: loading ? 0.5 : 1 }"
+                          class="search-input"
                       />
                     </h2>
                     <button
                         @click="handleManualSearch"
-                        class="close-btn-footer"
+                        class="search-btn"
                         :disabled="loading"
-                        :style="{ background: loading ? '#2c3e50' : '#409eff', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }"
-                        style="border:none; height:36px; padding:0 20px; font-size: 14px;"
                     >
                       {{ loading ? '分析中...' : '分析' }}
                     </button>
                   </div>
-                  <div v-if="showHistoryGrid && searchQuery.length === 0 && searchHistory.length > 0"
-                       style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);">
-                    <div v-for="(item, index) in searchHistory" :key="index" @click="selectHistory(item)"
-                         style="background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #8892b0; cursor: pointer;">
+                  <div v-if="showHistoryGrid && searchQuery.length === 0 && searchHistory.length > 0" class="history-grid">
+                    <div v-for="(item, index) in searchHistory" :key="index" @click="selectHistory(item)">
                       {{ item }}
                     </div>
                   </div>
@@ -63,7 +58,6 @@
                       class="tab-btn"
                       :class="{ active: currentSearchMode === tab.mode }"
                       @click="loading ? null : clickTab(tab.mode)"
-                      :style="{ cursor: loading ? 'not-allowed' : 'pointer', opacity: loading && currentSearchMode !== tab.mode ? 0.5 : 1 }"
                   >
                     {{ tab.label }}
                   </button>
@@ -76,8 +70,7 @@
                         <span v-for="(val, idx) in yAxisLabels" :key="idx">{{ val }}</span>
                       </div>
                       <div class="chart-placeholder" @mousemove="onChartHover($event)" @mouseleave="hideTooltip">
-                        <div v-if="loading"
-                             style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:10;">
+                        <div v-if="loading" class="chart-loading">
                           <div class="atom-spinner">
                             <div class="spinner-inner">
                               <div class="spinner-line"></div>
@@ -87,14 +80,10 @@
                             </div>
                           </div>
                         </div>
-
                         <div class="fake-line-chart" :style="{ opacity: loading ? 0.1 : 1 }">
-                          <svg viewBox="0 0 800 180" preserveAspectRatio="none">
-                            <line x1="0" y1="170" x2="800" y2="170" stroke="#444" stroke-width="1"
-                                  stroke-dasharray="4,4"/>
-                            <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2"
-                                  stroke-linecap="round" stroke-linejoin="round"/>
-
+                          <svg viewBox="0 0 800 160" preserveAspectRatio="none">
+                            <line x1="0" y1="150" x2="800" y2="150" stroke="#444" stroke-width="1" stroke-dasharray="4,4"/>
+                            <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <circle
                                 v-for="(point, i) in chartPoints"
                                 :key="'point-'+i"
@@ -107,7 +96,6 @@
                                 stroke-width="1.5"
                                 vector-effect="non-scaling-stroke"
                             />
-
                             <defs>
                               <linearGradient id="gradient-unified" x1="0%" y1="0%" x2="100%" y2="0%">
                                 <stop offset="0%" stop-color="#409eff"/>
@@ -116,10 +104,9 @@
                             </defs>
                           </svg>
                         </div>
-                        <div class="chart-x-labels" :style="{ opacity: loading ? 0.3 : 1 }">
-                          <span v-for="label in xAxisLabels" :key="label">{{ label }}</span>
+                        <div class="chart-x-labels">
+                          <span v-for="label in displayedXAxisLabels" :key="label">{{ label }}</span>
                         </div>
-
                         <transition name="tooltip-fade">
                           <div v-if="tooltipShow && !loading" class="chart-tooltip" :style="tooltipStyle">
                             <div class="tooltip-header">
@@ -127,15 +114,12 @@
                               <span class="count">{{ tooltipData.length }} 条</span>
                             </div>
                             <div class="tooltip-list" v-if="tooltipData.length > 0">
-                              <div v-for="item in tooltipData.slice(0, 5)"
-                                   :key="item.dataUpdateTime + item.platformName" class="tooltip-item">
+                              <div v-for="item in tooltipData.slice(0, 5)" :key="item.dataUpdateTime + item.platformName" class="tooltip-item">
                                 <span class="time">{{ item.dataUpdateTime.slice(11, 16) }}</span>
                                 <span class="platform">{{ item.platformName }}</span>
                                 <span class="title">{{ item.title }}</span>
                               </div>
-                              <div v-if="tooltipData.length > 5" class="tooltip-more">+{{ tooltipData.length - 5 }}
-                                条更多记录
-                              </div>
+                              <div v-if="tooltipData.length > 5" class="tooltip-more">+{{ tooltipData.length - 5 }} 条更多记录</div>
                             </div>
                             <div v-else class="tooltip-empty">暂无数据</div>
                           </div>
@@ -150,41 +134,30 @@
                 <div class="list-summary">
                   <span class="summary-text">共 {{ historyData.length }} 条记录</span>
                 </div>
-                <!-- 表头排序（箭头只在当前排序列显示） -->
                 <div class="list-header" :class="isMoHu ? 'four-columns' : 'five-columns'">
                   <span class="sortable-header" @click="handleSort('dataUpdateTime')">
                     出现时间
-                    <span v-if="sortKey === 'dataUpdateTime'" class="sort-arrow">
-                      {{ sortDir === 'asc' ? '↑' : '↓' }}
-                    </span>
+                    <span v-if="sortKey === 'dataUpdateTime'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
                   </span>
                   <span class="sortable-header" @click="handleSort('title')">
                     热点标题
-                    <span v-if="sortKey === 'title'" class="sort-arrow">
-                      {{ sortDir === 'asc' ? '↑' : '↓' }}
-                    </span>
+                    <span v-if="sortKey === 'title'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
                   </span>
                   <span class="sortable-header" @click="handleSort('platformCategoryRoot')">
                     分类
-                    <span v-if="sortKey === 'platformCategoryRoot'" class="sort-arrow">
-                      {{ sortDir === 'asc' ? '↑' : '↓' }}
-                    </span>
+                    <span v-if="sortKey === 'platformCategoryRoot'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
                   </span>
                   <span class="sortable-header" @click="handleSort('platformName')">
                     平台名称
-                    <span v-if="sortKey === 'platformName'" class="sort-arrow">
-                      {{ sortDir === 'asc' ? '↑' : '↓' }}
-                    </span>
+                    <span v-if="sortKey === 'platformName'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
                   </span>
                   <span v-if="!isMoHu" class="sortable-header" @click="handleSort('distance')">
                     相关度
-                    <span v-if="sortKey === 'distance'" class="sort-arrow">
-                      {{ sortDir === 'asc' ? '↑' : '↓' }}
-                    </span>
+                    <span v-if="sortKey === 'distance'" class="sort-arrow">{{ sortDir === 'asc' ? '↑' : '↓' }}</span>
                   </span>
                 </div>
                 <div class="list-items">
-                  <div v-if="loading" style="display:flex; flex-direction:column; align-items:center; padding:40px;">
+                  <div v-if="loading" class="list-loading">
                     <div class="atom-spinner">
                       <div class="spinner-inner">
                         <div class="spinner-line"></div>
@@ -193,41 +166,64 @@
                         <div class="spinner-circle">&#9679;</div>
                       </div>
                     </div>
-                    <span style="margin-top:16px; color:#8892b0; font-weight:500;">历史数据追踪中...</span>
+                    <span>历史数据追踪中...</span>
                   </div>
                   <div v-else>
-                    <a v-for="(item) in sortedHistoryData"
-                       :key="item.dataUpdateTime + item.title + item.platformName"
-                       class="list-item cursor-pointer"
-                       :class="isMoHu ? 'four-columns' : 'five-columns'"
-                       :href="item.url" target="_blank">
-                      <div class="time">{{ item.dataUpdateTime }}</div>
-                      <div class="item-title">{{ item.title }}</div>
-                      <div class="platform">
-                        <span class="platform-category">{{ item.platformCategoryRoot || '未知' }}</span>
-                      </div>
-                      <div class="platform">
-                        <span class="platform-name">{{ item.platformName }}</span>
-                      </div>
-                      <div class="relevance" v-if="!isMoHu">
-                        <span class="relevance-value">{{ 100 - item.distance }}</span>
-                        <div class="relevance-bar-wrapper">
-                          <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
+                    <!-- PC 端网格布局 -->
+                    <template v-if="windowWidth > 768">
+                      <a v-for="(item) in sortedHistoryData"
+                         :key="item.dataUpdateTime + item.title + item.platformName"
+                         class="list-item pc-item"
+                         :class="isMoHu ? 'four-columns' : 'five-columns'"
+                         :href="item.url" target="_blank">
+                        <div class="time">{{ item.dataUpdateTime }}</div>
+                        <div class="item-title">{{ item.title }}</div>
+                        <div class="platform">
+                          <span class="platform-category">{{ item.platformCategoryRoot || '未知' }}</span>
                         </div>
-                      </div>
-                    </a>
-                    <div v-if="historyData.length === 0" style="text-align:center; padding:40px; color:#6b7280;">
-                      暂无历史数据
-                    </div>
+                        <div class="platform">
+                          <span class="platform-name">{{ item.platformName }}</span>
+                        </div>
+                        <div class="relevance" v-if="!isMoHu">
+                          <span class="relevance-value">{{ 100 - item.distance }}</span>
+                          <div class="relevance-bar-wrapper">
+                            <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
+                          </div>
+                        </div>
+                      </a>
+                    </template>
+
+                    <!-- 移动端卡片布局 -->
+                    <template v-else>
+                      <a v-for="(item) in sortedHistoryData"
+                         :key="item.dataUpdateTime + item.title + item.platformName"
+                         class="list-item mobile-item"
+                         :href="item.url" target="_blank">
+                        <div class="item-title">{{ item.title }}</div>
+                        <div class="platform-info-row">
+                          <span class="platform-category">{{ item.platformCategoryRoot || '未知' }}</span>
+                          <span class="platform-name">{{ item.platformName }}</span>
+                        </div>
+                        <div class="time">{{ item.dataUpdateTime }}</div>
+                        <div class="relevance" v-if="!isMoHu">
+                          <span class="relevance-value">{{ 100 - item.distance }}</span>
+                          <div class="relevance-bar-wrapper">
+                            <div class="relevance-bar" :style="{ width: Math.min(100 - item.distance, 100) + '%' }"></div>
+                          </div>
+                        </div>
+                      </a>
+                    </template>
+
+                    <div v-if="historyData.length === 0" class="empty-tip">暂无历史数据</div>
                   </div>
                 </div>
               </div>
             </main>
             <footer class="panel-footer">
-              <div class="shortcuts"><kbd>ESC</kbd> 关闭窗口 · <kbd>Enter</kbd> 重新分析</div>
-              <button class="close-btn-footer" @click="close" :disabled="loading"
-                      :style="{ opacity: loading ? 0.5 : 1 }">关闭追踪
-              </button>
+              <div class="shortcuts">
+                <kbd>ESC</kbd> 关闭窗口 · <kbd>Enter</kbd> 重新分析
+              </div>
+              <button class="close-btn-footer" @click="close" :disabled="loading">关闭追踪</button>
             </footer>
           </div>
         </div>
@@ -237,9 +233,9 @@
 </template>
 
 <script>
-import {cacheSearchForAllByWord} from "@/api/api";
+import { cacheSearchForAllByWord } from "@/api/api";
 import store from "@/store";
-import {getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+import { getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage } from "@/utils/localStorageUtils";
 
 export default {
   name: 'HotPointHistoryComponent',
@@ -255,15 +251,15 @@ export default {
       tooltipData: [],
       showHistoryGrid: false,
       searchHistory: [],
-      // 排序状态：默认时间降序
       sortKey: 'dataUpdateTime',
       sortDir: 'desc',
+      windowWidth: 0,
       tabConfigs: [
-        {label: '1分钟走势(精确)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true},
-        {label: '今日走势(精确)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true},
-        {label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true},
-        {label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false},
-        {label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false}
+        { label: '1分钟走势(精确)', mode: 'MO_HU_PI_PEI_ONE_MINUTES', isHistory: false, isMohu: true },
+        { label: '今日走势(精确)', mode: 'MO_HU_PI_PEI_TODAY', isHistory: false, isMohu: true },
+        { label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true },
+        { label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false },
+        { label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false }
       ]
     };
   },
@@ -277,7 +273,6 @@ export default {
     isMoHu() {
       return this.tabConfigs.find(t => t.mode === this.currentSearchMode)?.isMohu || false;
     },
-
     historyFixedDates() {
       const dates = [];
       const today = new Date();
@@ -288,15 +283,28 @@ export default {
       }
       return dates;
     },
-    // 1分钟走势：30个刻度 0,2,4,...,58
-    xAxisLabels() {
+    fullXAxisLabels() {
       if (this.isHistoryMode) return this.historyFixedDates.map(d => `${parseInt(d.split('-')[1])}/${parseInt(d.split('-')[2])}`);
       if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
         return Array.from({length: 30}, (_, i) => `${i * 2}`);
       }
       return Array.from({length: 13}, (_, i) => `${String(i * 2).padStart(2, '0')}:00`);
     },
-    // 1分钟走势：按秒统计
+    displayedXAxisLabels() {
+      if (this.windowWidth > 768) return this.fullXAxisLabels;
+
+      const labels = this.fullXAxisLabels;
+      if (this.isHistoryMode) {
+        // 30天，每5天显示一个，共6个
+        return labels.filter((_, i) => i % 5 === 0);
+      }
+      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
+        // 60秒，只显示 0,10,20,30,40,50
+        return ['0', '10', '20', '30', '40', '50'];
+      }
+      // 小时级，只显示 00,04,08,12,16,20
+      return ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+    },
     dataCounts() {
       if (this.isHistoryMode) {
         const map = new Map();
@@ -337,7 +345,7 @@ export default {
       const counts = this.dataCounts;
       const max = Math.max(...counts, 1);
       const len = counts.length - 1;
-      return counts.map((count, i) => ({x: (i / len) * 800, y: 170 - (count / max) * 160}));
+      return counts.map((count, i) => ({x: (i / len) * 800, y: 150 - (count / max) * 140}));
     },
     chartPath() {
       const p = this.chartPoints;
@@ -376,11 +384,17 @@ export default {
   },
   mounted() {
     window.addEventListener('keydown', this.handleKey);
+    this.updateWindowWidth();
+    window.addEventListener('resize', this.updateWindowWidth);
   },
   beforeUnmount() {
     window.removeEventListener('keydown', this.handleKey);
+    window.removeEventListener('resize', this.updateWindowWidth);
   },
   methods: {
+    updateWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
     clickTab(mode) {
       if (this.loading) return;
       this.currentSearchMode = mode;
@@ -395,10 +409,8 @@ export default {
       if (!this.searchQuery.trim() || this.loading) return;
       this.loading = true;
       this.tooltipShow = false;
-      // 每次搜索恢复默认时间降序
       this.sortKey = 'dataUpdateTime';
       this.sortDir = 'desc';
-
       cacheSearchForAllByWord(this.searchQuery, this.currentSearchMode)
           .then(res => {
             if (res?.data?.code !== 999) this.historyData = res?.data?.data || [];
@@ -418,7 +430,6 @@ export default {
       const width = rect.width;
       const len = this.dataCounts.length - 1;
       const index = Math.max(0, Math.min(len, Math.round((mouseX / width) * len)));
-
       if (this.isHistoryMode) {
         const fullDate = this.historyFixedDates[index];
         const [, m, d] = fullDate.split('-');
@@ -434,11 +445,10 @@ export default {
         const todayStr = this.historyData[0]?.dataUpdateTime.slice(0, 10) || '';
         this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(todayStr) && parseInt(item.dataUpdateTime.slice(11, 13)) === index);
       }
-
-      const tooltipWidth = 360;
-      let left = mouseX + 15;
-      if (left + tooltipWidth > width) left = mouseX - tooltipWidth - 15;
-      this.tooltipStyle = {left: Math.max(10, left) + 'px', top: '15px'};
+      const tooltipWidth = 300;
+      let left = mouseX + 10;
+      if (left + tooltipWidth > width) left = mouseX - tooltipWidth - 10;
+      this.tooltipStyle = {left: Math.max(10, left) + 'px', top: '10px'};
       this.tooltipShow = true;
     },
     hideTooltip() {
@@ -465,18 +475,15 @@ export default {
     handleKey(e) {
       if (e.key === 'Escape' && this.historyDataBoardShow && !this.loading) this.close();
     },
-    // 排序逻辑：点击其他列会取消之前的排序，箭头只显示在当前排序列
     handleSort(key) {
       if (this.loading) return;
       if (this.sortKey === key) {
-        // 同列点击：asc → desc → 取消
         if (this.sortDir === 'asc') {
           this.sortDir = 'desc';
         } else {
           this.sortKey = null;
         }
       } else {
-        // 切换到新列：默认升序
         this.sortKey = key;
         this.sortDir = 'asc';
       }
@@ -501,40 +508,27 @@ export default {
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  padding: 20px;
+  padding: 16px;
 }
 
 .history-panel {
   position: relative;
-  width: 80%;
-  max-width: 90%;
-  height: 90vh;
+  width: 100%;
+  max-width: 1080px;
+  height: 92vh;
+  max-height: 920px;
   background: linear-gradient(145deg, rgba(30, 33, 42, 0.95), rgba(20, 23, 32, 0.98));
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.modal-enter-active, .modal-leave-active {
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.modal-enter-from, .modal-leave-to {
-  opacity: 0;
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: none; }
 }
 
 .bg-gradient {
@@ -549,12 +543,8 @@ export default {
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .bg-mesh {
@@ -567,7 +557,7 @@ export default {
 }
 
 .panel-header {
-  padding: 32px 32px 24px;
+  padding: 20px 24px 16px;
   position: relative;
   z-index: 2;
 }
@@ -579,26 +569,26 @@ export default {
 }
 
 .title-group h1 {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 800;
-  color: rgb(228, 228, 228);
+  color: #e4e4e4;
   margin-bottom: 4px;
 }
 
 .title-group p {
-  font-size: 14px;
+  font-size: 13px;
   color: #8892b0;
 }
 
 .close-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #ccd6f6;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -609,15 +599,10 @@ export default {
   transform: scale(1.05);
 }
 
-.close-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
 .panel-body {
   flex: 1;
   overflow-y: auto;
-  padding: 0 32px 32px;
+  padding: 0 24px 24px;
   position: relative;
   z-index: 2;
 }
@@ -625,61 +610,120 @@ export default {
 .hot-title-card {
   background: rgba(40, 44, 56, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 12px;
-  margin-bottom: 28px;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-row h2 {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: #e6edf3;
+  font-size: 18px;
+  font-weight: 700;
+  outline: none;
+  width: 100%;
+}
+
+.search-btn {
+  height: 36px;
+  padding: 0 20px;
+  background: #409eff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-btn:disabled {
+  background: #2c3e50;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.history-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.history-grid > div {
+  background: rgba(255,255,255,0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #8892b0;
+  cursor: pointer;
 }
 
 .chart-tabs {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .tab-buttons {
   display: flex;
   background: rgba(40, 44, 56, 0.4);
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   width: fit-content;
 }
 
 .tab-btn {
-  padding: 8px 20px;
-  border-radius: 10px;
+  padding: 6px 16px;
+  border-radius: 8px;
   background: transparent;
   color: #8892b0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.25s;
   border: none;
 }
 
 .tab-btn.active {
   background: linear-gradient(135deg, #409eff, #3a8fee);
   color: white;
-  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+  box-shadow: 0 4px 10px rgba(64, 158, 255, 0.3);
 }
 
 .chart-container {
   background: rgba(40, 44, 56, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 20px;
-  margin-bottom: 28px;
-  position: relative;
+  border-radius: 14px;
+  padding: 16px;
 }
 
 .chart-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: #e6edf3;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .chart-wrapper {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: stretch;
 }
 
@@ -687,8 +731,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px 0 30px 0;
-  min-width: 35px;
+  padding: 12px 0 24px 0;
+  min-width: 32px;
   text-align: right;
   font-size: 11px;
   color: #6b7280;
@@ -698,17 +742,26 @@ export default {
 .chart-placeholder {
   position: relative;
   flex: 1;
-  height: 180px;
+  height: 160px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: crosshair;
+}
+
+.chart-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  background: rgba(0,0,0,0.3);
 }
 
 .fake-line-chart {
   position: absolute;
   inset: 0;
-  padding: 16px 16px 30px 16px;
-  transition: opacity 0.3s;
+  padding: 12px 12px 24px 12px;
 }
 
 .fake-line-chart svg {
@@ -718,9 +771,9 @@ export default {
 
 .chart-x-labels {
   position: absolute;
-  bottom: 5px;
-  left: 16px;
-  right: 16px;
+  bottom: 4px;
+  left: 12px;
+  right: 12px;
   display: flex;
   justify-content: space-between;
   font-size: 10px;
@@ -733,11 +786,11 @@ export default {
   background: rgba(20, 23, 32, 0.98);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(64, 158, 255, 0.3);
-  border-radius: 12px;
-  padding: 12px 14px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-  min-width: 280px;
-  max-width: 360px;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.8);
+  min-width: 260px;
+  max-width: 320px;
   z-index: 1000;
   font-size: 13px;
 }
@@ -746,8 +799,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -767,8 +820,8 @@ export default {
 .tooltip-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-height: 140px;
+  gap: 6px;
+  max-height: 120px;
   overflow-y: auto;
 }
 
@@ -778,131 +831,119 @@ export default {
   font-size: 12px;
 }
 
-.tooltip-item .time {
-  color: #8892b0;
-  min-width: 40px;
-}
-
-.tooltip-item .platform {
-  color: #409eff;
-  min-width: 70px;
-}
-
-.tooltip-item .title {
-  color: #ccd6f6;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-}
+.tooltip-item .time { color: #8892b0; min-width: 40px; }
+.tooltip-item .platform { color: #409eff; min-width: 70px; }
+.tooltip-item .title { color: #ccd6f6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
 
 .history-list {
   background: rgba(40, 44, 56, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
 .list-summary {
-  padding: 12px 24px;
+  padding: 10px 20px;
   background: rgba(64, 158, 255, 0.08);
   border-bottom: 1px solid rgba(64, 158, 255, 0.2);
-  font-size: 14px;
+  font-size: 13px;
   color: #409eff;
   font-weight: 600;
 }
 
 .list-header {
   display: grid;
-  grid-template-columns: 170px 1fr 100px 120px 120px;
-  padding: 16px 24px;
+  grid-template-columns: 150px 1fr 90px 110px 110px;
+  padding: 12px 20px;
   font-size: 13px;
   font-weight: 600;
   color: #8892b0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.list-item {
+.list-header.four-columns { grid-template-columns: 150px 1fr 90px 110px; }
+.list-header.five-columns { grid-template-columns: 150px 1fr 90px 110px 110px; }
+
+.sortable-header {
+  cursor: pointer;
+  padding-right: 14px;
+  position: relative;
+}
+
+.sort-arrow {
+  font-size: 11px;
+  color: #409eff;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.pc-item {
   display: grid;
-  padding: 16px 24px;
+  padding: 12px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   transition: background 0.2s;
   align-items: center;
   text-decoration: none;
 }
 
-.list-header.four-columns,
-.list-item.four-columns {
-  grid-template-columns: 170px 1fr 100px 120px;
-}
+.pc-item.four-columns { grid-template-columns: 150px 1fr 90px 110px; }
+.pc-item.five-columns { grid-template-columns: 150px 1fr 90px 110px 110px; }
 
-.list-header.five-columns,
-.list-item.five-columns {
-  grid-template-columns: 170px 1fr 100px 120px 120px;
-}
-
-/* 排序样式 */
-.sortable-header {
-  cursor: pointer;
-  position: relative;
-  padding-right: 16px;
-}
-
-.sort-arrow {
-  font-size: 12px;
-  color: #409eff;
-  font-weight: bold;
+.pc-item:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .time {
   background: rgba(64, 158, 255, 0.15);
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   color: #ccd6f6;
   text-align: center;
 }
 
 .platform-category {
   background: rgba(64, 255, 249, 0.15);
-  color: rgba(64, 255, 210, 0.8);
-  padding: 4px 10px;
+  color: rgba(64, 255, 210, 0.9);
+  padding: 3px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .platform-name {
   background: rgba(64, 158, 255, 0.15);
   color: #409eff;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .item-title {
   font-size: 14px;
   color: #e6edf3;
-  padding: 0 12px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .relevance {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 13px;
 }
 
 .relevance-value {
-  font-size: 13px;
   color: #67c23a;
   font-weight: 600;
 }
 
 .relevance-bar-wrapper {
   flex: 1;
-  max-width: 60px;
-  height: 8px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -911,34 +952,101 @@ export default {
   background: linear-gradient(90deg, #409eff, #67c23a);
 }
 
+.mobile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+}
+
+.mobile-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.mobile-item .item-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e6edf3;
+  line-height: 1.5;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+.platform-info-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.mobile-item .time {
+  align-self: flex-start;
+}
+
+.mobile-item .relevance {
+  width: 100%;
+}
+
+.mobile-item .relevance-bar-wrapper {
+  height: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.mobile-item .relevance-bar {
+  border-radius: 4px;
+}
+
+.list-loading, .empty-tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  color: #8892b0;
+}
+
 .panel-footer {
-  padding: 20px 32px 32px;
+  padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .shortcuts kbd {
   background: rgba(255, 255, 255, 0.08);
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 3px 7px;
+  border-radius: 5px;
   font-size: 11px;
   color: #6b7280;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .close-btn-footer {
-  padding: 12px 24px;
+  padding: 10px 20px;
   background: rgba(255, 255, 255, 0.08);
   color: #e6edf3;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
+  border: none;
+}
+
+.close-btn-footer:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .atom-spinner {
-  height: 50px;
-  width: 50px;
+  height: 44px;
+  width: 44px;
 }
 
 .atom-spinner .spinner-inner {
@@ -959,73 +1067,119 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 90%;
-  border-left: 4px solid #ff1d5e;
+  border-radius: 50%;
+  border-left: 3px solid #ff1d5e;
   border-top: 2px solid transparent;
 }
 
-.atom-spinner .spinner-line:nth-child(1) {
-  animation: atom-spinner-animation-1 1s linear infinite;
-  transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg);
-}
+.atom-spinner .spinner-line:nth-child(1) { animation: atom-spinner-animation-1 1s linear infinite; transform: rotateZ(120deg) rotateX(66deg) rotateZ(0deg); }
+.atom-spinner .spinner-line:nth-child(2) { animation: atom-spinner-animation-2 1s linear infinite; transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg); }
+.atom-spinner .spinner-line:nth-child(3) { animation: atom-spinner-animation-3 1s linear infinite; transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg); }
 
-.atom-spinner .spinner-line:nth-child(2) {
-  animation: atom-spinner-animation-2 1s linear infinite;
-  transform: rotateZ(240deg) rotateX(66deg) rotateZ(0deg);
-}
-
-.atom-spinner .spinner-line:nth-child(3) {
-  animation: atom-spinner-animation-3 1s linear infinite;
-  transform: rotateZ(360deg) rotateX(66deg) rotateZ(0deg);
-}
-
-@keyframes atom-spinner-animation-1 {
-  100% {
-    transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg);
-  }
-}
-
-@keyframes atom-spinner-animation-2 {
-  100% {
-    transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg);
-  }
-}
-
-@keyframes atom-spinner-animation-3 {
-  100% {
-    transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg);
-  }
-}
+@keyframes atom-spinner-animation-1 { 100% { transform: rotateZ(120deg) rotateX(66deg) rotateZ(360deg); } }
+@keyframes atom-spinner-animation-2 { 100% { transform: rotateZ(240deg) rotateX(66deg) rotateZ(360deg); } }
+@keyframes atom-spinner-animation-3 { 100% { transform: rotateZ(360deg) rotateX(66deg) rotateZ(360deg); } }
 
 @media (max-width: 768px) {
   .history-panel {
-    width: 95%;
-    height: 95vh;
+    width: 96%;
+    height: 96vh;
+    border-radius: 16px;
+  }
+
+  .panel-header {
+    padding: 16px 16px 12px;
+  }
+
+  .title-group h1 {
+    font-size: 20px;
+  }
+
+  .title-group p {
+    font-size: 12px;
+  }
+
+  .panel-body {
+    padding: 0 16px 20px;
+  }
+
+  .hot-title-card {
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  .search-row {
+    gap: 10px;
+  }
+
+  .search-row h2 {
+    font-size: 16px;
+  }
+
+  .search-input {
+    font-size: 16px;
+  }
+
+  .search-btn {
+    height: 34px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  .tab-buttons {
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .chart-container {
+    padding: 12px;
+  }
+
+  .chart-title {
+    font-size: 14px;
+  }
+
+  .chart-placeholder {
+    height: 140px;
+  }
+
+  .chart-x-labels {
+    bottom: 10px;
+    left: 8px;
+    right: 8px;
+    font-size: 10px;
+  }
+
+  .chart-x-labels span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    text-align: center;
   }
 
   .list-header {
     display: none;
   }
 
-  .list-item {
-    display: flex;
+  .panel-footer {
+    padding: 14px 16px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    gap: 12px;
+    align-items: stretch;
   }
 
-  .list-item > div:nth-child(3)::before {
-    content: "分类：";
-    color: #8892b0;
+  .panel-footer .shortcuts {
+    order: 2;
+    text-align: center;
     font-size: 12px;
-    margin-right: 4px;
   }
 
-  .list-item > div:nth-child(4)::before {
-    content: "平台：";
-    color: #8892b0;
-    font-size: 12px;
-    margin-right: 4px;
+  .close-btn-footer {
+    order: 1;
+    width: 100%;
   }
 }
 </style>
