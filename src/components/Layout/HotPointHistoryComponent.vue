@@ -196,8 +196,8 @@
                     <span style="margin-top:16px; color:#8892b0; font-weight:500;">历史数据追踪中...</span>
                   </div>
                   <div v-else>
-                    <a v-for="(item, index) in sortedHistoryData"
-                       :key="index"
+                    <a v-for="(item) in sortedHistoryData"
+                       :key="item.dataUpdateTime + item.title + item.platformName"
                        class="list-item cursor-pointer"
                        :class="isMoHu ? 'four-columns' : 'five-columns'"
                        :href="item.url" target="_blank">
