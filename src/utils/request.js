@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getMachineId } from "@/utils/machineId"
+import umami from '@/utils/umamiUtils'
 
 export function request(config) {
     const instance = axios.create({
@@ -12,6 +13,7 @@ export function request(config) {
     // 请求拦截器
     instance.interceptors.request.use(
         async config => {
+            config.metadata = { startTime: Date.now() }
             const machineId = await getMachineId()
             config.headers['X-Machine-Id'] = machineId
             // 优先使用函数里提交的code，没有的话再拿缓存里的
@@ -28,12 +30,28 @@ export function request(config) {
 
     // 响应拦截器
     instance.interceptors.response.use(
-        response => response,
+        response => {
+            trackApi(response.config, 'success')
+            return response
+        },
         error => {
+            if (error.config) {
+                trackApi(error.config, 'error', error)
+            }
             console.warn("请求失败，返回空结构：", error.message || error);
             return Promise.resolve({ data: [] }); // 返回一个空数据结构
         }
     );
 
     return instance(config);
+}
+
+function trackApi(config, status, error) {
+    umami.track('api_request', {
+        api_method: config.method?.toUpperCase(),
+        api_url: config.url,
+        api_status: status,
+        api_duration: Date.now() - (config.metadata?.startTime || Date.now()),
+        api_error: status === 'error' ? error?.message : undefined
+    })
 }
