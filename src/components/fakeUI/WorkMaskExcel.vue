@@ -456,7 +456,7 @@ export default {
 
       // hongkongdoll
       const randomNumber = Math.floor(Math.random() * 218) + 1
-      this.floatingImageUrl = require(`@/assets/image/hongkongdoll/1 (${randomNumber}).jpg`);
+      this.floatingImageUrl = `/image/hongkongdoll/1 (${randomNumber}).jpg`;
 
       this.floatingImageVisible = true;
     },

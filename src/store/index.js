@@ -863,7 +863,7 @@ export default createStore({
             {
                 id: 2,
                 name: '某某公司',
-                logo: require('@/assets/image/girl/1 (1).jpg'),
+                logo: `/image/hongkongdoll/1 (1).jpg`,
                 url: 'https://tgmeng.com',
                 show: true,
                 startTime: "2025-01-01 00:00:00",
