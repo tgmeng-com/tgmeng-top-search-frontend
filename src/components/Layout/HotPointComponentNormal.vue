@@ -24,7 +24,7 @@
               :class="cardHorizontalScrolling === 'horizontal' ? 'flex-shrink-0' : ''"
               :style="cardHorizontalScrolling === 'horizontal' ? cardWidthForPhoneStyle : ''"
           >
-            <CommunityCard
+            <HotPointCard
                 :key="p.title"
                 :title="p.title"
                 :logo="p.logo"
@@ -56,7 +56,7 @@
     >
       <template #item="{ element: p }">
         <div v-show="p.isShow">
-          <CommunityCard
+          <HotPointCard
               :key="p.title"
               :title="p.title"
               :logo="p.logo"
@@ -82,7 +82,7 @@ import { setLocalStorage, LOCAL_STORAGE_KEYS } from "@/utils/localStorageUtils";
 export default {
   name: 'HotPointComponentNormal',
   components: {
-    CommunityCard: HotPointCard,
+    HotPointCard: HotPointCard,
     draggable,
   },
   props: {
