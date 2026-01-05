@@ -49,7 +49,8 @@ export function request(config) {
 function trackApi(config, status, error) {
     umami.track('api_request', {
         api_method: config.method?.toUpperCase(),
-        api_url: config.url,
+        api_base: config.baseURL || null,
+        api_path: config.url,
         api_status: status,
         api_duration: Date.now() - (config.metadata?.startTime || Date.now()),
         api_error: status === 'error' ? error?.message : undefined
