@@ -33,7 +33,7 @@
                  viewBox="0 0 24 24"
                  class="absolute top-0 right-0 cursor-pointer z-10 rounded-tr-xl overflow-hidden w-3.5 h-3.5 opacity-50"
                  @click.stop="handleRssClick(cat)"
-                 v-if="cat.id !== 13 && cat.id !== -1 && cat.id !== 0.5 && categroiesRssIconShow && !(isAIMode && isHiddenCategory(cat))"
+                 v-if="cat.id !== 13 && cat.id !== -1 && categroiesRssIconShow && !(isAIMode && isHiddenCategory(cat))"
             >
               <rect width="24" height="24" rx="3" ry="3" fill="#FFA500"/>
               <circle cx="6" cy="18" r="2" fill="white"/>
@@ -126,7 +126,7 @@ export default {
     // 判断是否是需要隐藏的分类（收藏 或 突发）
     isHiddenCategory() {
       return (cat) => {
-        return cat.routerName === 'sudden' || cat.routerName === 'favorites';
+        return cat.id === -1 || cat.id === 0.5 || cat.id === 13;
       };
     },
     isMobile() {
