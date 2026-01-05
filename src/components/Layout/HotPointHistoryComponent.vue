@@ -536,10 +536,9 @@ export default {
 
 .history-panel {
   position: relative;
-  width: 100%;
-  max-width: 1080px;
-  height: 92vh;
-  max-height: 920px;
+  width: 80%;
+  height: 90vh;
+  max-height: 900px;
   background: linear-gradient(145deg, rgba(30, 33, 42, 0.95), rgba(20, 23, 32, 0.98));
   border-radius: 20px;
   overflow: hidden;
