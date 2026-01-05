@@ -48,13 +48,14 @@ export function request(config) {
     return instance(config);
 }
 
-function trackApi(config, status, error) {
-    umami.track('api_request', {
-        api_method: config.method?.toUpperCase(),
-        api_base: config.baseURL || null,
-        api_path: config.url,
-        api_status: status,
-        api_duration: Date.now() - (config.metadata?.startTime || Date.now()),
-        api_error: status === 'error' ? error?.message : undefined
-    })
-}
+// // TODO 先不统计api数据，不然太多太乱了，以后需要的时候再统计
+// function trackApi(config, status, error) {
+//     umami.track('api_request', {
+//         api_method: config.method?.toUpperCase(),
+//         api_base: config.baseURL || null,
+//         api_path: config.url,
+//         api_status: status,
+//         api_duration: Date.now() - (config.metadata?.startTime || Date.now()),
+//         api_error: status === 'error' ? error?.message : undefined
+//     })
+// }
