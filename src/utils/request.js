@@ -31,12 +31,14 @@ export function request(config) {
     // 响应拦截器
     instance.interceptors.response.use(
         response => {
-            trackApi(response.config, 'success')
+            // 先不统计api，不然事件太多太乱了
+            // trackApi(response.config, 'success')
             return response
         },
         error => {
             if (error.config) {
-                trackApi(error.config, 'error', error)
+                // 先不统计api，不然事件太多太乱了
+                // trackApi(error.config, 'error', error)
             }
             console.warn("请求失败，返回空结构：", error.message || error);
             return Promise.resolve({ data: [] }); // 返回一个空数据结构
