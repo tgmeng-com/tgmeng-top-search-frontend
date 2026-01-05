@@ -1,6 +1,20 @@
 // TODO 每次新增平台或者分类后，在这里面加一下RSS
 
 const dataMap = {
+    "/tgmeng": {
+        title: "糖果梦热榜 · 糖果AI榜",
+        description: "糖果梦热榜 · 新闻",
+        children: {
+            "/tgmeng/all": {title: "糖果梦热榜 · 糖果梦 · 综合", description: "糖果梦热榜 · 糖果梦 · 综合", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/all",platform: "综合"},
+            "/tgmeng/technology": {title: "糖果梦热榜 · 糖果梦 · 科技", description: "糖果梦热榜 · 糖果梦 · 科技", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/technology",platform: "科技"},
+            "/tgmeng/finance": {title: "糖果梦热榜 · 糖果梦 · 财经", description: "糖果梦热榜 · 糖果梦 · 财经", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/finance",platform: "财经"},
+            "/tgmeng/entertainment": {title: "糖果梦热榜 · 糖果梦 · 娱乐", description: "糖果梦热榜 · 糖果梦 · 娱乐", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/entertainment",platform: "娱乐"},
+            "/tgmeng/car": {title: "糖果梦热榜 · 糖果梦 · 汽车", description: "糖果梦热榜 · 糖果梦 · 汽车", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/car",platform: "汽车"},
+            "/tgmeng/sports": {title: "糖果梦热榜 · 糖果梦 · 体育", description: "糖果梦热榜 · 糖果梦 · 体育", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/sports",platform: "体育"},
+            "/tgmeng/game": {title: "糖果梦热榜 · 糖果梦 · 游戏", description: "糖果梦热榜 · 糖果梦 · 游戏", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/game",platform: "游戏"},
+            "/tgmeng/livelihood": {title: "糖果梦热榜 · 糖果梦 · 民生", description: "糖果梦热榜 · 糖果梦 · 民生", link: "https://trendapi.tgmeng.com/api/cachesearch/tgmenghotsearch/livelihood",platform: "民生"},
+        }
+    },
     "/news": {
         title: "糖果梦热榜 · 新闻",
         description: "糖果梦热榜 · 新闻",

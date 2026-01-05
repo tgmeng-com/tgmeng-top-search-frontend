@@ -82,10 +82,12 @@
                 📈
             </span>
             <!-- 标题 -->
-            <a :href="item.url" target="_blank" rel="noopener noreferrer"
-               class="dark:text-dark-text hot-title hover:underline"
-               :class="{'hot-title-full':cardHotTitleFull}"
-               :title="item.title">
+            <a
+                class="dark:text-dark-text hot-title hover:underline"
+                :class="{'hot-title-full':cardHotTitleFull}"
+                :title="item.title"
+                @click="handleHotTitleLinkClick(item)"
+            >
 
               <span v-if="title.includes('CCTV')" :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
                     class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
@@ -227,6 +229,14 @@ export default {
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
       this.$umami.track('📊热点历史追踪', {mode: 'ZHI_WEN_PI_PEI_TODAY', title: title});
+    },
+    handleHotTitleLinkClick(item) {
+      const url = item?.url?.trim?.()
+      if (url) {
+        window.open(item.url, '_blank', 'noopener,noreferrer');
+      } else {
+        this.clickHotPointTrend(item.title)
+      }
     },
     timeAgo(date) {
       const parsedDate = new Date(date);

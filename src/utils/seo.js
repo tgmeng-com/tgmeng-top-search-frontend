@@ -135,6 +135,12 @@ export const pathMetaTemplates = {
         description: ['糖果梦热榜支持全网实时热榜聚合、AI 总结分析与趋势预测，并提供词云统计、热点检索、个性化自定义等功能。快速洞察新闻、科技、财经、娱乐、游戏等全领域最新动态'],
         image: '/og/og.png',
         category: '首页'
+    },
+    '/tgmeng': {
+        title: ['糖果梦热榜 - 实时AI榜 · 全网最强AI榜'],
+        description: ['全网最强热点榜单，大模型加持海量数据分析最热热榜'],
+        image: '/og/og.png',
+        category: '糖果热榜'
     }
 };
 

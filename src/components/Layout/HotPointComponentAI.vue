@@ -174,6 +174,7 @@
 import {cacheSearchForAISummaryData} from "@/api/api";
 import store from "@/store";
 import EmptyState from "@/components/UI/EmptyState.vue";
+import {LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
 
 export default {
   name: 'HotPointComponentAI',
@@ -327,6 +328,7 @@ export default {
               this.aiData = {"data": []}
               if (res.data.code === 999) {
                 store.commit('setIsAIMode', false)
+                setLocalStorage(LOCAL_STORAGE_KEYS.IS_AI_MODE, false);
                 store.commit('setLicenseShow', true)
               }
             }

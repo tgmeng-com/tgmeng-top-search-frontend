@@ -27,6 +27,7 @@ export default function generateSitemap() {
     const paths = [
         {path: "/", changefreq: "hourly", priority: 1.0},      // 首页
         {path: "/all", changefreq: "minute", priority: 1.0},   // 全部
+        {path: "/tgmeng", changefreq: "minute", priority: 1.0},   // 糖果AI榜
         {path: "/news", changefreq: "minute", priority: 1.0},  // 新闻
         {path: "/wool", changefreq: "hourly", priority: 1.0}, // 羊毛
         {path: "/media", changefreq: "minute", priority: 1.0}, // 媒体

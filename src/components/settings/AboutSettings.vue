@@ -246,6 +246,12 @@ export default {
       timeline:
           [
             {
+              date: '2025/01/06 10:43',
+              events: [{
+                id: 1, title: '新增功能', desc: ['新增糖果热榜，我只能说，这个东西没法再叼了'], tag: 'Feat'
+              }]
+            },
+            {
               date: '2025/01/03 23:43',
               events: [{
                 id: 1, title: '新增功能', desc: ['移动端将导航栏放到页面底部'], tag: 'Feat'

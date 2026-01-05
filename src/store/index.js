@@ -288,7 +288,9 @@ import {
 
     topSearchForLodeLocYouHui,
     topSearchForNodeLocHot,
-    topSearchForAppinn
+    topSearchForAppinn,
+
+    topSearchForTgmeng
 
 } from '@/api/api';
 
@@ -415,7 +417,7 @@ export default createStore({
 
         categroies: [
             {
-                name: '🔥突发',
+                name: '突发',
                 routerName: 'sudden',
                 id: -1,
                 isShow: true,
@@ -429,6 +431,24 @@ export default createStore({
                 isShow: true,
                 sort: 0,
                 subCategories: [],
+            },
+            {
+                name: '糖果指数',
+                routerName: 'tgmeng',
+                id: 0.5,
+                isShow: true,
+                sort: 0.5,
+                subCategories: [
+                    new Platform('糖果梦 综合', () => topSearchForTgmeng("all"), require('@/assets/logos/tgmeng-trend_tgmeng_1.png'), -8, '/tgmeng/all'),
+                    new Platform('糖果梦 科技', () => topSearchForTgmeng("technology"), require('@/assets/logos/tgmeng-trend_tgmeng_2.png'), -7, '/tgmeng/technology'),
+                    new Platform('糖果梦 财经', () => topSearchForTgmeng("finance"), require('@/assets/logos/tgmeng-trend_tgmeng_3.png'), -6., '/tgmeng/finance'),
+                    new Platform('糖果梦 娱乐', () => topSearchForTgmeng("entertainment"), require('@/assets/logos/tgmeng-trend_tgmeng_4.png'), -5., '/tgmeng/entertainment'),
+                    new Platform('糖果梦 汽车', () => topSearchForTgmeng("car"), require('@/assets/logos/tgmeng-trend_tgmeng_5.png'), -4., '/tgmeng/car'),
+                    new Platform('糖果梦 体育', () => topSearchForTgmeng("sports"), require('@/assets/logos/tgmeng-trend_tgmeng_6.png'), -3., '/tgmeng/sports'),
+                    new Platform('糖果梦 游戏', () => topSearchForTgmeng("game"), require('@/assets/logos/tgmeng-trend_tgmeng_7.png'), -2., '/tgmeng/game'),
+                    new Platform('糖果梦 民生', () => topSearchForTgmeng("livelihood"), require('@/assets/logos/tgmeng-trend_tgmeng_8.png'), -1, '/tgmeng/livelihood'),
+
+                ],
             },
             {
                 name: '新闻',
@@ -1075,7 +1095,7 @@ export default createStore({
         setHistoryDataBoardUseTitle(state, newTitle) {
             state.historyDataBoardUseTitle = newTitle;
         },
-        setHistoryDataSearchMode(state, newMode){
+        setHistoryDataSearchMode(state, newMode) {
             state.historyDataSearchMode = newMode;
         },
         setSubscriptionSettingShow(state, newSubscription) {
@@ -1107,18 +1127,17 @@ export default createStore({
         },
         setIsAIMode(state, value) {
             state.isAIMode = value;
-            // localStorage.setItem('isAIMode', JSON.stringify(value));
         },
         setSearchShow(state, value) {
             state.searchShow = value
         },
-        setSuddenDescShow(state, value){
+        setSuddenDescShow(state, value) {
             state.suddenDescShow = value
         },
-        setAiModeDesc(state, value){
+        setAiModeDesc(state, value) {
             state.aiModeDesc = value
         },
-        setAiModeBigModalDesc(state, value){
+        setAiModeBigModalDesc(state, value) {
             state.aiModeBigModalDesc = value
         },
         setSettingsPanelExpanded(state, value) {

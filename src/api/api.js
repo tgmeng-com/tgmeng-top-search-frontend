@@ -2313,3 +2313,10 @@ export function searchHistorySuddenHeatPointHour(data) {
         method: 'post'
     })
 }
+
+export function topSearchForTgmeng(data) {
+    return request({
+        url: '/cachesearch/tgmenghotsearch/' + data,
+        method: 'post'
+    })
+}
