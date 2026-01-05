@@ -180,6 +180,7 @@ export default {
       activeCategoryName: '新闻',
       activeNames: [],
       shouldShowContainer: false,
+      isInitializing: true,
       settings: {},
       isDark: true,
       settingsGroups: [
@@ -293,6 +294,7 @@ export default {
       this.$store.commit('setSettingsPanelExpanded', false)
     },
     initSettings() {
+      this.isInitializing = true
       this.settingsGroups.forEach(group => {
         group.items.forEach(setting => {
           const storeValue = this.$store?.state?.[setting.storeKey];
@@ -301,6 +303,9 @@ export default {
           if (cachedValue !== null && cachedValue !== undefined) this.syncToStore(setting);
         });
       });
+      this.$nextTick(() => {
+        this.isInitializing = false
+      })
     },
     changeCategoryStatus() {
       const cloned = JSON.parse(JSON.stringify(this.categories));
@@ -310,6 +315,7 @@ export default {
       setLocalStorage(LOCAL_STORAGE_KEYS.CATEGORIES, cloned);
     },
     handleChange(setting) {
+      if (this.isInitializing) return
       const value = this.settings[setting.key];
       setLocalStorage(setting.storageKey, value);
       if (setting.umamiEvent) this.$umami.track(setting.umamiEvent);

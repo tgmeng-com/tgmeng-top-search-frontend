@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     clickAds(adsName) {
-      this.$umami.track('广告位点击：' + adsName)
+      this.$umami.track('广告位点击', {name: adsName})
     }
   },
   computed: {

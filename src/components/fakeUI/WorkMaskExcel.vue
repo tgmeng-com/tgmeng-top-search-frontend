@@ -140,7 +140,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr >
+        <tr>
           <td class="row-number" :style="[excelCardTitleStyle]">状态</td>
           <td
               v-for="(subCat, index) in (activeCategory?.subCategories ?? [])"
@@ -151,7 +151,7 @@
                 maxWidth: (colWidths[index] ?? 120) + 'px'
               },excelCardTitleStyle]"
           >
-            <div v-if="subCat?.loading" >⏳ 正在加载…</div>
+            <div v-if="subCat?.loading">⏳ 正在加载…</div>
             <div v-else-if="!(subCat?.data) || subCat.data.length === 0">🚫 无数据</div>
             <div v-else>✅ 加载完成</div>
           </td>
@@ -406,11 +406,11 @@ export default {
     document.body.style.overflow = '';
   },
   methods: {
-    clickHotPointTrend(title){
+    clickHotPointTrend(title) {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
-      this.$umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪', {mode: 'ZHI_WEN_PI_PEI_TODAY', title: title});
     },
     clickMenu(index) {
       this.activeMenuIndex = index;
@@ -436,7 +436,7 @@ export default {
         case 'ArrowDown':
           e.preventDefault();
           this.handleOpenImage();
-          this.$umami.track('Excel美图:')
+          this.$umami.track('Excel美图')
           break;
         case 'Escape':
         case 'Esc':
@@ -449,7 +449,7 @@ export default {
       this.$emit("handleCategoryClick", cat);
     },
     handleOpenImage() {
-      this.$umami.track('Excel美图:')
+      this.$umami.track('Excel美图')
       // girl
       // const randomNumber = Math.floor(Math.random() * 1032) + 1
       // this.floatingImageUrl = require(`@/assets/image/girl/1 (${randomNumber}).jpg`);
@@ -493,27 +493,27 @@ export default {
     },
     changeExcelCardTopFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_SIZE, this.excelCardTopFontSize);
-      this.$umami.track('自定义excel卡片标题字体大小')
+      this.$umami.track('自定义excel卡片标题字体大小', {num: this.excelCardTopFontSize})
     },
     changeExcelCardTopFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_WEIGHT, this.excelCardTopFontWeight);
-      this.$umami.track('自定义excel卡片标题字体粗细')
+      this.$umami.track('自定义excel卡片标题字体粗细', {num: this.excelCardTopFontWeight})
     },
     changeExcelCardTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_SIZE, this.excelCardTitleFontSize);
-      this.$umami.track('自定义excel热点标题字体大小')
+      this.$umami.track('自定义excel热点标题字体大小', {num: this.excelCardTitleFontSize})
     },
     changeExcelCardTitleFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_WEIGHT, this.excelCardTitleFontWeight);
-      this.$umami.track('自定义excel热点标题字体粗细')
+      this.$umami.track('自定义excel热点标题字体粗细', {num: this.excelCardTitleFontWeight})
     },
     changeExcelCategoriesTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE, this.excelCategroiesTitleFontSize);
-      this.$umami.track('自定义excel分类名称字体大小')
+      this.$umami.track('自定义excel分类名称字体大小', {num: this.excelCategroiesTitleFontSize})
     },
     changeExcelCategoriesTitleFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_WEIGHT, this.excelCategroiesTitleFontWeight);
-      this.$umami.track('自定义excel分类名称字体粗细')
+      this.$umami.track('自定义excel分类名称字体粗细', {num: this.excelCategroiesTitleFontWeight})
     },
     initializePlatforms() {
       const excelCategoriesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE)
@@ -610,7 +610,7 @@ export default {
 }
 
 .topbar::-webkit-scrollbar {
-  height: 17px;                     /* Excel 经典高度 */
+  height: 17px; /* Excel 经典高度 */
 }
 
 .topbar::-webkit-scrollbar-track {
@@ -639,19 +639,13 @@ export default {
 
 /* 左右箭头按钮（Excel 经典小三角） */
 .topbar::-webkit-scrollbar-button:horizontal:decrement {
-  background:
-      #e3e3e3
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M5 1L1 5l4 4z'/%3E%3C/svg%3E")
-      center center no-repeat;
+  background: #e3e3e3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M5 1L1 5l4 4z'/%3E%3C/svg%3E") center center no-repeat;
   border-right: 1px solid #d4d4d4;
   width: 17px;
 }
 
 .topbar::-webkit-scrollbar-button:horizontal:increment {
-  background:
-      #e3e3e3
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M1 1l4 4-4 4z'/%3E%3C/svg%3E")
-      center center no-repeat;
+  background: #e3e3e3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='10' viewBox='0 0 6 10'%3E%3Cpath fill='%23605e5c' d='M1 1l4 4-4 4z'/%3E%3C/svg%3E") center center no-repeat;
   border-left: 1px solid #d4d4d4;
   width: 17px;
 }
@@ -676,6 +670,7 @@ export default {
   scrollbar-width: auto;
   scrollbar-color: #c1c1c1 #e3e3e3;
 }
+
 .menu-item {
   position: relative;
   padding: 2px 8px;
@@ -1024,8 +1019,8 @@ th {
 
 /* Excel 风格滚动条 - 完整版（横向+纵向） */
 .table-container::-webkit-scrollbar {
-  width: 17px;   /* 垂直滚动条宽度 */
-  height: 17px;  /* 水平滚动条高度 */
+  width: 17px; /* 垂直滚动条宽度 */
+  height: 17px; /* 水平滚动条高度 */
 }
 
 /* 滚动条轨道 */
@@ -1039,7 +1034,7 @@ th {
   background: #c1c1c1;
   border: 1px solid #a6a6a6;
   border-radius: 0;
-  min-width: 50px;  /* 水平滚动条最小宽度 */
+  min-width: 50px; /* 水平滚动条最小宽度 */
   min-height: 50px; /* 垂直滚动条最小高度 */
 }
 

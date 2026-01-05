@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-200 dark:bg-dark-card rounded-xl overflow-hidden card-hover">
     <!-- 顶部标题栏 -->
-    <div >
+    <div>
       <div class="bg-gray-300 dark:bg-dark-card-title px-4 pt-4 pb-2 flex items-center drag-handle text-center"
            :style="cardTopStyle">
         <img :src="logo" :alt="title" class=" rounded-full" :style="cardTopLogoStyle">
@@ -14,7 +14,7 @@
         <el-icon
             class="favorite-icon"
             :color="isStar ? '#f7ba2a' : '#bd9400'"
-            @click="toggleStar"
+            @click="toggleStar(title)"
             :style="cardTopStyle">
           <component :is="isStar ? 'StarFilled' : 'Star'"/>
         </el-icon>
@@ -110,27 +110,27 @@
 
             <!-- 评分/播放/信息 -->
             <div v-if="cardHotScoreShow">
-<!--              <template v-if="title.includes('网易云')">-->
-<!--                <audio :id="'audio-' + index"-->
-<!--                       :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"-->
-<!--                       ref="audios" :loop="isLoop"></audio>-->
-<!--                <button @click="playAudio(index, item.title)">-->
-<!--                  {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}-->
-<!--                </button>-->
-<!--                <button @click="toggleLoop(index)">-->
-<!--                  {{ isLoop ? '🔁' : '🔂' }}-->
-<!--                </button>-->
-<!--              </template>-->
+              <!--              <template v-if="title.includes('网易云')">-->
+              <!--                <audio :id="'audio-' + index"-->
+              <!--                       :src="'https://music.163.com/song/media/outer/url?id=' + extractWangYiYunId(item.url) + '.mp3'"-->
+              <!--                       ref="audios" :loop="isLoop"></audio>-->
+              <!--                <button @click="playAudio(index, item.title)">-->
+              <!--                  {{ playingIndex === index && !isPaused ? '⏸️' : '▶️' }}-->
+              <!--                </button>-->
+              <!--                <button @click="toggleLoop(index)">-->
+              <!--                  {{ isLoop ? '🔁' : '🔂' }}-->
+              <!--                </button>-->
+              <!--              </template>-->
 
               <template v-if="title.includes('豆瓣组')">
                 <span :style="cardSecondTitleStyle"
                       class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">
                   👩‍👧‍👦{{ formatHotScore(item.commentCount) }}
                 </span>
-<!--                <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"-->
-<!--                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">-->
-<!--                  {{ item.publishTime }}-->
-<!--                </span>-->
+                <!--                <span :style="cardSecondTitleStyle" style="margin-left: 0.2rem"-->
+                <!--                      class="ml-auto px-2 py-1 bg-blue-100/30 dark:bg-blue-300/10 dark:text-blue-400 rounded-xl dark:text-dark-text">-->
+                <!--                  {{ item.publishTime }}-->
+                <!--                </span>-->
               </template>
 
               <template v-else-if="title.includes('CCTV')">
@@ -165,7 +165,8 @@
 
 
               <template v-else>
-                <span v-if="item.hotScore" :style="cardSecondTitleStyle" class="text-red-600 dark:text-red-300 hot-score">
+                <span v-if="item.hotScore" :style="cardSecondTitleStyle"
+                      class="text-red-600 dark:text-red-300 hot-score">
                   🔥{{ formatHotScore(item.hotScore) }}
                 </span>
               </template>
@@ -225,7 +226,7 @@ export default {
       store.commit('setHistoryDataBoardUseTitle', title)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
-      this.$umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪', {mode: 'ZHI_WEN_PI_PEI_TODAY', title: title});
     },
     timeAgo(date) {
       const parsedDate = new Date(date);
@@ -288,7 +289,7 @@ export default {
       return false;
     },
     handleRssClick(title) {
-      this.$umami.track('点击RSS:' + title);
+      this.$umami.track('点击RSS', {name: title});
     },
     extractWangYiYunId(url) {
       const match = url.match(/id=(\d+)/);
@@ -351,15 +352,15 @@ export default {
       }
     },
     //点击收藏某个卡片
-    toggleStar() {
+    toggleStar(title) {
       // 更新父组件isStar数据
       this.$emit('update:isStar', !this.isStar)
       // 调用父组件更新缓存方法
       this.$emit('updateCategroiesCache')
       if (!this.isStar) {
-        this.$umami.track("收藏")
+        this.$umami.track("收藏", {name: title})
       } else {
-        this.$umami.track("取消收藏")
+        this.$umami.track("取消收藏", {name: title})
       }
     },
     maoYanSecondTitleInfo(item) {

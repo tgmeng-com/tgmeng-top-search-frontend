@@ -148,13 +148,13 @@ export default {
       hotspotData: [],
       // Tab配置
       tabs: [
-        { label: '1小时', value: 'hour' },
-        { label: '3小时', value: '3hour' },
-        { label: '6小时', value: '6hour' },
-        { label: '1天', value: 'day' },
-        { label: '10天', value: '10day' },
-        { label: '1月', value: 'month' },
-        { label: '历史', value: 'history' },
+        {label: '1小时', value: 'hour'},
+        {label: '3小时', value: '3hour'},
+        {label: '6小时', value: '6hour'},
+        {label: '1天', value: 'day'},
+        {label: '10天', value: '10day'},
+        {label: '1月', value: 'month'},
+        {label: '历史', value: 'history'},
       ]
     }
   },
@@ -243,7 +243,7 @@ export default {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
-      this.$umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪', {title: title});
     },
     clickSwitchTab(tab) {
       this.activeTab = tab

@@ -195,7 +195,7 @@ export default {
           store.commit('setHistoryDataBoardUseTitle', params.name)
           store.commit('setHistoryDataSearchMode', 'MO_HU_PI_PEI_TODAY')
           store.commit('setHistoryDataBoardShow', true)
-          this.$umami.track('📊词云热点追踪');
+          this.$umami.track('📊词云热点追踪', {mode: 'MO_HU_PI_PEI_TODAY', title: params.name});
         }
       });
 

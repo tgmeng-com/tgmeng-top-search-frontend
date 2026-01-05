@@ -442,7 +442,7 @@ export default {
             }
           })
           .finally(() => {
-            this.$umami.track('📈历史追踪 | ' + this.getCurrentSearchModeLabel + " | " + this.searchQuery);
+            this.$umami.track('📈历史检索', {mode: this.getCurrentSearchModeLabel, title: this.searchQuery});
             this.loading = false;
           });
     },

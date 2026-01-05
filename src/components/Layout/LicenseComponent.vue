@@ -1,7 +1,7 @@
 <!-- LicenseComponent.vue - 密钥管理界面（完整版 + 模拟数据） -->
 <template>
   <div>
-    <teleport to="body" >
+    <teleport to="body">
       <transition name="modal">
         <div v-if="licenseShow" class="config-backdrop" @click="close">
           <div class="config-panel" @click.stop>
@@ -50,8 +50,10 @@
               <section class="info-section">
                 <h3>
                   密钥说明
-                  <div class="global-tip-icon" data-tip="请输入您的密钥进行验证。&#10;&#10;验证成功后将显示密钥状态、绑定机器、调用限制、权限列表等详细信息。">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <div class="global-tip-icon"
+                       data-tip="请输入您的密钥进行验证。&#10;&#10;验证成功后将显示密钥状态、绑定机器、调用限制、权限列表等详细信息。">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                         stroke-width="1.5">
                       <circle cx="8" cy="8" r="6"/>
                       <path d="M8 7v4M8 5h.01"/>
                     </svg>
@@ -96,7 +98,8 @@
                 <div class="info-card basic-info">
                   <div class="card-header">
                     <div class="icon">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                           stroke-width="2">
                         <rect x="4" y="8" width="24" height="18" rx="2"/>
                         <path d="M12 2v6M20 2v6"/>
                       </svg>
@@ -122,7 +125,8 @@
                 <div class="info-card bind-info">
                   <div class="card-header">
                     <div class="icon">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                           stroke-width="2">
                         <circle cx="16" cy="12" r="4"/>
                         <path d="M4 26v-4a8 8 0 0 1 16 0v4"/>
                       </svg>
@@ -152,7 +156,8 @@
                 <div class="info-card limit-info">
                   <div class="card-header">
                     <div class="icon">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                           stroke-width="2">
                         <circle cx="16" cy="16" r="12"/>
                         <path d="M16 8v8l5 5"/>
                       </svg>
@@ -174,7 +179,8 @@
                 <div class="info-card features-info">
                   <div class="card-header">
                     <div class="icon">
-                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                           stroke-width="2">
                         <path d="M4 16h24M16 4v24"/>
                         <circle cx="16" cy="16" r="6"/>
                       </svg>
@@ -250,7 +256,7 @@ export default {
       this.form.licenseCode = getLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE) || '';
       if (this.form.licenseCode) {
         this.applyKey();
-      }else {
+      } else {
         this.$message.error('密钥无效，请检查');
       }
     },
@@ -265,14 +271,14 @@ export default {
         if (this.licenseShow) {
           this.$message.error(errorMessage);
         }
-      }else {
+      } else {
         getLicenseConfig(this.form.licenseCode)
             .then(res => {
               const result = res?.data?.data || false;
               if (result && res.data.code !== 999) {
                 this.licenseInfo = result
                 setLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE, this.form.licenseCode);
-                this.$umami.track('licenseCode密钥成功缓存');
+                this.$umami.track('licenseCode密钥成功缓存', {license: this.form.licenseCode});
                 if (this.licenseShow) {
                   this.$message.success(successMessage);
                 }
@@ -294,11 +300,11 @@ export default {
     },
     formatFeature(feat) {
       const map = {
-        BASIC:'基础权限',
-        SEARCH:'数据搜索',
-        SUBSCRIPTION:'订阅推送',
-        SUDDEN_NEWS:'突发新闻',
-        AI_SUMMARY:'AI简报',
+        BASIC: '基础权限',
+        SEARCH: '数据搜索',
+        SUBSCRIPTION: '订阅推送',
+        SUDDEN_NEWS: '突发新闻',
+        AI_SUMMARY: 'AI简报',
       };
       return map[feat] || feat;
     }
@@ -308,28 +314,126 @@ export default {
 
 <style scoped>
 /* 所有样式与原 SubscriptionConfigModal 完全一致（已复制） */
-.scrollable-content::-webkit-scrollbar { width: 8px; }
-.scrollable-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
-.scrollable-content::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(100, 181, 255, 0.25), rgba(100, 181, 255, 0.35)); border-radius: 10px; }
-.scrollable-content::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, rgba(100, 181, 255, 0.4), rgba(100, 181, 255, 0.5)); }
-.scrollable-content { scrollbar-width: thin; scrollbar-color: rgba(100, 181, 255, 0.3) rgba(255, 255, 255, 0.02); }
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
 
-.key-input-row { margin: 0 28px 20px; display: flex; align-items: center; gap: 12px; }
-.key-input-wrapper { flex: 1; display: flex; align-items: center; gap: 10px; background: rgba(40, 44, 56, .6); padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, .12); backdrop-filter: blur(8px); }
-.key-input-wrapper svg { color: #64b5ff; flex-shrink: 0; }
-.key-input { flex: 1; background: transparent; border: none; outline: none; color: #e6edf3; font-size: 14.5px; }
-.key-input::placeholder { color: #6b7280; }
-.key-btn { width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, #409eff, #3a8fee); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(64, 158, 255, .3); transition: all .25s; }
-.key-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(64, 158, 255, .4); }
+.scrollable-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
 
-.global-tip-icon { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; color: rgba(255, 255, 255, 0.4); cursor: help; transition: all 0.3s ease; position: relative; margin-left: 6px; flex-shrink: 0; }
-.global-tip-icon:hover { color: #64b5ff; }
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(100, 181, 255, 0.25), rgba(100, 181, 255, 0.35));
+  border-radius: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(100, 181, 255, 0.4), rgba(100, 181, 255, 0.5));
+}
+
+.scrollable-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 181, 255, 0.3) rgba(255, 255, 255, 0.02);
+}
+
+.key-input-row {
+  margin: 0 28px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.key-input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(40, 44, 56, .6);
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  backdrop-filter: blur(8px);
+}
+
+.key-input-wrapper svg {
+  color: #64b5ff;
+  flex-shrink: 0;
+}
+
+.key-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e6edf3;
+  font-size: 14.5px;
+}
+
+.key-input::placeholder {
+  color: #6b7280;
+}
+
+.key-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #409eff, #3a8fee);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(64, 158, 255, .3);
+  transition: all .25s;
+}
+
+.key-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(64, 158, 255, .4);
+}
+
+.global-tip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  cursor: help;
+  transition: all 0.3s ease;
+  position: relative;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.global-tip-icon:hover {
+  color: #64b5ff;
+}
+
 /* ... 其余所有样式与你原来的 SubscriptionConfigModal.vue 完全相同，可直接复制粘贴 ... */
 
 /* 新增样式：信息网格和卡片 */
-.info-section { margin-bottom: 24px; }
-.info-section h3 { font-size: 17px; color: #e6edf3; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
-.description { font-size: 14px; color: #8892b0; line-height: 1.6; }
+.info-section {
+  margin-bottom: 24px;
+}
+
+.info-section h3 {
+  font-size: 17px;
+  color: #e6edf3;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 14px;
+  color: #8892b0;
+  line-height: 1.6;
+}
 
 .info-grid {
   display: grid;
@@ -339,7 +443,9 @@ export default {
 }
 
 @media (max-width: 1024px) {
-  .info-grid { grid-template-columns: 1fr; }
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .info-card {
@@ -426,37 +532,219 @@ export default {
 }
 
 /* 其余原有样式（config-backdrop、config-panel、panel-header、panel-footer、动画等）全部保留，与 SubscriptionConfigModal 完全一致 */
-.config-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .85); backdrop-filter: blur(20px) saturate(120%); display: flex; align-items: center; justify-content: center; z-index: 2300; padding: 12px; animation: fadeIn .3s ease; }
-.config-panel { width: 80%; height: 90vh; max-height: 900px; background: linear-gradient(145deg, rgba(30, 33, 42, .95), rgba(20, 23, 32, .95)); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .08); display: flex; flex-direction: column; animation: slideUp .45s cubic-bezier(.16, 1, .3, 1); }
-.scrollable-content { flex: 1; overflow-y: auto; padding: 0 28px 28px; -webkit-overflow-scrolling: touch; }
-.panel-header { padding: 28px 28px 20px; flex-shrink: 0; position: relative; z-index: 2; }
-.panel-footer { padding: 20px 28px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; position: relative; z-index: 2; }
-.bg-gradient { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(64, 158, 255, .15), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255, 89, 89, .12), transparent 50%); animation: rotate 25s linear infinite; pointer-events: none; }
-.bg-mesh { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; }
-.header-content { display: flex; justify-content: space-between; align-items: center; }
-.title-group h1 { font-size: 26px; font-weight: 800; background: linear-gradient(135deg, #fff, #a8b3cf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -.5px; margin-bottom: 4px; }
-.title-group p { font-size: 13.5px; color: #8892b0; }
-.close-btn { width: 38px; height: 38px; border-radius: 12px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .08); color: #ccd6f6; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .25s; }
-.close-btn:hover { background: rgba(255, 255, 255, .1); transform: scale(1.05); }
-.shortcuts { font-size: 13px; color: #6b7280; }
-.shortcuts kbd { background: rgba(255, 255, 255, .08); padding: 4px 7px; border-radius: 5px; font-size: 11px; border: 1px solid rgba(255, 255, 255, .1); font-family: ui-monospace, monospace; margin: 0 2px; }
-.confirm-btn { display: flex; align-items: center; gap: 8px; padding: 11px 24px; background: linear-gradient(135deg, #409eff, #3a8fee); color: #fff; border: none; border-radius: 11px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 16px rgba(64, 158, 255, .3); transition: all .3s; }
-.confirm-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(64, 158, 255, .4); }
-.confirm-btn svg { transition: transform .3s; }
-.confirm-btn:hover svg { transform: translateX(3px); }
+.config-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .85);
+  backdrop-filter: blur(20px) saturate(120%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2300;
+  padding: 12px;
+  animation: fadeIn .3s ease;
+}
 
-@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(.95) } to { opacity: 1; transform: none } }
-@keyframes rotate { from { transform: rotate(0) } to { transform: rotate(360deg) } }
+.config-panel {
+  width: 80%;
+  height: 90vh;
+  max-height: 900px;
+  background: linear-gradient(145deg, rgba(30, 33, 42, .95), rgba(20, 23, 32, .95));
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .08);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 28px 28px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panel-header {
+  padding: 28px 28px 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.panel-footer {
+  padding: 20px 28px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.bg-gradient {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(64, 158, 255, .15), transparent 50%), radial-gradient(circle at 70% 70%, rgba(255, 89, 89, .12), transparent 50%);
+  animation: rotate 25s linear infinite;
+  pointer-events: none;
+}
+
+.bg-mesh {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-group h1 {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #a8b3cf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -.5px;
+  margin-bottom: 4px;
+}
+
+.title-group p {
+  font-size: 13.5px;
+  color: #8892b0;
+}
+
+.close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .08);
+  color: #ccd6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .25s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, .1);
+  transform: scale(1.05);
+}
+
+.shortcuts {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.shortcuts kbd {
+  background: rgba(255, 255, 255, .08);
+  padding: 4px 7px;
+  border-radius: 5px;
+  font-size: 11px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  font-family: ui-monospace, monospace;
+  margin: 0 2px;
+}
+
+.confirm-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  background: linear-gradient(135deg, #409eff, #3a8fee);
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(64, 158, 255, .3);
+  transition: all .3s;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(64, 158, 255, .4);
+}
+
+.confirm-btn svg {
+  transition: transform .3s;
+}
+
+.confirm-btn:hover svg {
+  transform: translateX(3px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(.95)
+  }
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
 
 @media (max-width: 768px) {
-  .config-panel { height: 92vh; border-radius: 20px; }
-  .panel-header { padding: 24px 20px 16px; }
-  .title-group h1 { font-size: 23px; }
-  .scrollable-content { padding: 0 20px 24px; }
-  .panel-footer { padding: 18px 20px; flex-direction: column-reverse; gap: 14px; }
-  .confirm-btn { width: 100%; justify-content: center; padding: 13px; }
+  .config-panel {
+    height: 92vh;
+    border-radius: 20px;
+  }
+
+  .panel-header {
+    padding: 24px 20px 16px;
+  }
+
+  .title-group h1 {
+    font-size: 23px;
+  }
+
+  .scrollable-content {
+    padding: 0 20px 24px;
+  }
+
+  .panel-footer {
+    padding: 18px 20px;
+    flex-direction: column-reverse;
+    gap: 14px;
+  }
+
+  .confirm-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px;
+  }
 }
+
 /* 紧凑型密钥说明卡片 */
 .compact-notice {
   background: rgba(64, 158, 255, 0.08);

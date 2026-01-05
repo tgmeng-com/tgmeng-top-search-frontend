@@ -81,7 +81,7 @@ export default {
       } else {
         window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
       }
-      this.$umami.track('点击RSS:' + cat.name);
+      this.$umami.track('点击RSS:', {name: cat.name});
     },
 
     // 分类按钮点击事件

@@ -321,7 +321,7 @@ export default {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
-      this.$umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪', {mode: 'ZHI_WEN_PI_PEI_TODAY', title: title});
     },
     handleClose() {
       this.$router?.push({name: 'Home'}) || window.close();

@@ -188,7 +188,7 @@ export default {
       if (mode && mode.route) {
         this.$router?.push({name: mode.route})
       }
-      this.$umami.track('摸鱼模式进入：' + this.selectedMode?.shortName || '模式')
+      this.$umami.track('摸鱼模式进入', {mode: this.selectedMode?.shortName || '模式'})
     }
   },
   beforeUnmount() {

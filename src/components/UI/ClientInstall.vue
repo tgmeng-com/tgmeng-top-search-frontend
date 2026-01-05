@@ -64,11 +64,11 @@ export default {
       if (this.isIOS && this.isInStandaloneMode) {
         // iOS 已经安装，不提示
         return;
-      }else if (this.isIOS && !this.isInStandaloneMode) {
+      } else if (this.isIOS && !this.isInStandaloneMode) {
         setTimeout(() => {
           this.showInstallIOSPrompt()
         }, 2000);
-      }else if (this.isBeforeInstallPromptSupported){
+      } else if (this.isBeforeInstallPromptSupported) {
         // 除ios手机端之外的，其他的都走这个事件，因为只有ios手机没有beforeinstallprompt事件
         window.addEventListener('beforeinstallprompt', (e) => {
           // 阻止 浏览器的自动安装弹窗
@@ -77,7 +77,7 @@ export default {
           // 显示自定义通知弹窗
           this.showInstallClientPrompt()
         });
-      }else {
+      } else {
         setTimeout(() => {
           this.showInstallNotSupportedPrompt()
         }, 2000);
@@ -117,8 +117,8 @@ export default {
               if (this.deferredPrompt) {
                 this.deferredPrompt.prompt(); // 弹出原生安装弹窗
                 const choiceResult = await this.deferredPrompt.userChoice;
-                if (choiceResult.outcome === "accepted"){
-                  this.$umami.track('💻客户端安装【系统:'+this.detectDevice+',浏览器:'+this.detectBrowser+'】')
+                if (choiceResult.outcome === "accepted") {
+                  this.$umami.track('💻客户端安装', {system: this.detectDevice, browser: this.detectBrowser})
                 }
                 this.deferredPrompt = null;
               }

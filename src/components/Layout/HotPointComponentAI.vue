@@ -18,7 +18,7 @@
 
     <div v-else class="">
       <div v-if="aiModeBigModalDesc"
-          class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+           class="mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide">
         <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
             🤖 热点数: <span class="font-medium">{{ aiData.data.length }}</span>
@@ -49,7 +49,7 @@
       </div>
 
       <div v-if="aiModeDesc"
-          class="mt-2 mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+           class="mt-2 mb-1 overflow-x-auto scrollbar-hide flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div
             class="text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap overflow-x-auto scrollbar-hide flex items-center">
           <span class="text-xs px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-700">
@@ -278,7 +278,7 @@ export default {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
-      this.$umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪', {mode: 'ZHI_WEN_PI_PEI_TODAY', title: title});
     },
     toggleItem(index) {
       const idx = this.collapsedItems.indexOf(index);
