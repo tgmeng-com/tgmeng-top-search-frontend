@@ -137,6 +137,7 @@
 
 <script>
 import store from "@/store"
+import {eventBus} from '@/utils/eventBus'
 
 export default {
   data() {
@@ -144,34 +145,132 @@ export default {
       isDark: true,
       showSidebar: false,
       windowWidth: window.innerWidth,
-      // 移除了 search 按钮,其他保持不变
       headerButtons: [
-        { key: 'settingsPanel', label: '个性化', alt: '糖果梦热榜 - 个性化', icon: 'setting.png', umamiLabel: '侧边栏-个性化', action: 'toggleSettingsPanel', group: 'function' },
-        { key: 'theme', label: '主题切换', alt: '糖果梦热榜 - 主题切换', icon: 'theme', umamiLabel: '侧边栏-主题切换', action: 'toggleTheme', group: 'function' },
-        { key: 'fish', label: '摸鱼模式', alt: '糖果梦热榜 - 摸鱼模式选择', icon: 'fish.png', umamiLabel: '侧边栏-摸鱼模式', action: 'clickWorkMaskExcelButton', group: 'function' },
-        { key: 'subscription', label: '订阅设置', alt: '糖果梦热榜 - 推送订阅', icon: 'subcription.png', umamiLabel: '侧边栏-订阅', action: 'clickSubscriptionSettingButton', group: 'function' },
-        { key: 'license', label: '密钥设置', alt: '糖果梦热榜 - 密钥', icon: 'license.png', umamiLabel: '侧边栏-密钥设置', action: 'clickLicenseButton', group: 'function' },
-        { key: 'wechat', label: '微信交流群', alt: '糖果梦热榜 - 微信群', icon: 'wechat-logo.png', href: 'https://wechat.tgmeng.com', umamiLabel: '侧边栏-微信群', group: 'community' },
-        { key: 'github', label: 'GitHub 仓库', alt: '糖果梦热榜 - GitHub仓库', icon: 'github-logo', href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend', umamiLabel: '侧边栏-GitHub', group: 'community' },
-        { key: 'about', label: '关于我们', alt: '糖果梦热榜 - 关于我们', icon: 'about.png', to: '/about', umamiLabel: '侧边栏-关于我们', group: 'info' },
-        { key: 'function', label: '功能介绍', alt: '糖果梦热榜 - 功能介绍', icon: 'function.png', to: '/function', umamiLabel: '侧边栏-功能介绍', group: 'info' },
-        { key: 'donation', label: '打赏列表', alt: '糖果梦热榜 - 打赏列表', icon: 'coffee.png', to: '/donation', umamiLabel: '侧边栏-打赏列表', group: 'info' }
+        {
+          key: 'settingsPanel',
+          label: '个性化',
+          alt: '糖果梦热榜 - 个性化',
+          icon: 'setting.png',
+          umamiLabel: '侧边栏-个性化',
+          action: 'toggleSettingsPanel',
+          group: 'function'
+        },
+        {
+          key: 'theme',
+          label: '主题切换',
+          alt: '糖果梦热榜 - 主题切换',
+          icon: 'theme',
+          umamiLabel: '侧边栏-主题切换',
+          action: 'toggleTheme',
+          group: 'function'
+        },
+        {
+          key: 'fish',
+          label: '摸鱼模式',
+          alt: '糖果梦热榜 - 摸鱼模式选择',
+          icon: 'fish.png',
+          umamiLabel: '侧边栏-摸鱼模式',
+          action: 'clickWorkMaskExcelButton',
+          group: 'function'
+        },
+        {
+          key: 'subscription',
+          label: '订阅设置',
+          alt: '糖果梦热榜 - 推送订阅',
+          icon: 'subcription.png',
+          umamiLabel: '侧边栏-订阅',
+          action: 'clickSubscriptionSettingButton',
+          group: 'function'
+        },
+        {
+          key: 'license',
+          label: '密钥设置',
+          alt: '糖果梦热榜 - 密钥',
+          icon: 'license.png',
+          umamiLabel: '侧边栏-密钥设置',
+          action: 'clickLicenseButton',
+          group: 'function'
+        },
+        {
+          key: 'pwaInstall',
+          label: '客户端安装',
+          alt: '糖果梦热榜 - 安装客户端',
+          icon: 'download.png',
+          umamiLabel: '侧边栏-客户端安装',
+          action: 'triggerPWAInstall',
+          group: 'function'
+        },
+        {
+          key: 'wechat',
+          label: '微信交流群',
+          alt: '糖果梦热榜 - 微信群',
+          icon: 'wechat-logo.png',
+          href: 'https://wechat.tgmeng.com',
+          umamiLabel: '侧边栏-微信群',
+          group: 'community'
+        },
+        {
+          key: 'github',
+          label: 'GitHub 仓库',
+          alt: '糖果梦热榜 - GitHub仓库',
+          icon: 'github-logo',
+          href: 'https://github.com/tgmeng-com/tgmeng-top-search-frontend',
+          umamiLabel: '侧边栏-GitHub',
+          group: 'community'
+        },
+        {
+          key: 'about',
+          label: '关于我们',
+          alt: '糖果梦热榜 - 关于我们',
+          icon: 'about.png',
+          to: '/about',
+          umamiLabel: '侧边栏-关于我们',
+          group: 'info'
+        },
+        {
+          key: 'function',
+          label: '功能介绍',
+          alt: '糖果梦热榜 - 功能介绍',
+          icon: 'function.png',
+          to: '/function',
+          umamiLabel: '侧边栏-功能介绍',
+          group: 'info'
+        },
+        {
+          key: 'donation',
+          label: '打赏列表',
+          alt: '糖果梦热榜 - 打赏列表',
+          icon: 'coffee.png',
+          to: '/donation',
+          umamiLabel: '侧边栏-打赏列表',
+          group: 'info'
+        }
       ],
       buttonGroups: {
-        function: { title: '功能设置', order: 1 },
-        community: { title: '社区与开源', order: 2 },
-        info: { title: '信息中心', order: 3 }
+        function: {title: '功能设置', order: 1},
+        community: {title: '社区与开源', order: 2},
+        info: {title: '信息中心', order: 3}
       }
     }
   },
   computed: {
-    widthPaddingStyle() { return { width: this.widthPadding + '% !important' } },
-    topMessageHeight() { return { height: this.$store.state.topMessageHeight + 'rem' } },
-    widthPadding: {
-      get() { return this.$store.state.widthPadding },
-      set(v) { this.$store.commit('setWidthPadding', v) }
+    widthPaddingStyle() {
+      return {width: this.widthPadding + '% !important'}
     },
-    currentYear() { return new Date().getFullYear() },
+    topMessageHeight() {
+      return {height: this.$store.state.topMessageHeight + 'rem'}
+    },
+    widthPadding: {
+      get() {
+        return this.$store.state.widthPadding
+      },
+      set(v) {
+        this.$store.commit('setWidthPadding', v)
+      }
+    },
+    currentYear() {
+      return new Date().getFullYear()
+    },
     groupedButtons() {
       const grouped = {}
       this.headerButtons.forEach(btn => {
@@ -179,8 +278,13 @@ export default {
         if (!grouped[key]) grouped[key] = []
         grouped[key].push(btn)
       })
-      return Object.keys(grouped).sort((a, b) => (this.buttonGroups[a]?.order || 999) - (this.buttonGroups[b]?.order || 999))
-          .map(key => ({ key, title: this.buttonGroups[key]?.title || key, buttons: grouped[key] }))
+      return Object.keys(grouped)
+          .sort((a, b) => (this.buttonGroups[a]?.order || 999) - (this.buttonGroups[b]?.order || 999))
+          .map(key => ({
+            key,
+            title: this.buttonGroups[key]?.title || key,
+            buttons: grouped[key]
+          }))
     }
   },
   mounted() {
@@ -188,54 +292,103 @@ export default {
     document.documentElement.classList.toggle('dark', this.isDark)
     document.addEventListener('keydown', this.handleEscKey)
   },
-  beforeUnmount() { document.removeEventListener('keydown', this.handleEscKey) },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleEscKey)
+  },
   methods: {
     getButtonImage(btn) {
-      if (btn.icon === 'theme') return this.isDark ? require('@/assets/image/sun.png') : require('@/assets/image/moon.png')
-      if (btn.icon === 'github-logo') return this.isDark ? require('@/assets/image/github-logo-light.png') : require('@/assets/image/github-logo-dark.png')
+      if (btn.icon === 'theme') {
+        return this.isDark
+            ? require('@/assets/image/sun.png')
+            : require('@/assets/image/moon.png')
+      }
+      if (btn.icon === 'github-logo') {
+        return this.isDark
+            ? require('@/assets/image/github-logo-light.png')
+            : require('@/assets/image/github-logo-dark.png')
+      }
       return require(`@/assets/image/${btn.icon}`)
     },
+
     handleButtonClick(btn) {
       if (btn.action && this[btn.action]) {
         this[btn.action]()
-        if (['clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) this.closeSidebar()
+        if (['clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton', 'triggerPWAInstall'].includes(btn.action)) {
+          this.closeSidebar()
+        }
       }
     },
+
     toggleSidebar() {
       this.showSidebar = !this.showSidebar
       document.body.style.overflow = this.showSidebar ? 'hidden' : ''
     },
+
     closeSidebar() {
       this.showSidebar = false
       document.body.style.overflow = ''
     },
-    handleEscKey(e) { if (e.key === 'Escape' && this.showSidebar) this.closeSidebar() },
-    toggleSettingsPanel() { store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded) },
+
+    handleEscKey(e) {
+      if (e.key === 'Escape' && this.showSidebar) {
+        this.closeSidebar()
+      }
+    },
+
+    toggleSettingsPanel() {
+      store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded)
+    },
+
     openSearchModal() {
       store.commit('setHistoryDataBoardUseTitle', '')
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
       this.trackUmami('顶部搜索按钮')
     },
+
     toggleTheme() {
       this.isDark = !this.isDark
       document.documentElement.classList.toggle('dark', this.isDark)
       localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
     },
-    clickWorkMaskExcelButton() { store.commit('setFishModeChooseShow', true) },
-    clickLicenseButton() { store.commit('setLicenseShow', true) },
-    clickSubscriptionSettingButton() { store.commit('setSubscriptionSettingShow', true) },
-    trackUmami(label) { this.$umami.track(label) }
+
+    clickWorkMaskExcelButton() {
+      store.commit('setFishModeChooseShow', true)
+    },
+
+    clickLicenseButton() {
+      store.commit('setLicenseShow', true)
+    },
+
+    clickSubscriptionSettingButton() {
+      store.commit('setSubscriptionSettingShow', true)
+    },
+
+    // ✅ 触发 PWA 安装：使用 eventBus 发送事件
+    triggerPWAInstall() {
+      eventBus.emit('trigger-pwa-install');
+    },
+
+    trackUmami(label) {
+      this.$umami.track(label)
+    }
   }
 }
 </script>
 
 <style scoped>
-.headStyle { z-index: 1900 !important; }
-.z-2000 { z-index: 2000; }
-.z-2001 { z-index: 2001; }
+.headStyle {
+  z-index: 1900 !important;
+}
 
-/* 按钮通用样式 */
+.z-2000 {
+  z-index: 2000;
+}
+
+.z-2001 {
+  z-index: 2001;
+}
+
 .action-btn, .menu-btn {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -253,7 +406,9 @@ export default {
   overflow-x: hidden;
 }
 
-.button-group { padding: 0.5rem 0; }
+.button-group {
+  padding: 0.5rem 0;
+}
 
 .group-divider {
   height: 1px;
@@ -276,7 +431,9 @@ export default {
   position: relative;
 }
 
-.dark .sidebar-item { color: #e5e7eb; }
+.dark .sidebar-item {
+  color: #e5e7eb;
+}
 
 .sidebar-item::before {
   content: '';
@@ -302,8 +459,13 @@ export default {
   color: #f9fafb;
 }
 
-.sidebar-item:hover::before { height: 60%; }
-.sidebar-item:active { transform: translateX(2px); }
+.sidebar-item:hover::before {
+  height: 60%;
+}
+
+.sidebar-item:active {
+  transform: translateX(2px);
+}
 
 .sidebar-icon {
   width: 1.25rem;
@@ -312,19 +474,50 @@ export default {
   transition: transform 0.2s ease;
 }
 
-.sidebar-item:hover .sidebar-icon { transform: scale(1.1); }
-.sidebar-text { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.01em; }
+.sidebar-item:hover .sidebar-icon {
+  transform: scale(1.1);
+}
 
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
+.sidebar-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
 
-.slide-enter-active, .slide-leave-active { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.slide-enter-from, .slide-leave-to { transform: translateX(100%); }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-enter-from, .slide-leave-to {
+  transform: translateX(100%);
+}
 
 @media (max-width: 640px) {
-  .sidebar-item { padding: 0.75rem 1.25rem; gap: 0.875rem; }
-  .sidebar-icon { width: 1.125rem; height: 1.125rem; }
-  .sidebar-text { font-size: 0.875rem; }
-  .fixed.right-0.w-80 { width: 85vw; max-width: 280px; }
+  .sidebar-item {
+    padding: 0.75rem 1.25rem;
+    gap: 0.875rem;
+  }
+
+  .sidebar-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .sidebar-text {
+    font-size: 0.875rem;
+  }
+
+  .fixed.right-0.w-80 {
+    width: 85vw;
+    max-width: 280px;
+  }
 }
 </style>

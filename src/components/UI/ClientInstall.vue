@@ -1,4 +1,3 @@
-// 安装客户端的提示弹窗
 <template>
   <div>
     <!-- 通知弹窗 -->
@@ -29,13 +28,13 @@
   </div>
 </template>
 
-
 <script>
+import { eventBus } from '@/utils/eventBus'
+
 export default {
   data() {
     return {
       deferredPrompt: null,
-
       notificationShow: false,
       notification: {
         icon: "",
@@ -48,6 +47,9 @@ export default {
 
   mounted() {
     this.initPWA();
+
+    // ✅ 使用 eventBus 监听来自 Header 的触发事件
+    eventBus.on('trigger-pwa-install', this.handleManualInstallTrigger);
   },
 
   beforeUnmount() {
@@ -56,9 +58,13 @@ export default {
     document.removeEventListener("touchmove", this.onTouchMove);
     document.removeEventListener("touchend", this.onTouchEnd);
     document.removeEventListener("click", this.handleClickOutside);
+
+    // ✅ 移除 eventBus 事件监听
+    eventBus.off('trigger-pwa-install', this.handleManualInstallTrigger);
   },
 
   methods: {
+    // 原有的自动弹窗逻辑保持不变
     initPWA() {
       // iOS Safari: 手动提示
       if (this.isIOS && this.isInStandaloneMode) {
@@ -69,9 +75,9 @@ export default {
           this.showInstallIOSPrompt()
         }, 2000);
       } else if (this.isBeforeInstallPromptSupported) {
-        // 除ios手机端之外的，其他的都走这个事件，因为只有ios手机没有beforeinstallprompt事件
+        // 除ios手机端之外的，其他的都走这个事件
         window.addEventListener('beforeinstallprompt', (e) => {
-          // 阻止 浏览器的自动安装弹窗
+          // 阻止浏览器的自动安装弹窗
           e.preventDefault();
           this.deferredPrompt = e;
           // 显示自定义通知弹窗
@@ -83,6 +89,50 @@ export default {
         }, 2000);
       }
     },
+
+    // ✅ 新增：处理侧边栏手动触发安装的方法
+    handleManualInstallTrigger() {
+      // iOS 设备
+      if (this.isIOS) {
+        if (this.isInStandaloneMode) {
+          // 已经安装
+          this.showNotification({
+            icon: '✅',
+            title: '已安装客户端',
+            message: '您已经将本站添加到主屏幕了',
+            buttons: [
+              { text: '知道了', type: 'primary', action: this.hideNotification }
+            ]
+          });
+        } else {
+          // 显示 iOS 安装说明
+          this.showInstallIOSPrompt();
+        }
+        return;
+      }
+
+      // 支持 beforeinstallprompt 的浏览器
+      if (this.isBeforeInstallPromptSupported) {
+        if (this.deferredPrompt) {
+          // 有缓存的安装提示，直接显示
+          this.showInstallClientPrompt();
+        } else {
+          // 可能已经安装或者浏览器还没触发 beforeinstallprompt
+          this.showNotification({
+            icon: 'ℹ️',
+            title: '无法安装',
+            message: '您可能已经安装了客户端，或者浏览器暂不支持安装',
+            buttons: [
+              { text: '知道了', type: 'primary', action: this.hideNotification }
+            ]
+          });
+        }
+      } else {
+        // 不支持的浏览器
+        this.showInstallNotSupportedPrompt();
+      }
+    },
+
     /** ---------------- 通知弹窗 ---------------- **/
     showNotification({icon, title, message, buttons}) {
       this.notification.icon = icon;
@@ -118,7 +168,10 @@ export default {
                 this.deferredPrompt.prompt(); // 弹出原生安装弹窗
                 const choiceResult = await this.deferredPrompt.userChoice;
                 if (choiceResult.outcome === "accepted") {
-                  this.$umami.track('💻客户端安装', {system: this.detectDevice, browser: this.detectBrowser})
+                  this.$umami.track('💻客户端安装', {
+                    system: this.detectDevice,
+                    browser: this.detectBrowser
+                  })
                 }
                 this.deferredPrompt = null;
               }
@@ -133,12 +186,13 @@ export default {
       this.showNotification({
         icon: '📲',
         title: '添加到主屏幕',
-        message: '请通过 Safari 底部的分享按钮，选择“添加到主屏幕”，即可快速访问本站内容',
+        message: '请通过 Safari 底部的分享按钮，选择"添加到主屏幕"，即可快速访问本站内容',
         buttons: [
           {text: '我知道了', type: 'primary', action: this.hideNotification}
         ]
       });
     },
+
     showInstallNotSupportedPrompt() {
       this.showNotification({
         icon: '⚠️',
@@ -149,9 +203,8 @@ export default {
         ]
       });
     },
-
-
   },
+
   computed: {
     isIOS() {
       return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
@@ -162,17 +215,14 @@ export default {
     detectDevice() {
       const ua = navigator.userAgent.toLowerCase();
 
-      // ===== iPhone / iPod =====
       if (ua.includes("iphone")) return "iPhone";
       if (ua.includes("ipod")) return "iPod";
 
-      // ===== iPad / iPadOS（含伪装成 macOS 的 iPadOS）=====
       const isIPadOS =
           navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
 
       if (ua.includes("ipad") || isIPadOS) return "iPad";
 
-      // ===== Android（区分手机和平板）=====
       if (ua.includes("android")) {
         const isTablet =
             !ua.includes("mobile") ||
@@ -181,12 +231,10 @@ export default {
         return isTablet ? "Android Tablet" : "Android Phone";
       }
 
-      // ===== HarmonyOS（鸿蒙系统）=====
       if (ua.includes("harmony") || ua.includes("arkui") || ua.includes("hlk-")) {
         return "HarmonyOS Device";
       }
 
-      // ===== PC =====
       if (ua.includes("windows nt")) return "Windows PC";
       if (ua.includes("mac os x")) return "macOS";
       if (ua.includes("linux")) return "Linux PC";
@@ -196,7 +244,7 @@ export default {
     detectBrowser() {
       const ua = navigator.userAgent.toLowerCase();
 
-      if (ua.includes('edg/')) return 'Edge';                       // 新 Edge (Chromium)
+      if (ua.includes('edg/')) return 'Edge';
       if (ua.includes('opr/') || ua.includes('opera')) return 'Opera';
       if (ua.includes('brave')) return 'Brave';
       if (ua.includes('samsungbrowser')) return 'Samsung';
@@ -204,10 +252,8 @@ export default {
       if (ua.includes('micromessenger')) return 'WeChat';
       if (ua.includes('firefox')) return 'Firefox';
 
-      // Safari 必须放在 Chrome 前面判断
       if (ua.includes('safari') && !ua.includes('chrome')) return 'Safari';
 
-      // 最后判断 Chrome（避免被其他 Chromium 浏览器误伤）
       if (ua.includes('chrome')) return 'Chrome';
 
       return 'Unknown';
@@ -219,9 +265,7 @@ export default {
 };
 </script>
 
-
 <style>
-/* 你原样的所有 CSS，1 字不动 */
 * {
   margin: 0;
   padding: 0;

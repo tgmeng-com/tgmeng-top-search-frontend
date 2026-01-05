@@ -216,8 +216,8 @@ export default {
       const willBeAIMode = !this.isAIMode;
       if (willBeAIMode) {
         const currentCat = this.$store.state.activeCategory;
-        if (currentCat && (currentCat.routerName === 'sudden' || currentCat.routerName === 'favorites')) {
-          const newsCat = this.$store.state.categroies.find(cat => cat.routerName === 'news');
+        if (currentCat && (currentCat.id === -1 || currentCat.id === 0.5 || currentCat.id === 13)) {
+          const newsCat = this.$store.state.categroies.find(cat => cat.id === 1);
           if (newsCat) this.$store.commit('setActiveCategory', newsCat);
         }
       }
