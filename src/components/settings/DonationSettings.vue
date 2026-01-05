@@ -99,6 +99,7 @@ export default {
         { id: 7, name: '卡拉克', avatar: require('@/assets/avatars/project/kalake.png'), amount: 8, message: '无', time: '2026-01-04 14:44' },
         { id: 7, name: 'Mr.Lin', avatar: require('@/assets/avatars/project/MrLin.png'), amount: 20, message: '无', time: '2026-01-04 18:46' },
         { id: 7, name: 'Bream 🎊', avatar: require('@/assets/avatars/project/Bream.png'), amount: 5, message: '愿你的甜，分享给所有人。', time: '2026-01-04 19:12' },
+        { id: 7, name: '苏吴媛', avatar: require('@/assets/avatars/project/suwuyuan.png'), amount: 5, message: '谢谢你的创作。', time: '2026-01-05 15:40' },
       ],
       // 收款码数据
       payQrcodes: [
