@@ -410,7 +410,7 @@ export default createStore({
         aiModeDesc: true,
         // AI模式顶部大模型说明
         aiModeBigModalDesc: true,
-        // 控制设置面板展开状态
+        // 控制设置面板展开状态h
         settingsPanelExpanded: false,
 
         categroies: [
