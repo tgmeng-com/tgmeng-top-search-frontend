@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getMachineId } from "@/utils/machineId"
-import umami from '@/utils/umamiUtils'
+// import umami from '@/utils/umamiUtils'
 
 export function request(config) {
     const instance = axios.create({
