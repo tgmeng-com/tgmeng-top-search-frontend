@@ -379,6 +379,8 @@ export default createStore({
         historyDataBoardShow: false,
         // 历史组件里面使用的标题
         historyDataBoardUseTitle: '',
+        // 历史组件里面使用的搜索模式
+        historyDataSearchMode: 'MO_HU_PI_PEI_TODAY',
         subscriptionSettingShow: false,
         licenseShow: false,
         // 卡片横向滚动
@@ -1072,6 +1074,9 @@ export default createStore({
         // 历史组件里面使用的标题
         setHistoryDataBoardUseTitle(state, newTitle) {
             state.historyDataBoardUseTitle = newTitle;
+        },
+        setHistoryDataSearchMode(state, newMode){
+            state.historyDataSearchMode = newMode;
         },
         setSubscriptionSettingShow(state, newSubscription) {
             state.subscriptionSettingShow = newSubscription;

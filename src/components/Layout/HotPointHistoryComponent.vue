@@ -398,7 +398,8 @@ export default {
         this.loadLocalHistory();
         const externalTitle = this.$store.state.historyDataBoardUseTitle;
         this.searchQuery = externalTitle || '';
-        this.currentSearchMode = externalTitle ? 'ZHI_WEN_PI_PEI_TODAY' : 'MO_HU_PI_PEI_TODAY';
+        // this.currentSearchMode = externalTitle ? 'ZHI_WEN_PI_PEI_TODAY' : 'MO_HU_PI_PEI_TODAY';
+        this.currentSearchMode = this.$store.state.historyDataSearchMode;
         if (this.searchQuery) this.fetchData();
       }
     }

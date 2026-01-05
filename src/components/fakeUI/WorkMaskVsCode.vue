@@ -319,6 +319,7 @@ export default {
   methods: {
     clickHotPointTrend(title){
       store.commit('setHistoryDataBoardShow', true)
+      store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
       window.umami.track('📊热点历史追踪');
     },

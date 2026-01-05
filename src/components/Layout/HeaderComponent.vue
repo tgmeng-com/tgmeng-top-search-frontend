@@ -189,6 +189,7 @@ export default {
     toggleSettingsPanel() { store.commit('setSettingsPanelExpanded', !store.state.settingsPanelExpanded) },
     openSearchModal() {
       store.commit('setHistoryDataBoardUseTitle', '')
+      store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
     },
     toggleTheme() {

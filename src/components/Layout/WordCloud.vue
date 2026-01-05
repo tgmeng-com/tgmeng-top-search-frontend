@@ -192,11 +192,10 @@ export default {
       this.chartInstance.on('click', (params) => {
         if (params.name) {
           // 通过 Vuex 触发搜索
-          store.commit('setSearchShow', true)
-          this.$store.commit('triggerSearch', params.name);
-          if (window.umami) {
-            window.umami.track('☁️🔍词云点击搜索:' + params.name);
-          }
+          store.commit('setHistoryDataBoardUseTitle', params.name)
+          store.commit('setHistoryDataSearchMode', 'MO_HU_PI_PEI_TODAY')
+          store.commit('setHistoryDataBoardShow', true)
+          window.umami.track('📊词云热点追踪');
         }
       });
 
