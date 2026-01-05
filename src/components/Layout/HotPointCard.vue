@@ -225,7 +225,7 @@ export default {
       store.commit('setHistoryDataBoardUseTitle', title)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
-      window.umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪');
     },
     timeAgo(date) {
       const parsedDate = new Date(date);
@@ -288,7 +288,7 @@ export default {
       return false;
     },
     handleRssClick(title) {
-      window.umami.track('点击RSS:' + title);
+      this.$umami.track('点击RSS:' + title);
     },
     extractWangYiYunId(url) {
       const match = url.match(/id=(\d+)/);
@@ -357,9 +357,9 @@ export default {
       // 调用父组件更新缓存方法
       this.$emit('updateCategroiesCache')
       if (!this.isStar) {
-        window.umami.track('收藏')
+        this.$umami.track("收藏")
       } else {
-        window.umami.track('取消收藏')
+        this.$umami.track("取消收藏")
       }
     },
     maoYanSecondTitleInfo(item) {

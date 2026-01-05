@@ -272,7 +272,7 @@ export default {
               if (result && res.data.code !== 999) {
                 this.licenseInfo = result
                 setLocalStorage(LOCAL_STORAGE_KEYS.LICENSE_DODE, this.form.licenseCode);
-                window.umami.track('licenseCode密钥成功缓存');
+                this.$umami.track('licenseCode密钥成功缓存');
                 if (this.licenseShow) {
                   this.$message.success(successMessage);
                 }

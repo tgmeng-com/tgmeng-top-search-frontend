@@ -19,7 +19,10 @@ import { createHead } from '@vueuse/head'  // <-- 导入 vueuse/head
 import { MotionPlugin } from '@vueuse/motion'
 import './registerServiceWorker'
 
+import umami from './utils/umamiUtils';
+
 const app = createApp(App)
+app.config.globalProperties.$umami = umami;
 app.use(router)  // <-- 使用 router
 
 // 全局注册 Font Awesome 组件

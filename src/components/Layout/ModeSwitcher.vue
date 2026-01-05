@@ -224,7 +224,7 @@ export default {
       this.isAIMode = willBeAIMode;
       setLocalStorage(LOCAL_STORAGE_KEYS.IS_AI_MODE, this.isAIMode);
       this.showModeMessage(willBeAIMode);
-      if (window.umami) window.umami.track(willBeAIMode ? '切换到AI模式' : '切换到糖果模式');
+      this.$umami.track(willBeAIMode ? '切换到AI模式' : '切换到糖果模式');
     },
     showModeMessage(isAI) {
       this.messageIsAI = isAI;

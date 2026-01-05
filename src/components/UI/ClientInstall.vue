@@ -118,7 +118,7 @@ export default {
                 this.deferredPrompt.prompt(); // 弹出原生安装弹窗
                 const choiceResult = await this.deferredPrompt.userChoice;
                 if (choiceResult.outcome === "accepted"){
-                  window.umami.track('💻客户端安装【系统:'+this.detectDevice+',浏览器:'+this.detectBrowser+'】')
+                  this.$umami.track('💻客户端安装【系统:'+this.detectDevice+',浏览器:'+this.detectBrowser+'】')
                 }
                 this.deferredPrompt = null;
               }

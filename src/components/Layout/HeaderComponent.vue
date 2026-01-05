@@ -225,7 +225,7 @@ export default {
     clickWorkMaskExcelButton() { store.commit('setFishModeChooseShow', true) },
     clickLicenseButton() { store.commit('setLicenseShow', true) },
     clickSubscriptionSettingButton() { store.commit('setSubscriptionSettingShow', true) },
-    trackUmami(label) { if (window.umami) window.umami.track(label) }
+    trackUmami(label) { this.$umami.track(label) }
   }
 }
 </script>

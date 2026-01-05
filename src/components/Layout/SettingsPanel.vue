@@ -286,7 +286,7 @@ export default {
       this.isDark = theme === 'dark'
       document.documentElement.classList.toggle('dark', this.isDark)
       localStorage.setItem('theme', theme)
-      if (window.umami) window.umami.track('主题切换-' + theme)
+      this.$umami.track('主题切换-' + theme)
     },
     closePanel() {
       this.activeNames = []
@@ -312,7 +312,7 @@ export default {
     handleChange(setting) {
       const value = this.settings[setting.key];
       setLocalStorage(setting.storageKey, value);
-      if (setting.umamiEvent) window.umami?.track(setting.umamiEvent);
+      if (setting.umamiEvent) this.$umami.track(setting.umamiEvent);
       this.syncToStore(setting);
       this.$emit('setting-changed', {key: setting.key, value: value, needsRefresh: setting.needsRefresh});
     },

@@ -81,7 +81,7 @@ export default {
       } else {
         window.open('https://tgmeng.com/' + cat.routerName + '/rss.xml', '_blank');
       }
-      window.umami.track('点击RSS:' + cat.name);
+      this.$umami.track('点击RSS:' + cat.name);
     },
 
     // 分类按钮点击事件
@@ -101,7 +101,7 @@ export default {
         item.sort = this.preDragFatherCatSortList[index];
       });
       this.updateCategroiesCache();
-      window.umami.track('拖拽排序');
+      this.$umami.track('拖拽排序');
     },
 
     updateCategroiesCache() {

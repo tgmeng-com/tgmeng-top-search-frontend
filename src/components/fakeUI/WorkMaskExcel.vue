@@ -410,7 +410,7 @@ export default {
       store.commit('setHistoryDataBoardShow', true)
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardUseTitle', title)
-      window.umami.track('📊热点历史追踪');
+      this.$umami.track('📊热点历史追踪');
     },
     clickMenu(index) {
       this.activeMenuIndex = index;
@@ -436,7 +436,7 @@ export default {
         case 'ArrowDown':
           e.preventDefault();
           this.handleOpenImage();
-          window.umami.track('Excel美图:')
+          this.$umami.track('Excel美图:')
           break;
         case 'Escape':
         case 'Esc':
@@ -449,7 +449,7 @@ export default {
       this.$emit("handleCategoryClick", cat);
     },
     handleOpenImage() {
-      window.umami.track('Excel美图:')
+      this.$umami.track('Excel美图:')
       // girl
       // const randomNumber = Math.floor(Math.random() * 1032) + 1
       // this.floatingImageUrl = require(`@/assets/image/girl/1 (${randomNumber}).jpg`);
@@ -493,27 +493,27 @@ export default {
     },
     changeExcelCardTopFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_SIZE, this.excelCardTopFontSize);
-      window.umami.track('自定义excel卡片标题字体大小')
+      this.$umami.track('自定义excel卡片标题字体大小')
     },
     changeExcelCardTopFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TOP_FONT_WEIGHT, this.excelCardTopFontWeight);
-      window.umami.track('自定义excel卡片标题字体粗细')
+      this.$umami.track('自定义excel卡片标题字体粗细')
     },
     changeExcelCardTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_SIZE, this.excelCardTitleFontSize);
-      window.umami.track('自定义excel热点标题字体大小')
+      this.$umami.track('自定义excel热点标题字体大小')
     },
     changeExcelCardTitleFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CARD_TITLE_FONT_WEIGHT, this.excelCardTitleFontWeight);
-      window.umami.track('自定义excel热点标题字体粗细')
+      this.$umami.track('自定义excel热点标题字体粗细')
     },
     changeExcelCategoriesTitleFontSize() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE, this.excelCategroiesTitleFontSize);
-      window.umami.track('自定义excel分类名称字体大小')
+      this.$umami.track('自定义excel分类名称字体大小')
     },
     changeExcelCategoriesTitleFontWeight() {
       setLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_WEIGHT, this.excelCategroiesTitleFontWeight);
-      window.umami.track('自定义excel分类名称字体粗细')
+      this.$umami.track('自定义excel分类名称字体粗细')
     },
     initializePlatforms() {
       const excelCategoriesTitleFontSize = getLocalStorage(LOCAL_STORAGE_KEYS.EXCEL_CATEGORIES_TITLE_FONT_SIZE)

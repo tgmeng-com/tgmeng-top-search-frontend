@@ -186,7 +186,7 @@ export default {
         item.sort = this.preDragSortList[index];
       });
       this.updateCategroiesCache();
-      window.umami.track('拖拽排序');
+      this.$umami.track('拖拽排序');
     },
 
     updateCategroiesCache() {
