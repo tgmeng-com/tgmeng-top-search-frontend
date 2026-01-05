@@ -5,6 +5,7 @@
     <div class="container mx-auto" :style="[widthPaddingStyle, topMessageHeight]">
       <div class="flex items-center justify-between h-full relative">
 
+        <!-- Logo 区域 -->
         <router-link
             to="/"
             @click="trackUmami('顶部左边LOGO')"
@@ -22,19 +23,38 @@
           </span>
         </router-link>
 
-        <button
-            @click="toggleSidebar"
-            class="menu-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-            aria-label="打开菜单"
-        >
-          <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <!-- 右侧按钮组 -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- 搜索按钮 -->
+          <button
+              @click="openSearchModal"
+              class="action-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 group"
+              aria-label="搜索"
+              title="搜索"
+          >
+            <img
+                src="../../assets/image/search.png"
+                alt="搜索"
+                class="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:scale-110"
+            >
+          </button>
+
+          <!-- 汉堡菜单按钮 -->
+          <button
+              @click="toggleSidebar"
+              class="menu-btn p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              aria-label="打开菜单"
+          >
+            <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
+  <!-- 遮罩层 -->
   <transition name="fade">
     <div
         v-if="showSidebar"
@@ -43,11 +63,13 @@
     ></div>
   </transition>
 
+  <!-- 侧边栏 -->
   <transition name="slide">
     <div
         v-if="showSidebar"
         class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-800 shadow-2xl z-2001 flex flex-col"
     >
+      <!-- 侧边栏头部 -->
       <div class="flex-shrink-0 flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
         <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">菜单</h2>
         <button
@@ -61,6 +83,7 @@
         </button>
       </div>
 
+      <!-- 侧边栏内容 -->
       <div class="sidebar-content flex-1 overflow-y-auto">
         <template v-for="(group, groupIndex) in groupedButtons" :key="group.key">
           <div class="button-group">
@@ -102,6 +125,7 @@
         </template>
       </div>
 
+      <!-- 侧边栏底部 -->
       <div class="flex-shrink-0 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
         <p class="text-sm text-center text-gray-500 dark:text-gray-400">
           糖果梦热榜 © {{ currentYear }}
@@ -120,8 +144,8 @@ export default {
       isDark: true,
       showSidebar: false,
       windowWidth: window.innerWidth,
+      // 移除了 search 按钮,其他保持不变
       headerButtons: [
-        { key: 'search', label: '搜索', alt: '糖果梦热榜 - 搜索', icon: 'search.png', umamiLabel: '侧边栏-搜索', action: 'openSearchModal', group: 'function' },
         { key: 'settingsPanel', label: '个性化', alt: '糖果梦热榜 - 个性化', icon: 'setting.png', umamiLabel: '侧边栏-个性化', action: 'toggleSettingsPanel', group: 'function' },
         { key: 'theme', label: '主题切换', alt: '糖果梦热榜 - 主题切换', icon: 'theme', umamiLabel: '侧边栏-主题切换', action: 'toggleTheme', group: 'function' },
         { key: 'fish', label: '摸鱼模式', alt: '糖果梦热榜 - 摸鱼模式选择', icon: 'fish.png', umamiLabel: '侧边栏-摸鱼模式', action: 'clickWorkMaskExcelButton', group: 'function' },
@@ -174,7 +198,7 @@ export default {
     handleButtonClick(btn) {
       if (btn.action && this[btn.action]) {
         this[btn.action]()
-        if (['openSearchModal', 'clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) this.closeSidebar()
+        if (['clickWorkMaskExcelButton', 'clickLicenseButton', 'clickSubscriptionSettingButton'].includes(btn.action)) this.closeSidebar()
       }
     },
     toggleSidebar() {
@@ -191,6 +215,7 @@ export default {
       store.commit('setHistoryDataBoardUseTitle', '')
       store.commit('setHistoryDataSearchMode', 'ZHI_WEN_PI_PEI_TODAY')
       store.commit('setHistoryDataBoardShow', true)
+      this.trackUmami('顶部搜索按钮')
     },
     toggleTheme() {
       this.isDark = !this.isDark
@@ -210,7 +235,18 @@ export default {
 .z-2000 { z-index: 2000; }
 .z-2001 { z-index: 2001; }
 
-.menu-btn:hover { transform: scale(1.05); }
+/* 按钮通用样式 */
+.action-btn, .menu-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-btn:hover, .menu-btn:hover {
+  transform: scale(1.05);
+}
+
+.action-btn:active, .menu-btn:active {
+  transform: scale(0.95);
+}
 
 .sidebar-content {
   padding: 0.75rem 0;
