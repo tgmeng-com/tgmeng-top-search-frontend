@@ -18,8 +18,6 @@
         <template #item="{ element: cat }">
           <div class="mr-2 last:mr-0 relative" v-show="cat.isShow && !(isAIMode && isHiddenCategory(cat))">
             <button
-                :data-umami-event="cat.name"
-                :data-umami-event-name="cat.name"
                 :key="cat.name"
                 :class="[
                   'px-4 py-1.5 rounded-xl drag-handle',
@@ -87,6 +85,7 @@ export default {
     // 分类按钮点击事件
     handleCategoryClick(cat) {
       this.$emit('categoryClick', cat);
+      this.$umami.track('分类点击', {name: cat.name});
     },
 
     // 保存大分类拖动卡片后的顺序

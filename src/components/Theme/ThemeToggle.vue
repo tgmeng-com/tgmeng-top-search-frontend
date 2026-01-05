@@ -3,8 +3,6 @@
       @click="toggleTheme"
       class="theme-toggle-btn"
       aria-label="切换主题"
-      data-umami-event="顶部右边明暗主题切换"
-      data-umami-event-name="顶部右边明暗主题切换"
   >
     <svg
         v-if="isDark"
@@ -32,13 +30,14 @@
         height="33"
         class="icon moon-icon"
     >
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="#333" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import {ref, onMounted} from 'vue'
 
 // 默认暗色模式
 const isDark = ref(true)
@@ -61,6 +60,7 @@ const toggleTheme = () => {
   isDark.value = !isDark.value
   document.documentElement.classList.toggle('dark', isDark.value)
   localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+  this.$umami.track("主题切换", {isDark: isDark.value})
 }
 </script>
 

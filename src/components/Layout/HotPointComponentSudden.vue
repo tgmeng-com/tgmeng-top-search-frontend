@@ -7,8 +7,6 @@
         <div class="tab-buttons dark:text-dark-text">
           <button
               v-for="tab in tabs"
-              :data-umami-event="tab.label"
-              :data-umami-event-name="tab.label"
               :key="tab.value"
               :class="[
                   'px-4 py-1.5 rounded-xl drag-handle',
@@ -263,6 +261,7 @@ export default {
             }
           })
           .finally(() => {
+            this.$umami.track("突发热点Tab切换", {name: tab.label})
             this.loading = false
           })
     },
