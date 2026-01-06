@@ -191,7 +191,8 @@ export default {
             { key: 'topCarouselFontShow', type: 'switch', label: '轮播字体展示', storageKey: LOCAL_STORAGE_KEYS.TOP_CAROUSE_FONT_SHOW, storeKey: 'topCarouselFontShow', umamiEvent: '自定义轮播字体展示' },
             { key: 'wordCloudNum', type: 'number', label: '词云数量', min: 50, max: 1000, step: 50, storageKey: LOCAL_STORAGE_KEYS.WORD_CLOUD_NUM, storeKey: 'wordCloudNum', umamiEvent: '自定义词云数量' },
             { key: 'wordCloudShow', type: 'switch', label: '词云模块展示', storageKey: LOCAL_STORAGE_KEYS.WORD_CLOUD_SHOW, storeKey: 'wordCloudShow', umamiEvent: '自定义词云是否展示' },
-            { key: 'pageViewsShow', type: 'switch', label: '访问展示', storageKey: LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW, storeKey: 'pageViewsShow', umamiEvent: '自定义访问量是否展示' }
+            { key: 'pageViewsShow', type: 'switch', label: '访问展示', storageKey: LOCAL_STORAGE_KEYS.PAGE_VIEWS_SHOW, storeKey: 'pageViewsShow', umamiEvent: '自定义访问量是否展示' },
+            { key: 'donationCarouselShow', type: 'switch', label: '打赏轮播', storageKey: LOCAL_STORAGE_KEYS.DONATION_CAROUSEL, storeKey: 'donationCarouselShow', umamiEvent: '打赏轮播是否展示' }
           ]
         },
         {

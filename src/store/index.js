@@ -370,6 +370,8 @@ export default createStore({
         wordCloudShow: false,
         // 访问量展示
         pageViewsShow: false,
+        // 打赏轮播
+        donationCarouselShow: true,
         // 边距缩放，就是屏幕两边的，主要是为了移动端
         widthPadding: 75,
         cardWidthForPhone: 100,
@@ -1082,6 +1084,9 @@ export default createStore({
         },
         setPageViewsShow(state, newShow) {
             state.pageViewsShow = newShow;
+        },
+        setDonationCarouselShow(state, newShow){
+            state.donationCarouselShow = newShow;
         },
         // 边距缩放，就是屏幕两边的，主要是为了移动端i
         setWidthPadding(state, newPadding) {

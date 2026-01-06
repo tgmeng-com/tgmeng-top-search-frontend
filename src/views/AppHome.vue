@@ -21,7 +21,7 @@
 
       <WordCloud v-if="wordCloudShow"/>
       <!-- 打赏轮播 -->
-      <DonationCarousel/>
+      <DonationCarousel v-if="donationCarouselShow"/>
 
       <!-- AI模式 -->
       <div v-if="isAIMode">
@@ -319,6 +319,14 @@ export default {
       },
       set(value) {
         this.$store.commit('setPageViewsShow', value);
+      }
+    },
+    donationCarouselShow: {
+      get() {
+        return this.$store.state.donationCarouselShow;
+      },
+      set(value) {
+        this.$store.commit('setDonationCarouselShow', value);
       }
     },
     isAIMode: {

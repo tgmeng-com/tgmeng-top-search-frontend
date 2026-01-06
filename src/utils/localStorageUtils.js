@@ -32,6 +32,9 @@ export const LOCAL_STORAGE_KEYS = {
     WORD_CLOUD_SHOW: 'wordCloudShow',
     // 访问量展示
     PAGE_VIEWS_SHOW: 'pageViewsShow',
+    // 打赏轮播
+    DONATION_CAROUSEL: 'donationCarouselShow',
+
     // 边距缩放，就是屏幕两边的，主要是为了移动端i
     WIDTH_PADDING: 'widthPadding',
     // 词云数量
