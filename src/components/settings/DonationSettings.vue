@@ -100,6 +100,7 @@ export default {
         { id: 7, name: 'Mr.Lin', avatar: require('@/assets/avatars/project/MrLin.png'), amount: 20, message: '无', time: '2026-01-04 18:46' },
         { id: 7, name: 'Bream 🎊', avatar: require('@/assets/avatars/project/Bream.png'), amount: 5, message: '愿你的甜，分享给所有人。', time: '2026-01-04 19:12' },
         { id: 7, name: '苏吴媛', avatar: require('@/assets/avatars/project/suwuyuan.png'), amount: 5, message: '谢谢你的创作。', time: '2026-01-05 15:40' },
+        { id: 7, name: '定风波🇨🇳（闭关养生版）', avatar: require('@/assets/avatars/project/dingfengbocn.png'), amount: 20, message: '超喜欢这个网站，比各种热榜好！', time: '2026-01-06 10:42' },
       ],
       // 收款码数据
       payQrcodes: [
