@@ -18,11 +18,13 @@ library.add(faNewspaper, faSearch, faMoon, faSun);
 import { createHead } from '@vueuse/head'  // <-- 导入 vueuse/head
 import { MotionPlugin } from '@vueuse/motion'
 import './registerServiceWorker'
+import * as echarts from 'echarts'
 
 import umami from './utils/umamiUtils';
 
 const app = createApp(App)
 app.config.globalProperties.$umami = umami;
+app.config.globalProperties.$echarts = echarts;
 app.use(router)  // <-- 使用 router
 
 // 全局注册 Font Awesome 组件

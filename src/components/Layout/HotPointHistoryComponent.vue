@@ -66,14 +66,11 @@
                 <div class="tab-content">
                   <div class="chart-container">
                     <div class="chart-title">{{
-                        isHistoryMode ? '历史出现频率（折线图只展示最近30天）' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势')
+                        isHistoryMode ? '历史轨迹' : (currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES' ? '分钟级热度走势（60秒）' : '小时级热度走势')
                       }}
                     </div>
                     <div class="chart-wrapper">
-                      <div class="chart-y-axis">
-                        <span v-for="(val, idx) in yAxisLabels" :key="idx">{{ val }}</span>
-                      </div>
-                      <div class="chart-placeholder" @mousemove="onChartHover($event)" @mouseleave="hideTooltip">
+                      <div class="chart-placeholder">
                         <div v-if="loading" class="chart-loading">
                           <div class="atom-spinner">
                             <div class="spinner-inner">
@@ -85,55 +82,7 @@
                           </div>
                           <span>历史数据追踪中...</span>
                         </div>
-                        <div class="fake-line-chart" :style="{ opacity: loading ? 0.1 : 1 }">
-                          <svg viewBox="0 0 800 160" preserveAspectRatio="none">
-                            <line x1="0" y1="150" x2="800" y2="150" stroke="#444" stroke-width="1"
-                                  stroke-dasharray="4,4"/>
-                            <path :d="chartPath" fill="none" stroke="url(#gradient-unified)" stroke-width="2"
-                                  stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle
-                                v-for="(point, i) in chartPoints"
-                                :key="'point-'+i"
-                                :cx="point.x"
-                                :cy="point.y"
-                                r="3"
-                                :fill="dataCounts[i] > 0 ? '#409eff' : '#4a5568'"
-                                :opacity="dataCounts[i] > 0 ? '1' : '0.4'"
-                                stroke="#fff"
-                                stroke-width="1.5"
-                                vector-effect="non-scaling-stroke"
-                            />
-                            <defs>
-                              <linearGradient id="gradient-unified" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#409eff"/>
-                                <stop offset="100%" stop-color="#79d8a0"/>
-                              </linearGradient>
-                            </defs>
-                          </svg>
-                        </div>
-                        <div class="chart-x-labels">
-                          <span v-for="label in displayedXAxisLabels" :key="label">{{ label }}</span>
-                        </div>
-                        <transition name="tooltip-fade">
-                          <div v-if="tooltipShow && !loading" class="chart-tooltip" :style="tooltipStyle">
-                            <div class="tooltip-header">
-                              <strong>{{ tooltipTitle }}</strong>
-                              <span class="count">{{ tooltipData.length }} 条</span>
-                            </div>
-                            <div class="tooltip-list" v-if="tooltipData.length > 0">
-                              <div v-for="item in tooltipData.slice(0, 5)"
-                                   :key="item.dataUpdateTime + item.platformName" class="tooltip-item">
-                                <span class="time">{{ item.dataUpdateTime.slice(11, 16) }}</span>
-                                <span class="platform">{{ item.platformName }}</span>
-                                <span class="title">{{ item.title }}</span>
-                              </div>
-                              <div v-if="tooltipData.length > 5" class="tooltip-more">+{{ tooltipData.length - 5 }}
-                                条更多记录
-                              </div>
-                            </div>
-                            <div v-else class="tooltip-empty">暂无数据</div>
-                          </div>
-                        </transition>
+                        <div ref="chartRef" style="width:100%;height:100%"></div>
                       </div>
                     </div>
                   </div>
@@ -254,11 +203,13 @@
 import {cacheSearchForAllByWord} from "@/api/api";
 import store from "@/store";
 import {getLocalStorage, LOCAL_STORAGE_KEYS, setLocalStorage} from "@/utils/localStorageUtils";
+import {markRaw} from 'vue';
 
 export default {
   name: 'HotPointHistoryComponent',
   data() {
     return {
+      chart: null,
       searchQuery: '',
       historyData: [],
       currentSearchMode: 'MO_HU_PI_PEI_TODAY',
@@ -278,7 +229,9 @@ export default {
         {label: '历史走势(精确)', mode: 'MO_HU_PI_PEI_HISTORY', isHistory: true, isMohu: true},
         {label: '今日走势(指纹)', mode: 'ZHI_WEN_PI_PEI_TODAY', isHistory: false, isMohu: false},
         {label: '历史走势(指纹)', mode: 'ZHI_WEN_PI_PEI_HISTORY', isHistory: true, isMohu: false}
-      ]
+      ],
+      echartsDates: [],
+      echartsDataCounts: []
     };
   },
   computed: {
@@ -293,84 +246,6 @@ export default {
     },
     isMoHu() {
       return this.tabConfigs.find(t => t.mode === this.currentSearchMode)?.isMohu || false;
-    },
-    historyFixedDates() {
-      const dates = [];
-      const today = new Date();
-      for (let i = 29; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        dates.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
-      }
-      return dates;
-    },
-    fullXAxisLabels() {
-      if (this.isHistoryMode) return this.historyFixedDates.map(d => `${parseInt(d.split('-')[1])}/${parseInt(d.split('-')[2])}`);
-      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
-        return Array.from({length: 30}, (_, i) => `${i * 2}`);
-      }
-      return Array.from({length: 13}, (_, i) => `${String(i * 2).padStart(2, '0')}:00`);
-    },
-    displayedXAxisLabels() {
-      if (this.windowWidth > 768) return this.fullXAxisLabels;
-
-      const labels = this.fullXAxisLabels;
-      if (this.isHistoryMode) {
-        // 30天，每5天显示一个，共6个
-        return labels.filter((_, i) => i % 5 === 0);
-      }
-      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
-        // 60秒，只显示 0,10,20,30,40,50
-        return ['0', '10', '20', '30', '40', '50'];
-      }
-      // 小时级，只显示 00,04,08,12,16,20
-      return ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
-    },
-    dataCounts() {
-      if (this.isHistoryMode) {
-        const map = new Map();
-        this.historyData.forEach(item => {
-          const d = item.dataUpdateTime.slice(0, 10);
-          map.set(d, (map.get(d) || 0) + 1);
-        });
-        return this.historyFixedDates.map(d => map.get(d) || 0);
-      }
-      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
-        const counts = Array(60).fill(0);
-        if (this.historyData.length === 0) return counts;
-        const baseTime = this.historyData[0].dataUpdateTime.slice(0, 16);
-        this.historyData.forEach(item => {
-          if (item.dataUpdateTime.startsWith(baseTime)) {
-            const sec = parseInt(item.dataUpdateTime.slice(17, 19));
-            if (!isNaN(sec)) counts[sec]++;
-          }
-        });
-        return counts;
-      }
-      const counts = Array(24).fill(0);
-      if (this.historyData.length === 0) return counts;
-      const targetDate = this.historyData[0].dataUpdateTime.slice(0, 10);
-      this.historyData.forEach(item => {
-        if (item.dataUpdateTime.startsWith(targetDate)) {
-          const h = parseInt(item.dataUpdateTime.slice(11, 13));
-          if (!isNaN(h)) counts[h]++;
-        }
-      });
-      return counts;
-    },
-    yAxisLabels() {
-      const max = Math.max(...this.dataCounts, 1);
-      return [max, Math.floor(max * 0.75), Math.floor(max * 0.5), Math.floor(max * 0.25), 0];
-    },
-    chartPoints() {
-      const counts = this.dataCounts;
-      const max = Math.max(...counts, 1);
-      const len = counts.length - 1;
-      return counts.map((count, i) => ({x: (i / len) * 800, y: 150 - (count / max) * 140}));
-    },
-    chartPath() {
-      const p = this.chartPoints;
-      return p.length ? `M${p[0].x},${p[0].y} ` + p.slice(1).map(i => `L${i.x},${i.y}`).join(' ') : '';
     },
     sortedHistoryData() {
       if (!this.sortKey) return this.historyData;
@@ -402,6 +277,15 @@ export default {
         this.currentSearchMode = this.$store.state.historyDataSearchMode;
         if (this.searchQuery) this.fetchData();
       }
+
+      if (val) {
+        this.$nextTick(() => {
+          this.initChart()
+        })
+      } else {
+        this.disposeChart()
+      }
+
     }
   },
   mounted() {
@@ -414,6 +298,124 @@ export default {
     window.removeEventListener('resize', this.updateWindowWidth);
   },
   methods: {
+    dateGroupResult() {
+      const data = this.historyData || []
+      if (data.length === 0) {
+        return {
+          dates: [], counts: []
+        }
+      }
+      const map = new Map()
+      data.forEach(item => {
+        if (!item?.dataUpdateTime) return
+        const date = item.dataUpdateTime.slice(0, 10)
+        map.set(date, (map.get(date) || 0) + 1)
+      })
+      const dates = Array.from(map.keys()).sort(
+          (a, b) => new Date(a) - new Date(b)
+      )
+      return {
+        dates, counts: dates.map(d => map.get(d))
+      }
+    },
+    initChart() {
+      const chartDom = this.$refs.chartRef
+      if (!chartDom || chartDom.clientHeight === 0) return
+      this.chart = markRaw(this.$echarts.init(chartDom));
+      this.updateEchartsData()
+    },
+    getOption() {
+      let option;
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          position(pt) {
+            return [pt[0], '10%'];
+          }
+        },
+        title: {
+          left: 'center',
+          text: this.searchQuery,
+          show: false
+        },
+        toolbox: {
+          feature: {
+            dataZoom: {
+              yAxisIndex: 'none'
+            },
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: this.echartsDates,
+          splitLine: {show: false},     // 网格线
+          axisLine: {show: this.echartsDates.length > 0}, // 坐标轴线
+          axisTick: {show: this.echartsDates.length > 0}, // 刻度线
+          axisLabel: {show: this.echartsDates.length > 0} // 标签
+        },
+        yAxis: {
+          type: 'value',
+          boundaryGap: [0, '100%'],
+          max: this.echartsDataCounts.length ? Math.max(...this.echartsDataCounts) : null,
+          splitLine: {show: false},
+          axisLine: {show: this.echartsDates.length > 0},
+          axisTick: {show: this.echartsDates.length > 0},
+          axisLabel: {
+            show: this.echartsDates.length > 0,
+            interval: 'auto'   // 自动选择显示的刻度，避免太密
+          }
+        },
+        dataZoom: this.echartsDates.length > 0 ? [
+          {
+            type: 'inside',
+            start: 0,
+            end: 100
+          },
+          {
+            start: 0,
+            end: 100
+          }
+        ] : [],
+        series: [
+          {
+            name: this.searchQuery,
+            type: 'line',
+            symbol: 'circle',  // 折线上显示点，也可以方块或者不显示
+            sampling: 'lttb',
+            emphasis: {
+              focus: 'series',  // hover的时候变亮
+              scale: true
+            },
+            itemStyle: {
+              color: 'rgb(255, 70, 131)'
+            },
+            areaStyle: {
+              color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 0,
+                  color: 'rgb(255, 158, 68)'
+                },
+                {
+                  offset: 1,
+                  color: 'rgb(255, 70, 131)'
+                }
+              ])
+            },
+            data: this.echartsDataCounts
+          }
+        ]
+      };
+      return option;
+    },
+    disposeChart() {
+      if (this.chart) {
+        this.chart.dispose()
+        this.chart = null
+      }
+    },
+
     updateWindowWidth() {
       this.windowWidth = window.innerWidth;
     },
@@ -435,10 +437,13 @@ export default {
       this.sortDir = 'desc';
       cacheSearchForAllByWord(this.searchQuery, this.currentSearchMode)
           .then(res => {
-            if (res?.data?.code !== 999) this.historyData = res?.data?.data || [];
-            else {
+            if (res?.data?.code !== 999) {
+              this.historyData = res?.data?.data || [];
+              this.updateEchartsData()
+            } else {
               store.commit('setLicenseShow', true);
               this.historyData = [];
+              this.updateEchartsData()
             }
           })
           .finally(() => {
@@ -446,36 +451,73 @@ export default {
             this.loading = false;
           });
     },
-    onChartHover(e) {
-      if (this.loading) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const width = rect.width;
-      const len = this.dataCounts.length - 1;
-      const index = Math.max(0, Math.min(len, Math.round((mouseX / width) * len)));
-      if (this.isHistoryMode) {
-        const fullDate = this.historyFixedDates[index];
-        const [, m, d] = fullDate.split('-');
-        this.tooltipTitle = `${parseInt(m)}月${parseInt(d)}日`;
-        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(fullDate));
-      } else if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
-        this.tooltipTitle = `${index}秒`;
-        const base = this.historyData[0]?.dataUpdateTime.slice(0, 16) || '';
-        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(base) && parseInt(item.dataUpdateTime.slice(17, 19)) === index);
-      } else {
-        const hourStr = String(index).padStart(2, '0');
-        this.tooltipTitle = `${hourStr}:00 - ${String(index + 1).padStart(2, '0')}:00`;
-        const todayStr = this.historyData[0]?.dataUpdateTime.slice(0, 10) || '';
-        this.tooltipData = this.historyData.filter(item => item.dataUpdateTime.startsWith(todayStr) && parseInt(item.dataUpdateTime.slice(11, 13)) === index);
+    updateEchartsData() {
+      let dates = []
+      let counts = []
+
+      if (this.currentSearchMode === 'MO_HU_PI_PEI_ONE_MINUTES') {
+        ({ dates, counts } = this.buildMinuteData())
+      } else if (this.currentSearchMode.includes('TODAY')) {
+        ({ dates, counts } = this.buildTodayHourData())
+      } else if (this.currentSearchMode.includes('HISTORY')) {
+        ({ dates, counts } = this.buildHistoryDayData())
       }
-      const tooltipWidth = 300;
-      let left = mouseX + 10;
-      if (left + tooltipWidth > width) left = mouseX - tooltipWidth - 10;
-      this.tooltipStyle = {left: Math.max(10, left) + 'px', top: '10px'};
-      this.tooltipShow = true;
+      this.echartsDates = dates
+      this.echartsDataCounts = counts
+
+      if (this.chart) {
+        this.chart.setOption(this.getOption(), true)
+      }
     },
-    hideTooltip() {
-      this.tooltipShow = false;
+    buildMinuteData() {
+      const map = new Map()
+
+      this.historyData.forEach(item => {
+        const sec = item.dataUpdateTime.slice(11, 19) // HH:mm:ss
+        map.set(sec, (map.get(sec) || 0) + 1)
+      })
+
+      const dates = Array.from(map.keys()).sort()
+      return {
+        dates,
+        counts: dates.map(d => map.get(d))
+      }
+    },
+    buildTodayHourData() {
+      const hours = Array.from({ length: 24 }, (_, i) =>
+          String(i).padStart(2, '0') + ':00'
+      )
+
+      const map = new Map()
+      this.historyData.forEach(item => {
+        const hour = item.dataUpdateTime.slice(11, 13) + ':00'
+        map.set(hour, (map.get(hour) || 0) + 1)
+      })
+
+      return {
+        dates: hours,
+        counts: hours.map(h => map.get(h) || 0)
+      }
+    },
+    buildHistoryDayData() {
+      const data = this.historyData || []
+      if (data.length === 0) {
+        return {
+          dates: [], counts: []
+        }
+      }
+      const map = new Map()
+      data.forEach(item => {
+        if (!item?.dataUpdateTime) return
+        const date = item.dataUpdateTime.slice(0, 10)
+        map.set(date, (map.get(date) || 0) + 1)
+      })
+      const dates = Array.from(map.keys()).sort(
+          (a, b) => new Date(a) - new Date(b)
+      )
+      return {
+        dates, counts: dates.map(d => map.get(d))
+      }
     },
     loadLocalHistory() {
       const h = getLocalStorage(LOCAL_STORAGE_KEYS.SEARCH_HISTORY);
@@ -774,7 +816,7 @@ export default {
 .chart-placeholder {
   position: relative;
   flex: 1;
-  height: 160px;
+  height: 300px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   cursor: crosshair;
@@ -1222,7 +1264,7 @@ export default {
   }
 
   .chart-placeholder {
-    height: 140px;
+    height: 200px;
   }
 
   .chart-x-labels {
