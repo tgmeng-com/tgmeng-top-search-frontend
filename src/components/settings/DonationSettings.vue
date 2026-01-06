@@ -85,23 +85,7 @@ export default {
   data() {
     return {
       // 打赏数据
-      donations: [
-        { id: 1, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 1, message: '项目越来越棒，期待更多精彩功能上线！', time: '2025-11-18 12:38' },
-        { id: 2, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 0.5, message: '感谢开源精神，愿更多人看到这个优秀项目。', time: '2025-11-17 15:22' },
-        { id: 3, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 5, message: '支持热榜站，信息聚合真方便，期待更多优化！', time: '2025-11-16 09:10' },
-        { id: 4, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 25, message: '项目体验很棒，感谢开发者们的辛勤付出！', time: '2025-11-15 20:45' },
-        { id: 5, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 20, message: '功能实用，界面友好，希望未来加入更多数据源！', time: '2025-11-14 21:28' },
-        { id: 6, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 50, message: '感谢团队的努力，项目稳定性和速度都很赞！', time: '2025-11-13 22:43' },
-        { id: 7, name: '糖果梦', avatar: require('@/assets/avatars/project/tgmeng.png'), amount: 15, message: '持续关注项目发展，期待更多创新功能上线！', time: '2025-11-12 18:32' },
-        { id: 7, name: '*', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-17 16:24' },
-        { id: 7, name: '*子', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-25 00:55' },
-        { id: 7, name: '兰一二', avatar: require('@/assets/avatars/project/lanyier.png'), amount: 20, message: '理想不该被辜负', time: '2025-12-28 13:47' },
-        { id: 7, name: '卡拉克', avatar: require('@/assets/avatars/project/kalake.png'), amount: 8, message: '无', time: '2026-01-04 14:44' },
-        { id: 7, name: 'Mr.Lin', avatar: require('@/assets/avatars/project/MrLin.png'), amount: 20, message: '无', time: '2026-01-04 18:46' },
-        { id: 7, name: 'Bream 🎊', avatar: require('@/assets/avatars/project/Bream.png'), amount: 5, message: '愿你的甜，分享给所有人。', time: '2026-01-04 19:12' },
-        { id: 7, name: '苏吴媛', avatar: require('@/assets/avatars/project/suwuyuan.png'), amount: 5, message: '谢谢你的创作。', time: '2026-01-05 15:40' },
-        { id: 7, name: '定风波🇨🇳（闭关养生版）', avatar: require('@/assets/avatars/project/dingfengbocn.png'), amount: 20, message: '超喜欢这个网站，比各种热榜好！', time: '2026-01-06 10:42' },
-      ],
+      donations: this.$store.state.donations,
       // 收款码数据
       payQrcodes: [
         { id: 1, name: '支付宝', qrcode: require('@/assets/avatars/donation/zhifubao.png') },

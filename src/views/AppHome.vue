@@ -20,6 +20,8 @@
       <SettingsPanel :categories="categroies"/>
 
       <WordCloud v-if="wordCloudShow"/>
+      <!-- 打赏轮播 -->
+      <DonationCarousel/>
 
       <!-- AI模式 -->
       <div v-if="isAIMode">
@@ -70,10 +72,12 @@ import SettingsPanel from "@/components/Layout/SettingsPanel.vue";
 import CategoryNavigation from "@/components/Layout/CategoryNavigation.vue";
 import HotPointComponentAI from "@/components/Layout/HotPointComponentAI.vue";
 import ModeSwitcher from "@/components/Layout/ModeSwitcher.vue";
+import DonationCarousel from "@/components/Layout/DonationCarousel.vue";
 // import AdRentCards from "@/components/Adsense/AdRentCards.vue";
 
 export default {
   components: {
+    DonationCarousel,
     ModeSwitcher,
     HotPointComponentAI,
     CategoryNavigation,

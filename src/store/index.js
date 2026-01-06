@@ -984,6 +984,16 @@ export default createStore({
                 content: "",
                 note: '内部备注：首页顶部横幅广告'
             },
+        ],
+        donations: [
+            { id: 8, name: '*', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-17 16:24' },
+            { id: 9, name: '*子', avatar: require('@/assets/avatars/project/default.png'), amount: 1, message: '无', time: '2025-12-25 00:55' },
+            { id: 10, name: '兰一二', avatar: require('@/assets/avatars/project/lanyier.png'), amount: 20, message: '理想不该被辜负', time: '2025-12-28 13:47' },
+            { id: 11, name: '卡拉克', avatar: require('@/assets/avatars/project/kalake.png'), amount: 8, message: '无', time: '2026-01-04 14:44' },
+            { id: 12, name: 'Mr.Lin', avatar: require('@/assets/avatars/project/MrLin.png'), amount: 20, message: '无', time: '2026-01-04 18:46' },
+            { id: 13, name: 'Bream 🎊', avatar: require('@/assets/avatars/project/Bream.png'), amount: 5, message: '愿你的甜，分享给所有人。', time: '2026-01-04 19:12' },
+            { id: 14, name: '苏吴媛', avatar: require('@/assets/avatars/project/suwuyuan.png'), amount: 5, message: '谢谢你的创作。', time: '2026-01-05 15:40' },
+            { id: 15, name: '定风波🇨🇳（闭关养生版）', avatar: require('@/assets/avatars/project/dingfengbocn.png'), amount: 20, message: '超喜欢这个网站，比各种热榜好！', time: '2026-01-06 10:42' },
         ]
 
     },
