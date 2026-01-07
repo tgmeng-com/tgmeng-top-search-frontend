@@ -2306,6 +2306,13 @@ export function topSearchForAppinn(data) {
     })
 }
 
+export function topSearchFor2Libra(data) {
+    return request({
+        url: '/topsearch/2libra',
+        method: 'post',
+        data: data
+    })
+}
 
 export function searchHistorySuddenHeatPointHour(data) {
     return request({

@@ -107,6 +107,7 @@ const dataMap = {
             "/community/v2ex": {title: "糖果梦热榜 · 社区 · V2EX", description: "糖果梦热榜 · 社区 · V2EX", link: "https://trendapi.tgmeng.com/api/topsearch/v2ex",platform: "V2EX"},
             "/community/nodelochot": {title: "糖果梦热榜 · 社区 · NodeLoc最热", description: "糖果梦热榜 · 社区 · NodeLoc最热", link: "https://trendapi.tgmeng.com/api/topsearch/nodeloc/hot",platform: "NodeLoc最热"},
             "/community/appinn": {title: "糖果梦热榜 · 社区 · Appinn最热", description: "糖果梦热榜 · 社区 · Appinn最热", link: "https://trendapi.tgmeng.com/api/topsearch/appinn",platform: "Appinn最热"},
+            "/community/2libra": {title: "糖果梦热榜 · 社区 · 2Libra", description: "糖果梦热榜 · 社区 · 2Libra", link: "https://trendapi.tgmeng.com/api/topsearch/2libra",platform: "2Libra"},
             "/community/buxingjiehupu": {title: "糖果梦热榜 · 社区 · 虎扑步行街", description: "糖果梦热榜 · 社区 · 虎扑步行街", link: "https://trendapi.tgmeng.com/api/topsearch/buxingjiehupu",platform: "虎扑步行街"},
             "/community/zhihu": {title: "糖果梦热榜 · 社区 · 知乎", description: "糖果梦热榜 · 社区 · 知乎", link: "https://trendapi.tgmeng.com/api/topsearch/zhihu",platform: "知乎"},
             "/community/tiebabaidu": {title: "糖果梦热榜 · 社区 · 百度贴吧", description: "糖果梦热榜 · 社区 · 百度贴吧", link: "https://trendapi.tgmeng.com/api/topsearch/tiebabaidu",platform: "百度贴吧"},

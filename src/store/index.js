@@ -289,6 +289,7 @@ import {
     topSearchForLodeLocYouHui,
     topSearchForNodeLocHot,
     topSearchForAppinn,
+    topSearchFor2Libra,
 
     topSearchForTgmeng
 
@@ -589,10 +590,11 @@ export default createStore({
                 isShow: true,
                 sort: 5,
                 subCategories: [
-                    new Platform('Hacker News', topSearchForHackerNews, require('@/assets/logos/tgmeng-trend_hackernews.png'), 22.1, '/community/hackernews'),
                     new Platform('V2EX', topSearchForV2ex, require('@/assets/logos/tgmeng-trend_v2ex.png'), 22.2, '/community/v2ex'),
                     new Platform('NodeLoc', topSearchForNodeLocHot, require('@/assets/logos/tgmeng-trend_nodeloc.png'), 22.21, '/community/nodelochot'),
                     new Platform('Appinn', topSearchForAppinn, require('@/assets/logos/tgmeng-trend_appinn.png'), 22.22, '/community/appinn'),
+                    new Platform('2Libra', topSearchFor2Libra, require('@/assets/logos/tgmeng-trend_2libra.png'), 22.23, '/community/2libra'),
+                    new Platform('Hacker News', topSearchForHackerNews, require('@/assets/logos/tgmeng-trend_hackernews.png'), 22.24, '/community/hackernews'),
                     new Platform('虎扑步行街', topSearchForBuXingJieHuPu, require('@/assets/logos/tgmeng-trend_buxingjiehupu.png'), 22.3, '/community/buxingjiehupu'),
                     new Platform('知乎', topSearchForZhiHu, require('@/assets/logos/tgmeng-trend_zhihu.png'), 22.4, '/community/zhihu'),
                     new Platform('百度贴吧', topSearchForBaiDuTieBa, require('@/assets/logos/tgmeng-trend_baidutieba.png'), 22.5, '/community/tiebabaidu'),
