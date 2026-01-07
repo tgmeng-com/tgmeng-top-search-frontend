@@ -999,6 +999,7 @@ export default createStore({
             { id: 14, name: '苏吴媛', avatar: require('@/assets/avatars/project/suwuyuan.png'), amount: 5, message: '谢谢你的创作。', time: '2026-01-05 15:40' },
             { id: 15, name: '定风波🇨🇳（闭关养生版）', avatar: require('@/assets/avatars/project/dingfengbocn.png'), amount: 20, message: '超喜欢这个网站，比各种热榜好！', time: '2026-01-06 10:42' },
             { id: 15, name: '杨昆²⁰²⁶', avatar: require('@/assets/avatars/project/yangkun2026.png'), amount: 20, message: 'AI新闻聚合很有用', time: '2026-01-07 15:21' },
+            { id: 15, name: '玉玊', avatar: require('@/assets/avatars/project/yusu.png'), amount: 5, message: '无', time: '2026-01-07 21:49' },
         ]
 
     },

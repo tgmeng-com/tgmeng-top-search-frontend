@@ -50,7 +50,11 @@ export default {
   },
   computed: {
     doubleDonations() {
-      return [...this.donations, ...this.donations];
+      const sorted = [...this.donations].sort((a, b) => {
+        return new Date(b.time) - new Date(a.time);
+      });
+      // 再复制一份用于无缝轮播
+      return [...sorted, ...sorted];
     },
     trackStyle() {
       return {
