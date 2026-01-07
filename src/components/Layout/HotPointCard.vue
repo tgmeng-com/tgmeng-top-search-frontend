@@ -83,7 +83,7 @@
             </span>
             <!-- 标题 -->
             <a
-                class="dark:text-dark-text hot-title hover:underline"
+                class="dark:text-dark-text hot-title cursor-pointer no-underline hover:no-underline"
                 :class="{'hot-title-full':cardHotTitleFull}"
                 :title="item.title"
                 @click="handleHotTitleLinkClick(item)"
