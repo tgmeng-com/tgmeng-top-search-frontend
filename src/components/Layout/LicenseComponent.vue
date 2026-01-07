@@ -36,6 +36,7 @@
                     type="text"
                     placeholder="输入访问密钥(必填)"
                     class="key-input"
+                    @keyup.enter="applyKey"
                 />
               </div>
               <button class="key-btn" @click="applyKey">
