@@ -1001,7 +1001,7 @@ export default createStore({
             { id: 15, name: '杨昆²⁰²⁶', avatar: require('@/assets/avatars/project/yangkun2026.png'), amount: 20, message: 'AI新闻聚合很有用', time: '2026-01-07 15:21' },
             { id: 15, name: '玉玊', avatar: require('@/assets/avatars/project/yusu.png'), amount: 5, message: '无', time: '2026-01-07 21:49' },
             { id: 15, name: 'wgz', avatar: require('@/assets/avatars/project/wgz.png'), amount: 10, message: '无', time: '2026-01-08 10:35' },
-            { id: 15, name: '*辰', avatar: require('@/assets/avatars/project/default.png'), amount: 8.88, message: '无', time: '2026-01-08 14:21' },
+            { id: 15, name: '*辰', avatar: require('@/assets/avatars/project/default.png'), amount: 8.88, message: '👍', time: '2026-01-08 14:21' },
             { id: 15, name: 'Tylr', avatar: require('@/assets/avatars/project/tylr.png'), amount: 8.88, message: '无', time: '2026-01-08 15:27' },
         ]
 
