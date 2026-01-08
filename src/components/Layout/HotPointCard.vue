@@ -86,7 +86,8 @@
                 class="dark:text-dark-text hot-title cursor-pointer no-underline hover:no-underline"
                 :class="{'hot-title-full':cardHotTitleFull}"
                 :title="item.title"
-                @click="handleHotTitleLinkClick(item)"
+                :href="item.url"
+                @click.prevent="handleHotTitleLinkClick(item)"
             >
 
               <span v-if="title.includes('CCTV')" :style="cardSecondTitleStyle" style="margin-left: 0.2rem"
