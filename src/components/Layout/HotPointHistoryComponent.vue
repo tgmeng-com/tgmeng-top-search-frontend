@@ -1018,6 +1018,7 @@ export default {
 
 .item-title {
   font-size: 14px;
+  color: #D1D7E0;
   padding: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
