@@ -1003,6 +1003,7 @@ export default createStore({
             { id: 15, name: 'wgz', avatar: require('@/assets/avatars/project/wgz.png'), amount: 10, message: '无', time: '2026-01-08 10:35' },
             { id: 15, name: '*辰', avatar: require('@/assets/avatars/project/default.png'), amount: 8.88, message: '👍', time: '2026-01-08 14:21' },
             { id: 15, name: '三上悠亚', avatar: require('@/assets/avatars/project/tylr.png'), amount: 5, message: '无', time: '2026-01-08 15:27' },
+            { id: 15, name: '伍俊道', avatar: require('@/assets/avatars/project/wujundao.png'), amount: 5, message: '活下去，大佬！', time: '2026-01-11 19:40' },
         ]
 
     },
